@@ -48,6 +48,13 @@ namespace OsuSharp
             return null;
         }
 
+        public static async Task<List<Beatmaps>> GetBeatmapsAsync(string nickname, BeatmapType bmType = BeatmapType.ByCreator, int limit = 500)
+        {
+            string type = BeatmapsType.BeatmapTypeConverter(bmType);
+            string request = await GetAsync($"{RootDomain}{GetBeatmapsUrl}{apiKeyParameter}{ApiKey}{type}{nickname}{limitParameter}{limit}");
+            return JsonConvert.DeserializeObject<List<Beatmaps>>(request);
+        }
+
         public static async Task<List<Beatmaps>> GetBeatmapsAsync(long id, BeatmapType bmType = BeatmapType.ByBeatmap, int limit = 500)
         {
             string type = BeatmapsType.BeatmapTypeConverter(bmType);
