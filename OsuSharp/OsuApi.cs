@@ -36,7 +36,7 @@ namespace OsuSharp
             ApiKey = _apiKey;
         }
 
-        public static async Task<Beatmaps> GetBeatmapAsync(long beatmapId, BeatmapType bmType)
+        public static async Task<Beatmaps> GetBeatmapAsync(long beatmapId, BeatmapType bmType = BeatmapType.ByDifficulty)
         {
             string type = BeatmapsType.BeatmapTypeConverter(bmType);
             string request = await GetAsync($"{RootDomain}{GetBeatmapsUrl}{apiKeyParameter}{ApiKey}{type}{beatmapId}");
@@ -48,16 +48,16 @@ namespace OsuSharp
             return null;
         }
 
-        public static async Task<List<Beatmaps>> GetBeatmapsAsync(int limit = 500)
+        public static async Task<List<Beatmaps>> GetBeatmapsAsync(long id, BeatmapType bmType = BeatmapType.ByBeatmap, int limit = 500)
         {
-            string request = await GetAsync($"{RootDomain}{GetBeatmapsUrl}{apiKeyParameter}{ApiKey}{limitParameter}{limit}");
+            string type = BeatmapsType.BeatmapTypeConverter(bmType);
+            string request = await GetAsync($"{RootDomain}{GetBeatmapsUrl}{apiKeyParameter}{ApiKey}{type}{id}{limitParameter}{limit}");
             return JsonConvert.DeserializeObject<List<Beatmaps>>(request);
         }
 
-        public static async Task<List<Beatmaps>> GetBeatmapsByCreatorAsync(long userId, BeatmapType bmType, int limit = 500)
+        public static async Task<List<Beatmaps>> GetLastBeatmapsAsync(int limit = 500)
         {
-            string type = BeatmapsType.BeatmapTypeConverter(bmType);
-            string request = await GetAsync($"{RootDomain}{GetBeatmapsUrl}{apiKeyParameter}{ApiKey}{type}{userId}{limitParameter}{limit}");
+            string request = await GetAsync($"{RootDomain}{GetBeatmapsUrl}{apiKeyParameter}{ApiKey}{limitParameter}{limit}");
             return JsonConvert.DeserializeObject<List<Beatmaps>>(request);
         }
 
