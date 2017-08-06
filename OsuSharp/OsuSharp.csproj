@@ -9,7 +9,7 @@
     <Authors>Allan Mercou</Authors>
     <Company>Kiritsu</Company>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.2.1</Version>
+    <Version>1.2.2</Version>
     <Description>.NET Core wrapper for osu!Api</Description>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
   </PropertyGroup>
