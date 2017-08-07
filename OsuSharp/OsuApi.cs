@@ -36,7 +36,7 @@ namespace OsuSharp
             ApiKey = _apiKey;
         }
 
-        public static async Task<Beatmaps> GetBeatmapAsync(long beatmapId, BeatmapType bmType = BeatmapType.ByDifficulty)
+        public static async Task<Beatmaps> GetBeatmapAsync(ulong beatmapId, BeatmapType bmType = BeatmapType.ByDifficulty)
         {
             string type = BeatmapsType.BeatmapTypeConverter(bmType);
             string request = await GetAsync($"{RootDomain}{GetBeatmapsUrl}{apiKeyParameter}{ApiKey}{type}{beatmapId}");
@@ -55,7 +55,7 @@ namespace OsuSharp
             return JsonConvert.DeserializeObject<List<Beatmaps>>(request);
         }
 
-        public static async Task<List<Beatmaps>> GetBeatmapsAsync(long id, BeatmapType bmType = BeatmapType.ByBeatmap, int limit = 500)
+        public static async Task<List<Beatmaps>> GetBeatmapsAsync(ulong id, BeatmapType bmType = BeatmapType.ByBeatmap, int limit = 500)
         {
             string type = BeatmapsType.BeatmapTypeConverter(bmType);
             string request = await GetAsync($"{RootDomain}{GetBeatmapsUrl}{apiKeyParameter}{ApiKey}{type}{id}{limitParameter}{limit}");
@@ -80,7 +80,7 @@ namespace OsuSharp
             return null;
         }
 
-        public static async Task<Users> GetUserByIdAsync(long userid, OsuMode oMode = OsuMode.Standard)
+        public static async Task<Users> GetUserByIdAsync(ulong userid, OsuMode oMode = OsuMode.Standard)
         {
             string mode = UserModeConverter.ConvertToString(oMode);
             string request = await GetAsync($"{RootDomain}{GetUserUrl}{apiKeyParameter}{ApiKey}{userParameter}{userid}{mode}");
@@ -92,7 +92,7 @@ namespace OsuSharp
             return null;
         }
 
-        public static async Task<Scores> GetScoreByUsernameAsync(long beatmapid, string username, OsuMode oMode = OsuMode.Standard)
+        public static async Task<Scores> GetScoreByUsernameAsync(ulong beatmapid, string username, OsuMode oMode = OsuMode.Standard)
         {
             string mode = UserModeConverter.ConvertToString(oMode);
             string request = await GetAsync($"{RootDomain}{GetScoresUrl}{apiKeyParameter}{ApiKey}{mode}{userParameter}{username}{beatmapParameter}{beatmapid}");
@@ -104,7 +104,7 @@ namespace OsuSharp
             return null;
         }
 
-        public static async Task<Scores> GetScoreByUseridAsync(long beatmapid, long userid, OsuMode oMode = OsuMode.Standard)
+        public static async Task<Scores> GetScoreByUseridAsync(ulong beatmapid, ulong userid, OsuMode oMode = OsuMode.Standard)
         {
             string mode = UserModeConverter.ConvertToString(oMode);
             string request = await GetAsync($"{RootDomain}{GetScoresUrl}{apiKeyParameter}{ApiKey}{mode}{userParameter}{userid}{beatmapParameter}{beatmapid}");
@@ -116,7 +116,7 @@ namespace OsuSharp
             return null;
         }
 
-        public static async Task<List<Scores>> GetScoresAsync(long beatmapid, OsuMode oMode = OsuMode.Standard, int limit = 50)
+        public static async Task<List<Scores>> GetScoresAsync(ulong beatmapid, OsuMode oMode = OsuMode.Standard, int limit = 50)
         {
             string mode = UserModeConverter.ConvertToString(oMode);
             string request = await GetAsync($"{RootDomain}{GetScoresUrl}{apiKeyParameter}{ApiKey}{mode}{limitParameter}{limit}{beatmapParameter}{beatmapid}");
@@ -130,7 +130,7 @@ namespace OsuSharp
             return JsonConvert.DeserializeObject<List<UserBest>>(request);
         }
 
-        public static async Task<List<UserBest>> GetUserBestByUseridAsync(long userid, OsuMode oMode = OsuMode.Standard, int limit = 10)
+        public static async Task<List<UserBest>> GetUserBestByUseridAsync(ulong userid, OsuMode oMode = OsuMode.Standard, int limit = 10)
         {
             string mode = UserModeConverter.ConvertToString(oMode);
             string request = await GetAsync($"{RootDomain}{GetUserBestUrl}{apiKeyParameter}{ApiKey}{userParameter}{userid}{mode}{limitParameter}{limit}");
@@ -144,14 +144,14 @@ namespace OsuSharp
             return JsonConvert.DeserializeObject<List<UserRecent>>(request);
         }
 
-        public static async Task<List<UserRecent>> GetUserRecentByUseridAsync(long userid, OsuMode oMode = OsuMode.Standard, int limit = 10)
+        public static async Task<List<UserRecent>> GetUserRecentByUseridAsync(ulong userid, OsuMode oMode = OsuMode.Standard, int limit = 10)
         {
             string mode = UserModeConverter.ConvertToString(oMode);
             string request = await GetAsync($"{RootDomain}{GetUserRecentUrl}{apiKeyParameter}{ApiKey}{userParameter}{userid}{mode}{limitParameter}{limit}");
             return JsonConvert.DeserializeObject<List<UserRecent>>(request);
         }
 
-        public static async Task<Matchs> GetMatchAsync(long matchid)
+        public static async Task<Matchs> GetMatchAsync(ulong matchid)
         {
             string request = await GetAsync($"{RootDomain}{GetMatchUrl}{apiKeyParameter}{ApiKey}{matchParameter}{matchid}");
             var r = JsonConvert.DeserializeObject<List<Matchs>>(request);
@@ -162,7 +162,7 @@ namespace OsuSharp
             return null;
         }
 
-        public static async Task<Replay> GetReplayByUsernameAsync(long beatmapid, string username, OsuMode oMode = OsuMode.Standard)
+        public static async Task<Replay> GetReplayByUsernameAsync(ulong beatmapid, string username, OsuMode oMode = OsuMode.Standard)
         {
             string mode = UserModeConverter.ConvertToString(oMode);
             string request = await GetAsync($"{RootDomain}{GetReplayUrl}{apiKeyParameter}{ApiKey}{mode}{beatmapParameter}{beatmapid}{userParameter}{username}");
@@ -174,7 +174,7 @@ namespace OsuSharp
             return null;
         }
 
-        public static async Task<Replay> GetReplayByUseridAsync(long beatmapid, long userid, OsuMode oMode = OsuMode.Standard)
+        public static async Task<Replay> GetReplayByUseridAsync(ulong beatmapid, ulong userid, OsuMode oMode = OsuMode.Standard)
         {
             string mode = UserModeConverter.ConvertToString(oMode);
             string request = await GetAsync($"{RootDomain}{GetReplayUrl}{apiKeyParameter}{ApiKey}{mode}{beatmapParameter}{beatmapid}{userParameter}{userid}");
