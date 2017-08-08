@@ -27,7 +27,7 @@ namespace OsuSharp.ScoreEndpoint
         public uint Miss { get; set; }
 
         [JsonProperty("maxcombo")]
-        public uint MaxCombo { get; set; }
+        public uint? MaxCombo { get; set; }
 
         [JsonProperty("countkatu")]
         public uint Katu { get; set; }

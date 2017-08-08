@@ -87,7 +87,7 @@ namespace OsuSharp.BeatmapsEndpoint
         public uint PassCount { get; set; }
 
         [JsonProperty("max_combo")]
-        public uint MaxCombo { get; set; }
+        public uint? MaxCombo { get; set; }
 
         [JsonProperty("difficultyrating")]
         public float DifficultyRating { get; set; }

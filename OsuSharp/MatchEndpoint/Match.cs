@@ -76,7 +76,7 @@ namespace OsuSharp.MatchEndpoint
         public uint Score { get; set; }
 
         [JsonProperty("maxcombo")]
-        public uint MaxCombo { get; set; }
+        public uint? MaxCombo { get; set; }
 
         [JsonProperty("rank")]
         public uint Rank { get; set; }

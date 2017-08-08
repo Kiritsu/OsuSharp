@@ -12,7 +12,7 @@ namespace OsuSharp.UserRecentEndpoint
         public ulong Score { get; set; }
 
         [JsonProperty("maxcombo")]
-        public uint MaxCombo { get; set; }
+        public uint? MaxCombo { get; set; }
 
         [JsonProperty("count300")]
         public uint Count300 { get; set; }

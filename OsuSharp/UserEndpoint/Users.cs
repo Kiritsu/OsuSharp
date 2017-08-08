@@ -49,13 +49,13 @@ namespace OsuSharp.UserEndpoint
         public uint Count50 { get; set; }
 
         [JsonProperty("count_rank_ss")]
-        public uint SSRank { get; set; }
+        public int SSRank { get; set; }
 
         [JsonProperty("count_rank_s")]
-        public uint SRank { get; set; }
+        public int SRank { get; set; }
 
         [JsonProperty("count_rank_a")]
-        public uint ARank { get; set; }
+        public int ARank { get; set; }
 
         [JsonProperty("events")]
         public List<Events> Events { get; set; }

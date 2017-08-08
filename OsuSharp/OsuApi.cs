@@ -7,7 +7,9 @@ using OsuSharp.ScoreEndpoint;
 using OsuSharp.UserBestEndpoint;
 using OsuSharp.UserEndpoint;
 using OsuSharp.UserRecentEndpoint;
+using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -36,10 +38,11 @@ namespace OsuSharp
             ApiKey = _apiKey;
         }
 
-        public static async Task<Beatmaps> GetBeatmapAsync(ulong beatmapId, BeatmapType bmType = BeatmapType.ByDifficulty)
+        public static async Task<Beatmaps> GetBeatmapAsync(ulong beatmapId, BeatmapType bmType = BeatmapType.ByDifficulty, OsuMode oMode = OsuMode.Standard)
         {
+            string mode = UserModeConverter.ConvertToString(oMode);
             string type = BeatmapsType.BeatmapTypeConverter(bmType);
-            string request = await GetAsync($"{RootDomain}{GetBeatmapsUrl}{apiKeyParameter}{ApiKey}{type}{beatmapId}");
+            string request = await GetAsync($"{RootDomain}{GetBeatmapsUrl}{apiKeyParameter}{ApiKey}{type}{beatmapId}{mode}");
             var r = JsonConvert.DeserializeObject<List<Beatmaps>>(request);
             if (r.Count > 0)
             {
@@ -48,17 +51,19 @@ namespace OsuSharp
             return null;
         }
 
-        public static async Task<List<Beatmaps>> GetBeatmapsAsync(string nickname, BeatmapType bmType = BeatmapType.ByCreator, int limit = 500)
+        public static async Task<List<Beatmaps>> GetBeatmapsAsync(string nickname, BeatmapType bmType = BeatmapType.ByCreator, OsuMode oMode = OsuMode.Standard, int limit = 500)
         {
+            string mode = UserModeConverter.ConvertToString(oMode);
             string type = BeatmapsType.BeatmapTypeConverter(bmType);
-            string request = await GetAsync($"{RootDomain}{GetBeatmapsUrl}{apiKeyParameter}{ApiKey}{type}{nickname}{limitParameter}{limit}");
+            string request = await GetAsync($"{RootDomain}{GetBeatmapsUrl}{apiKeyParameter}{ApiKey}{type}{nickname}{limitParameter}{limit}{mode}");
             return JsonConvert.DeserializeObject<List<Beatmaps>>(request);
         }
 
-        public static async Task<List<Beatmaps>> GetBeatmapsAsync(ulong id, BeatmapType bmType = BeatmapType.ByBeatmap, int limit = 500)
+        public static async Task<List<Beatmaps>> GetBeatmapsAsync(ulong id, BeatmapType bmType = BeatmapType.ByBeatmap, OsuMode oMode = OsuMode.Standard, int limit = 500)
         {
+            string mode = UserModeConverter.ConvertToString(oMode);
             string type = BeatmapsType.BeatmapTypeConverter(bmType);
-            string request = await GetAsync($"{RootDomain}{GetBeatmapsUrl}{apiKeyParameter}{ApiKey}{type}{id}{limitParameter}{limit}");
+            string request = await GetAsync($"{RootDomain}{GetBeatmapsUrl}{apiKeyParameter}{ApiKey}{type}{id}{limitParameter}{limit}{mode}");
             return JsonConvert.DeserializeObject<List<Beatmaps>>(request);
         }
 
@@ -190,9 +195,9 @@ namespace OsuSharp
         {
             using (HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new System.Uri(RootDomain);
+                client.BaseAddress = new Uri(RootDomain);
                 HttpResponseMessage message = await client.GetAsync(url);
-                if (message.StatusCode == System.Net.HttpStatusCode.OK)
+                if (message.StatusCode == HttpStatusCode.OK)
                 {
                     return await message.Content.ReadAsStringAsync();
                 }
