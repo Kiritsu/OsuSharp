@@ -6,7 +6,6 @@ namespace OsuSharp
     {
         public OsuSharpException(string message) : base(message)
         {
-
         }
     }
 }

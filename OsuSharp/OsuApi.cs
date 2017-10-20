@@ -1,4 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 using OsuSharp.BeatmapsEndpoint;
 using OsuSharp.Common;
 using OsuSharp.MatchEndpoint;
@@ -6,12 +11,6 @@ using OsuSharp.ReplayEndpoint;
 using OsuSharp.ScoreEndpoint;
 using OsuSharp.UserBestEndpoint;
 using OsuSharp.UserEndpoint;
-using OsuSharp.UserRecentEndpoint;
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace OsuSharp
 {
@@ -43,7 +42,7 @@ namespace OsuSharp
             string mode = UserModeConverter.ConvertToString(oMode);
             string type = BeatmapsType.BeatmapTypeConverter(bmType);
             string request = await GetAsync($"{RootDomain}{GetBeatmapsUrl}{apiKeyParameter}{ApiKey}{type}{beatmapId}{mode}");
-            var r = JsonConvert.DeserializeObject<List<Beatmaps>>(request);
+            List<Beatmaps> r = JsonConvert.DeserializeObject<List<Beatmaps>>(request);
             if (r.Count > 0)
             {
                 return r[0];
@@ -77,7 +76,7 @@ namespace OsuSharp
         {
             string mode = UserModeConverter.ConvertToString(oMode);
             string request = await GetAsync($"{RootDomain}{GetUserUrl}{apiKeyParameter}{ApiKey}{userParameter}{username}{mode}");
-            var r = JsonConvert.DeserializeObject<List<Users>>(request);
+            List<Users> r = JsonConvert.DeserializeObject<List<Users>>(request);
             if (r.Count > 0)
             {
                 return r[0];
@@ -89,7 +88,7 @@ namespace OsuSharp
         {
             string mode = UserModeConverter.ConvertToString(oMode);
             string request = await GetAsync($"{RootDomain}{GetUserUrl}{apiKeyParameter}{ApiKey}{userParameter}{userid}{mode}");
-            var r = JsonConvert.DeserializeObject<List<Users>>(request);
+            List<Users> r = JsonConvert.DeserializeObject<List<Users>>(request);
             if (r.Count > 0)
             {
                 return r[0];
@@ -101,7 +100,7 @@ namespace OsuSharp
         {
             string mode = UserModeConverter.ConvertToString(oMode);
             string request = await GetAsync($"{RootDomain}{GetScoresUrl}{apiKeyParameter}{ApiKey}{mode}{userParameter}{username}{beatmapParameter}{beatmapid}");
-            var r = JsonConvert.DeserializeObject<List<Scores>>(request);
+            List<Scores> r = JsonConvert.DeserializeObject<List<Scores>>(request);
             if (r.Count > 0)
             {
                 return r[0];
@@ -113,7 +112,7 @@ namespace OsuSharp
         {
             string mode = UserModeConverter.ConvertToString(oMode);
             string request = await GetAsync($"{RootDomain}{GetScoresUrl}{apiKeyParameter}{ApiKey}{mode}{userParameter}{userid}{beatmapParameter}{beatmapid}");
-            var r = JsonConvert.DeserializeObject<List<Scores>>(request);
+            List<Scores> r = JsonConvert.DeserializeObject<List<Scores>>(request);
             if (r.Count > 0)
             {
                 return r[0];
@@ -142,24 +141,24 @@ namespace OsuSharp
             return JsonConvert.DeserializeObject<List<UserBest>>(request);
         }
 
-        public static async Task<List<UserRecent>> GetUserRecentByUsernameAsync(string username, OsuMode oMode = OsuMode.Standard, int limit = 10)
+        public static async Task<List<UserRecent.UserRecent>> GetUserRecentByUsernameAsync(string username, OsuMode oMode = OsuMode.Standard, int limit = 10)
         {
             string mode = UserModeConverter.ConvertToString(oMode);
             string request = await GetAsync($"{RootDomain}{GetUserRecentUrl}{apiKeyParameter}{ApiKey}{userParameter}{username}{mode}{limitParameter}{limit}");
-            return JsonConvert.DeserializeObject<List<UserRecent>>(request);
+            return JsonConvert.DeserializeObject<List<UserRecent.UserRecent>>(request);
         }
 
-        public static async Task<List<UserRecent>> GetUserRecentByUseridAsync(ulong userid, OsuMode oMode = OsuMode.Standard, int limit = 10)
+        public static async Task<List<UserRecent.UserRecent>> GetUserRecentByUseridAsync(ulong userid, OsuMode oMode = OsuMode.Standard, int limit = 10)
         {
             string mode = UserModeConverter.ConvertToString(oMode);
             string request = await GetAsync($"{RootDomain}{GetUserRecentUrl}{apiKeyParameter}{ApiKey}{userParameter}{userid}{mode}{limitParameter}{limit}");
-            return JsonConvert.DeserializeObject<List<UserRecent>>(request);
+            return JsonConvert.DeserializeObject<List<UserRecent.UserRecent>>(request);
         }
 
         public static async Task<Matchs> GetMatchAsync(ulong matchid)
         {
             string request = await GetAsync($"{RootDomain}{GetMatchUrl}{apiKeyParameter}{ApiKey}{matchParameter}{matchid}");
-            var r = JsonConvert.DeserializeObject<List<Matchs>>(request);
+            List<Matchs> r = JsonConvert.DeserializeObject<List<Matchs>>(request);
             if (r.Count > 0)
             {
                 return r[0];
@@ -171,7 +170,7 @@ namespace OsuSharp
         {
             string mode = UserModeConverter.ConvertToString(oMode);
             string request = await GetAsync($"{RootDomain}{GetReplayUrl}{apiKeyParameter}{ApiKey}{mode}{beatmapParameter}{beatmapid}{userParameter}{username}");
-            var r = JsonConvert.DeserializeObject<List<Replay>>(request);
+            List<Replay> r = JsonConvert.DeserializeObject<List<Replay>>(request);
             if (r.Count > 0)
             {
                 return r[0];
@@ -183,7 +182,7 @@ namespace OsuSharp
         {
             string mode = UserModeConverter.ConvertToString(oMode);
             string request = await GetAsync($"{RootDomain}{GetReplayUrl}{apiKeyParameter}{ApiKey}{mode}{beatmapParameter}{beatmapid}{userParameter}{userid}");
-            var r = JsonConvert.DeserializeObject<List<Replay>>(request);
+            List<Replay> r = JsonConvert.DeserializeObject<List<Replay>>(request);
             if (r.Count > 0)
             {
                 return r[0];
@@ -201,10 +200,7 @@ namespace OsuSharp
                 {
                     return await message.Content.ReadAsStringAsync();
                 }
-                else
-                {
-                    throw new OsuSharpException(await message.Content.ReadAsStringAsync());
-                }
+                throw new OsuSharpException(await message.Content.ReadAsStringAsync());
             }
         }
     }

@@ -1,6 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace OsuSharp.UserEndpoint
 {
@@ -59,24 +58,5 @@ namespace OsuSharp.UserEndpoint
 
         [JsonProperty("events")]
         public List<Events> Events { get; set; }
-    }
-
-    public class Events
-    {
-        [JsonProperty("display_html")]
-        public string DisplayHtml { get; set; }
-
-        [JsonProperty("beatmap_id")]
-        public ulong BeatmapId { get; set; }
-
-        [JsonProperty("beatmapset_id")]
-        public ulong BeatmapsetId { get; set; }
-
-        [JsonProperty("date")]
-        public DateTime? Date { get; set; }
-
-        [JsonProperty("epicfactor")]
-        public ushort Epicfactor { get; set; }
-
     }
 }

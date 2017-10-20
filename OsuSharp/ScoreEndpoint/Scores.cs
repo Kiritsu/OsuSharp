@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace OsuSharp.ScoreEndpoint
 {
     public class Scores
     {
+        [JsonProperty("perfect")] private ushort _Perfect;
+
         [JsonProperty("score")]
         public ulong Score { get; set; }
 
@@ -34,9 +36,6 @@ namespace OsuSharp.ScoreEndpoint
 
         [JsonProperty("countgeki")]
         public uint Geki { get; set; }
-
-        [JsonProperty("perfect")]
-        private ushort _Perfect;
 
         public bool Perfect
         {

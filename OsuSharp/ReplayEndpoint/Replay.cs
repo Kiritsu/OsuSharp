@@ -6,6 +6,7 @@ namespace OsuSharp.ReplayEndpoint
     {
         [JsonProperty("content")]
         public string Content { get; set; }
+
         [JsonProperty("encoding")]
         public string Encoding { get; set; }
     }

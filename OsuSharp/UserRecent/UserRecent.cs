@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
 
-namespace OsuSharp.UserRecentEndpoint
+namespace OsuSharp.UserRecent
 {
     public class UserRecent
     {
+        [JsonProperty("perfect")] private ushort _Perfect;
+
         [JsonProperty("beatmap_id")]
         public ulong BeatmapId { get; set; }
 
@@ -31,9 +33,6 @@ namespace OsuSharp.UserRecentEndpoint
 
         [JsonProperty("countgeki")]
         public uint Geki { get; set; }
-
-        [JsonProperty("perfect")]
-        private ushort _Perfect;
 
         public bool Perfect
         {

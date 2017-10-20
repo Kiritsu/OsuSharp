@@ -1,12 +1,17 @@
 ﻿using System;
-using OsuSharp.Common;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using OsuSharp.BeatmapsEndpoint;
+using OsuSharp.Common;
+using OsuSharp.ScoreEndpoint;
+using OsuSharp.UserBestEndpoint;
+using OsuSharp.UserEndpoint;
 
 namespace OsuSharp.Test
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             TestUserId();
             Console.ReadLine();
@@ -17,7 +22,7 @@ namespace OsuSharp.Test
             OsuApi.Init("API KEY HERE!");
             try
             {
-                var apiUser = await OsuApi.GetUserByNameAsync("Evolia", OsuMode.Standard);
+                Users apiUser = await OsuApi.GetUserByNameAsync("Evolia", OsuMode.Standard);
                 Console.WriteLine("Test : " + apiUser.Accuracy);
                 Console.WriteLine("Test : " + apiUser.ARank);
                 Console.WriteLine("Test : " + apiUser.Count100);
@@ -36,8 +41,8 @@ namespace OsuSharp.Test
                 Console.WriteLine("Test : " + apiUser.Userid);
                 Console.WriteLine("Test : " + apiUser.Username);
                 await Task.Delay(1000);
-                var apiUserRecent = await OsuApi.GetUserRecentByUsernameAsync("Evolia", OsuMode.Standard, 1);
-                foreach (var recent in apiUserRecent)
+                List<UserRecent.UserRecent> apiUserRecent = await OsuApi.GetUserRecentByUsernameAsync("Evolia", OsuMode.Standard, 1);
+                foreach (UserRecent.UserRecent recent in apiUserRecent)
                 {
                     Console.WriteLine("Test : " + recent.BeatmapId);
                     Console.WriteLine("Test : " + recent.Count100);
@@ -54,7 +59,7 @@ namespace OsuSharp.Test
                     Console.WriteLine("Test : " + recent.Userid);
                 }
                 await Task.Delay(1000);
-                var apiBeatmap = await OsuApi.GetBeatmapAsync(625193, BeatmapType.ByBeatmap);
+                Beatmaps apiBeatmap = await OsuApi.GetBeatmapAsync(625193, BeatmapType.ByBeatmap);
                 Console.WriteLine("Test : " + apiBeatmap.Approved);
                 Console.WriteLine("Test : " + apiBeatmap.ApprovedDate);
                 Console.WriteLine("Test : " + apiBeatmap.AR);
@@ -83,8 +88,8 @@ namespace OsuSharp.Test
                 Console.WriteLine("Test : " + apiBeatmap.TotalLength);
                 Console.WriteLine("Test : " + apiBeatmap.Version);
                 await Task.Delay(1000);
-                var apiUserBest = await OsuApi.GetUserBestByUsernameAsync("Evolia", OsuMode.Standard, 1);
-                foreach (var best in apiUserBest)
+                List<UserBest> apiUserBest = await OsuApi.GetUserBestByUsernameAsync("Evolia", OsuMode.Standard, 1);
+                foreach (UserBest best in apiUserBest)
                 {
                     Console.WriteLine("Test : " + best.BeatmapId);
                     Console.WriteLine("Test : " + best.Count100);
@@ -103,7 +108,7 @@ namespace OsuSharp.Test
                     Console.WriteLine("Test : " + best.Score);
                 }
                 await Task.Delay(1000);
-                var apiScore = await OsuApi.GetScoreByUsernameAsync(774965, "Cookiezi", OsuMode.Standard);
+                Scores apiScore = await OsuApi.GetScoreByUsernameAsync(774965, "Cookiezi", OsuMode.Standard);
                 Console.WriteLine("Test : " + apiScore.Pp);
                 Console.WriteLine("Test : " + apiScore.Count100);
                 Console.WriteLine("Test : " + apiScore.Count300);

@@ -1,18 +1,17 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace OsuSharp.BeatmapsEndpoint
 {
     public class Beatmaps
     {
+        [JsonProperty("approved")] private string _Approved;
+
         [JsonProperty("beatmapset_id")]
         public ulong BeatmapsetID { get; set; }
 
         [JsonProperty("beatmap_id")]
         public ulong BeatmapID { get; set; }
-
-        [JsonProperty("approved")]
-        private string _Approved;
 
         public string Approved
         {
