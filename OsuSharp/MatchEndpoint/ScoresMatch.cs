@@ -5,9 +5,9 @@ namespace OsuSharp.MatchEndpoint
 {
     public class ScoresMatch
     {
-        [JsonProperty("pass")] private ushort _Pass;
+        [JsonProperty("pass")] private ushort _pass;
 
-        [JsonProperty("perfect")] private ushort _Perfect;
+        [JsonProperty("perfect")] private ushort _perfect;
 
         [JsonProperty("slot")]
         public ushort Slot { get; set; }
@@ -47,13 +47,13 @@ namespace OsuSharp.MatchEndpoint
 
         public bool Perfect
         {
-            get { return Convert.ToBoolean(_Perfect); }
+            get { return Convert.ToBoolean(_perfect); }
             set { Perfect = value; }
         }
 
         public bool Pass
         {
-            get { return Convert.ToBoolean(_Pass); }
+            get { return Convert.ToBoolean(_pass); }
             set { Pass = value; }
         }
     }

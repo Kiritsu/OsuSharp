@@ -5,7 +5,7 @@ namespace OsuSharp.ScoreEndpoint
 {
     public class Scores
     {
-        [JsonProperty("perfect")] private ushort _Perfect;
+        [JsonProperty("perfect")] private ushort _perfect;
 
         [JsonProperty("score")]
         public ulong Score { get; set; }
@@ -39,7 +39,7 @@ namespace OsuSharp.ScoreEndpoint
 
         public bool Perfect
         {
-            get { return Convert.ToBoolean(_Perfect); }
+            get { return Convert.ToBoolean(_perfect); }
             set { Perfect = value; }
         }
 

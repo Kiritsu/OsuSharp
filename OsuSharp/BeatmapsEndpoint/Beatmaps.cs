@@ -5,18 +5,18 @@ namespace OsuSharp.BeatmapsEndpoint
 {
     public class Beatmaps
     {
-        [JsonProperty("approved")] private string _Approved;
+        [JsonProperty("approved")] private string _approved;
 
         [JsonProperty("beatmapset_id")]
-        public ulong BeatmapsetID { get; set; }
+        public ulong BeatmapsetId { get; set; }
 
         [JsonProperty("beatmap_id")]
-        public ulong BeatmapID { get; set; }
+        public ulong BeatmapId { get; set; }
 
         public string Approved
         {
-            get { return Converter.Approved.ApprovedConverter(_Approved); }
-            set { _Approved = value; }
+            get { return Converter.Approved.ApprovedConverter(_approved); }
+            set { _approved = value; }
         }
 
         [JsonProperty("total_length")]
@@ -29,19 +29,19 @@ namespace OsuSharp.BeatmapsEndpoint
         public string Version { get; set; }
 
         [JsonProperty("file_md5")]
-        public string FileMD5 { get; set; }
+        public string FileMd5 { get; set; }
 
         [JsonProperty("diff_size")]
-        public float CS { get; set; }
+        public float Cs { get; set; }
 
         [JsonProperty("diff_overall")]
-        public float OD { get; set; }
+        public float Od { get; set; }
 
         [JsonProperty("diff_approach")]
-        public float AR { get; set; }
+        public float Ar { get; set; }
 
         [JsonProperty("diff_drain")]
-        public float HP { get; set; }
+        public float Hp { get; set; }
 
         [JsonProperty("mode")]
         public ushort Mode { get; set; }
@@ -62,7 +62,7 @@ namespace OsuSharp.BeatmapsEndpoint
         public string Creator { get; set; }
 
         [JsonProperty("bpm")]
-        public float BPM { get; set; }
+        public float Bpm { get; set; }
 
         [JsonProperty("source")]
         public string Source { get; set; }

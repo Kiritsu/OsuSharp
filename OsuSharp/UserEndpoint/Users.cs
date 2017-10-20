@@ -48,7 +48,7 @@ namespace OsuSharp.UserEndpoint
         public uint Count50 { get; set; }
 
         [JsonProperty("count_rank_ss")]
-        public int SSRank { get; set; }
+        public int SsRank { get; set; }
 
         [JsonProperty("count_rank_s")]
         public int SRank { get; set; }

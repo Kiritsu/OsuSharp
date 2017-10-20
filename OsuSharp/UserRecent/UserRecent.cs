@@ -5,7 +5,7 @@ namespace OsuSharp.UserRecent
 {
     public class UserRecent
     {
-        [JsonProperty("perfect")] private ushort _Perfect;
+        [JsonProperty("perfect")] private ushort _perfect;
 
         [JsonProperty("beatmap_id")]
         public ulong BeatmapId { get; set; }
@@ -36,7 +36,7 @@ namespace OsuSharp.UserRecent
 
         public bool Perfect
         {
-            get { return Convert.ToBoolean(_Perfect); }
+            get { return Convert.ToBoolean(_perfect); }
             set { Perfect = value; }
         }
 
