@@ -2,17 +2,17 @@
 {
     public class UserModeConverter
     {
-        public static string ConvertToString(OsuMode type)
+        public static string ConvertToString(GameMode type)
         {
             switch (type)
             {
-                case OsuMode.Standard:
+                case GameMode.Standard:
                     return "&m=0";
-                case OsuMode.Taiko:
+                case GameMode.Taiko:
                     return "&m=1";
-                case OsuMode.CatchTheBeat:
+                case GameMode.CatchTheBeat:
                     return "&m=2";
-                case OsuMode.Mania:
+                case GameMode.Mania:
                     return "&m=3";
                 default:
                     return "&m=0";

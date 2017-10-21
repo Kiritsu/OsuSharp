@@ -1,6 +1,6 @@
 ﻿namespace OsuSharp.Common
 {
-    public enum OsuMode
+    public enum GameMode
     {
         Standard,
         Taiko,

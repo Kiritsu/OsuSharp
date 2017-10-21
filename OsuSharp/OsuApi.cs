@@ -37,26 +37,26 @@ namespace OsuSharp
             ApiKey = apiKey;
         }
 
-        public static async Task<Beatmaps> GetBeatmapAsync(ulong beatmapId, BeatmapType bmType = BeatmapType.ByDifficulty, OsuMode oMode = OsuMode.Standard)
+        public static async Task<Beatmaps> GetBeatmapAsync(ulong beatmapId, BeatmapType bmType = BeatmapType.ByDifficulty, GameMode gameMode = GameMode.Standard)
         {
-            string mode = UserModeConverter.ConvertToString(oMode);
+            string mode = UserModeConverter.ConvertToString(gameMode);
             string type = BeatmapsType.BeatmapTypeConverter(bmType);
             string request = await GetAsync($"{RootDomain}{GetBeatmapsUrl}{ApiKeyParameter}{ApiKey}{type}{beatmapId}{mode}");
             List<Beatmaps> r = JsonConvert.DeserializeObject<List<Beatmaps>>(request);
             return r.Count > 0 ? r[0] : null;
         }
 
-        public static async Task<List<Beatmaps>> GetBeatmapsAsync(string nickname, BeatmapType bmType = BeatmapType.ByCreator, OsuMode oMode = OsuMode.Standard, int limit = 500)
+        public static async Task<List<Beatmaps>> GetBeatmapsAsync(string nickname, BeatmapType bmType = BeatmapType.ByCreator, GameMode gameMode = GameMode.Standard, int limit = 500)
         {
-            string mode = UserModeConverter.ConvertToString(oMode);
+            string mode = UserModeConverter.ConvertToString(gameMode);
             string type = BeatmapsType.BeatmapTypeConverter(bmType);
             string request = await GetAsync($"{RootDomain}{GetBeatmapsUrl}{ApiKeyParameter}{ApiKey}{type}{nickname}{LimitParameter}{limit}{mode}");
             return JsonConvert.DeserializeObject<List<Beatmaps>>(request);
         }
 
-        public static async Task<List<Beatmaps>> GetBeatmapsAsync(ulong id, BeatmapType bmType = BeatmapType.ByBeatmap, OsuMode oMode = OsuMode.Standard, int limit = 500)
+        public static async Task<List<Beatmaps>> GetBeatmapsAsync(ulong id, BeatmapType bmType = BeatmapType.ByBeatmap, GameMode gameMode = GameMode.Standard, int limit = 500)
         {
-            string mode = UserModeConverter.ConvertToString(oMode);
+            string mode = UserModeConverter.ConvertToString(gameMode);
             string type = BeatmapsType.BeatmapTypeConverter(bmType);
             string request = await GetAsync($"{RootDomain}{GetBeatmapsUrl}{ApiKeyParameter}{ApiKey}{type}{id}{LimitParameter}{limit}{mode}");
             return JsonConvert.DeserializeObject<List<Beatmaps>>(request);
@@ -68,69 +68,69 @@ namespace OsuSharp
             return JsonConvert.DeserializeObject<List<Beatmaps>>(request);
         }
 
-        public static async Task<Users> GetUserByNameAsync(string username, OsuMode oMode = OsuMode.Standard)
+        public static async Task<Users> GetUserByNameAsync(string username, GameMode gameMode = GameMode.Standard)
         {
-            string mode = UserModeConverter.ConvertToString(oMode);
+            string mode = UserModeConverter.ConvertToString(gameMode);
             string request = await GetAsync($"{RootDomain}{GetUserUrl}{ApiKeyParameter}{ApiKey}{UserParameter}{username}{mode}");
             List<Users> r = JsonConvert.DeserializeObject<List<Users>>(request);
             return r.Count > 0 ? r[0] : null;
         }
 
-        public static async Task<Users> GetUserByIdAsync(ulong userid, OsuMode oMode = OsuMode.Standard)
+        public static async Task<Users> GetUserByIdAsync(ulong userid, GameMode gameMode = GameMode.Standard)
         {
-            string mode = UserModeConverter.ConvertToString(oMode);
+            string mode = UserModeConverter.ConvertToString(gameMode);
             string request = await GetAsync($"{RootDomain}{GetUserUrl}{ApiKeyParameter}{ApiKey}{UserParameter}{userid}{mode}");
             List<Users> r = JsonConvert.DeserializeObject<List<Users>>(request);
             return r.Count > 0 ? r[0] : null;
         }
 
-        public static async Task<Scores> GetScoreByUsernameAsync(ulong beatmapid, string username, OsuMode oMode = OsuMode.Standard)
+        public static async Task<Scores> GetScoreByUsernameAsync(ulong beatmapid, string username, GameMode gameMode = GameMode.Standard)
         {
-            string mode = UserModeConverter.ConvertToString(oMode);
+            string mode = UserModeConverter.ConvertToString(gameMode);
             string request = await GetAsync($"{RootDomain}{GetScoresUrl}{ApiKeyParameter}{ApiKey}{mode}{UserParameter}{username}{BeatmapParameter}{beatmapid}");
             List<Scores> r = JsonConvert.DeserializeObject<List<Scores>>(request);
             return r.Count > 0 ? r[0] : null;
         }
 
-        public static async Task<Scores> GetScoreByUseridAsync(ulong beatmapid, ulong userid, OsuMode oMode = OsuMode.Standard)
+        public static async Task<Scores> GetScoreByUseridAsync(ulong beatmapid, ulong userid, GameMode gameMode = GameMode.Standard)
         {
-            string mode = UserModeConverter.ConvertToString(oMode);
+            string mode = UserModeConverter.ConvertToString(gameMode);
             string request = await GetAsync($"{RootDomain}{GetScoresUrl}{ApiKeyParameter}{ApiKey}{mode}{UserParameter}{userid}{BeatmapParameter}{beatmapid}");
             List<Scores> r = JsonConvert.DeserializeObject<List<Scores>>(request);
             return r.Count > 0 ? r[0] : null;
         }
 
-        public static async Task<List<Scores>> GetScoresAsync(ulong beatmapid, OsuMode oMode = OsuMode.Standard, int limit = 50)
+        public static async Task<List<Scores>> GetScoresAsync(ulong beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50)
         {
-            string mode = UserModeConverter.ConvertToString(oMode);
+            string mode = UserModeConverter.ConvertToString(gameMode);
             string request = await GetAsync($"{RootDomain}{GetScoresUrl}{ApiKeyParameter}{ApiKey}{mode}{LimitParameter}{limit}{BeatmapParameter}{beatmapid}");
             return JsonConvert.DeserializeObject<List<Scores>>(request);
         }
 
-        public static async Task<List<UserBest>> GetUserBestByUsernameAsync(string username, OsuMode oMode = OsuMode.Standard, int limit = 10)
+        public static async Task<List<UserBest>> GetUserBestByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
         {
-            string mode = UserModeConverter.ConvertToString(oMode);
+            string mode = UserModeConverter.ConvertToString(gameMode);
             string request = await GetAsync($"{RootDomain}{GetUserBestUrl}{ApiKeyParameter}{ApiKey}{UserParameter}{username}{mode}{LimitParameter}{limit}");
             return JsonConvert.DeserializeObject<List<UserBest>>(request);
         }
 
-        public static async Task<List<UserBest>> GetUserBestByUseridAsync(ulong userid, OsuMode oMode = OsuMode.Standard, int limit = 10)
+        public static async Task<List<UserBest>> GetUserBestByUseridAsync(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
         {
-            string mode = UserModeConverter.ConvertToString(oMode);
+            string mode = UserModeConverter.ConvertToString(gameMode);
             string request = await GetAsync($"{RootDomain}{GetUserBestUrl}{ApiKeyParameter}{ApiKey}{UserParameter}{userid}{mode}{LimitParameter}{limit}");
             return JsonConvert.DeserializeObject<List<UserBest>>(request);
         }
 
-        public static async Task<List<UserRecent.UserRecent>> GetUserRecentByUsernameAsync(string username, OsuMode oMode = OsuMode.Standard, int limit = 10)
+        public static async Task<List<UserRecent.UserRecent>> GetUserRecentByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
         {
-            string mode = UserModeConverter.ConvertToString(oMode);
+            string mode = UserModeConverter.ConvertToString(gameMode);
             string request = await GetAsync($"{RootDomain}{GetUserRecentUrl}{ApiKeyParameter}{ApiKey}{UserParameter}{username}{mode}{LimitParameter}{limit}");
             return JsonConvert.DeserializeObject<List<UserRecent.UserRecent>>(request);
         }
 
-        public static async Task<List<UserRecent.UserRecent>> GetUserRecentByUseridAsync(ulong userid, OsuMode oMode = OsuMode.Standard, int limit = 10)
+        public static async Task<List<UserRecent.UserRecent>> GetUserRecentByUseridAsync(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
         {
-            string mode = UserModeConverter.ConvertToString(oMode);
+            string mode = UserModeConverter.ConvertToString(gameMode);
             string request = await GetAsync($"{RootDomain}{GetUserRecentUrl}{ApiKeyParameter}{ApiKey}{UserParameter}{userid}{mode}{LimitParameter}{limit}");
             return JsonConvert.DeserializeObject<List<UserRecent.UserRecent>>(request);
         }
@@ -142,17 +142,17 @@ namespace OsuSharp
             return r.Count > 0 ? r[0] : null;
         }
 
-        public static async Task<Replay> GetReplayByUsernameAsync(ulong beatmapid, string username, OsuMode oMode = OsuMode.Standard)
+        public static async Task<Replay> GetReplayByUsernameAsync(ulong beatmapid, string username, GameMode gameMode = GameMode.Standard)
         {
-            string mode = UserModeConverter.ConvertToString(oMode);
+            string mode = UserModeConverter.ConvertToString(gameMode);
             string request = await GetAsync($"{RootDomain}{GetReplayUrl}{ApiKeyParameter}{ApiKey}{mode}{BeatmapParameter}{beatmapid}{UserParameter}{username}");
             List<Replay> r = JsonConvert.DeserializeObject<List<Replay>>(request);
             return r.Count > 0 ? r[0] : null;
         }
 
-        public static async Task<Replay> GetReplayByUseridAsync(ulong beatmapid, ulong userid, OsuMode oMode = OsuMode.Standard)
+        public static async Task<Replay> GetReplayByUseridAsync(ulong beatmapid, ulong userid, GameMode gameMode = GameMode.Standard)
         {
-            string mode = UserModeConverter.ConvertToString(oMode);
+            string mode = UserModeConverter.ConvertToString(gameMode);
             string request = await GetAsync($"{RootDomain}{GetReplayUrl}{ApiKeyParameter}{ApiKey}{mode}{BeatmapParameter}{beatmapid}{UserParameter}{userid}");
             List<Replay> r = JsonConvert.DeserializeObject<List<Replay>>(request);
             return r.Count > 0 ? r[0] : null;
