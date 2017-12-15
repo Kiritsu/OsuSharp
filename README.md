@@ -27,7 +27,7 @@ git clone https://github.com/Kiritsu/OsuSharp.git
 If you want to contribute, feel free to use Issues or Pull Request
 
 ## Help
-Feel free to join my Discord Server: https://discord.gg/bNXGxcG
+Feel free to join my Discord Server: https://discord.gg/bXKXNAR
 
 ## Exemple
 ```cs
