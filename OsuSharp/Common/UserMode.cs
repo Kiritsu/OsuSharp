@@ -1,8 +1,8 @@
 ﻿namespace OsuSharp.Common
 {
-    public class UserModeConverter
+    public class UserMode
     {
-        public static string ConvertToString(GameMode type)
+        public static string ToString(GameMode type)
         {
             switch (type)
             {

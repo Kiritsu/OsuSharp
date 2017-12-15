@@ -1,8 +1,8 @@
 ﻿namespace OsuSharp.Common
 {
-    public class BeatmapsType
+    public class Beatmap
     {
-        public static string BeatmapTypeConverter(BeatmapType type)
+        public static string ToString(BeatmapType type)
         {
             switch (type)
             {

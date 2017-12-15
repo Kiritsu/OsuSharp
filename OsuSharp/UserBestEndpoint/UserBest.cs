@@ -28,6 +28,12 @@ namespace OsuSharp.UserBestEndpoint
         [JsonProperty("countmiss")]
         public uint Miss { get; set; }
 
+        [JsonIgnore]
+        public double Accuracy
+        {
+            get { return (Count50 * 50 + Count100 * 100 + Count300 * 300) / (300.0 * (Count50 + Count100 + Count300 + Miss)); }
+        }
+
         [JsonProperty("maxcombo")]
         public uint? MaxCombo { get; set; }
 
@@ -40,7 +46,6 @@ namespace OsuSharp.UserBestEndpoint
         public bool Perfect
         {
             get { return Convert.ToBoolean(_perfect); }
-            set { Perfect = value; }
         }
 
         [JsonProperty("enabled_mods")]

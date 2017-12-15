@@ -48,13 +48,11 @@ namespace OsuSharp.MatchEndpoint
         public bool Perfect
         {
             get { return Convert.ToBoolean(_perfect); }
-            set { Perfect = value; }
         }
 
         public bool Pass
         {
             get { return Convert.ToBoolean(_pass); }
-            set { Pass = value; }
         }
     }
 }

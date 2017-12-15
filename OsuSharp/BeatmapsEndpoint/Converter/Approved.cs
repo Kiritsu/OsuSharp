@@ -2,7 +2,7 @@
 {
     public class Approved
     {
-        public static string ApprovedConverter(string state)
+        public static string ToString(string state)
         {
             switch (state)
             {

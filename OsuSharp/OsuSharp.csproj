@@ -9,7 +9,7 @@
     <Authors>Kiritsu</Authors>
     <Company>Kiritsu</Company>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.3</Version>
+    <Version>1.4</Version>
     <Description>.NET Core Library for Osu!API</Description>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
   </PropertyGroup>

@@ -15,7 +15,7 @@ namespace OsuSharp.BeatmapsEndpoint
 
         public string Approved
         {
-            get { return Converter.Approved.ApprovedConverter(_approved); }
+            get { return Converter.Approved.ToString(_approved); }
             set { _approved = value; }
         }
 
@@ -90,5 +90,23 @@ namespace OsuSharp.BeatmapsEndpoint
 
         [JsonProperty("difficultyrating")]
         public float DifficultyRating { get; set; }
+
+        [JsonIgnore]
+        public string ThumbnailUrl
+        {
+            get { return $"https://b.ppy.sh/thumb/{BeatmapsetId}l.jpg"; }
+        }
+
+        [JsonIgnore]
+        public string CoverUrl
+        {
+            get { return $"https://assets.ppy.sh/beatmaps/{BeatmapsetId}/covers/cover.jpg"; }
+        }
+
+        [JsonIgnore]
+        public string SoundPreviewUrl
+        {
+            get { return $"https://b.ppy.sh/preview/{BeatmapsetId}.mp3"; }
+        }
     }
 }
