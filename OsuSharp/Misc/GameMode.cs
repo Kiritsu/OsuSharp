@@ -1,4 +1,4 @@
-﻿namespace OsuSharp.Common
+﻿namespace OsuSharp.Misc
 {
     public enum GameMode
     {

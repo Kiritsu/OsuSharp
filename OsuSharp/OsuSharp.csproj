@@ -7,10 +7,10 @@
     <OutputTypeEx>library</OutputTypeEx>
     <StartupObject />
     <Authors>Kiritsu</Authors>
-    <Company>Kiritsu</Company>
+    <Company></Company>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.4</Version>
-    <Description>.NET Core Library for Osu!API</Description>
+    <Version>1.4.1</Version>
+    <Description>.NET Core wrapper for the osu!Api</Description>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 

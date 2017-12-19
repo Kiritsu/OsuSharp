@@ -5,8 +5,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using OsuSharp.BeatmapsEndpoint;
-using OsuSharp.Common;
 using OsuSharp.MatchEndpoint;
+using OsuSharp.Misc;
 using OsuSharp.ReplayEndpoint;
 using OsuSharp.ScoreEndpoint;
 using OsuSharp.UserBestEndpoint;
@@ -37,8 +37,7 @@ namespace OsuSharp
         public static void Init(string apiKey)
         {
             ApiKey = apiKey;
-            _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new Uri(RootDomain);
+            _httpClient = new HttpClient {BaseAddress = new Uri(RootDomain)};
         }
 
         public static async Task<Beatmaps> GetBeatmapAsync(ulong beatmapId, BeatmapType bmType = BeatmapType.ByDifficulty, GameMode gameMode = GameMode.Standard)
