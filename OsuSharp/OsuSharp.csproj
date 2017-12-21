@@ -1,10 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Library</OutputType>
-    <TargetFramework>netcoreapp1.0</TargetFramework>
+    <TargetFramework>netstandard1.1</TargetFramework>
     <ApplicationIcon />
-    <OutputTypeEx>library</OutputTypeEx>
     <StartupObject />
     <Authors>Kiritsu</Authors>
     <Company></Company>
@@ -12,6 +10,7 @@
     <Version>1.4.1</Version>
     <Description>.NET Core wrapper for the osu!Api</Description>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <ProjectUrl>https://github.com/Kiritsu/OsuSharp</ProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
