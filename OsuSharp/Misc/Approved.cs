@@ -1,4 +1,4 @@
-﻿namespace OsuSharp.BeatmapsEndpoint.Converter
+﻿namespace OsuSharp.Misc
 {
     public class Approved
     {

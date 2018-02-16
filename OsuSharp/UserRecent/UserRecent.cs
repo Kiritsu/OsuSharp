@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using OsuSharp.Misc;
 
 namespace OsuSharp.UserRecent
 {
@@ -41,7 +42,17 @@ namespace OsuSharp.UserRecent
         }
 
         [JsonProperty("enabled_mods")]
-        public uint Mods { get; set; }
+        public uint EnabledMods { get; set; }
+
+        public Mods EnabledModsEnum
+        {
+            get { return (Mods) EnabledMods; }
+        }
+
+        public string Mods
+        {
+            get { return ((Mods) EnabledMods).ToModString(); }
+        }
 
         [JsonProperty("user_id")]
         public ulong Userid { get; set; }

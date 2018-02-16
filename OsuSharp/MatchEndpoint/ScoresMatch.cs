@@ -54,5 +54,11 @@ namespace OsuSharp.MatchEndpoint
         {
             get { return Convert.ToBoolean(_pass); }
         }
+
+        [JsonIgnore]
+        public double Accuracy
+        {
+            get { return (Count50 * 50 + Count100 * 100 + Count300 * 300) / (300.0 * (Count50 + Count100 + Count300 + Miss)); }
+        }
     }
 }

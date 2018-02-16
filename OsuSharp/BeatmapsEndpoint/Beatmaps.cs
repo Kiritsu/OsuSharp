@@ -15,7 +15,7 @@ namespace OsuSharp.BeatmapsEndpoint
 
         public string Approved
         {
-            get { return Converter.Approved.ToString(_approved); }
+            get { return Misc.Approved.ToString(_approved); }
             set { _approved = value; }
         }
 

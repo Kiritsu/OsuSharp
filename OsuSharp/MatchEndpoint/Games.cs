@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using OsuSharp.Misc;
 
 namespace OsuSharp.MatchEndpoint
 {
@@ -30,8 +31,18 @@ namespace OsuSharp.MatchEndpoint
         [JsonProperty("team_type")]
         public ushort TeamType { get; set; }
 
-        [JsonProperty("mods")]
-        public uint Mods { get; set; }
+        [JsonProperty("enabled_mods")]
+        public uint EnabledMods { get; set; }
+
+        public Mods EnabledModsEnum
+        {
+            get { return (Mods) EnabledMods; }
+        }
+
+        public string Mods
+        {
+            get { return ((Mods) EnabledMods).ToModString(); }
+        }
 
         [JsonProperty("scores")]
         public List<ScoresMatch> Scores { get; set; }
