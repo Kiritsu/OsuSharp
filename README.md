@@ -4,20 +4,19 @@
 
 **Osu!Sharp is a wrapper written in C# for the Osu!Api.**
 
-- Compatible with .NET Core. 
+- Compatible with .NET Standard
 - Is Asynchrone
 
 ## Requirements:
 
 - Newtonsoft.Json (>= 10.0.3)
-- Microsoft.NETCore.App (>= 1.0.5)
 
 ## Installation
 
 You can install the wrapper with Nuget
 
 ```
-PM> Install-Package OsuSharp -Version 1.2.0
+PM> Install-Package OsuSharp -Version 1.4.5
 ```
 
 Or compile from source
@@ -42,39 +41,7 @@ private const string apiKey = "Your_Osu_API_Key"; //You can create one here: htt
 public async Task GetOsuBeatmapAsync(long beatmapId)
 {
     OsuApi.Init(apiKey);
-    var api = await OsuSharp.GetBeatmapAsync(BeatmapType.Difficulty, 1317488);
+    var api = await OsuSharp.GetBeatmapAsync(1317488);
     Console.WriteLine($"The creator of the map is: {api.Creator}");
 }
 ```
-
-### Different methods
-
--- GetBeatmapAsync(long beatmapId, (enum)BeatmapType bmType);
-
--- GetBeatmapsAsync(int limit [default = 500]);
-
--- GetBeatmapsByCreatorAsync(long userId, (enum)BeatmapType bmType, int limit [default = 500]);
-
--- GetUserByNameAsync(string username, (enum)OsuMode oMode [default = OsuMode.Standard]);
-
--- GetUserByIdAsync(long userid, (enum)OsuMode oMode [default = OsuMode.Standard]);
-
--- GetScoreByUsernameAsync(long beatmapid, string username, (enum)OsuMode oMode [default = OsuMode.Standard]);
-
--- GetScoreByUseridAsync(long beatmapid, long userid, (enum)OsuMode oMode [default = OsuMode.Standard]);
-
--- GetScoresAsync(long beatmapid, (enum)OsuMode oMode [default = OsuMode.Standard], int limit [default = 10]);
-
--- GetUserBestByUsernameAsync(string username, (enum)OsuMode oMode [default = OsuMode.Standard]);
-
--- GetUserBestByUseridAsync(long userid, (enum)OsuMode oMode [default = OsuMode.Standard], int limit [default = 10]);
-
--- GetUserRecentByUsernameAsync(string username, (enum)OsuMode oMode [default = OsuMode.Standard], int limit [default = 10]);
-
--- GetUserRecentbByUseridAsync(long userid, (enum)OsuMode oMode [default = OsuMode.Standard], int limit [default = 10]);
-
--- GetMatchAsync(long matchid);
-
--- GetReplayByUsernameAsync(long beatmapid, string username, (enum)OsuMode oMode [default = OsuMode.Standard]);
-
--- GetReplayByUseridAsync(long beatmapid, long userid, (enum)OsuMode oMode [default = OsuMode.Standard]);
