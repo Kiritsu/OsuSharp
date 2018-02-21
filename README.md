@@ -2,7 +2,7 @@
 
 [![NuGet version](https://badge.fury.io/nu/OsuSharp.svg)](https://badge.fury.io/nu/OsuSharp)
 
-**Osu!Sharp is a wrapper written in C# for the Osu!Api.**
+**OsuSharp is a wrapper written in C# for the Osu!Api.**
 
 - Compatible with .NET Standard
 - Is Asynchrone
@@ -36,12 +36,12 @@ Feel free to join my Discord Server: https://discord.gg/bXKXNAR
 ## Example
 
 ```cs
-private const string apiKey = "Your_Osu_API_Key"; //You can create one here: https://osu.ppy.sh/p/api
+private const string API_KEY = "Your_Osu_API_Key"; //You can get one here: https://osu.ppy.sh/p/api
 
 public async Task GetOsuBeatmapAsync(long beatmapId)
 {
-    OsuApi.Init(apiKey);
-    var api = await OsuSharp.GetBeatmapAsync(1317488);
+    OsuApi.Init(API_KEY);
+    var api = await OsuSharp.GetBeatmapAsync(beatmapId);
     Console.WriteLine($"The creator of the map is: {api.Creator}");
 }
 ```
