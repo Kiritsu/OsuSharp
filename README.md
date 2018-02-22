@@ -38,10 +38,10 @@ Feel free to join my Discord Server: https://discord.gg/bXKXNAR
 ```cs
 private const string API_KEY = "Your_Osu_API_Key"; //You can get one here: https://osu.ppy.sh/p/api
 
-public async Task GetOsuBeatmapAsync(long beatmapId)
+public async Task GetOsuBeatmapAsync(ulong beatmapId)
 {
     OsuApi.Init(API_KEY);
-    var api = await OsuSharp.GetBeatmapAsync(beatmapId);
+    var api = await OsuApi.GetBeatmapAsync(beatmapId);
     Console.WriteLine($"The creator of the map is: {api.Creator}");
 }
 ```
