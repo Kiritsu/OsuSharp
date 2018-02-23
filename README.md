@@ -16,7 +16,7 @@
 You can install the wrapper with Nuget
 
 ```
-PM> Install-Package OsuSharp -Version 1.4.5
+PM> Install-Package OsuSharp -Version 1.5.0
 ```
 
 Or compile from source
@@ -45,3 +45,5 @@ public async Task GetOsuBeatmapAsync(ulong beatmapId)
     Console.WriteLine($"The creator of the map is: {api.Creator}");
 }
 ```
+
+You can also check OsuSharp.Example project.
