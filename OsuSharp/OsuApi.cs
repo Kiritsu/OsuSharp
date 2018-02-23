@@ -120,7 +120,11 @@ namespace OsuSharp
             string request = await GetAsync($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}");
             List<Scores> score = JsonConvert.DeserializeObject<List<Scores>>(request);
             Beatmaps beatmap = await GetBeatmapAsync(beatmapid, gameMode: gameMode);
-            return new BeatmapScores { Beatmap = beatmap, Score = score };
+            return new BeatmapScores
+            {
+                Beatmap = beatmap,
+                Score = score
+            };
         }
 
         public static async Task<BeatmapScoresUsers> GetScoresWithUsersAndBeatmapAsync(ulong beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50)
@@ -134,7 +138,12 @@ namespace OsuSharp
             {
                 users.Add(await GetUserByIdAsync(score.Userid, gameMode));
             }
-            return new BeatmapScoresUsers { Beatmap = beatmap, Scores = scores, Users = users };
+            return new BeatmapScoresUsers
+            {
+                Beatmap = beatmap,
+                Scores = scores,
+                Users = users
+            };
         }
 
         public static async Task<List<UserBest>> GetUserBestByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
