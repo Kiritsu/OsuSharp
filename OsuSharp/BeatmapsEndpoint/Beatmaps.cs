@@ -20,31 +20,31 @@ namespace OsuSharp.BeatmapsEndpoint
         }
 
         [JsonProperty("total_length")]
-        public int TotalLength { get; set; }
+        public ushort TotalLength { get; set; }
 
         [JsonProperty("hit_length")]
-        public int HitLength { get; set; }
+        public ushort HitLength { get; set; }
 
         [JsonProperty("version")]
-        public string Difficulty { get; set; }
+        public string Version { get; set; }
 
         [JsonProperty("file_md5")]
         public string FileMd5 { get; set; }
 
         [JsonProperty("diff_size")]
-        public float CircleSize { get; set; }
+        public float Cs { get; set; }
 
         [JsonProperty("diff_overall")]
-        public float OverallDifficulty { get; set; }
+        public float Od { get; set; }
 
         [JsonProperty("diff_approach")]
-        public float ApproachRate { get; set; }
+        public float Ar { get; set; }
 
         [JsonProperty("diff_drain")]
-        public float HpDrain { get; set; }
+        public float Hp { get; set; }
 
         [JsonProperty("mode")]
-        public ushort GameMode { get; set; }
+        public ushort Mode { get; set; }
 
         [JsonProperty("approved_date")]
         public DateTime? ApprovedDate { get; set; }
@@ -65,7 +65,7 @@ namespace OsuSharp.BeatmapsEndpoint
         public float Bpm { get; set; }
 
         [JsonProperty("source")]
-        public string Sources { get; set; }
+        public string Source { get; set; }
 
         [JsonProperty("tags")]
         public string Tags { get; set; }
@@ -77,16 +77,16 @@ namespace OsuSharp.BeatmapsEndpoint
         public ushort LanguageId { get; set; }
 
         [JsonProperty("favourite_count")]
-        public int FavouriteCount { get; set; }
+        public ushort FavouriteCount { get; set; }
 
         [JsonProperty("playcount")]
-        public int PlayCount { get; set; }
+        public uint PlayCount { get; set; }
 
         [JsonProperty("passcount")]
-        public int PassCount { get; set; }
+        public uint PassCount { get; set; }
 
         [JsonProperty("max_combo")]
-        public int? MaxCombo { get; set; }
+        public uint? MaxCombo { get; set; }
 
         [JsonProperty("difficultyrating")]
         public float DifficultyRating { get; set; }

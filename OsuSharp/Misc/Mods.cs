@@ -100,7 +100,7 @@ namespace OsuSharp.Misc
 
         private static Dictionary<Mods, string> ModsStrings { get; }
 
-        public static string ToModString(this Mods mods)
+        public static string ToModString(this Mods mods, string format = "")
         {
             if (mods == Mods.None)
             {
@@ -111,7 +111,7 @@ namespace OsuSharp.Misc
                 .Where(k => k.Key != Mods.None && (mods & k.Key) == k.Key)
                 .Select(k => k.Value);
 
-            return string.Join(OsuApi.ModsSeparator, enumerableMods);
+            return string.Join(format, enumerableMods);
         }
     }
 }

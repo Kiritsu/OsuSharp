@@ -5,45 +5,45 @@ namespace OsuSharp.MatchEndpoint
 {
     public class ScoresMatch
     {
-        [JsonProperty("pass")] private short _pass;
+        [JsonProperty("pass")] private ushort _pass;
 
-        [JsonProperty("perfect")] private short _perfect;
+        [JsonProperty("perfect")] private ushort _perfect;
 
         [JsonProperty("slot")]
-        public ushort SlotId { get; set; }
+        public ushort Slot { get; set; }
 
         [JsonProperty("team")]
-        public ushort TeamId { get; set; }
+        public ushort Team { get; set; }
 
         [JsonProperty("user_id")]
         public ulong Userid { get; set; }
 
         [JsonProperty("score")]
-        public long Score { get; set; }
+        public uint Score { get; set; }
 
         [JsonProperty("maxcombo")]
-        public int? MaxCombo { get; set; }
+        public uint? MaxCombo { get; set; }
 
         [JsonProperty("rank")]
-        public int Rank { get; set; }
+        public uint Rank { get; set; }
 
         [JsonProperty("count50")]
-        public int Count50 { get; set; }
+        public uint Count50 { get; set; }
 
         [JsonProperty("count100")]
-        public int Count100 { get; set; }
+        public uint Count100 { get; set; }
 
         [JsonProperty("count300")]
-        public int Count300 { get; set; }
+        public uint Count300 { get; set; }
 
         [JsonProperty("countmiss")]
-        public int Miss { get; set; }
+        public uint Miss { get; set; }
 
         [JsonProperty("countgeki")]
-        public int Geki { get; set; }
+        public uint Geki { get; set; }
 
         [JsonProperty("countkatu")]
-        public int Katu { get; set; }
+        public uint Katu { get; set; }
 
         public bool Perfect
         {

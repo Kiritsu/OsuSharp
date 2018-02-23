@@ -12,13 +12,13 @@ namespace OsuSharp.UserEndpoint
         public string Username { get; set; }
 
         [JsonProperty("playcount")]
-        public int PlayCount { get; set; }
+        public uint PlayCount { get; set; }
 
         [JsonProperty("accuracy")]
         public double Accuracy { get; set; }
 
         [JsonProperty("pp_rank")]
-        public int GlobalRank { get; set; }
+        public uint GlobalRank { get; set; }
 
         [JsonProperty("pp_raw")]
         public float Pp { get; set; }
@@ -27,25 +27,25 @@ namespace OsuSharp.UserEndpoint
         public string Country { get; set; }
 
         [JsonProperty("pp_country_rank")]
-        public int RegionalRank { get; set; }
+        public uint RegionalRank { get; set; }
 
         [JsonProperty("level")]
         public float Level { get; set; }
 
         [JsonProperty("total_score")]
-        public long TotalScore { get; set; }
+        public ulong TotalScore { get; set; }
 
         [JsonProperty("ranked_score")]
-        public long RankedScore { get; set; }
+        public ulong RankedScore { get; set; }
 
         [JsonProperty("count300")]
-        public int Count300 { get; set; }
+        public uint Count300 { get; set; }
 
         [JsonProperty("count100")]
-        public int Count100 { get; set; }
+        public uint Count100 { get; set; }
 
         [JsonProperty("count50")]
-        public int Count50 { get; set; }
+        public uint Count50 { get; set; }
 
         [JsonProperty("count_rank_ss")]
         public int SsRank { get; set; }

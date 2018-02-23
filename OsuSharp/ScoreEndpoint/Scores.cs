@@ -18,16 +18,16 @@ namespace OsuSharp.ScoreEndpoint
         public string Username { get; set; }
 
         [JsonProperty("count300")]
-        public int Count300 { get; set; }
+        public uint Count300 { get; set; }
 
         [JsonProperty("count100")]
-        public int Count100 { get; set; }
+        public uint Count100 { get; set; }
 
         [JsonProperty("count50")]
-        public int Count50 { get; set; }
+        public uint Count50 { get; set; }
 
         [JsonProperty("countmiss")]
-        public int Miss { get; set; }
+        public uint Miss { get; set; }
 
         [JsonIgnore]
         public double Accuracy
@@ -36,13 +36,13 @@ namespace OsuSharp.ScoreEndpoint
         }
 
         [JsonProperty("maxcombo")]
-        public int? MaxCombo { get; set; }
+        public uint? MaxCombo { get; set; }
 
         [JsonProperty("countkatu")]
-        public int Katu { get; set; }
+        public uint Katu { get; set; }
 
         [JsonProperty("countgeki")]
-        public int Geki { get; set; }
+        public uint Geki { get; set; }
 
         public bool Perfect
         {
