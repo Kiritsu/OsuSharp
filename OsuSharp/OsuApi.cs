@@ -5,12 +5,14 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using OsuSharp.BeatmapsEndpoint;
+using OsuSharp.Entities;
 using OsuSharp.MatchEndpoint;
 using OsuSharp.Misc;
 using OsuSharp.ReplayEndpoint;
 using OsuSharp.ScoreEndpoint;
 using OsuSharp.UserBestEndpoint;
 using OsuSharp.UserEndpoint;
+using OsuSharp.UserRecentEndpoint;
 
 namespace OsuSharp
 {
@@ -32,10 +34,12 @@ namespace OsuSharp
 
         private static HttpClient _httpClient;
 
-        public static string ApiKey { get; set; }
+        public static string ApiKey { get; internal set; }
+        public static string ModsSeparator { get; internal set; }
 
-        public static void Init(string apiKey)
+        public static void Init(string apiKey, string modsSeparator = "")
         {
+            ModsSeparator = modsSeparator;
             ApiKey = apiKey;
             _httpClient = new HttpClient {BaseAddress = new Uri(ROOT_DOMAIN)};
         }
@@ -110,11 +114,52 @@ namespace OsuSharp
             return JsonConvert.DeserializeObject<List<Scores>>(request);
         }
 
+        public static async Task<BeatmapScores> GetScoresAndBeatmapAsync(ulong beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50)
+        {
+            string mode = UserMode.ToString(gameMode);
+            string request = await GetAsync($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}");
+            List<Scores> score = JsonConvert.DeserializeObject<List<Scores>>(request);
+            Beatmaps beatmap = await GetBeatmapAsync(beatmapid, gameMode: gameMode);
+            return new BeatmapScores { Beatmap = beatmap, Score = score };
+        }
+
+        public static async Task<BeatmapScoresUsers> GetScoresWithUsersAndBeatmapAsync(ulong beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50)
+        {
+            string mode = UserMode.ToString(gameMode);
+            string request = await GetAsync($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}");
+            List<Scores> scores = JsonConvert.DeserializeObject<List<Scores>>(request);
+            List<Users> users = new List<Users>();
+            Beatmaps beatmap = await GetBeatmapAsync(beatmapid);
+            foreach (Scores score in scores)
+            {
+                users.Add(await GetUserByIdAsync(score.Userid, gameMode));
+            }
+            return new BeatmapScoresUsers { Beatmap = beatmap, Scores = scores, Users = users };
+        }
+
         public static async Task<List<UserBest>> GetUserBestByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
         {
             string mode = UserMode.ToString(gameMode);
             string request = await GetAsync($"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}");
+
             return JsonConvert.DeserializeObject<List<UserBest>>(request);
+        }
+
+        public static async Task<List<UserBestBeatmap>> GetUserBestAndBeatmapByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
+        {
+            string mode = UserMode.ToString(gameMode);
+            string request = await GetAsync($"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}");
+            List<UserBest> userBest = JsonConvert.DeserializeObject<List<UserBest>>(request);
+            List<UserBestBeatmap> userBestBeatmap = new List<UserBestBeatmap>();
+            foreach (UserBest best in userBest)
+            {
+                userBestBeatmap.Add(new UserBestBeatmap
+                {
+                    Beatmap = await GetBeatmapAsync(best.BeatmapId),
+                    UserBest = best
+                });
+            }
+            return userBestBeatmap;
         }
 
         public static async Task<List<UserBest>> GetUserBestByUseridAsync(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
@@ -124,18 +169,69 @@ namespace OsuSharp
             return JsonConvert.DeserializeObject<List<UserBest>>(request);
         }
 
-        public static async Task<List<UserRecent.UserRecent>> GetUserRecentByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
+        public static async Task<List<UserBestBeatmap>> GetUserBestAndBeatmapByUseridAsync(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
+        {
+            string mode = UserMode.ToString(gameMode);
+            string request = await GetAsync($"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}");
+            List<UserBest> userBest = JsonConvert.DeserializeObject<List<UserBest>>(request);
+            List<UserBestBeatmap> userBestBeatmap = new List<UserBestBeatmap>();
+            foreach (UserBest best in userBest)
+            {
+                userBestBeatmap.Add(new UserBestBeatmap
+                {
+                    Beatmap = await GetBeatmapAsync(best.BeatmapId),
+                    UserBest = best
+                });
+            }
+            return userBestBeatmap;
+        }
+
+        public static async Task<List<UserRecent>> GetUserRecentByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
         {
             string mode = UserMode.ToString(gameMode);
             string request = await GetAsync($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}");
-            return JsonConvert.DeserializeObject<List<UserRecent.UserRecent>>(request);
+            return JsonConvert.DeserializeObject<List<UserRecent>>(request);
         }
 
-        public static async Task<List<UserRecent.UserRecent>> GetUserRecentByUseridAsync(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
+        public static async Task<List<UserRecentBeatmap>> GetUserRecentAndBeatmapByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
+        {
+            string mode = UserMode.ToString(gameMode);
+            string request = await GetAsync($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}");
+            List<UserRecent> userRecents = JsonConvert.DeserializeObject<List<UserRecent>>(request);
+            List<UserRecentBeatmap> userRecentBeatmap = new List<UserRecentBeatmap>();
+            foreach (UserRecent recent in userRecents)
+            {
+                userRecentBeatmap.Add(new UserRecentBeatmap
+                {
+                    Beatmap = await GetBeatmapAsync(recent.BeatmapId),
+                    UserRecent = recent
+                });
+            }
+            return userRecentBeatmap;
+        }
+
+        public static async Task<List<UserRecent>> GetUserRecentByUseridAsync(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
         {
             string mode = UserMode.ToString(gameMode);
             string request = await GetAsync($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}");
-            return JsonConvert.DeserializeObject<List<UserRecent.UserRecent>>(request);
+            return JsonConvert.DeserializeObject<List<UserRecent>>(request);
+        }
+
+        public static async Task<List<UserRecentBeatmap>> GetUserRecentAndBeatmapByUseridAsync(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
+        {
+            string mode = UserMode.ToString(gameMode);
+            string request = await GetAsync($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}");
+            List<UserRecent> userRecents = JsonConvert.DeserializeObject<List<UserRecent>>(request);
+            List<UserRecentBeatmap> userRecentBeatmap = new List<UserRecentBeatmap>();
+            foreach (UserRecent recent in userRecents)
+            {
+                userRecentBeatmap.Add(new UserRecentBeatmap
+                {
+                    Beatmap = await GetBeatmapAsync(recent.BeatmapId),
+                    UserRecent = recent
+                });
+            }
+            return userRecentBeatmap;
         }
 
         public static async Task<Matchs> GetMatchAsync(ulong matchid)
