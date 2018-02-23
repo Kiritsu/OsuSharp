@@ -20,7 +20,7 @@ namespace OsuSharp.MatchEndpoint
         public ulong BeatmapId { get; set; }
 
         [JsonProperty("play_mode")]
-        public ushort PlayMode { get; set; }
+        public ushort GameMode { get; set; }
 
         [JsonProperty("match_type")]
         public ushort MatchType { get; set; }

@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using OsuSharp.Misc;
 
-namespace OsuSharp.UserRecent
+namespace OsuSharp.UserRecentEndpoint
 {
     public class UserRecent
     {
@@ -12,28 +12,28 @@ namespace OsuSharp.UserRecent
         public ulong BeatmapId { get; set; }
 
         [JsonProperty("score")]
-        public ulong Score { get; set; }
+        public long Score { get; set; }
 
         [JsonProperty("maxcombo")]
-        public uint? MaxCombo { get; set; }
+        public int? MaxCombo { get; set; }
 
         [JsonProperty("count300")]
-        public uint Count300 { get; set; }
+        public int Count300 { get; set; }
 
         [JsonProperty("count100")]
-        public uint Count100 { get; set; }
+        public int Count100 { get; set; }
 
         [JsonProperty("count50")]
-        public uint Count50 { get; set; }
+        public int Count50 { get; set; }
 
         [JsonProperty("countmiss")]
-        public uint Miss { get; set; }
+        public int Miss { get; set; }
 
         [JsonProperty("countkatu")]
-        public uint Katu { get; set; }
+        public int Katu { get; set; }
 
         [JsonProperty("countgeki")]
-        public uint Geki { get; set; }
+        public int Geki { get; set; }
 
         public bool Perfect
         {
@@ -42,7 +42,7 @@ namespace OsuSharp.UserRecent
         }
 
         [JsonProperty("enabled_mods")]
-        public uint EnabledMods { get; set; }
+        public int EnabledMods { get; set; }
 
         public Mods EnabledModsEnum
         {
