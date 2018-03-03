@@ -2,6 +2,11 @@
 {
     public class Approved
     {
+        /// <summary>
+        /// Returns a <see cref="string"/> of the given beatmap state.
+        /// </summary>
+        /// <param name="state">State of the beatmap in number.</param>
+        /// <returns></returns>
         public static string ToString(string state)
         {
             switch (state)

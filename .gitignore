@@ -294,3 +294,4 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 /OsuSharp.Example/token.txt
+/src/OsuSharp.Example/token.txt

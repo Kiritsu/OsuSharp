@@ -100,6 +100,11 @@ namespace OsuSharp.Misc
 
         private static Dictionary<Mods, string> ModsStrings { get; }
 
+        /// <summary>
+        /// Method that returns a <see cref="string"/> of the given bitflag <see cref="Mods"/>.
+        /// </summary>
+        /// <param name="mods">Bitflag of the mod.</param>
+        /// <returns></returns>
         public static string ToModString(this Mods mods)
         {
             if (mods == Mods.None)
