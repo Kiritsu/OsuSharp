@@ -6,7 +6,8 @@ namespace OsuSharp.ScoreEndpoint
 {
     public class Scores
     {
-        [JsonProperty("perfect")] private ushort _perfect;
+        [JsonProperty("perfect")]
+        private ushort _perfect;
 
         [JsonProperty("score")]
         public ulong Score { get; set; }
@@ -32,7 +33,7 @@ namespace OsuSharp.ScoreEndpoint
         [JsonIgnore]
         public double Accuracy
         {
-            get { return (Count50 * 50 + Count100 * 100 + Count300 * 300) / (300.0 * (Count50 + Count100 + Count300 + Miss)); }
+            get { return (Count50 * 50 + Count100 * 100 + Count300 * 300) / (300.0 * (Count50 + Count100 + Count300 + Miss)) * 100; }
         }
 
         [JsonProperty("maxcombo")]

@@ -5,9 +5,11 @@ namespace OsuSharp.MatchEndpoint
 {
     public class ScoresMatch
     {
-        [JsonProperty("pass")] private short _pass;
+        [JsonProperty("pass")]
+        private short _pass;
 
-        [JsonProperty("perfect")] private short _perfect;
+        [JsonProperty("perfect")]
+        private short _perfect;
 
         [JsonProperty("slot")]
         public ushort SlotId { get; set; }
@@ -58,7 +60,7 @@ namespace OsuSharp.MatchEndpoint
         [JsonIgnore]
         public double Accuracy
         {
-            get { return (Count50 * 50 + Count100 * 100 + Count300 * 300) / (300.0 * (Count50 + Count100 + Count300 + Miss)); }
+            get { return (Count50 * 50 + Count100 * 100 + Count300 * 300) / (300.0 * (Count50 + Count100 + Count300 + Miss)) * 100; }
         }
     }
 }

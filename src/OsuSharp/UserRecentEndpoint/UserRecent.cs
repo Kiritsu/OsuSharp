@@ -6,7 +6,8 @@ namespace OsuSharp.UserRecentEndpoint
 {
     public class UserRecent
     {
-        [JsonProperty("perfect")] private ushort _perfect;
+        [JsonProperty("perfect")]
+        private ushort _perfect;
 
         [JsonProperty("beatmap_id")]
         public ulong BeatmapId { get; set; }
@@ -38,7 +39,6 @@ namespace OsuSharp.UserRecentEndpoint
         public bool Perfect
         {
             get { return Convert.ToBoolean(_perfect); }
-            set { Perfect = value; }
         }
 
         [JsonProperty("enabled_mods")]
