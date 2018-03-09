@@ -9,8 +9,8 @@ namespace OsuSharp.Entities
 {
     public class BeatmapScoresUsers
     {
-        public Beatmaps Beatmap { get; set; }
-        public List<Scores> Scores { get; set; }
-        public List<Users> Users { get; set; }
+        public Beatmap Beatmap { get; set; }
+        public List<Score> Scores { get; set; }
+        public List<User> Users { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace OsuSharp.UserBestEndpoint
         public ulong BeatmapId { get; set; }
 
         [JsonProperty("score")]
-        public long Score { get; set; }
+        public long ScorePoints { get; set; }
 
         [JsonProperty("username")]
         public string Username { get; set; }

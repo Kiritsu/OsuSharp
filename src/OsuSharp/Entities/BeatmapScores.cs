@@ -6,7 +6,7 @@ namespace OsuSharp.Entities
 {
     public class BeatmapScores
     {
-        public Beatmaps Beatmap { get; set; }
-        public List<Scores> Score { get; set; }
+        public Beatmap Beatmap { get; set; }
+        public List<Score> Score { get; set; }
     }
 }

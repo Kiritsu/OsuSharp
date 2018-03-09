@@ -5,7 +5,7 @@ using OsuSharp.Misc;
 
 namespace OsuSharp.MatchEndpoint
 {
-    public class Games
+    public class Game
     {
         [JsonProperty("game_id")]
         public ulong GameId { get; set; }
@@ -45,6 +45,6 @@ namespace OsuSharp.MatchEndpoint
         }
 
         [JsonProperty("scores")]
-        public List<ScoresMatch> Scores { get; set; }
+        public List<ScoreMatch> Scores { get; set; }
     }
 }

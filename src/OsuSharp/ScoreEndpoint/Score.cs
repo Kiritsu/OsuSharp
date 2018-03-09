@@ -4,13 +4,13 @@ using OsuSharp.Misc;
 
 namespace OsuSharp.ScoreEndpoint
 {
-    public class Scores
+    public class Score
     {
         [JsonProperty("perfect")]
         private ushort _perfect;
 
         [JsonProperty("score")]
-        public ulong Score { get; set; }
+        public ulong ScorePoints { get; set; }
 
         [JsonProperty("score_id")]
         public ulong ScoreId { get; set; }

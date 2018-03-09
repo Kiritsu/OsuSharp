@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace OsuSharp.UserEndpoint
 {
-    public class Users
+    public class User
     {
         [JsonProperty("user_id")]
         public long Userid { get; set; }
@@ -57,6 +57,6 @@ namespace OsuSharp.UserEndpoint
         public int ARank { get; set; }
 
         [JsonProperty("events")]
-        public List<Events> Events { get; set; }
+        public List<Event> Events { get; set; }
     }
 }

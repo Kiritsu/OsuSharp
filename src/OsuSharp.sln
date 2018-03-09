@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsuSharp", "OsuSharp\OsuSharp.csproj", "{F47FED04-3AFC-4848-BF14-1416F9291810}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuSharp.Example", "OsuSharp.Example\OsuSharp.Example.csproj", "{A47D4DE8-7695-48CB-AC53-D472D483ADAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsuSharp.Example", "OsuSharp.Example\OsuSharp.Example.csproj", "{A47D4DE8-7695-48CB-AC53-D472D483ADAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -25,7 +25,7 @@ namespace OsuSharp.Example
                 OsuApi instance = OsuApi.CreateInstance(File.ReadAllText("token.txt"));
                 OsuApi.SetGlobalModsSeparator(" ");
 
-                Users user = await instance.GetUserByNameAsync("Evolia");
+                User user = await instance.GetUserByNameAsync("Evolia");
                 Console.WriteLine($"User {user.Username} with id {user.Userid}\n" +
                                   $" > Current accuracy : {user.Accuracy}\n" +
                                   $" > Total Score : {user.TotalScore}\n" +
@@ -34,7 +34,7 @@ namespace OsuSharp.Example
                                   $" > Performance Points : {user.Pp}\n" +
                                   $" > Play count : {user.PlayCount}");
 
-                Beatmaps beatmap = await instance.GetBeatmapAsync(75);
+                Beatmap beatmap = await instance.GetBeatmapAsync(75);
                 Console.WriteLine($"\n\nBeatmap {beatmap.Title} with id {beatmap.BeatmapId} mapped by {beatmap.Creator}\n" +
                                   $" > Difficulty : {beatmap.Difficulty}\n" +
                                   $" > State : {beatmap.Approved}\n" +
@@ -48,7 +48,7 @@ namespace OsuSharp.Example
                 List<UserBestBeatmap> userBestsBeatmaps = await instance.GetUserBestAndBeatmapByUsernameAsync("Evolia");
                 foreach (UserBestBeatmap userBestBeatmap in userBestsBeatmaps)
                 {
-                    Console.WriteLine($"\nScore {userBestBeatmap.UserBest.Score} with {userBestBeatmap.UserBest.Accuracy} accuracy\nOn map {userBestBeatmap.Beatmap.Title} made by {userBestBeatmap.Beatmap.Creator} with difficulty {userBestBeatmap.Beatmap.Difficulty}");
+                    Console.WriteLine($"\nScore {userBestBeatmap.UserBest.ScorePoints} with {userBestBeatmap.UserBest.Accuracy} accuracy\nOn map {userBestBeatmap.Beatmap.Title} made by {userBestBeatmap.Beatmap.Creator} with difficulty {userBestBeatmap.Beatmap.Difficulty}");
                 }
 
                 BeatmapScores beatmapScores = await instance.GetScoresAndBeatmapAsync(75);
@@ -61,9 +61,9 @@ namespace OsuSharp.Example
                                   $" > CS : {beatmapScores.Beatmap.CircleSize}\n" +
                                   $" > HP : {beatmapScores.Beatmap.HpDrain}\n" +
                                   $" > Star difficulty : {beatmapScores.Beatmap.DifficultyRating}");
-                foreach (Scores score in beatmapScores.Score)
+                foreach (Score score in beatmapScores.Score)
                 {
-                    Console.WriteLine($"\nScore {score.Score} with {score.Accuracy}% accuracy made by {score.Username}");
+                    Console.WriteLine($"\nScore {score.ScorePoints} with {score.Accuracy}% accuracy made by {score.Username}");
                 }
 
                 BeatmapScoresUsers beatmapScoresUsers = await instance.GetScoresWithUsersAndBeatmapAsync(75);
@@ -76,12 +76,12 @@ namespace OsuSharp.Example
                                   $" > CS : {beatmapScores.Beatmap.CircleSize}\n" +
                                   $" > HP : {beatmapScores.Beatmap.HpDrain}\n" +
                                   $" > Star difficulty : {beatmapScores.Beatmap.DifficultyRating}");
-                foreach (Scores score in beatmapScores.Score)
+                foreach (Score score in beatmapScores.Score)
                 {
-                    Users currentUser = beatmapScoresUsers.Users.SingleOrDefault(x => x.Username == score.Username);
+                    User currentUser = beatmapScoresUsers.Users.SingleOrDefault(x => x.Username == score.Username);
                     Console.WriteLine(currentUser != null
-                        ? $"\nScore {score.Score} with {score.Accuracy}% accuracy made by {currentUser.Username} that has {currentUser.Pp} performance points."
-                        : $"\nScore {score.Score} with {score.Accuracy}% accuracy made by {score.Username}");
+                        ? $"\nScore {score.ScorePoints} with {score.Accuracy}% accuracy made by {currentUser.Username} that has {currentUser.Pp} performance points."
+                        : $"\nScore {score.ScorePoints} with {score.Accuracy}% accuracy made by {score.Username}");
                 }
             }
             catch (Exception e)

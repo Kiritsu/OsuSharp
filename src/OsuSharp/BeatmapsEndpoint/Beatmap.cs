@@ -1,11 +1,13 @@
 ﻿using System;
 using Newtonsoft.Json;
+using OsuSharp.Misc;
 
 namespace OsuSharp.BeatmapsEndpoint
 {
-    public class Beatmaps
+    public class Beatmap
     {
-        [JsonProperty("approved")] private string _approved;
+        [JsonProperty("approved")]
+        private string _approved;
 
         [JsonProperty("beatmapset_id")]
         public ulong BeatmapsetId { get; set; }
@@ -13,10 +15,9 @@ namespace OsuSharp.BeatmapsEndpoint
         [JsonProperty("beatmap_id")]
         public ulong BeatmapId { get; set; }
 
-        public string Approved
+        public BeatmapState Approved
         {
-            get { return Misc.Approved.ToString(_approved); }
-            set { _approved = value; }
+            get { return Misc.Approved.ToBeatmapState(_approved); }
         }
 
         [JsonProperty("total_length")]

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace OsuSharp.MatchEndpoint
 {
-    public class ScoresMatch
+    public class ScoreMatch
     {
         [JsonProperty("pass")]
         private short _pass;
@@ -21,7 +21,7 @@ namespace OsuSharp.MatchEndpoint
         public ulong Userid { get; set; }
 
         [JsonProperty("score")]
-        public long Score { get; set; }
+        public long ScorePoints { get; set; }
 
         [JsonProperty("maxcombo")]
         public int? MaxCombo { get; set; }

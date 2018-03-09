@@ -74,142 +74,142 @@ namespace OsuSharp
         }
 
         /// <summary>
-        /// Method that returns a <see cref="Beatmaps"/>. It requires a valid BeatmapId.
+        /// Method that returns a <see cref="Beatmap"/>. It requires a valid BeatmapId.
         /// </summary>
         /// <param name="beatmapId">Id of the beatmap.</param>
         /// <param name="bmType">Type of the beatmap. Beatmapset or difficulty.</param>
         /// <param name="gameMode">Gamemode of the beatmap. Standard, Taiko, Catch or Mania.</param>
         /// <returns></returns>
-        public async Task<Beatmaps> GetBeatmapAsync(ulong beatmapId, BeatmapType bmType = BeatmapType.ByDifficulty, GameMode gameMode = GameMode.Standard)
+        public async Task<Beatmap> GetBeatmapAsync(ulong beatmapId, BeatmapType bmType = BeatmapType.ByDifficulty, GameMode gameMode = GameMode.Standard)
         {
             string mode = UserMode.ToString(gameMode);
-            string type = Beatmap.ToString(bmType);
+            string type = BeatmapParam.ToString(bmType);
             string request = await GetAsync($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{beatmapId}{mode}");
-            List<Beatmaps> r = JsonConvert.DeserializeObject<List<Beatmaps>>(request);
+            List<Beatmap> r = JsonConvert.DeserializeObject<List<Beatmap>>(request);
             return r.Count > 0 ? r[0] : null;
         }
 
         /// <summary>
-        /// Method that returns a list of <see cref="Beatmaps"/> by the given creator's nickname.
+        /// Method that returns a list of <see cref="Beatmap"/> by the given creator's nickname.
         /// </summary>
         /// <param name="nickname">Author's nickname of the beatmap.</param>
         /// <param name="bmType">Type of the beatmap. ByCreator is required.</param>
         /// <param name="gameMode">Gamemode of the beatmap. Standard, Taiko, Catch or Mania.</param>
         /// <param name="limit">Limit of the output. Default and maximum : 500.</param>
         /// <returns></returns>
-        public async Task<List<Beatmaps>> GetBeatmapsAsync(string nickname, BeatmapType bmType = BeatmapType.ByCreator, GameMode gameMode = GameMode.Standard, int limit = 500)
+        public async Task<List<Beatmap>> GetBeatmapsAsync(string nickname, BeatmapType bmType = BeatmapType.ByCreator, GameMode gameMode = GameMode.Standard, int limit = 500)
         {
             string mode = UserMode.ToString(gameMode);
-            string type = Beatmap.ToString(bmType);
+            string type = BeatmapParam.ToString(bmType);
             string request = await GetAsync($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{nickname}{LIMIT_PARAMETER}{limit}{mode}");
-            return JsonConvert.DeserializeObject<List<Beatmaps>>(request);
+            return JsonConvert.DeserializeObject<List<Beatmap>>(request);
         }
 
         /// <summary>
-        /// Method that returns a list of <see cref="Beatmaps"/> by the given beatmapset id.
+        /// Method that returns a list of <see cref="Beatmap"/> by the given beatmapset id.
         /// </summary>
         /// <param name="id">Id of the beatmapset.</param>
         /// <param name="bmType">Type of the beatmap. ByBeatmap is required.</param>
         /// <param name="gameMode">Gamemode of the beatmap. Standard, Taiko, Catch or Mania.</param>
         /// <param name="limit">Limit of the ouput. Default and maximum : 500.</param>
         /// <returns></returns>
-        public async Task<List<Beatmaps>> GetBeatmapsAsync(ulong id, BeatmapType bmType = BeatmapType.ByBeatmap, GameMode gameMode = GameMode.Standard, int limit = 500)
+        public async Task<List<Beatmap>> GetBeatmapsAsync(ulong id, BeatmapType bmType = BeatmapType.ByBeatmap, GameMode gameMode = GameMode.Standard, int limit = 500)
         {
             string mode = UserMode.ToString(gameMode);
-            string type = Beatmap.ToString(bmType);
+            string type = BeatmapParam.ToString(bmType);
             string request = await GetAsync($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{id}{LIMIT_PARAMETER}{limit}{mode}");
-            return JsonConvert.DeserializeObject<List<Beatmaps>>(request);
+            return JsonConvert.DeserializeObject<List<Beatmap>>(request);
         }
 
         /// <summary>
-        /// Method that returns a list of lasts uploaded <see cref="Beatmaps"/>.
+        /// Method that returns a list of lasts uploaded <see cref="Beatmap"/>.
         /// </summary>
         /// <param name="limit">Limit of the output. Default and maximum : 500.</param>
         /// <returns></returns>
-        public async Task<List<Beatmaps>> GetLastBeatmapsAsync(int limit = 500)
+        public async Task<List<Beatmap>> GetLastBeatmapsAsync(int limit = 500)
         {
             string request = await GetAsync($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{LIMIT_PARAMETER}{limit}");
-            return JsonConvert.DeserializeObject<List<Beatmaps>>(request);
+            return JsonConvert.DeserializeObject<List<Beatmap>>(request);
         }
 
         /// <summary>
-        /// Method that returns a <see cref="Users"/> by the given Username.
+        /// Method that returns a <see cref="User"/> by the given Username.
         /// </summary>
         /// <param name="username">Username of the user.</param>
         /// <param name="gameMode">Gamemode of the user. Standard, Taiko, Catch or Mania.</param>
         /// <returns></returns>
-        public async Task<Users> GetUserByNameAsync(string username, GameMode gameMode = GameMode.Standard)
+        public async Task<User> GetUserByNameAsync(string username, GameMode gameMode = GameMode.Standard)
         {
             string mode = UserMode.ToString(gameMode);
             string request = await GetAsync($"{GET_USER_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}");
-            List<Users> r = JsonConvert.DeserializeObject<List<Users>>(request);
+            List<User> r = JsonConvert.DeserializeObject<List<User>>(request);
             return r.Count > 0 ? r[0] : null;
         }
 
         /// <summary>
-        /// Method that returns a <see cref="Users"/> by the given Userid.
+        /// Method that returns a <see cref="User"/> by the given Userid.
         /// </summary>
         /// <param name="userid">Id of the user.</param>
         /// <param name="gameMode">Gamemode of the user. Standard, Taiko, Catch or Mania.</param>
         /// <returns></returns>
-        public async Task<Users> GetUserByIdAsync(ulong userid, GameMode gameMode = GameMode.Standard)
+        public async Task<User> GetUserByIdAsync(ulong userid, GameMode gameMode = GameMode.Standard)
         {
             string mode = UserMode.ToString(gameMode);
             string request = await GetAsync($"{GET_USER_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}");
-            List<Users> r = JsonConvert.DeserializeObject<List<Users>>(request);
+            List<User> r = JsonConvert.DeserializeObject<List<User>>(request);
             return r.Count > 0 ? r[0] : null;
         }
 
         /// <summary>
-        /// Method that returns a <see cref="Scores"/> by the given beatmapid and username.
+        /// Method that returns a <see cref="Score"/> by the given beatmapid and username.
         /// </summary>
         /// <param name="beatmapid">Id of the beatmap. Must be the id of a difficulty.</param>
         /// <param name="username">Username of the user.</param>
         /// <param name="gameMode">Gamemode of the play. Standard, Taiko, Catch or Mania.</param>
         /// <returns></returns>
-        public async Task<Scores> GetScoreByUsernameAsync(ulong beatmapid, string username, GameMode gameMode = GameMode.Standard)
+        public async Task<Score> GetScoreByUsernameAsync(ulong beatmapid, string username, GameMode gameMode = GameMode.Standard)
         {
             string mode = UserMode.ToString(gameMode);
             string request = await GetAsync($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{USER_PARAMETER}{username}{BEATMAP_PARAMETER}{beatmapid}");
-            List<Scores> r = JsonConvert.DeserializeObject<List<Scores>>(request);
+            List<Score> r = JsonConvert.DeserializeObject<List<Score>>(request);
             return r.Count > 0 ? r[0] : null;
         }
 
         /// <summary>
-        /// Method that returns a <see cref="Scores"/> by the given beatmapid and userid.
+        /// Method that returns a <see cref="Score"/> by the given beatmapid and userid.
         /// </summary>
         /// <param name="beatmapid">Id of the beatmap. Must be the id of a difficulty.</param>
         /// <param name="userid">Id of the user.</param>
         /// <param name="gameMode">Gamemode of the play. Standard, Taiko, Catch or Mania.</param>
         /// <returns></returns>
-        public async Task<Scores> GetScoreByUseridAsync(ulong beatmapid, ulong userid, GameMode gameMode = GameMode.Standard)
+        public async Task<Score> GetScoreByUseridAsync(ulong beatmapid, ulong userid, GameMode gameMode = GameMode.Standard)
         {
             string mode = UserMode.ToString(gameMode);
             string request = await GetAsync($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{USER_PARAMETER}{userid}{BEATMAP_PARAMETER}{beatmapid}");
-            List<Scores> r = JsonConvert.DeserializeObject<List<Scores>>(request);
+            List<Score> r = JsonConvert.DeserializeObject<List<Score>>(request);
             return r.Count > 0 ? r[0] : null;
         }
 
         /// <summary>
-        /// Method that returns a list of <see cref="Scores"/> by the given beatmapid.
+        /// Method that returns a list of <see cref="Score"/> by the given beatmapid.
         /// </summary>
         /// <param name="beatmapid">Id of the beatmap. Must be the id of a difficulty.</param>
         /// <param name="gameMode">Gamemode of the play. Standard, Taiko, Catch or Mania.</param>
         /// <param name="limit">Limit of the output. Default : 50, minimum : 1, maximum : 100</param>
         /// <returns></returns>
-        public async Task<List<Scores>> GetScoresAsync(ulong beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50)
+        public async Task<List<Score>> GetScoresAsync(ulong beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50)
         {
             string mode = UserMode.ToString(gameMode);
             string request = await GetAsync($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}");
-            return JsonConvert.DeserializeObject<List<Scores>>(request);
+            return JsonConvert.DeserializeObject<List<Score>>(request);
         }
 
         public async Task<BeatmapScores> GetScoresAndBeatmapAsync(ulong beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50)
         {
             string mode = UserMode.ToString(gameMode);
             string request = await GetAsync($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}");
-            List<Scores> score = JsonConvert.DeserializeObject<List<Scores>>(request);
-            Beatmaps beatmap = await GetBeatmapAsync(beatmapid, gameMode: gameMode);
+            List<Score> score = JsonConvert.DeserializeObject<List<Score>>(request);
+            Beatmap beatmap = await GetBeatmapAsync(beatmapid, gameMode: gameMode);
             return new BeatmapScores
             {
                 Beatmap = beatmap,
@@ -221,10 +221,10 @@ namespace OsuSharp
         {
             string mode = UserMode.ToString(gameMode);
             string request = await GetAsync($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}");
-            List<Scores> scores = JsonConvert.DeserializeObject<List<Scores>>(request);
-            List<Users> users = new List<Users>();
-            Beatmaps beatmap = await GetBeatmapAsync(beatmapid);
-            foreach (Scores score in scores)
+            List<Score> scores = JsonConvert.DeserializeObject<List<Score>>(request);
+            List<User> users = new List<User>();
+            Beatmap beatmap = await GetBeatmapAsync(beatmapid);
+            foreach (Score score in scores)
             {
                 users.Add(await GetUserByIdAsync(score.Userid, gameMode));
             }

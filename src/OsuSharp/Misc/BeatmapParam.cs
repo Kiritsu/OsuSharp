@@ -1,6 +1,6 @@
 ﻿namespace OsuSharp.Misc
 {
-    public class Beatmap
+    public class BeatmapParam
     {
         public static string ToString(BeatmapType type)
         {

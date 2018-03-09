@@ -13,7 +13,7 @@ namespace OsuSharp.UserRecentEndpoint
         public ulong BeatmapId { get; set; }
 
         [JsonProperty("score")]
-        public long Score { get; set; }
+        public long ScorePoints { get; set; }
 
         [JsonProperty("maxcombo")]
         public int? MaxCombo { get; set; }

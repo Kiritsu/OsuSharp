@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace OsuSharp.UserEndpoint
 {
-    public class Events
+    public class Event
     {
         [JsonProperty("display_html")]
         public string DisplayHtml { get; set; }

@@ -9,6 +9,6 @@ namespace OsuSharp.MatchEndpoint
         public Match Match { get; set; }
 
         [JsonProperty("games")]
-        public List<Games> Games { get; set; }
+        public List<Game> Games { get; set; }
     }
 }
