@@ -40,9 +40,9 @@ private const string API_KEY = "Your_Osu_API_Key"; //You can get one here: https
 
 public async Task GetOsuBeatmapAsync(ulong beatmapId)
 {
-    OsuApi.Init(API_KEY);
-    var api = await OsuApi.GetBeatmapAsync(beatmapId);
-    Console.WriteLine($"The creator of the map is: {api.Creator}");
+    OsuApi instance = OsuApi.CreateInstance(API_KEY);
+    var beatmap = await instance.GetBeatmapAsync(beatmapId);
+    Console.WriteLine($"The creator of the map is: {beatmap.Creator}");
 }
 ```
 
