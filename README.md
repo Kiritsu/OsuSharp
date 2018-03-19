@@ -16,7 +16,7 @@
 You can install the wrapper with Nuget
 
 ```
-PM> Install-Package OsuSharp -Version 1.5.0
+PM> Install-Package OsuSharp -Version 1.5.2
 ```
 
 Or compile from source
@@ -25,13 +25,9 @@ Or compile from source
 git clone https://github.com/Kiritsu/OsuSharp.git
 ```
 
-## Development
+## Development or help
 
 If you want to contribute, feel free to use Issues or Pull Request
-
-## Help
-
-Feel free to join my Discord Server: https://discord.gg/bXKXNAR
 
 ## Example
 
