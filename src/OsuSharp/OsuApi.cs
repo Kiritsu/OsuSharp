@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ using OsuSharp.UserRecentEndpoint;
 
 namespace OsuSharp
 {
-    public class OsuApi
+    public class OsuApi : IOsuApi
     {
         private const string ROOT_DOMAIN = "https://osu.ppy.sh";
         private const string GET_BEATMAPS_URL = "/api/get_beatmaps";
@@ -34,9 +35,9 @@ namespace OsuSharp
         private static HttpClient _httpClient;
         public static string ModsSeparator = "";
 
+        /// <inheritdoc />
         public string ApiKey { get; internal set; }
         
-
         /// <summary>
         /// Method that initializes the library to perform your requests.
         /// </summary>
@@ -77,13 +78,7 @@ namespace OsuSharp
             ModsSeparator = separator.ToString();
         }
 
-        /// <summary>
-        /// Method that returns a <see cref="Beatmap"/>. It requires a valid BeatmapId.
-        /// </summary>
-        /// <param name="beatmapId">Id of the beatmap.</param>
-        /// <param name="bmType">Type of the beatmap. Beatmapset or difficulty.</param>
-        /// <param name="gameMode">Gamemode of the beatmap. Standard, Taiko, Catch or Mania.</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<Beatmap> GetBeatmapAsync(ulong beatmapId, BeatmapType bmType = BeatmapType.ByDifficulty, GameMode gameMode = GameMode.Standard)
         {
             string mode = UserMode.ToString(gameMode);
@@ -95,32 +90,23 @@ namespace OsuSharp
             return r.Count > 0 ? r[0] : null;
         }
 
-        /// <summary>
-        /// Method that returns a list of <see cref="Beatmap"/> by the given creator's nickname.
-        /// </summary>
-        /// <param name="nickname">Author's nickname of the beatmap.</param>
-        /// <param name="bmType">Type of the beatmap. ByCreator is required.</param>
-        /// <param name="gameMode">Gamemode of the beatmap. Standard, Taiko, Catch or Mania.</param>
-        /// <param name="limit">Limit of the output. Default and maximum : 500.</param>
-        /// <returns></returns>
-        public async Task<List<Beatmap>> GetBeatmapsAsync(string nickname, BeatmapType bmType = BeatmapType.ByCreator, GameMode gameMode = GameMode.Standard, int limit = 500)
+        /// <inheritdoc />
+        public async Task<List<Beatmap>> GetBeatmapsAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 500)
         {
-            string mode = UserMode.ToString(gameMode);
-            string type = BeatmapParam.ToString(bmType);
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentException("The given username was null or white space.", nameof(username));
+            }
 
-            string request = await GetAsync($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{nickname}{LIMIT_PARAMETER}{limit}{mode}").ConfigureAwait(false);
+            string mode = UserMode.ToString(gameMode);
+            string type = BeatmapParam.ToString(BeatmapType.ByCreator);
+
+            string request = await GetAsync($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{username}{LIMIT_PARAMETER}{limit}{mode}").ConfigureAwait(false);
 
             return JsonConvert.DeserializeObject<List<Beatmap>>(request);
         }
 
-        /// <summary>
-        /// Method that returns a list of <see cref="Beatmap"/> by the given beatmapset id.
-        /// </summary>
-        /// <param name="id">Id of the beatmapset.</param>
-        /// <param name="bmType">Type of the beatmap. ByBeatmap is required.</param>
-        /// <param name="gameMode">Gamemode of the beatmap. Standard, Taiko, Catch or Mania.</param>
-        /// <param name="limit">Limit of the ouput. Default and maximum : 500.</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<List<Beatmap>> GetBeatmapsAsync(ulong id, BeatmapType bmType = BeatmapType.ByBeatmap, GameMode gameMode = GameMode.Standard, int limit = 500)
         {
             string mode = UserMode.ToString(gameMode);
@@ -131,11 +117,7 @@ namespace OsuSharp
             return JsonConvert.DeserializeObject<List<Beatmap>>(request);
         }
 
-        /// <summary>
-        /// Method that returns a list of lasts uploaded <see cref="Beatmap"/>.
-        /// </summary>
-        /// <param name="limit">Limit of the output. Default and maximum : 500.</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<List<Beatmap>> GetLastBeatmapsAsync(int limit = 500)
         {
             string request = await GetAsync($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{LIMIT_PARAMETER}{limit}").ConfigureAwait(false);
@@ -143,14 +125,14 @@ namespace OsuSharp
             return JsonConvert.DeserializeObject<List<Beatmap>>(request);
         }
 
-        /// <summary>
-        /// Method that returns a <see cref="User"/> by the given Username.
-        /// </summary>
-        /// <param name="username">Username of the user.</param>
-        /// <param name="gameMode">Gamemode of the user. Standard, Taiko, Catch or Mania.</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<User> GetUserByNameAsync(string username, GameMode gameMode = GameMode.Standard)
         {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentException("The given username was null or white space.", nameof(username));
+            }
+
             string mode = UserMode.ToString(gameMode);
 
             string request = await GetAsync($"{GET_USER_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}").ConfigureAwait(false);
@@ -159,12 +141,7 @@ namespace OsuSharp
             return r.Count > 0 ? r[0] : null;
         }
 
-        /// <summary>
-        /// Method that returns a <see cref="User"/> by the given Userid.
-        /// </summary>
-        /// <param name="userid">Id of the user.</param>
-        /// <param name="gameMode">Gamemode of the user. Standard, Taiko, Catch or Mania.</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<User> GetUserByIdAsync(ulong userid, GameMode gameMode = GameMode.Standard)
         {
             string mode = UserMode.ToString(gameMode);
@@ -175,15 +152,14 @@ namespace OsuSharp
             return r.Count > 0 ? r[0] : null;
         }
 
-        /// <summary>
-        /// Method that returns a <see cref="Score"/> by the given beatmapid and username.
-        /// </summary>
-        /// <param name="beatmapid">Id of the beatmap. Must be the id of a difficulty.</param>
-        /// <param name="username">Username of the user.</param>
-        /// <param name="gameMode">Gamemode of the play. Standard, Taiko, Catch or Mania.</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<Score> GetScoreByUsernameAsync(ulong beatmapid, string username, GameMode gameMode = GameMode.Standard)
         {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentException("The given username was null or white space.", nameof(username));
+            }
+
             string mode = UserMode.ToString(gameMode);
 
             string request = await GetAsync($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{USER_PARAMETER}{username}{BEATMAP_PARAMETER}{beatmapid}").ConfigureAwait(false);
@@ -192,13 +168,7 @@ namespace OsuSharp
             return r.Count > 0 ? r[0] : null;
         }
 
-        /// <summary>
-        /// Method that returns a <see cref="Score"/> by the given beatmapid and userid.
-        /// </summary>
-        /// <param name="beatmapid">Id of the beatmap. Must be the id of a difficulty.</param>
-        /// <param name="userid">Id of the user.</param>
-        /// <param name="gameMode">Gamemode of the play. Standard, Taiko, Catch or Mania.</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<Score> GetScoreByUseridAsync(ulong beatmapid, ulong userid, GameMode gameMode = GameMode.Standard)
         {
             string mode = UserMode.ToString(gameMode);
@@ -209,13 +179,7 @@ namespace OsuSharp
             return r.Count > 0 ? r[0] : null;
         }
 
-        /// <summary>
-        /// Method that returns a list of <see cref="Score"/> by the given beatmapid.
-        /// </summary>
-        /// <param name="beatmapid">Id of the beatmap. Must be the id of a difficulty.</param>
-        /// <param name="gameMode">Gamemode of the play. Standard, Taiko, Catch or Mania.</param>
-        /// <param name="limit">Limit of the output. Default : 50, minimum : 1, maximum : 100</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<List<Score>> GetScoresAsync(ulong beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50)
         {
             string mode = UserMode.ToString(gameMode);
@@ -225,6 +189,7 @@ namespace OsuSharp
             return JsonConvert.DeserializeObject<List<Score>>(request);
         }
 
+        /// <inheritdoc />
         public async Task<BeatmapScores> GetScoresAndBeatmapAsync(ulong beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50)
         {
             string mode = UserMode.ToString(gameMode);
@@ -240,6 +205,7 @@ namespace OsuSharp
             };
         }
 
+        /// <inheritdoc />
         public async Task<BeatmapScoresUsers> GetScoresWithUsersAndBeatmapAsync(ulong beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50)
         {
             string mode = UserMode.ToString(gameMode);
@@ -262,15 +228,14 @@ namespace OsuSharp
             };
         }
 
-        /// <summary>
-        /// Method that returns a list of <see cref="UserBest"/> by the given username.
-        /// </summary>
-        /// <param name="username">Username of the user.</param>
-        /// <param name="gameMode">Gamemode of the play. Standard, Taiko, Catch or Mania.</param>
-        /// <param name="limit">Limit of the output. Default : 10, minimum : 1, maximum : 100</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<List<UserBest>> GetUserBestByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
         {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentException("The given username was null or white space.", nameof(username));
+            }
+
             string mode = UserMode.ToString(gameMode);
 
             string request = await GetAsync($"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}").ConfigureAwait(false);
@@ -278,8 +243,14 @@ namespace OsuSharp
             return JsonConvert.DeserializeObject<List<UserBest>>(request);
         }
 
+        /// <inheritdoc />
         public async Task<List<UserBestBeatmap>> GetUserBestAndBeatmapByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
         {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentException("The given username was null or white space.", nameof(username));
+            }
+
             string mode = UserMode.ToString(gameMode);
 
             string request = await GetAsync($"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}").ConfigureAwait(false);
@@ -298,13 +269,7 @@ namespace OsuSharp
             return userBestBeatmap;
         }
 
-        /// <summary>
-        /// Method that returns a list of <see cref="UserBest"/> by the given userid.
-        /// </summary>
-        /// <param name="userid">Id of the user.</param>
-        /// <param name="gameMode">Gamemode of the play. Standard, Taiko, Catch or Mania.</param>
-        /// <param name="limit">Limit of the output. Default : 10, minimum : 1, maximum : 100</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<List<UserBest>> GetUserBestByUseridAsync(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
         {
             string mode = UserMode.ToString(gameMode);
@@ -314,6 +279,7 @@ namespace OsuSharp
             return JsonConvert.DeserializeObject<List<UserBest>>(request);
         }
 
+        /// <inheritdoc />
         public async Task<List<UserBestBeatmap>> GetUserBestAndBeatmapByUseridAsync(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
         {
             string mode = UserMode.ToString(gameMode);
@@ -334,15 +300,14 @@ namespace OsuSharp
             return userBestBeatmap;
         }
 
-        /// <summary>
-        /// Method that returns a list of <see cref="UserRecent"/> by the given username.
-        /// </summary>
-        /// <param name="username">Username of the user.</param>
-        /// <param name="gameMode">Gamemode of the play. Standard, Taiko, Catch or Mania.</param>
-        /// <param name="limit">Limit of the output. Default : 10, minimum : 1, maximum : 100</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<List<UserRecent>> GetUserRecentByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
         {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentException("The given username was null or white space.", nameof(username));
+            }
+
             string mode = UserMode.ToString(gameMode);
 
             string request = await GetAsync($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}").ConfigureAwait(false);
@@ -350,8 +315,14 @@ namespace OsuSharp
             return JsonConvert.DeserializeObject<List<UserRecent>>(request);
         }
 
+        /// <inheritdoc />
         public async Task<List<UserRecentBeatmap>> GetUserRecentAndBeatmapByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
         {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentException("The given username was null or white space.", nameof(username));
+            }
+
             string mode = UserMode.ToString(gameMode);
 
             string request = await GetAsync($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}").ConfigureAwait(false);
@@ -370,13 +341,7 @@ namespace OsuSharp
             return userRecentBeatmap;
         }
 
-        /// <summary>
-        /// Method that returns a list of <see cref="UserRecent"/> by the given userid.
-        /// </summary>
-        /// <param name="userid">Id of the user.</param>
-        /// <param name="gameMode">Gamemode of the play. Standard, Taiko, Catch or Mania.</param>
-        /// <param name="limit">Limit of the output. Default : 10, minimum : 1, maximum : 100</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<List<UserRecent>> GetUserRecentByUseridAsync(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
         {
             string mode = UserMode.ToString(gameMode);
@@ -386,6 +351,7 @@ namespace OsuSharp
             return JsonConvert.DeserializeObject<List<UserRecent>>(request);
         }
 
+        /// <inheritdoc />
         public async Task<List<UserRecentBeatmap>> GetUserRecentAndBeatmapByUseridAsync(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
         {
             string mode = UserMode.ToString(gameMode);
@@ -406,11 +372,7 @@ namespace OsuSharp
             return userRecentBeatmap;
         }
 
-        /// <summary>
-        /// Method that returns a <see cref="Matchs"/> by the given matchid.
-        /// </summary>
-        /// <param name="matchid">Id of the match.</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<Matchs> GetMatchAsync(ulong matchid)
         {
             string request = await GetAsync($"{GET_MATCH_URL}{API_KEY_PARAMETER}{ApiKey}{MATCH_PARAMETER}{matchid}").ConfigureAwait(false);
@@ -419,15 +381,14 @@ namespace OsuSharp
             return r.Count > 0 ? r[0] : null;
         }
 
-        /// <summary>
-        /// Method that returns a <see cref="Replay"/> by the given beatmapid and username.
-        /// </summary>
-        /// <param name="beatmapid">Id of the beatmap. Must be the id of a difficulty.</param>
-        /// <param name="username">Username of the user.</param>
-        /// <param name="gameMode">Gamemode of the play. Standard, Taiko, Catch or Mania.</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<Replay> GetReplayByUsernameAsync(ulong beatmapid, string username, GameMode gameMode = GameMode.Standard)
         {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentException("The given username was null or white space.", nameof(username));
+            }
+
             string mode = UserMode.ToString(gameMode);
 
             string request = await GetAsync($"{GET_REPLAY_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{BEATMAP_PARAMETER}{beatmapid}{USER_PARAMETER}{username}").ConfigureAwait(false);
@@ -436,13 +397,7 @@ namespace OsuSharp
             return r.Count > 0 ? r[0] : null;
         }
 
-        /// <summary>
-        /// Method that returns a <see cref="Replay"/> by the given beatmapid and userid.
-        /// </summary>
-        /// <param name="beatmapid">Id of the beatmap. Must be the id of a difficulty.</param>
-        /// <param name="userid">Id of the user.</param>
-        /// <param name="gameMode">Gamemode of the play. Standard, Taiko, Catch or Mania.</param>
-        /// <returns></returns>
+        /// <inheritdoc />
         public async Task<Replay> GetReplayByUseridAsync(ulong beatmapid, ulong userid, GameMode gameMode = GameMode.Standard)
         {
             string mode = UserMode.ToString(gameMode);
