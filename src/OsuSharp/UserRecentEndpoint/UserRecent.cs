@@ -27,6 +27,16 @@ namespace OsuSharp.UserRecentEndpoint
         [JsonProperty("count50")]
         public int Count50 { get; set; }
 
+        [JsonIgnore]
+        public double Accuracy
+        {
+            get
+            {
+                return (Count50 * 50 + Count100 * 100 + Count300 * 300)
+                       / (300.0 * (Count50 + Count100 + Count300 + Miss)) * 100;
+            }
+        }
+
         [JsonProperty("countmiss")]
         public int Miss { get; set; }
 

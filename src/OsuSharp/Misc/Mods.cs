@@ -94,7 +94,9 @@ namespace OsuSharp.Misc
 
             foreach (Mods mod in mods)
             {
-                ModsStrings[mod] = ti.DeclaredMembers.FirstOrDefault(xm => xm.Name == mod.ToString()).GetCustomAttribute<ModsStringAttribute>().String;
+                ModsStrings[mod] = ti.DeclaredMembers
+                    .FirstOrDefault(xm => xm.Name == mod.ToString())
+                    .GetCustomAttribute<ModsStringAttribute>().String;
             }
         }
 
