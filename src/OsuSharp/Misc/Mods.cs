@@ -108,7 +108,7 @@ namespace OsuSharp.Misc
         /// <param name="mods">Bitflag of the mod.</param>
         /// <param name="instance">Instance of the OsuApi (needed to get the ModsSeparator stuff)</param>
         /// <returns></returns>
-        public static string ToModString(this Mods mods, OsuApi instance)
+        public static string ToModString(this Mods mods, IOsuApi instance)
         {
             if (mods == Mods.None)
             {
