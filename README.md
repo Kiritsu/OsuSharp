@@ -16,7 +16,7 @@
 You can install the wrapper with Nuget
 
 ```
-PM> Install-Package OsuSharp -Version 1.5.2
+PM> Install-Package OsuSharp -Version 1.6.0
 ```
 
 Or compile from source
@@ -36,7 +36,7 @@ private const string API_KEY = "Your_Osu_API_Key"; //You can get one here: https
 
 public async Task GetOsuBeatmapAsync(ulong beatmapId)
 {
-    OsuApi instance = OsuApi.CreateInstance(API_KEY);
+    OsuApi instance = new OsuApi(API_KEY, "|");
     var beatmap = await instance.GetBeatmapAsync(beatmapId);
     Console.WriteLine($"The creator of the map is: {beatmap.Creator}");
 }
