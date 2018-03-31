@@ -46,8 +46,13 @@ namespace OsuSharp
         /// <param name="apiKey">Token provided by osu!api.</param>
         /// <param name="modsSeparator">String separator of displayed mods in Mods property.</param>
         /// <param name="httpClient">Custom instance of <see cref="HttpClient"/> (by default, if there are no instance of it, it will create one)</param>
-        public static OsuApi CreateInstance(string apiKey, string modsSeparator = "", HttpClient httpClient = null)
+        public OsuApi(string apiKey, string modsSeparator = "", HttpClient httpClient = null)
         {
+            if (string.IsNullOrWhiteSpace(apiKey))
+            {
+                throw new ArgumentException("The given api key was null or whitespace", nameof(apiKey));
+            }
+
             if (_httpClient == null && httpClient == null)
             {
                 _httpClient = new HttpClient();
@@ -57,11 +62,19 @@ namespace OsuSharp
                 _httpClient = httpClient;
             }
 
-            return new OsuApi
-            {
-                ApiKey = apiKey,
-                ModsSeparator = modsSeparator
-            };
+            ApiKey = apiKey;
+            ModsSeparator = modsSeparator;
+        }
+
+        /// <summary>
+        /// Method that initializes the library to perform your requests.
+        /// </summary>
+        /// <param name="apiKey">Token provided by osu!api.</param>
+        /// <param name="modsSeparator">String separator of displayed mods in Mods property.</param>
+        /// <param name="httpClient">Custom instance of <see cref="HttpClient"/> (by default, if there are no instance of it, it will create one)</param>
+        public static OsuApi Default(string apiKey, string modsSeparator = "", HttpClient httpClient = null)
+        {
+            return new OsuApi(apiKey, modsSeparator, httpClient);
         }
 
         /// <inheritdoc />
