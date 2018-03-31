@@ -15,21 +15,14 @@ namespace OsuSharp
     public interface IOsuApi
     {
         /// <summary>
+        /// Separator used between each mod.
+        /// </summary>
+        string ModsSeparator { get; }
+
+        /// <summary>
         /// ApiKey from Osu!Api
         /// </summary>
         string ApiKey { get; }
-
-        /// <summary>
-        /// Sets the mods separator.
-        /// </summary>
-        /// <param name="modsSeparator">Separator that will be used between each mod.</param>
-        void SetModsSeparator(string modsSeparator);
-
-        /// <summary>
-        /// Sets the mods separator.
-        /// </summary>
-        /// <param name="modsSeparator">Separator that will be used between each mod.</param>
-        void SetModsSeparator(char modsSeparator);
 
         /// <summary>
         /// Method that returns a <see cref="Beatmap"/>. It requires a valid BeatmapId.

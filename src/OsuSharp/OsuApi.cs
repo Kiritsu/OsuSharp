@@ -33,10 +33,12 @@ namespace OsuSharp
         private const string BEATMAP_PARAMETER = "&b=";
 
         private static HttpClient _httpClient;
-        public string ModsSeparator = "";
 
         /// <inheritdoc />
         public string ApiKey { get; internal set; }
+
+        /// <inheritdoc />
+        public string ModsSeparator { get; set; }
 
         /// <summary>
         /// Method that initializes the library to perform your requests.
@@ -60,16 +62,6 @@ namespace OsuSharp
                 ApiKey = apiKey,
                 ModsSeparator = modsSeparator
             };
-        }
-
-        public void SetModsSeparator(string modSeparator)
-        {
-            ModsSeparator = modSeparator;
-        }
-
-        public void SetModsSeparator(char modSeparator)
-        {
-            ModsSeparator = modSeparator.ToString();
         }
 
         /// <inheritdoc />
