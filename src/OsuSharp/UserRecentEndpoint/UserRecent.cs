@@ -54,14 +54,9 @@ namespace OsuSharp.UserRecentEndpoint
         [JsonProperty("enabled_mods")]
         public int EnabledMods { get; set; }
 
-        public Mods EnabledModsEnum
+        public Mods Mods
         {
-            get { return (Mods) EnabledMods; }
-        }
-
-        public string Mods
-        {
-            get { return ((Mods) EnabledMods).ToModString(); }
+            get { return (Mods)EnabledMods; }
         }
 
         [JsonProperty("user_id")]

@@ -6,7 +6,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using OsuSharp.BeatmapsEndpoint;
 using OsuSharp.Entities;
+using OsuSharp.Misc;
 using OsuSharp.ScoreEndpoint;
+using OsuSharp.UserBestEndpoint;
 using OsuSharp.UserEndpoint;
 
 namespace OsuSharp.Example
@@ -22,8 +24,7 @@ namespace OsuSharp.Example
         {
             try
             {
-                OsuApi instance = OsuApi.CreateInstance(File.ReadAllText("token.txt"));
-                OsuApi.SetGlobalModsSeparator(" ");
+                OsuApi instance = OsuApi.CreateInstance(File.ReadAllText("token.txt"), " ");
 
                 User user = await instance.GetUserByNameAsync("Evolia");
                 Console.WriteLine($"User {user.Username} with id {user.Userid}\n" +
@@ -33,6 +34,16 @@ namespace OsuSharp.Example
                                   $" > Level : {user.Level}\n" +
                                   $" > Performance Points : {user.Pp}\n" +
                                   $" > Play count : {user.PlayCount}");
+
+                List<UserBest> bests = await instance.GetUserBestByUsernameAsync("Evolia", GameMode.Standard, 20);
+                int cnt = 0;
+                foreach (UserBest best in bests)
+                {
+                    Console.WriteLine($"Top Score {cnt}:");
+                    Console.WriteLine($"Accuracy: {best.Accuracy}\nMods: {best.Mods.ToModString(instance)}");
+                    Console.WriteLine();
+                    cnt++;
+                }
 
                 Beatmap beatmap = await instance.GetBeatmapAsync(75);
                 Console.WriteLine($"\n\nBeatmap {beatmap.Title} with id {beatmap.BeatmapId} mapped by {beatmap.Creator}\n" +

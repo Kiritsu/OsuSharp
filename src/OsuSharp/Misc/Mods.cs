@@ -106,8 +106,9 @@ namespace OsuSharp.Misc
         /// Method that returns a <see cref="string"/> of the given bitflag <see cref="Mods"/>.
         /// </summary>
         /// <param name="mods">Bitflag of the mod.</param>
+        /// <param name="instance">Instance of the OsuApi (needed to get the ModsSeparator stuff)</param>
         /// <returns></returns>
-        public static string ToModString(this Mods mods)
+        public static string ToModString(this Mods mods, OsuApi instance)
         {
             if (mods == Mods.None)
             {
@@ -118,7 +119,7 @@ namespace OsuSharp.Misc
                 .Where(k => k.Key != Mods.None && (mods & k.Key) == k.Key)
                 .Select(k => k.Value);
 
-            return string.Join(OsuApi.ModsSeparator, enumerableMods);
+            return string.Join(instance.ModsSeparator, enumerableMods);
         }
     }
 }

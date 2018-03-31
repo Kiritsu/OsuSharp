@@ -34,14 +34,9 @@ namespace OsuSharp.MatchEndpoint
         [JsonProperty("enabled_mods")]
         public uint EnabledMods { get; set; }
 
-        public Mods EnabledModsEnum
+        public Mods Mods
         {
             get { return (Mods) EnabledMods; }
-        }
-
-        public string Mods
-        {
-            get { return ((Mods) EnabledMods).ToModString(); }
         }
 
         [JsonProperty("scores")]

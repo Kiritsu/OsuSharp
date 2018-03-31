@@ -20,6 +20,18 @@ namespace OsuSharp
         string ApiKey { get; }
 
         /// <summary>
+        /// Sets the mods separator.
+        /// </summary>
+        /// <param name="modsSeparator">Separator that will be used between each mod.</param>
+        void SetModsSeparator(string modsSeparator);
+
+        /// <summary>
+        /// Sets the mods separator.
+        /// </summary>
+        /// <param name="modsSeparator">Separator that will be used between each mod.</param>
+        void SetModsSeparator(char modsSeparator);
+
+        /// <summary>
         /// Method that returns a <see cref="Beatmap"/>. It requires a valid BeatmapId.
         /// </summary>
         /// <param name="beatmapId">Id of the beatmap.</param>

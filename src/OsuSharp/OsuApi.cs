@@ -33,17 +33,18 @@ namespace OsuSharp
         private const string BEATMAP_PARAMETER = "&b=";
 
         private static HttpClient _httpClient;
-        public static string ModsSeparator = "";
+        public string ModsSeparator = "";
 
         /// <inheritdoc />
         public string ApiKey { get; internal set; }
-        
+
         /// <summary>
         /// Method that initializes the library to perform your requests.
         /// </summary>
         /// <param name="apiKey">Token provided by osu!api.</param>
+        /// <param name="modsSeparator">String separator of displayed mods in Mods property.</param>
         /// <param name="httpClient">Custom instance of <see cref="HttpClient"/> (by default, if there are no instance of it, it will create one)</param>
-        public static OsuApi CreateInstance(string apiKey, HttpClient httpClient = null)
+        public static OsuApi CreateInstance(string apiKey, string modsSeparator = "", HttpClient httpClient = null)
         {
             if (_httpClient == null && httpClient == null)
             {
@@ -56,26 +57,19 @@ namespace OsuSharp
 
             return new OsuApi
             {
-                ApiKey = apiKey
+                ApiKey = apiKey,
+                ModsSeparator = modsSeparator
             };
         }
 
-        /// <summary>
-        /// Sets the ModsSeparator.
-        /// </summary>
-        /// <param name="separator">Separator between each mod.</param>
-        public static void SetGlobalModsSeparator(string separator)
+        public void SetModsSeparator(string modSeparator)
         {
-            ModsSeparator = separator;
+            ModsSeparator = modSeparator;
         }
 
-        /// <summary>
-        /// Sets the ModsSeparator
-        /// </summary>
-        /// <param name="separator">Separator between each mod.</param>
-        public static void SetGlobalModsSeparator(char separator)
+        public void SetModsSeparator(char modSeparator)
         {
-            ModsSeparator = separator.ToString();
+            ModsSeparator = modSeparator.ToString();
         }
 
         /// <inheritdoc />
