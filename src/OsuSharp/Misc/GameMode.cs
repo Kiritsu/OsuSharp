@@ -4,7 +4,7 @@
     {
         Standard,
         Taiko,
-        CatchTheBeat,
+        Catch,
         Mania
     }
 }

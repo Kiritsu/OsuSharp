@@ -10,7 +10,7 @@
                     return "&m=0";
                 case GameMode.Taiko:
                     return "&m=1";
-                case GameMode.CatchTheBeat:
+                case GameMode.Catch:
                     return "&m=2";
                 case GameMode.Mania:
                     return "&m=3";
