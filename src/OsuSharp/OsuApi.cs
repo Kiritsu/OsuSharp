@@ -78,6 +78,18 @@ namespace OsuSharp
         }
 
         /// <inheritdoc />
+        public Beatmap GetBeatmap(ulong beatmapId, BeatmapType bmType = BeatmapType.ByDifficulty, GameMode gameMode = GameMode.Standard)
+        {
+            string mode = UserMode.ToString(gameMode);
+            string type = BeatmapParam.ToString(bmType);
+
+            string request = Get($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{beatmapId}{mode}");
+
+            List<Beatmap> r = JsonConvert.DeserializeObject<List<Beatmap>>(request);
+            return r.Count > 0 ? r[0] : null;
+        }
+
+        /// <inheritdoc />
         public async Task<Beatmap> GetBeatmapAsync(ulong beatmapId, BeatmapType bmType = BeatmapType.ByDifficulty, GameMode gameMode = GameMode.Standard)
         {
             string mode = UserMode.ToString(gameMode);
@@ -90,7 +102,23 @@ namespace OsuSharp
         }
 
         /// <inheritdoc />
-        public async Task<List<Beatmap>> GetBeatmapsAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 500)
+        public List<Beatmap> GetBeatmapsByCreator(string username, GameMode gameMode = GameMode.Standard, int limit = 500)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentException("The given username was null or white space.", nameof(username));
+            }
+
+            string mode = UserMode.ToString(gameMode);
+            string type = BeatmapParam.ToString(BeatmapType.ByCreator);
+
+            string request = Get($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{username}{LIMIT_PARAMETER}{limit}{mode}");
+
+            return JsonConvert.DeserializeObject<List<Beatmap>>(request);
+        }
+
+        /// <inheritdoc />
+        public async Task<List<Beatmap>> GetBeatmapsByCreatorAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 500)
         {
             if (string.IsNullOrWhiteSpace(username))
             {
@@ -101,6 +129,17 @@ namespace OsuSharp
             string type = BeatmapParam.ToString(BeatmapType.ByCreator);
 
             string request = await GetAsync($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{username}{LIMIT_PARAMETER}{limit}{mode}").ConfigureAwait(false);
+
+            return JsonConvert.DeserializeObject<List<Beatmap>>(request);
+        }
+
+        /// <inheritdoc />
+        public List<Beatmap> GetBeatmaps(ulong id, BeatmapType bmType = BeatmapType.ByBeatmap, GameMode gameMode = GameMode.Standard, int limit = 500)
+        {
+            string mode = UserMode.ToString(gameMode);
+            string type = BeatmapParam.ToString(bmType);
+
+            string request = Get($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{id}{LIMIT_PARAMETER}{limit}{mode}");
 
             return JsonConvert.DeserializeObject<List<Beatmap>>(request);
         }
@@ -117,11 +156,35 @@ namespace OsuSharp
         }
 
         /// <inheritdoc />
+        public List<Beatmap> GetLastBeatmaps(int limit = 500)
+        {
+            string request = Get($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{LIMIT_PARAMETER}{limit}");
+
+            return JsonConvert.DeserializeObject<List<Beatmap>>(request);
+        }
+
+        /// <inheritdoc />
         public async Task<List<Beatmap>> GetLastBeatmapsAsync(int limit = 500)
         {
             string request = await GetAsync($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{LIMIT_PARAMETER}{limit}").ConfigureAwait(false);
 
             return JsonConvert.DeserializeObject<List<Beatmap>>(request);
+        }
+
+        /// <inheritdoc />
+        public User GetUserByName(string username, GameMode gameMode = GameMode.Standard)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentException("The given username was null or white space.", nameof(username));
+            }
+
+            string mode = UserMode.ToString(gameMode);
+
+            string request = Get($"{GET_USER_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}");
+
+            List<User> r = JsonConvert.DeserializeObject<List<User>>(request);
+            return r.Count > 0 ? r[0] : null;
         }
 
         /// <inheritdoc />
@@ -141,6 +204,17 @@ namespace OsuSharp
         }
 
         /// <inheritdoc />
+        public User GetUserById(ulong userid, GameMode gameMode = GameMode.Standard)
+        {
+            string mode = UserMode.ToString(gameMode);
+
+            string request = Get($"{GET_USER_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}");
+
+            List<User> r = JsonConvert.DeserializeObject<List<User>>(request);
+            return r.Count > 0 ? r[0] : null;
+        }
+
+        /// <inheritdoc />
         public async Task<User> GetUserByIdAsync(ulong userid, GameMode gameMode = GameMode.Standard)
         {
             string mode = UserMode.ToString(gameMode);
@@ -148,6 +222,22 @@ namespace OsuSharp
             string request = await GetAsync($"{GET_USER_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}").ConfigureAwait(false);
 
             List<User> r = JsonConvert.DeserializeObject<List<User>>(request);
+            return r.Count > 0 ? r[0] : null;
+        }
+
+        /// <inheritdoc />
+        public Score GetScoreByUsername(ulong beatmapid, string username, GameMode gameMode = GameMode.Standard)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentException("The given username was null or white space.", nameof(username));
+            }
+
+            string mode = UserMode.ToString(gameMode);
+
+            string request = Get($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{USER_PARAMETER}{username}{BEATMAP_PARAMETER}{beatmapid}");
+
+            List<Score> r = JsonConvert.DeserializeObject<List<Score>>(request);
             return r.Count > 0 ? r[0] : null;
         }
 
@@ -168,6 +258,17 @@ namespace OsuSharp
         }
 
         /// <inheritdoc />
+        public Score GetScoreByUserid(ulong beatmapid, ulong userid, GameMode gameMode = GameMode.Standard)
+        {
+            string mode = UserMode.ToString(gameMode);
+
+            string request = Get($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{USER_PARAMETER}{userid}{BEATMAP_PARAMETER}{beatmapid}");
+
+            List<Score> r = JsonConvert.DeserializeObject<List<Score>>(request);
+            return r.Count > 0 ? r[0] : null;
+        }
+
+        /// <inheritdoc />
         public async Task<Score> GetScoreByUseridAsync(ulong beatmapid, ulong userid, GameMode gameMode = GameMode.Standard)
         {
             string mode = UserMode.ToString(gameMode);
@@ -179,6 +280,16 @@ namespace OsuSharp
         }
 
         /// <inheritdoc />
+        public List<Score> GetScores(ulong beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50)
+        {
+            string mode = UserMode.ToString(gameMode);
+
+            string request = Get($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}");
+
+            return JsonConvert.DeserializeObject<List<Score>>(request);
+        }
+
+        /// <inheritdoc />
         public async Task<List<Score>> GetScoresAsync(ulong beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50)
         {
             string mode = UserMode.ToString(gameMode);
@@ -186,6 +297,22 @@ namespace OsuSharp
             string request = await GetAsync($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}").ConfigureAwait(false);
 
             return JsonConvert.DeserializeObject<List<Score>>(request);
+        }
+
+        /// <inheritdoc />
+        public BeatmapScores GetScoresAndBeatmap(ulong beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50)
+        {
+            string mode = UserMode.ToString(gameMode);
+
+            string request = Get($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}");
+            Beatmap beatmap = GetBeatmap(beatmapid, gameMode: gameMode);
+
+            List<Score> score = JsonConvert.DeserializeObject<List<Score>>(request);
+            return new BeatmapScores
+            {
+                Beatmap = beatmap,
+                Score = score
+            };
         }
 
         /// <inheritdoc />
@@ -201,6 +328,29 @@ namespace OsuSharp
             {
                 Beatmap = beatmap,
                 Score = score
+            };
+        }
+
+        /// <inheritdoc />
+        public BeatmapScoresUsers GetScoresWithUsersAndBeatmap(ulong beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50)
+        {
+            string mode = UserMode.ToString(gameMode);
+
+            string request = Get($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}");
+            Beatmap beatmap = GetBeatmap(beatmapid);
+
+            List<User> users = new List<User>();
+            List<Score> scores = JsonConvert.DeserializeObject<List<Score>>(request);
+            foreach (Score score in scores)
+            {
+                users.Add(GetUserById(score.Userid, gameMode));
+            }
+
+            return new BeatmapScoresUsers
+            {
+                Beatmap = beatmap,
+                Scores = scores,
+                Users = users
             };
         }
 
@@ -228,6 +378,21 @@ namespace OsuSharp
         }
 
         /// <inheritdoc />
+        public List<UserBest> GetUserBestByUsername(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentException("The given username was null or white space.", nameof(username));
+            }
+
+            string mode = UserMode.ToString(gameMode);
+
+            string request = Get($"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}");
+
+            return JsonConvert.DeserializeObject<List<UserBest>>(request);
+        }
+
+        /// <inheritdoc />
         public async Task<List<UserBest>> GetUserBestByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
         {
             if (string.IsNullOrWhiteSpace(username))
@@ -240,6 +405,32 @@ namespace OsuSharp
             string request = await GetAsync($"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}").ConfigureAwait(false);
 
             return JsonConvert.DeserializeObject<List<UserBest>>(request);
+        }
+
+        /// <inheritdoc />
+        public List<UserBestBeatmap> GetUserBestAndBeatmapByUsername(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentException("The given username was null or white space.", nameof(username));
+            }
+
+            string mode = UserMode.ToString(gameMode);
+
+            string request = Get($"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}");
+
+            List<UserBestBeatmap> userBestBeatmap = new List<UserBestBeatmap>();
+            List<UserBest> userBest = JsonConvert.DeserializeObject<List<UserBest>>(request);
+            foreach (UserBest best in userBest)
+            {
+                userBestBeatmap.Add(new UserBestBeatmap
+                {
+                    Beatmap = GetBeatmap(best.BeatmapId),
+                    UserBest = best
+                });
+            }
+
+            return userBestBeatmap;
         }
 
         /// <inheritdoc />
@@ -269,6 +460,16 @@ namespace OsuSharp
         }
 
         /// <inheritdoc />
+        public List<UserBest> GetUserBestByUserid(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
+        {
+            string mode = UserMode.ToString(gameMode);
+
+            string request = Get($"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}");
+
+            return JsonConvert.DeserializeObject<List<UserBest>>(request);
+        }
+
+        /// <inheritdoc />
         public async Task<List<UserBest>> GetUserBestByUseridAsync(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
         {
             string mode = UserMode.ToString(gameMode);
@@ -276,6 +477,27 @@ namespace OsuSharp
             string request = await GetAsync($"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}").ConfigureAwait(false);
 
             return JsonConvert.DeserializeObject<List<UserBest>>(request);
+        }
+
+        /// <inheritdoc />
+        public List<UserBestBeatmap> GetUserBestAndBeatmapByUserid(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
+        {
+            string mode = UserMode.ToString(gameMode);
+
+            string request = Get($"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}");
+
+            List<UserBestBeatmap> userBestBeatmap = new List<UserBestBeatmap>();
+            List<UserBest> userBest = JsonConvert.DeserializeObject<List<UserBest>>(request);
+            foreach (UserBest best in userBest)
+            {
+                userBestBeatmap.Add(new UserBestBeatmap
+                {
+                    Beatmap = GetBeatmap(best.BeatmapId),
+                    UserBest = best
+                });
+            }
+
+            return userBestBeatmap;
         }
 
         /// <inheritdoc />
@@ -300,6 +522,21 @@ namespace OsuSharp
         }
 
         /// <inheritdoc />
+        public List<UserRecent> GetUserRecentByUsername(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentException("The given username was null or white space.", nameof(username));
+            }
+
+            string mode = UserMode.ToString(gameMode);
+
+            string request = Get($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}");
+
+            return JsonConvert.DeserializeObject<List<UserRecent>>(request);
+        }
+
+        /// <inheritdoc />
         public async Task<List<UserRecent>> GetUserRecentByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
         {
             if (string.IsNullOrWhiteSpace(username))
@@ -312,6 +549,32 @@ namespace OsuSharp
             string request = await GetAsync($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}").ConfigureAwait(false);
 
             return JsonConvert.DeserializeObject<List<UserRecent>>(request);
+        }
+
+        /// <inheritdoc />
+        public List<UserRecentBeatmap> GetUserRecentAndBeatmapByUsername(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentException("The given username was null or white space.", nameof(username));
+            }
+
+            string mode = UserMode.ToString(gameMode);
+
+            string request = Get($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}");
+
+            List<UserRecentBeatmap> userRecentBeatmap = new List<UserRecentBeatmap>();
+            List<UserRecent> userRecents = JsonConvert.DeserializeObject<List<UserRecent>>(request);
+            foreach (UserRecent recent in userRecents)
+            {
+                userRecentBeatmap.Add(new UserRecentBeatmap
+                {
+                    Beatmap = GetBeatmap(recent.BeatmapId),
+                    UserRecent = recent
+                });
+            }
+
+            return userRecentBeatmap;
         }
 
         /// <inheritdoc />
@@ -341,6 +604,16 @@ namespace OsuSharp
         }
 
         /// <inheritdoc />
+        public List<UserRecent> GetUserRecentByUserid(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
+        {
+            string mode = UserMode.ToString(gameMode);
+
+            string request = Get($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}");
+
+            return JsonConvert.DeserializeObject<List<UserRecent>>(request);
+        }
+
+        /// <inheritdoc />
         public async Task<List<UserRecent>> GetUserRecentByUseridAsync(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
         {
             string mode = UserMode.ToString(gameMode);
@@ -348,6 +621,27 @@ namespace OsuSharp
             string request = await GetAsync($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}").ConfigureAwait(false);
 
             return JsonConvert.DeserializeObject<List<UserRecent>>(request);
+        }
+
+        /// <inheritdoc />
+        public List<UserRecentBeatmap> GetUserRecentAndBeatmapByUserid(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
+        {
+            string mode = UserMode.ToString(gameMode);
+
+            string request = Get($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}");
+
+            List<UserRecentBeatmap> userRecentBeatmap = new List<UserRecentBeatmap>();
+            List<UserRecent> userRecents = JsonConvert.DeserializeObject<List<UserRecent>>(request);
+            foreach (UserRecent recent in userRecents)
+            {
+                userRecentBeatmap.Add(new UserRecentBeatmap
+                {
+                    Beatmap = GetBeatmap(recent.BeatmapId),
+                    UserRecent = recent
+                });
+            }
+
+            return userRecentBeatmap;
         }
 
         /// <inheritdoc />
@@ -372,11 +666,36 @@ namespace OsuSharp
         }
 
         /// <inheritdoc />
+        public Matchs GetMatch(ulong matchid)
+        {
+            string request = Get($"{GET_MATCH_URL}{API_KEY_PARAMETER}{ApiKey}{MATCH_PARAMETER}{matchid}");
+
+            List<Matchs> r = JsonConvert.DeserializeObject<List<Matchs>>(request);
+            return r.Count > 0 ? r[0] : null;
+        }
+
+        /// <inheritdoc />
         public async Task<Matchs> GetMatchAsync(ulong matchid)
         {
             string request = await GetAsync($"{GET_MATCH_URL}{API_KEY_PARAMETER}{ApiKey}{MATCH_PARAMETER}{matchid}").ConfigureAwait(false);
 
             List<Matchs> r = JsonConvert.DeserializeObject<List<Matchs>>(request);
+            return r.Count > 0 ? r[0] : null;
+        }
+
+        /// <inheritdoc />
+        public Replay GetReplayByUsername(ulong beatmapid, string username, GameMode gameMode = GameMode.Standard)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                throw new ArgumentException("The given username was null or white space.", nameof(username));
+            }
+
+            string mode = UserMode.ToString(gameMode);
+
+            string request = Get($"{GET_REPLAY_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{BEATMAP_PARAMETER}{beatmapid}{USER_PARAMETER}{username}");
+
+            List<Replay> r = JsonConvert.DeserializeObject<List<Replay>>(request);
             return r.Count > 0 ? r[0] : null;
         }
 
@@ -397,6 +716,17 @@ namespace OsuSharp
         }
 
         /// <inheritdoc />
+        public Replay GetReplayByUserid(ulong beatmapid, ulong userid, GameMode gameMode = GameMode.Standard)
+        {
+            string mode = UserMode.ToString(gameMode);
+
+            string request = Get($"{GET_REPLAY_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{BEATMAP_PARAMETER}{beatmapid}{USER_PARAMETER}{userid}");
+
+            List<Replay> r = JsonConvert.DeserializeObject<List<Replay>>(request);
+            return r.Count > 0 ? r[0] : null;
+        }
+
+        /// <inheritdoc />
         public async Task<Replay> GetReplayByUseridAsync(ulong beatmapid, ulong userid, GameMode gameMode = GameMode.Standard)
         {
             string mode = UserMode.ToString(gameMode);
@@ -405,6 +735,17 @@ namespace OsuSharp
 
             List<Replay> r = JsonConvert.DeserializeObject<List<Replay>>(request);
             return r.Count > 0 ? r[0] : null;
+        }
+
+        private static string Get(string url)
+        {
+            HttpResponseMessage message = _httpClient.GetAsync(ROOT_DOMAIN + url).Result;
+
+            if (message.StatusCode == HttpStatusCode.OK)
+            {
+                return message.Content.ReadAsStringAsync().Result;
+            }
+            throw new OsuSharpException(message.Content.ReadAsStringAsync().Result);
         }
 
         private static async Task<string> GetAsync(string url)
