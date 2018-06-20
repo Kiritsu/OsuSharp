@@ -1,4 +1,4 @@
-# OsuSharp
+# OsuSharp 1.7.0 (06-20-2018)
 
 [![NuGet version](https://badge.fury.io/nu/OsuSharp.svg)](https://badge.fury.io/nu/OsuSharp)
 
@@ -16,7 +16,7 @@
 You can install the wrapper with Nuget
 
 ```
-PM> Install-Package OsuSharp -Version 1.6.0
+PM> Install-Package OsuSharp -Version 1.7.0
 ```
 
 Or compile from source
@@ -27,20 +27,24 @@ git clone https://github.com/Kiritsu/OsuSharp.git
 
 ## Development or help
 
-If you want to contribute, feel free to use Issues or Pull Request
+If you want to contribute, feel free to use Issues or Pull Requests
 
 ## Example
 
 ```cs
-private const string API_KEY = "Your_Osu_API_Key"; //You can get one here: https://osu.ppy.sh/p/api
 //I DO NOT SUGGEST YOU TO WRITE YOUR API KEY, PLEASE PARSE IT FROM AN EXTERNAL FILE.
+private const string API_KEY = "Your_Osu_API_Key"; //You can get one here: https://osu.ppy.sh/p/api
+private OsuApi Instance { get; set; } = new OsuApi(API_KEY, "|");
 
 public async Task GetOsuBeatmapAsync(ulong beatmapId)
 {
-    OsuApi instance = new OsuApi(API_KEY, "|"); 
-    //Please don't create an instance each time you need it. Create a single reusable instance.
-    
-    var beatmap = await instance.GetBeatmapAsync(beatmapId);
+    var beatmap = await Instance.GetBeatmapAsync(beatmapId);
+    Console.WriteLine($"The creator of the map is: {beatmap.Creator}");
+}
+
+public void GetOsuBeatmap(ulong beatmapId)
+{
+    var beatmap = Instance.GetBeatmap(beatmapId);
     Console.WriteLine($"The creator of the map is: {beatmap.Creator}");
 }
 ```
