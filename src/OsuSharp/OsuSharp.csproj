@@ -7,12 +7,12 @@
     <Authors>Kiritsu and contributors</Authors>
     <Company></Company>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.6.0</Version>
+    <Version>1.6.1</Version>
     <Description>.NET Standard wrapper for the osu!api</Description>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <ProjectUrl>https://github.com/Kiritsu/OsuSharp</ProjectUrl>
-    <AssemblyVersion>1.6.0.0</AssemblyVersion>
-    <FileVersion>1.6.0.0</FileVersion>
+    <AssemblyVersion>1.6.1.0</AssemblyVersion>
+    <FileVersion>1.6.1.0</FileVersion>
     <PackageProjectUrl>https://github.com/Kiritsu/OsuSharp</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/Kiritsu/OsuSharp/blob/master/LICENSE.md</PackageLicenseUrl>
   </PropertyGroup>
