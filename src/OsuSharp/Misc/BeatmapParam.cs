@@ -1,8 +1,8 @@
 ﻿namespace OsuSharp.Misc
 {
-    public class BeatmapParam
+    internal sealed class BeatmapParam
     {
-        public static string ToString(BeatmapType type)
+        internal static string ToString(BeatmapType type)
         {
             switch (type)
             {

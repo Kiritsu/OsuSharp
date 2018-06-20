@@ -1,8 +1,8 @@
 ﻿namespace OsuSharp.Misc
 {
-    public class UserMode
+    internal sealed class UserMode
     {
-        public static string ToString(GameMode type)
+        internal static string ToString(GameMode type)
         {
             switch (type)
             {
