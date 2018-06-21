@@ -25,6 +25,11 @@ namespace OsuSharp
         string ApiKey { get; }
 
         /// <summary>
+        /// OsuSharp logger.
+        /// </summary>
+        IOsuSharpLogger Logger { get; }
+
+        /// <summary>
         /// Method that returns a <see cref="Beatmap"/>. It requires a valid BeatmapId.
         /// </summary>
         /// <param name="beatmapId">Id of the beatmap.</param>

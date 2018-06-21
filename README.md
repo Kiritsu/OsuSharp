@@ -34,7 +34,22 @@ If you want to contribute, feel free to use Issues or Pull Requests
 ```cs
 //I DO NOT SUGGEST YOU TO WRITE YOUR API KEY, PLEASE PARSE IT FROM AN EXTERNAL FILE.
 private const string API_KEY = "Your_Osu_API_Key"; //You can get one here: https://osu.ppy.sh/p/api
-private OsuApi Instance { get; set; } = new OsuApi(API_KEY, "|");
+private IOsuApi Instance { get; }
+
+public MyClass() 
+{
+    Instance = new OsuApi(new OsuSharpConfiguration
+    {
+        ApiKey = API_KEY,
+        ModsSeparator = "|",
+        LogLevel = LoggingLevel.Debug
+    });
+    
+    Instance.Logger.LogMessageReceived += (sender, args) =>
+        args.Logger.Print(args.Level, args.From, args.Message, args.Time);
+    
+    [...]
+}
 
 public async Task GetOsuBeatmapAsync(ulong beatmapId)
 {

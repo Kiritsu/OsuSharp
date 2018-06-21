@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <ApplicationIcon />
     <StartupObject />
     <Authors>Kiritsu and contributors</Authors>
     <Company></Company>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.7.0</Version>
+    <Version>2.0.0</Version>
     <Description>.NET Standard wrapper for the osu!api</Description>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <ProjectUrl>https://github.com/Kiritsu/OsuSharp</ProjectUrl>
-    <AssemblyVersion>1.7.0.0</AssemblyVersion>
-    <FileVersion>1.7.0.0</FileVersion>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
     <PackageProjectUrl>https://github.com/Kiritsu/OsuSharp</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/Kiritsu/OsuSharp/blob/master/LICENSE.md</PackageLicenseUrl>
   </PropertyGroup>

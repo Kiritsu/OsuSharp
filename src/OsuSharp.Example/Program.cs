@@ -24,7 +24,17 @@ namespace OsuSharp.Example
         {
             try
             {
-                OsuApi instance = OsuApi.Default(File.ReadAllText("token.txt"), "|");
+                IOsuApi instance = new OsuApi(new OsuSharpConfiguration
+                {
+                    ApiKey = File.ReadAllText("token.txt"),
+                    ModsSeparator = "|",
+                    MaxRequests = 4,
+                    TimeInterval = TimeSpan.FromSeconds(8),
+                    LogLevel = LoggingLevel.Debug
+                });
+
+                instance.Logger.LogMessageReceived += (sender, args) =>
+                    args.Logger.Print(args.Level, args.From, args.Message, args.Time);
 
                 User user = await instance.GetUserByNameAsync("Evolia");
                 Console.WriteLine($"User {user.Username} with id {user.Userid}\n" +
