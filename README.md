@@ -1,10 +1,10 @@
-# OsuSharp 1.7.0 (06-20-2018)
+# OsuSharp 2.0.0 (06-21-2018)
 
 [![NuGet version](https://badge.fury.io/nu/OsuSharp.svg)](https://badge.fury.io/nu/OsuSharp)
 
 **OsuSharp is a wrapper written in C# for the Osu!Api.**
 
-- Compatible with .NET Standard
+- Compatible with .NET Standard (2.0)
 - Is Asynchrone
 
 ## Requirements:
@@ -16,7 +16,7 @@
 You can install the wrapper with Nuget
 
 ```
-PM> Install-Package OsuSharp -Version 1.7.0
+PM> Install-Package OsuSharp -Version 2.0.0
 ```
 
 Or compile from source
