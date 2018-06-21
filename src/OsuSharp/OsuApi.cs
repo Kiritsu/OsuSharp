@@ -736,7 +736,7 @@ namespace OsuSharp
         {
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_user_recent called: ", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", "/api/get_user_recent called: ", DateTime.Now);
 
             string request = await GetAsync($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}").ConfigureAwait(false);
 
@@ -757,7 +757,7 @@ namespace OsuSharp
         /// <inheritdoc />
         public Matchs GetMatch(ulong matchid)
         {
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_match called: ", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", "/api/get_match called: ", DateTime.Now);
 
             string request = Get($"{GET_MATCH_URL}{API_KEY_PARAMETER}{ApiKey}{MATCH_PARAMETER}{matchid}");
 
@@ -768,7 +768,7 @@ namespace OsuSharp
         /// <inheritdoc />
         public async Task<Matchs> GetMatchAsync(ulong matchid)
         {
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_match called:", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", "/api/get_match called:", DateTime.Now);
 
             string request = await GetAsync($"{GET_MATCH_URL}{API_KEY_PARAMETER}{ApiKey}{MATCH_PARAMETER}{matchid}").ConfigureAwait(false);
 
@@ -786,7 +786,7 @@ namespace OsuSharp
 
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_replay called: ", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", "/api/get_replay called: ", DateTime.Now);
 
             string request = Get($"{GET_REPLAY_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{BEATMAP_PARAMETER}{beatmapid}{USER_PARAMETER}{username}");
 
@@ -804,7 +804,7 @@ namespace OsuSharp
 
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_replay called: ", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", "/api/get_replay called: ", DateTime.Now);
 
             string request = await GetAsync($"{GET_REPLAY_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{BEATMAP_PARAMETER}{beatmapid}{USER_PARAMETER}{username}").ConfigureAwait(false);
 
@@ -817,7 +817,7 @@ namespace OsuSharp
         {
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_replay called: ", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", "/api/get_replay called: ", DateTime.Now);
 
             string request = Get($"{GET_REPLAY_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{BEATMAP_PARAMETER}{beatmapid}{USER_PARAMETER}{userid}");
 
@@ -830,7 +830,7 @@ namespace OsuSharp
         {
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_replay called: ", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", "/api/get_replay called: ", DateTime.Now);
 
             string request = await GetAsync($"{GET_REPLAY_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{BEATMAP_PARAMETER}{beatmapid}{USER_PARAMETER}{userid}").ConfigureAwait(false);
 
