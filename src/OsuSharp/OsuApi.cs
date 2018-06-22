@@ -20,7 +20,7 @@ using OsuSharp.UserRecentEndpoint;
 namespace OsuSharp
 {
     public class OsuApi : IOsuApi
-    {
+    { 
         private const string ROOT_DOMAIN = "https://osu.ppy.sh";
         private const string GET_BEATMAPS_URL = "/api/get_beatmaps";
         private const string GET_USER_URL = "/api/get_user";
