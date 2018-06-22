@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using OsuSharp.BeatmapsEndpoint;
+using OsuSharp.BeatmapEndpoint;
 using OsuSharp.Entities;
 using OsuSharp.MatchEndpoint;
 using OsuSharp.Misc;
@@ -11,7 +11,7 @@ using OsuSharp.UserBestEndpoint;
 using OsuSharp.UserEndpoint;
 using OsuSharp.UserRecentEndpoint;
 
-namespace OsuSharp
+namespace OsuSharp.Interfaces
 {
     public interface IOsuApi
     {

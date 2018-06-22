@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace OsuSharp
+namespace OsuSharp.Interfaces
 {
     public interface IRateLimiter
     {

@@ -3,7 +3,7 @@ using System;
 using Newtonsoft.Json;
 using OsuSharp.Misc;
 
-namespace OsuSharp.BeatmapsEndpoint
+namespace OsuSharp.BeatmapEndpoint
 {
     public class Beatmap
     {

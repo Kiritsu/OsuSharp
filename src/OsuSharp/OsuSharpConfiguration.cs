@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using OsuSharp.Interfaces;
 using OsuSharp.Misc;
 
 namespace OsuSharp

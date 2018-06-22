@@ -2,7 +2,7 @@
 using System.Net.Http;
 using OsuSharp.Misc;
 
-namespace OsuSharp
+namespace OsuSharp.Interfaces
 {
     public interface IOsuSharpConfiguration
     {

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using OsuSharp.BeatmapsEndpoint;
+using OsuSharp.BeatmapEndpoint;
 using OsuSharp.ScoreEndpoint;
 
 namespace OsuSharp.Entities

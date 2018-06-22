@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using OsuSharp.Interfaces;
 using OsuSharp.Misc;
 
 namespace OsuSharp

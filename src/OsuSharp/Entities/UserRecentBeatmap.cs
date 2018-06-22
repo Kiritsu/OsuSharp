@@ -1,4 +1,4 @@
-﻿using OsuSharp.BeatmapsEndpoint;
+﻿using OsuSharp.BeatmapEndpoint;
 using OsuSharp.UserRecentEndpoint;
 
 namespace OsuSharp.Entities

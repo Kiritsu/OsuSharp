@@ -1,7 +1,7 @@
 ﻿using System;
 using OsuSharp.Misc;
 
-namespace OsuSharp
+namespace OsuSharp.Interfaces
 {
     public interface IOsuSharpLogger
     {
