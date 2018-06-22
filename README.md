@@ -1,4 +1,4 @@
-# OsuSharp 2.0.0 (06-21-2018)
+# OsuSharp 2.0.1 (06-22-2018)
 
 [![NuGet version](https://badge.fury.io/nu/OsuSharp.svg)](https://badge.fury.io/nu/OsuSharp)
 
@@ -16,7 +16,7 @@
 You can install the wrapper with Nuget
 
 ```
-PM> Install-Package OsuSharp -Version 2.0.0
+PM> Install-Package OsuSharp -Version 2.0.1
 ```
 
 Or compile from source
