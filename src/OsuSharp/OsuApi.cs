@@ -37,6 +37,11 @@ namespace OsuSharp
 
         private static HttpClient _httpClient;
 
+        /// <summary>
+        ///     Internal api calls rate limiter.
+        /// </summary>
+        internal IRateLimiter Limiter { get; }
+
         /// <inheritdoc />
         public string ApiKey { get; internal set; }
 
@@ -47,29 +52,20 @@ namespace OsuSharp
         public IOsuSharpLogger Logger { get; }
 
         /// <summary>
-        /// Internal api calls rate limiter.
+        ///     Method that initializes the library to perform your requests.
         /// </summary>
-        internal IRateLimiter Limiter { get; }
-
-        /// <summary>
-        /// Method that initializes the library to perform your requests.
-        /// </summary>
-        /// <param name="config">OsuSharp configuration that contains api key, rate limiter settings, custom http client and mods separator.</param>
+        /// <param name="config">
+        ///     OsuSharp configuration that contains api key, rate limiter settings, custom http client and mods
+        ///     separator.
+        /// </param>
         public OsuApi(IOsuSharpConfiguration config)
         {
             if (string.IsNullOrWhiteSpace(config.ApiKey))
-            {
                 throw new ArgumentException("The given api key was null or whitespace", nameof(config.ApiKey));
-            }
 
             if (_httpClient == null && config.CustomHttpClient == null)
-            {
                 _httpClient = new HttpClient();
-            }
-            else if (config.CustomHttpClient != null)
-            {
-                _httpClient = config.CustomHttpClient;
-            }
+            else if (config.CustomHttpClient != null) _httpClient = config.CustomHttpClient;
 
             ApiKey = config.ApiKey;
             ModsSeparator = config.ModsSeparator;
@@ -80,21 +76,26 @@ namespace OsuSharp
         }
 
         /// <summary>
-        /// Method that initializes the library to perform your requests.
+        ///     Method that initializes the library to perform your requests.
         /// </summary>
-        /// <param name="config">OsuSharp configuration that contains api key, rate limiter settings, custom http client and mods separator.</param>
+        /// <param name="config">
+        ///     OsuSharp configuration that contains api key, rate limiter settings, custom http client and mods
+        ///     separator.
+        /// </param>
         public static OsuApi Default(IOsuSharpConfiguration config)
         {
             return new OsuApi(config);
         }
 
         /// <inheritdoc />
-        public Beatmap GetBeatmap(ulong beatmapId, BeatmapType bmType = BeatmapType.ByDifficulty, GameMode gameMode = GameMode.Standard)
+        public Beatmap GetBeatmap(ulong beatmapId, BeatmapType bmType = BeatmapType.ByDifficulty,
+            GameMode gameMode = GameMode.Standard)
         {
             string mode = UserMode.ToString(gameMode);
             string type = BeatmapParam.ToString(bmType);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_beatmap called: {GetNameValues(beatmapId, bmType, gameMode)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_beatmap called: {GetNameValues(beatmapId, bmType, gameMode)}", DateTime.Now);
 
             string request = Get($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{beatmapId}{mode}");
 
@@ -103,72 +104,85 @@ namespace OsuSharp
         }
 
         /// <inheritdoc />
-        public async Task<Beatmap> GetBeatmapAsync(ulong beatmapId, BeatmapType bmType = BeatmapType.ByDifficulty, GameMode gameMode = GameMode.Standard)
+        public async Task<Beatmap> GetBeatmapAsync(ulong beatmapId, BeatmapType bmType = BeatmapType.ByDifficulty,
+            GameMode gameMode = GameMode.Standard)
         {
             return await GetBeatmapAsync(beatmapId, bmType, gameMode, CancellationToken.None).ConfigureAwait(false);
         }
 
-        public async Task<Beatmap> GetBeatmapAsync(ulong beatmapId, BeatmapType bmType, GameMode gameMode, CancellationToken cancellationToken)
+        public async Task<Beatmap> GetBeatmapAsync(ulong beatmapId, BeatmapType bmType, GameMode gameMode,
+            CancellationToken cancellationToken)
         {
             string mode = UserMode.ToString(gameMode);
             string type = BeatmapParam.ToString(bmType);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_beatmap called: {GetNameValues(beatmapId, bmType, gameMode)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_beatmap called: {GetNameValues(beatmapId, bmType, gameMode)}", DateTime.Now);
 
-            string request = await GetAsync($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{beatmapId}{mode}", cancellationToken).ConfigureAwait(false);
+            string request =
+                await GetAsync($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{beatmapId}{mode}",
+                    cancellationToken).ConfigureAwait(false);
 
             List<Beatmap> r = JsonConvert.DeserializeObject<List<Beatmap>>(request);
             return r.Count > 0 ? r[0] : null;
         }
 
         /// <inheritdoc />
-        public List<Beatmap> GetBeatmapsByCreator(string username, GameMode gameMode = GameMode.Standard, int limit = 500)
+        public List<Beatmap> GetBeatmapsByCreator(string username, GameMode gameMode = GameMode.Standard,
+            int limit = 500)
         {
             if (string.IsNullOrWhiteSpace(username))
-            {
                 throw new ArgumentException("The given username was null or white space.", nameof(username));
-            }
 
             string mode = UserMode.ToString(gameMode);
             string type = BeatmapParam.ToString(BeatmapType.ByCreator);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_beatmap called: {GetNameValues(username, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_beatmap called: {GetNameValues(username, gameMode, limit)}", DateTime.Now);
 
-            string request = Get($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{username}{LIMIT_PARAMETER}{limit}{mode}");
+            string request =
+                Get($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{username}{LIMIT_PARAMETER}{limit}{mode}");
 
             return JsonConvert.DeserializeObject<List<Beatmap>>(request);
         }
 
         /// <inheritdoc />
-        public async Task<List<Beatmap>> GetBeatmapsByCreatorAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 500)
+        public async Task<List<Beatmap>> GetBeatmapsByCreatorAsync(string username,
+            GameMode gameMode = GameMode.Standard, int limit = 500)
         {
-            return await GetBeatmapsByCreatorAsync(username, gameMode, limit, CancellationToken.None).ConfigureAwait(false);
+            return await GetBeatmapsByCreatorAsync(username, gameMode, limit, CancellationToken.None)
+                .ConfigureAwait(false);
         }
 
-        public async Task<List<Beatmap>> GetBeatmapsByCreatorAsync(string username, GameMode gameMode, int limit, CancellationToken cancellationToken)
+        public async Task<List<Beatmap>> GetBeatmapsByCreatorAsync(string username, GameMode gameMode, int limit,
+            CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(username))
-            {
                 throw new ArgumentException("The given username was null or white space.", nameof(username));
-            }
 
             string mode = UserMode.ToString(gameMode);
             string type = BeatmapParam.ToString(BeatmapType.ByCreator);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_beatmap called: {GetNameValues(username, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_beatmap called: {GetNameValues(username, gameMode, limit)}", DateTime.Now);
 
-            string request = await GetAsync($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{username}{LIMIT_PARAMETER}{limit}{mode}", cancellationToken).ConfigureAwait(false);
+            string request =
+                await GetAsync(
+                    $"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{username}{LIMIT_PARAMETER}{limit}{mode}",
+                    cancellationToken).ConfigureAwait(false);
 
             return JsonConvert.DeserializeObject<List<Beatmap>>(request);
         }
 
         /// <inheritdoc />
-        public List<Beatmap> GetBeatmaps(ulong id, BeatmapType bmType = BeatmapType.ByBeatmap, GameMode gameMode = GameMode.Standard, int limit = 500)
+        public List<Beatmap> GetBeatmaps(ulong id, BeatmapType bmType = BeatmapType.ByBeatmap,
+            GameMode gameMode = GameMode.Standard, int limit = 500)
         {
             string mode = UserMode.ToString(gameMode);
             string type = BeatmapParam.ToString(bmType);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_beatmap called: {GetNameValues(id, bmType, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_beatmap called: {GetNameValues(id, bmType, gameMode, limit)}", DateTime.Now);
 
             string request = Get($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{id}{LIMIT_PARAMETER}{limit}{mode}");
 
@@ -176,19 +190,24 @@ namespace OsuSharp
         }
 
         /// <inheritdoc />
-        public async Task<List<Beatmap>> GetBeatmapsAsync(ulong id, BeatmapType bmType = BeatmapType.ByBeatmap, GameMode gameMode = GameMode.Standard, int limit = 500)
+        public async Task<List<Beatmap>> GetBeatmapsAsync(ulong id, BeatmapType bmType = BeatmapType.ByBeatmap,
+            GameMode gameMode = GameMode.Standard, int limit = 500)
         {
             return await GetBeatmapsAsync(id, bmType, gameMode, limit, CancellationToken.None).ConfigureAwait(false);
         }
 
-        public async Task<List<Beatmap>> GetBeatmapsAsync(ulong id, BeatmapType bmType, GameMode gameMode, int limit, CancellationToken cancellationToken)
+        public async Task<List<Beatmap>> GetBeatmapsAsync(ulong id, BeatmapType bmType, GameMode gameMode, int limit,
+            CancellationToken cancellationToken)
         {
             string mode = UserMode.ToString(gameMode);
             string type = BeatmapParam.ToString(bmType);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_beatmap called: {GetNameValues(id, bmType, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_beatmap called: {GetNameValues(id, bmType, gameMode, limit)}", DateTime.Now);
 
-            string request = await GetAsync($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{id}{LIMIT_PARAMETER}{limit}{mode}", cancellationToken).ConfigureAwait(false);
+            string request =
+                await GetAsync($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{id}{LIMIT_PARAMETER}{limit}{mode}",
+                    cancellationToken).ConfigureAwait(false);
 
             return JsonConvert.DeserializeObject<List<Beatmap>>(request);
         }
@@ -196,7 +215,8 @@ namespace OsuSharp
         /// <inheritdoc />
         public List<Beatmap> GetLastBeatmaps(int limit = 500)
         {
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_beatmap called: {GetNameValues(limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_beatmap called: {GetNameValues(limit)}",
+                DateTime.Now);
 
             string request = Get($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{LIMIT_PARAMETER}{limit}");
 
@@ -211,9 +231,11 @@ namespace OsuSharp
 
         public async Task<List<Beatmap>> GetLastBeatmapsAsync(int limit, CancellationToken cancellationToken)
         {
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_beatmap called: {GetNameValues(limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_beatmap called: {GetNameValues(limit)}",
+                DateTime.Now);
 
-            string request = await GetAsync($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{LIMIT_PARAMETER}{limit}", cancellationToken).ConfigureAwait(false);
+            string request = await GetAsync($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{LIMIT_PARAMETER}{limit}",
+                cancellationToken).ConfigureAwait(false);
 
             return JsonConvert.DeserializeObject<List<Beatmap>>(request);
         }
@@ -222,13 +244,12 @@ namespace OsuSharp
         public User GetUserByName(string username, GameMode gameMode = GameMode.Standard)
         {
             if (string.IsNullOrWhiteSpace(username))
-            {
                 throw new ArgumentException("The given username was null or white space.", nameof(username));
-            }
 
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_user called: {GetNameValues(username, gameMode)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_user called: {GetNameValues(username, gameMode)}", DateTime.Now);
 
             string request = Get($"{GET_USER_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}");
 
@@ -242,18 +263,19 @@ namespace OsuSharp
             return await GetUserByNameAsync(username, gameMode, CancellationToken.None).ConfigureAwait(false);
         }
 
-        public async Task<User> GetUserByNameAsync(string username, GameMode gameMode, CancellationToken cancellationToken)
+        public async Task<User> GetUserByNameAsync(string username, GameMode gameMode,
+            CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(username))
-            {
                 throw new ArgumentException("The given username was null or white space.", nameof(username));
-            }
 
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_user called: {GetNameValues(username, gameMode)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_user called: {GetNameValues(username, gameMode)}", DateTime.Now);
 
-            string request = await GetAsync($"{GET_USER_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}", cancellationToken).ConfigureAwait(false);
+            string request = await GetAsync($"{GET_USER_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}",
+                cancellationToken).ConfigureAwait(false);
 
             List<User> r = JsonConvert.DeserializeObject<List<User>>(request);
             return r.Count > 0 ? r[0] : null;
@@ -264,7 +286,8 @@ namespace OsuSharp
         {
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_user called: {GetNameValues(userid, gameMode)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_user called: {GetNameValues(userid, gameMode)}", DateTime.Now);
 
             string request = Get($"{GET_USER_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}");
 
@@ -282,9 +305,11 @@ namespace OsuSharp
         {
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_user called: {GetNameValues(userid, gameMode)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_user called: {GetNameValues(userid, gameMode)}", DateTime.Now);
 
-            string request = await GetAsync($"{GET_USER_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}", cancellationToken).ConfigureAwait(false);
+            string request = await GetAsync($"{GET_USER_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}",
+                cancellationToken).ConfigureAwait(false);
 
             List<User> r = JsonConvert.DeserializeObject<List<User>>(request);
             return r.Count > 0 ? r[0] : null;
@@ -294,38 +319,44 @@ namespace OsuSharp
         public Score GetScoreByUsername(ulong beatmapid, string username, GameMode gameMode = GameMode.Standard)
         {
             if (string.IsNullOrWhiteSpace(username))
-            {
                 throw new ArgumentException("The given username was null or white space.", nameof(username));
-            }
 
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_score called: {GetNameValues(beatmapid, username, gameMode)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_score called: {GetNameValues(beatmapid, username, gameMode)}", DateTime.Now);
 
-            string request = Get($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{USER_PARAMETER}{username}{BEATMAP_PARAMETER}{beatmapid}");
+            string request =
+                Get(
+                    $"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{USER_PARAMETER}{username}{BEATMAP_PARAMETER}{beatmapid}");
 
             List<Score> r = JsonConvert.DeserializeObject<List<Score>>(request);
             return r.Count > 0 ? r[0] : null;
         }
 
         /// <inheritdoc />
-        public async Task<Score> GetScoreByUsernameAsync(ulong beatmapid, string username, GameMode gameMode = GameMode.Standard)
+        public async Task<Score> GetScoreByUsernameAsync(ulong beatmapid, string username,
+            GameMode gameMode = GameMode.Standard)
         {
-            return await GetScoreByUsernameAsync(beatmapid, username, gameMode, CancellationToken.None).ConfigureAwait(false);
+            return await GetScoreByUsernameAsync(beatmapid, username, gameMode, CancellationToken.None)
+                .ConfigureAwait(false);
         }
 
-        public async Task<Score> GetScoreByUsernameAsync(ulong beatmapid, string username, GameMode gameMode, CancellationToken cancellationToken)
+        public async Task<Score> GetScoreByUsernameAsync(ulong beatmapid, string username, GameMode gameMode,
+            CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(username))
-            {
                 throw new ArgumentException("The given username was null or white space.", nameof(username));
-            }
 
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_score called: {GetNameValues(beatmapid, username, gameMode)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_score called: {GetNameValues(beatmapid, username, gameMode)}", DateTime.Now);
 
-            string request = await GetAsync($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{USER_PARAMETER}{username}{BEATMAP_PARAMETER}{beatmapid}", cancellationToken).ConfigureAwait(false);
+            string request =
+                await GetAsync(
+                    $"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{USER_PARAMETER}{username}{BEATMAP_PARAMETER}{beatmapid}",
+                    cancellationToken).ConfigureAwait(false);
 
             List<Score> r = JsonConvert.DeserializeObject<List<Score>>(request);
             return r.Count > 0 ? r[0] : null;
@@ -336,27 +367,37 @@ namespace OsuSharp
         {
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_score called: {GetNameValues(beatmapid, userid, gameMode)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_score called: {GetNameValues(beatmapid, userid, gameMode)}", DateTime.Now);
 
-            string request = Get($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{USER_PARAMETER}{userid}{BEATMAP_PARAMETER}{beatmapid}");
+            string request =
+                Get(
+                    $"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{USER_PARAMETER}{userid}{BEATMAP_PARAMETER}{beatmapid}");
 
             List<Score> r = JsonConvert.DeserializeObject<List<Score>>(request);
             return r.Count > 0 ? r[0] : null;
         }
 
         /// <inheritdoc />
-        public async Task<Score> GetScoreByUseridAsync(ulong beatmapid, ulong userid, GameMode gameMode = GameMode.Standard)
+        public async Task<Score> GetScoreByUseridAsync(ulong beatmapid, ulong userid,
+            GameMode gameMode = GameMode.Standard)
         {
-            return await GetScoreByUseridAsync(beatmapid, userid, gameMode, CancellationToken.None).ConfigureAwait(false);
+            return await GetScoreByUseridAsync(beatmapid, userid, gameMode, CancellationToken.None)
+                .ConfigureAwait(false);
         }
 
-        public async Task<Score> GetScoreByUseridAsync(ulong beatmapid, ulong userid, GameMode gameMode, CancellationToken cancellationToken)
+        public async Task<Score> GetScoreByUseridAsync(ulong beatmapid, ulong userid, GameMode gameMode,
+            CancellationToken cancellationToken)
         {
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_score called: {GetNameValues(beatmapid, userid, gameMode)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_score called: {GetNameValues(beatmapid, userid, gameMode)}", DateTime.Now);
 
-            string request = await GetAsync($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{USER_PARAMETER}{userid}{BEATMAP_PARAMETER}{beatmapid}", cancellationToken).ConfigureAwait(false);
+            string request =
+                await GetAsync(
+                    $"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{USER_PARAMETER}{userid}{BEATMAP_PARAMETER}{beatmapid}",
+                    cancellationToken).ConfigureAwait(false);
 
             List<Score> r = JsonConvert.DeserializeObject<List<Score>>(request);
             return r.Count > 0 ? r[0] : null;
@@ -367,26 +408,35 @@ namespace OsuSharp
         {
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_score called: {GetNameValues(beatmapid, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_score called: {GetNameValues(beatmapid, gameMode, limit)}", DateTime.Now);
 
-            string request = Get($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}");
+            string request =
+                Get(
+                    $"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}");
 
             return JsonConvert.DeserializeObject<List<Score>>(request);
         }
 
         /// <inheritdoc />
-        public async Task<List<Score>> GetScoresAsync(ulong beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50)
+        public async Task<List<Score>> GetScoresAsync(ulong beatmapid, GameMode gameMode = GameMode.Standard,
+            int limit = 50)
         {
             return await GetScoresAsync(beatmapid, gameMode, limit, CancellationToken.None).ConfigureAwait(false);
         }
 
-        public async Task<List<Score>> GetScoresAsync(ulong beatmapid, GameMode gameMode, int limit, CancellationToken cancellationToken)
+        public async Task<List<Score>> GetScoresAsync(ulong beatmapid, GameMode gameMode, int limit,
+            CancellationToken cancellationToken)
         {
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_score called: {GetNameValues(beatmapid, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_score called: {GetNameValues(beatmapid, gameMode, limit)}", DateTime.Now);
 
-            string request = await GetAsync($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}", cancellationToken).ConfigureAwait(false);
+            string request =
+                await GetAsync(
+                    $"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}",
+                    cancellationToken).ConfigureAwait(false);
 
             return JsonConvert.DeserializeObject<List<Score>>(request);
         }
@@ -396,9 +446,12 @@ namespace OsuSharp
         {
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_score called: {GetNameValues(beatmapid, gameMode)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_score called: {GetNameValues(beatmapid, gameMode)}", DateTime.Now);
 
-            string request = Get($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}");
+            string request =
+                Get(
+                    $"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}");
 
             Beatmap beatmap = GetBeatmap(beatmapid, gameMode: gameMode);
 
@@ -411,20 +464,28 @@ namespace OsuSharp
         }
 
         /// <inheritdoc />
-        public async Task<BeatmapScores> GetScoresAndBeatmapAsync(ulong beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50)
+        public async Task<BeatmapScores> GetScoresAndBeatmapAsync(ulong beatmapid,
+            GameMode gameMode = GameMode.Standard, int limit = 50)
         {
-            return await GetScoresAndBeatmapAsync(beatmapid, gameMode, limit, CancellationToken.None).ConfigureAwait(false);
+            return await GetScoresAndBeatmapAsync(beatmapid, gameMode, limit, CancellationToken.None)
+                .ConfigureAwait(false);
         }
 
-        public async Task<BeatmapScores> GetScoresAndBeatmapAsync(ulong beatmapid, GameMode gameMode, int limit, CancellationToken cancellationToken)
+        public async Task<BeatmapScores> GetScoresAndBeatmapAsync(ulong beatmapid, GameMode gameMode, int limit,
+            CancellationToken cancellationToken)
         {
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_score called: {GetNameValues(beatmapid, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_score called: {GetNameValues(beatmapid, gameMode, limit)}", DateTime.Now);
 
-            string request = await GetAsync($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}", cancellationToken).ConfigureAwait(false);
+            string request =
+                await GetAsync(
+                    $"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}",
+                    cancellationToken).ConfigureAwait(false);
 
-            Beatmap beatmap = await GetBeatmapAsync(beatmapid, BeatmapType.ByDifficulty, gameMode, cancellationToken).ConfigureAwait(false);
+            Beatmap beatmap = await GetBeatmapAsync(beatmapid, BeatmapType.ByDifficulty, gameMode, cancellationToken)
+                .ConfigureAwait(false);
 
             List<Score> score = JsonConvert.DeserializeObject<List<Score>>(request);
             return new BeatmapScores
@@ -435,22 +496,23 @@ namespace OsuSharp
         }
 
         /// <inheritdoc />
-        public BeatmapScoresUsers GetScoresWithUsersAndBeatmap(ulong beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50)
+        public BeatmapScoresUsers GetScoresWithUsersAndBeatmap(ulong beatmapid, GameMode gameMode = GameMode.Standard,
+            int limit = 50)
         {
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_score called: {GetNameValues(beatmapid, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_score called: {GetNameValues(beatmapid, gameMode, limit)}", DateTime.Now);
 
-            string request = Get($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}");
+            string request =
+                Get(
+                    $"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}");
 
             Beatmap beatmap = GetBeatmap(beatmapid);
 
             List<User> users = new List<User>();
             List<Score> scores = JsonConvert.DeserializeObject<List<Score>>(request);
-            foreach (Score score in scores)
-            {
-                users.Add(GetUserById(score.Userid, gameMode));
-            }
+            foreach (Score score in scores) users.Add(GetUserById(score.Userid, gameMode));
 
             return new BeatmapScoresUsers
             {
@@ -461,27 +523,32 @@ namespace OsuSharp
         }
 
         /// <inheritdoc />
-        public async Task<BeatmapScoresUsers> GetScoresWithUsersAndBeatmapAsync(ulong beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50)
+        public async Task<BeatmapScoresUsers> GetScoresWithUsersAndBeatmapAsync(ulong beatmapid,
+            GameMode gameMode = GameMode.Standard, int limit = 50)
         {
-            return await GetScoresWithUsersAndBeatmapAsync(beatmapid, gameMode, limit, CancellationToken.None).ConfigureAwait(false);
+            return await GetScoresWithUsersAndBeatmapAsync(beatmapid, gameMode, limit, CancellationToken.None)
+                .ConfigureAwait(false);
         }
 
-        public async Task<BeatmapScoresUsers> GetScoresWithUsersAndBeatmapAsync(ulong beatmapid, GameMode gameMode, int limit, CancellationToken cancellationToken)
+        public async Task<BeatmapScoresUsers> GetScoresWithUsersAndBeatmapAsync(ulong beatmapid, GameMode gameMode,
+            int limit, CancellationToken cancellationToken)
         {
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_score called: {GetNameValues(beatmapid, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_score called: {GetNameValues(beatmapid, gameMode, limit)}", DateTime.Now);
 
-            string request = await GetAsync($"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}", cancellationToken).ConfigureAwait(false);
+            string request =
+                await GetAsync(
+                    $"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}",
+                    cancellationToken).ConfigureAwait(false);
 
             Beatmap beatmap = await GetBeatmapAsync(beatmapid).ConfigureAwait(false);
 
             List<User> users = new List<User>();
             List<Score> scores = JsonConvert.DeserializeObject<List<Score>>(request);
             foreach (Score score in scores)
-            {
                 users.Add(await GetUserByIdAsync(score.Userid, gameMode, cancellationToken).ConfigureAwait(false));
-            }
 
             return new BeatmapScoresUsers
             {
@@ -492,101 +559,111 @@ namespace OsuSharp
         }
 
         /// <inheritdoc />
-        public List<UserBest> GetUserBestByUsername(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
+        public List<UserBest> GetUserBestByUsername(string username, GameMode gameMode = GameMode.Standard,
+            int limit = 10)
         {
             if (string.IsNullOrWhiteSpace(username))
-            {
                 throw new ArgumentException("The given username was null or white space.", nameof(username));
-            }
 
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_user_best called: {GetNameValues(username, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_user_best called: {GetNameValues(username, gameMode, limit)}", DateTime.Now);
 
-            string request = Get($"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}");
+            string request =
+                Get(
+                    $"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}");
 
             return JsonConvert.DeserializeObject<List<UserBest>>(request);
         }
 
         /// <inheritdoc />
-        public async Task<List<UserBest>> GetUserBestByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
+        public async Task<List<UserBest>> GetUserBestByUsernameAsync(string username,
+            GameMode gameMode = GameMode.Standard, int limit = 10)
         {
             return await GetUserBestByUsernameAsync(username, gameMode, limit, CancellationToken.None);
         }
 
-        public async Task<List<UserBest>> GetUserBestByUsernameAsync(string username, GameMode gameMode, int limit, CancellationToken cancellationToken)
+        public async Task<List<UserBest>> GetUserBestByUsernameAsync(string username, GameMode gameMode, int limit,
+            CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(username))
-            {
                 throw new ArgumentException("The given username was null or white space.", nameof(username));
-            }
 
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_user_best called: {GetNameValues(username, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_user_best called: {GetNameValues(username, gameMode, limit)}", DateTime.Now);
 
-            string request = await GetAsync($"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}", cancellationToken).ConfigureAwait(false);
+            string request =
+                await GetAsync(
+                    $"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}",
+                    cancellationToken).ConfigureAwait(false);
 
             return JsonConvert.DeserializeObject<List<UserBest>>(request);
         }
 
         /// <inheritdoc />
-        public List<UserBestBeatmap> GetUserBestAndBeatmapByUsername(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
+        public List<UserBestBeatmap> GetUserBestAndBeatmapByUsername(string username,
+            GameMode gameMode = GameMode.Standard, int limit = 10)
         {
             if (string.IsNullOrWhiteSpace(username))
-            {
                 throw new ArgumentException("The given username was null or white space.", nameof(username));
-            }
 
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_user_best called: {GetNameValues(username, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_user_best called: {GetNameValues(username, gameMode, limit)}", DateTime.Now);
 
-            string request = Get($"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}");
+            string request =
+                Get(
+                    $"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}");
 
             List<UserBestBeatmap> userBestBeatmap = new List<UserBestBeatmap>();
             List<UserBest> userBest = JsonConvert.DeserializeObject<List<UserBest>>(request);
             foreach (UserBest best in userBest)
-            {
                 userBestBeatmap.Add(new UserBestBeatmap
                 {
                     Beatmap = GetBeatmap(best.BeatmapId),
                     UserBest = best
                 });
-            }
 
             return userBestBeatmap;
         }
 
         /// <inheritdoc />
-        public async Task<List<UserBestBeatmap>> GetUserBestAndBeatmapByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
+        public async Task<List<UserBestBeatmap>> GetUserBestAndBeatmapByUsernameAsync(string username,
+            GameMode gameMode = GameMode.Standard, int limit = 10)
         {
-            return await GetUserBestAndBeatmapByUsernameAsync(username, gameMode, limit, CancellationToken.None).ConfigureAwait(false);
+            return await GetUserBestAndBeatmapByUsernameAsync(username, gameMode, limit, CancellationToken.None)
+                .ConfigureAwait(false);
         }
 
-        public async Task<List<UserBestBeatmap>> GetUserBestAndBeatmapByUsernameAsync(string username, GameMode gameMode, int limit, CancellationToken cancellationToken)
+        public async Task<List<UserBestBeatmap>> GetUserBestAndBeatmapByUsernameAsync(string username,
+            GameMode gameMode, int limit, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(username))
-            {
                 throw new ArgumentException("The given username was null or white space.", nameof(username));
-            }
 
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_user_best called: {GetNameValues(username, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_user_best called: {GetNameValues(username, gameMode, limit)}", DateTime.Now);
 
-            string request = await GetAsync($"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}", cancellationToken).ConfigureAwait(false);
+            string request =
+                await GetAsync(
+                    $"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}",
+                    cancellationToken).ConfigureAwait(false);
 
             List<UserBestBeatmap> userBestBeatmap = new List<UserBestBeatmap>();
             List<UserBest> userBest = JsonConvert.DeserializeObject<List<UserBest>>(request);
             foreach (UserBest best in userBest)
-            {
                 userBestBeatmap.Add(new UserBestBeatmap
                 {
-                    Beatmap = await GetBeatmapAsync(best.BeatmapId, BeatmapType.ByDifficulty, gameMode, cancellationToken).ConfigureAwait(false),
+                    Beatmap = await GetBeatmapAsync(best.BeatmapId, BeatmapType.ByDifficulty, gameMode,
+                        cancellationToken).ConfigureAwait(false),
                     UserBest = best
                 });
-            }
 
             return userBestBeatmap;
         }
@@ -596,257 +673,304 @@ namespace OsuSharp
         {
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_user_best called: {GetNameValues(userid, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_user_best called: {GetNameValues(userid, gameMode, limit)}", DateTime.Now);
 
-            string request = Get($"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}");
-
-            return JsonConvert.DeserializeObject<List<UserBest>>(request);
-        }
-
-        /// <inheritdoc />
-        public async Task<List<UserBest>> GetUserBestByUseridAsync(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
-        {
-            return await GetUserBestByUseridAsync(userid, gameMode, limit, CancellationToken.None).ConfigureAwait(false);
-        }
-
-        public async Task<List<UserBest>> GetUserBestByUseridAsync(ulong userid, GameMode gameMode, int limit, CancellationToken cancellationToken)
-        {
-            string mode = UserMode.ToString(gameMode);
-
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_user_best called: {GetNameValues(userid, gameMode, limit)}", DateTime.Now);
-
-            string request = await GetAsync($"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}", cancellationToken).ConfigureAwait(false);
+            string request =
+                Get(
+                    $"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}");
 
             return JsonConvert.DeserializeObject<List<UserBest>>(request);
         }
 
         /// <inheritdoc />
-        public List<UserBestBeatmap> GetUserBestAndBeatmapByUserid(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
+        public async Task<List<UserBest>> GetUserBestByUseridAsync(ulong userid, GameMode gameMode = GameMode.Standard,
+            int limit = 10)
+        {
+            return await GetUserBestByUseridAsync(userid, gameMode, limit, CancellationToken.None)
+                .ConfigureAwait(false);
+        }
+
+        public async Task<List<UserBest>> GetUserBestByUseridAsync(ulong userid, GameMode gameMode, int limit,
+            CancellationToken cancellationToken)
         {
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_user_best called: {GetNameValues(userid, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_user_best called: {GetNameValues(userid, gameMode, limit)}", DateTime.Now);
 
-            string request = Get($"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}");
+            string request =
+                await GetAsync(
+                    $"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}",
+                    cancellationToken).ConfigureAwait(false);
+
+            return JsonConvert.DeserializeObject<List<UserBest>>(request);
+        }
+
+        /// <inheritdoc />
+        public List<UserBestBeatmap> GetUserBestAndBeatmapByUserid(ulong userid, GameMode gameMode = GameMode.Standard,
+            int limit = 10)
+        {
+            string mode = UserMode.ToString(gameMode);
+
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_user_best called: {GetNameValues(userid, gameMode, limit)}", DateTime.Now);
+
+            string request =
+                Get(
+                    $"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}");
 
             List<UserBestBeatmap> userBestBeatmap = new List<UserBestBeatmap>();
             List<UserBest> userBest = JsonConvert.DeserializeObject<List<UserBest>>(request);
             foreach (UserBest best in userBest)
-            {
                 userBestBeatmap.Add(new UserBestBeatmap
                 {
                     Beatmap = GetBeatmap(best.BeatmapId),
                     UserBest = best
                 });
-            }
 
             return userBestBeatmap;
         }
 
         /// <inheritdoc />
-        public async Task<List<UserBestBeatmap>> GetUserBestAndBeatmapByUseridAsync(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
+        public async Task<List<UserBestBeatmap>> GetUserBestAndBeatmapByUseridAsync(ulong userid,
+            GameMode gameMode = GameMode.Standard, int limit = 10)
         {
-            return await GetUserBestAndBeatmapByUseridAsync(userid, gameMode, limit, CancellationToken.None).ConfigureAwait(false);
+            return await GetUserBestAndBeatmapByUseridAsync(userid, gameMode, limit, CancellationToken.None)
+                .ConfigureAwait(false);
         }
 
-        public async Task<List<UserBestBeatmap>> GetUserBestAndBeatmapByUseridAsync(ulong userid, GameMode gameMode, int limit, CancellationToken cancellationToken)
+        public async Task<List<UserBestBeatmap>> GetUserBestAndBeatmapByUseridAsync(ulong userid, GameMode gameMode,
+            int limit, CancellationToken cancellationToken)
         {
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_user_best called: {GetNameValues(userid, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_user_best called: {GetNameValues(userid, gameMode, limit)}", DateTime.Now);
 
-            string request = await GetAsync($"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}", cancellationToken).ConfigureAwait(false);
+            string request =
+                await GetAsync(
+                    $"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}",
+                    cancellationToken).ConfigureAwait(false);
 
             List<UserBestBeatmap> userBestBeatmap = new List<UserBestBeatmap>();
             List<UserBest> userBest = JsonConvert.DeserializeObject<List<UserBest>>(request);
             foreach (UserBest best in userBest)
-            {
                 userBestBeatmap.Add(new UserBestBeatmap
                 {
-                    Beatmap = await GetBeatmapAsync(best.BeatmapId, BeatmapType.ByDifficulty, gameMode, cancellationToken).ConfigureAwait(false),
+                    Beatmap = await GetBeatmapAsync(best.BeatmapId, BeatmapType.ByDifficulty, gameMode,
+                        cancellationToken).ConfigureAwait(false),
                     UserBest = best
                 });
-            }
 
             return userBestBeatmap;
         }
 
         /// <inheritdoc />
-        public List<UserRecent> GetUserRecentByUsername(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
+        public List<UserRecent> GetUserRecentByUsername(string username, GameMode gameMode = GameMode.Standard,
+            int limit = 10)
         {
             if (string.IsNullOrWhiteSpace(username))
-            {
                 throw new ArgumentException("The given username was null or white space.", nameof(username));
-            }
 
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_user_recent called: {GetNameValues(username, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_user_recent called: {GetNameValues(username, gameMode, limit)}", DateTime.Now);
 
-            string request = Get($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}");
+            string request =
+                Get(
+                    $"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}");
 
             return JsonConvert.DeserializeObject<List<UserRecent>>(request);
         }
 
         /// <inheritdoc />
-        public async Task<List<UserRecent>> GetUserRecentByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
+        public async Task<List<UserRecent>> GetUserRecentByUsernameAsync(string username,
+            GameMode gameMode = GameMode.Standard, int limit = 10)
         {
-            return await GetUserRecentByUsernameAsync(username, gameMode, limit, CancellationToken.None).ConfigureAwait(false);
+            return await GetUserRecentByUsernameAsync(username, gameMode, limit, CancellationToken.None)
+                .ConfigureAwait(false);
         }
 
-        public async Task<List<UserRecent>> GetUserRecentByUsernameAsync(string username, GameMode gameMode, int limit, CancellationToken cancellationToken)
+        public async Task<List<UserRecent>> GetUserRecentByUsernameAsync(string username, GameMode gameMode, int limit,
+            CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(username))
-            {
                 throw new ArgumentException("The given username was null or white space.", nameof(username));
-            }
 
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_user_recent called: {GetNameValues(username, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_user_recent called: {GetNameValues(username, gameMode, limit)}", DateTime.Now);
 
-            string request = await GetAsync($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}", cancellationToken).ConfigureAwait(false);
+            string request =
+                await GetAsync(
+                    $"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}",
+                    cancellationToken).ConfigureAwait(false);
 
             return JsonConvert.DeserializeObject<List<UserRecent>>(request);
         }
 
         /// <inheritdoc />
-        public List<UserRecentBeatmap> GetUserRecentAndBeatmapByUsername(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
+        public List<UserRecentBeatmap> GetUserRecentAndBeatmapByUsername(string username,
+            GameMode gameMode = GameMode.Standard, int limit = 10)
         {
             if (string.IsNullOrWhiteSpace(username))
-            {
                 throw new ArgumentException("The given username was null or white space.", nameof(username));
-            }
 
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_user_recent called: {GetNameValues(username, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_user_recent called: {GetNameValues(username, gameMode, limit)}", DateTime.Now);
 
-            string request = Get($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}");
+            string request =
+                Get(
+                    $"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}");
 
             List<UserRecentBeatmap> userRecentBeatmap = new List<UserRecentBeatmap>();
             List<UserRecent> userRecents = JsonConvert.DeserializeObject<List<UserRecent>>(request);
             foreach (UserRecent recent in userRecents)
-            {
                 userRecentBeatmap.Add(new UserRecentBeatmap
                 {
                     Beatmap = GetBeatmap(recent.BeatmapId),
                     UserRecent = recent
                 });
-            }
 
             return userRecentBeatmap;
         }
 
         /// <inheritdoc />
-        public async Task<List<UserRecentBeatmap>> GetUserRecentAndBeatmapByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 10)
+        public async Task<List<UserRecentBeatmap>> GetUserRecentAndBeatmapByUsernameAsync(string username,
+            GameMode gameMode = GameMode.Standard, int limit = 10)
         {
-            return await GetUserRecentAndBeatmapByUsernameAsync(username, gameMode, limit, CancellationToken.None).ConfigureAwait(false);
+            return await GetUserRecentAndBeatmapByUsernameAsync(username, gameMode, limit, CancellationToken.None)
+                .ConfigureAwait(false);
         }
 
-        public async Task<List<UserRecentBeatmap>> GetUserRecentAndBeatmapByUsernameAsync(string username, GameMode gameMode, int limit, CancellationToken cancellationToken)
+        public async Task<List<UserRecentBeatmap>> GetUserRecentAndBeatmapByUsernameAsync(string username,
+            GameMode gameMode, int limit, CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(username))
-            {
                 throw new ArgumentException("The given username was null or white space.", nameof(username));
-            }
 
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_user_recent called: {GetNameValues(username, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_user_recent called: {GetNameValues(username, gameMode, limit)}", DateTime.Now);
 
-            string request = await GetAsync($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}", cancellationToken).ConfigureAwait(false);
+            string request =
+                await GetAsync(
+                    $"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}",
+                    cancellationToken).ConfigureAwait(false);
 
             List<UserRecentBeatmap> userRecentBeatmap = new List<UserRecentBeatmap>();
             List<UserRecent> userRecents = JsonConvert.DeserializeObject<List<UserRecent>>(request);
             foreach (UserRecent recent in userRecents)
-            {
                 userRecentBeatmap.Add(new UserRecentBeatmap
                 {
-                    Beatmap = await GetBeatmapAsync(recent.BeatmapId, BeatmapType.ByDifficulty, gameMode, cancellationToken).ConfigureAwait(false),
+                    Beatmap = await GetBeatmapAsync(recent.BeatmapId, BeatmapType.ByDifficulty, gameMode,
+                        cancellationToken).ConfigureAwait(false),
                     UserRecent = recent
                 });
-            }
 
             return userRecentBeatmap;
         }
 
         /// <inheritdoc />
-        public List<UserRecent> GetUserRecentByUserid(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
+        public List<UserRecent> GetUserRecentByUserid(ulong userid, GameMode gameMode = GameMode.Standard,
+            int limit = 10)
         {
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_user_recent called: {GetNameValues(userid, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_user_recent called: {GetNameValues(userid, gameMode, limit)}", DateTime.Now);
 
-            string request = Get($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}");
+            string request =
+                Get(
+                    $"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}");
 
             return JsonConvert.DeserializeObject<List<UserRecent>>(request);
         }
 
         /// <inheritdoc />
-        public async Task<List<UserRecent>> GetUserRecentByUseridAsync(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
+        public async Task<List<UserRecent>> GetUserRecentByUseridAsync(ulong userid,
+            GameMode gameMode = GameMode.Standard, int limit = 10)
         {
-            return await GetUserRecentByUseridAsync(userid, gameMode, limit, CancellationToken.None).ConfigureAwait(false);
+            return await GetUserRecentByUseridAsync(userid, gameMode, limit, CancellationToken.None)
+                .ConfigureAwait(false);
         }
 
-        public async Task<List<UserRecent>> GetUserRecentByUseridAsync(ulong userid, GameMode gameMode, int limit, CancellationToken cancellationToken)
+        public async Task<List<UserRecent>> GetUserRecentByUseridAsync(ulong userid, GameMode gameMode, int limit,
+            CancellationToken cancellationToken)
         {
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_user_recent called: {GetNameValues(userid, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_user_recent called: {GetNameValues(userid, gameMode, limit)}", DateTime.Now);
 
-            string request = await GetAsync($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}", cancellationToken).ConfigureAwait(false);
+            string request =
+                await GetAsync(
+                    $"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}",
+                    cancellationToken).ConfigureAwait(false);
 
             return JsonConvert.DeserializeObject<List<UserRecent>>(request);
         }
 
         /// <inheritdoc />
-        public List<UserRecentBeatmap> GetUserRecentAndBeatmapByUserid(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
+        public List<UserRecentBeatmap> GetUserRecentAndBeatmapByUserid(ulong userid,
+            GameMode gameMode = GameMode.Standard, int limit = 10)
         {
             string mode = UserMode.ToString(gameMode);
 
-            Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_user_recent called: {GetNameValues(userid, gameMode, limit)}", DateTime.Now);
+            Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
+                $"/api/get_user_recent called: {GetNameValues(userid, gameMode, limit)}", DateTime.Now);
 
-            string request = Get($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}");
+            string request =
+                Get(
+                    $"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}");
 
             List<UserRecentBeatmap> userRecentBeatmap = new List<UserRecentBeatmap>();
             List<UserRecent> userRecents = JsonConvert.DeserializeObject<List<UserRecent>>(request);
             foreach (UserRecent recent in userRecents)
-            {
                 userRecentBeatmap.Add(new UserRecentBeatmap
                 {
                     Beatmap = GetBeatmap(recent.BeatmapId),
                     UserRecent = recent
                 });
-            }
 
             return userRecentBeatmap;
         }
 
         /// <inheritdoc />
-        public async Task<List<UserRecentBeatmap>> GetUserRecentAndBeatmapByUseridAsync(ulong userid, GameMode gameMode = GameMode.Standard, int limit = 10)
+        public async Task<List<UserRecentBeatmap>> GetUserRecentAndBeatmapByUseridAsync(ulong userid,
+            GameMode gameMode = GameMode.Standard, int limit = 10)
         {
-            return await GetUserRecentAndBeatmapByUseridAsync(userid, gameMode, limit, CancellationToken.None).ConfigureAwait(false);
+            return await GetUserRecentAndBeatmapByUseridAsync(userid, gameMode, limit, CancellationToken.None)
+                .ConfigureAwait(false);
         }
 
-        public async Task<List<UserRecentBeatmap>> GetUserRecentAndBeatmapByUseridAsync(ulong userid, GameMode gameMode, int limit, CancellationToken cancellationToken)
+        public async Task<List<UserRecentBeatmap>> GetUserRecentAndBeatmapByUseridAsync(ulong userid, GameMode gameMode,
+            int limit, CancellationToken cancellationToken)
         {
             string mode = UserMode.ToString(gameMode);
 
             Logger.LogMessage(LoggingLevel.Debug, "Endpoints", "/api/get_user_recent called: ", DateTime.Now);
 
-            string request = await GetAsync($"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}", cancellationToken).ConfigureAwait(false);
+            string request =
+                await GetAsync(
+                    $"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}",
+                    cancellationToken).ConfigureAwait(false);
 
             List<UserRecentBeatmap> userRecentBeatmap = new List<UserRecentBeatmap>();
             List<UserRecent> userRecents = JsonConvert.DeserializeObject<List<UserRecent>>(request);
             foreach (UserRecent recent in userRecents)
-            {
                 userRecentBeatmap.Add(new UserRecentBeatmap
                 {
-                    Beatmap = await GetBeatmapAsync(recent.BeatmapId, BeatmapType.ByDifficulty, gameMode, cancellationToken).ConfigureAwait(false),
+                    Beatmap = await GetBeatmapAsync(recent.BeatmapId, BeatmapType.ByDifficulty, gameMode,
+                        cancellationToken).ConfigureAwait(false),
                     UserRecent = recent
                 });
-            }
 
             return userRecentBeatmap;
         }
@@ -872,7 +996,9 @@ namespace OsuSharp
         {
             Logger.LogMessage(LoggingLevel.Debug, "Endpoints", "/api/get_match called:", DateTime.Now);
 
-            string request = await GetAsync($"{GET_MATCH_URL}{API_KEY_PARAMETER}{ApiKey}{MATCH_PARAMETER}{matchid}", cancellationToken).ConfigureAwait(false);
+            string request =
+                await GetAsync($"{GET_MATCH_URL}{API_KEY_PARAMETER}{ApiKey}{MATCH_PARAMETER}{matchid}",
+                    cancellationToken).ConfigureAwait(false);
 
             List<Matchs> r = JsonConvert.DeserializeObject<List<Matchs>>(request);
             return r.Count > 0 ? r[0] : null;
@@ -882,38 +1008,42 @@ namespace OsuSharp
         public Replay GetReplayByUsername(ulong beatmapid, string username, GameMode gameMode = GameMode.Standard)
         {
             if (string.IsNullOrWhiteSpace(username))
-            {
                 throw new ArgumentException("The given username was null or white space.", nameof(username));
-            }
 
             string mode = UserMode.ToString(gameMode);
 
             Logger.LogMessage(LoggingLevel.Debug, "Endpoints", "/api/get_replay called: ", DateTime.Now);
 
-            string request = Get($"{GET_REPLAY_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{BEATMAP_PARAMETER}{beatmapid}{USER_PARAMETER}{username}");
+            string request =
+                Get(
+                    $"{GET_REPLAY_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{BEATMAP_PARAMETER}{beatmapid}{USER_PARAMETER}{username}");
 
             List<Replay> r = JsonConvert.DeserializeObject<List<Replay>>(request);
             return r.Count > 0 ? r[0] : null;
         }
 
         /// <inheritdoc />
-        public async Task<Replay> GetReplayByUsernameAsync(ulong beatmapid, string username, GameMode gameMode = GameMode.Standard)
+        public async Task<Replay> GetReplayByUsernameAsync(ulong beatmapid, string username,
+            GameMode gameMode = GameMode.Standard)
         {
-            return await GetReplayByUsernameAsync(beatmapid, username, gameMode, CancellationToken.None).ConfigureAwait(false);
+            return await GetReplayByUsernameAsync(beatmapid, username, gameMode, CancellationToken.None)
+                .ConfigureAwait(false);
         }
 
-        public async Task<Replay> GetReplayByUsernameAsync(ulong beatmapid, string username, GameMode gameMode, CancellationToken cancellationToken)
+        public async Task<Replay> GetReplayByUsernameAsync(ulong beatmapid, string username, GameMode gameMode,
+            CancellationToken cancellationToken)
         {
             if (string.IsNullOrWhiteSpace(username))
-            {
                 throw new ArgumentException("The given username was null or white space.", nameof(username));
-            }
 
             string mode = UserMode.ToString(gameMode);
 
             Logger.LogMessage(LoggingLevel.Debug, "Endpoints", "/api/get_replay called: ", DateTime.Now);
 
-            string request = await GetAsync($"{GET_REPLAY_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{BEATMAP_PARAMETER}{beatmapid}{USER_PARAMETER}{username}", cancellationToken).ConfigureAwait(false);
+            string request =
+                await GetAsync(
+                    $"{GET_REPLAY_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{BEATMAP_PARAMETER}{beatmapid}{USER_PARAMETER}{username}",
+                    cancellationToken).ConfigureAwait(false);
 
             List<Replay> r = JsonConvert.DeserializeObject<List<Replay>>(request);
             return r.Count > 0 ? r[0] : null;
@@ -926,25 +1056,33 @@ namespace OsuSharp
 
             Logger.LogMessage(LoggingLevel.Debug, "Endpoints", "/api/get_replay called: ", DateTime.Now);
 
-            string request = Get($"{GET_REPLAY_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{BEATMAP_PARAMETER}{beatmapid}{USER_PARAMETER}{userid}");
+            string request =
+                Get(
+                    $"{GET_REPLAY_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{BEATMAP_PARAMETER}{beatmapid}{USER_PARAMETER}{userid}");
 
             List<Replay> r = JsonConvert.DeserializeObject<List<Replay>>(request);
             return r.Count > 0 ? r[0] : null;
         }
 
         /// <inheritdoc />
-        public async Task<Replay> GetReplayByUseridAsync(ulong beatmapid, ulong userid, GameMode gameMode = GameMode.Standard)
+        public async Task<Replay> GetReplayByUseridAsync(ulong beatmapid, ulong userid,
+            GameMode gameMode = GameMode.Standard)
         {
-            return await GetReplayByUseridAsync(beatmapid, userid, gameMode, CancellationToken.None).ConfigureAwait(false);
+            return await GetReplayByUseridAsync(beatmapid, userid, gameMode, CancellationToken.None)
+                .ConfigureAwait(false);
         }
 
-        public async Task<Replay> GetReplayByUseridAsync(ulong beatmapid, ulong userid, GameMode gameMode, CancellationToken cancellationToken)
+        public async Task<Replay> GetReplayByUseridAsync(ulong beatmapid, ulong userid, GameMode gameMode,
+            CancellationToken cancellationToken)
         {
             string mode = UserMode.ToString(gameMode);
 
             Logger.LogMessage(LoggingLevel.Debug, "Endpoints", "/api/get_replay called: ", DateTime.Now);
 
-            string request = await GetAsync($"{GET_REPLAY_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{BEATMAP_PARAMETER}{beatmapid}{USER_PARAMETER}{userid}", cancellationToken).ConfigureAwait(false);
+            string request =
+                await GetAsync(
+                    $"{GET_REPLAY_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{BEATMAP_PARAMETER}{beatmapid}{USER_PARAMETER}{userid}",
+                    cancellationToken).ConfigureAwait(false);
 
             List<Replay> r = JsonConvert.DeserializeObject<List<Replay>>(request);
             return r.Count > 0 ? r[0] : null;
@@ -956,10 +1094,7 @@ namespace OsuSharp
 
             HttpResponseMessage message = _httpClient.GetAsync(ROOT_DOMAIN + url).Result;
 
-            if (message.StatusCode == HttpStatusCode.OK)
-            {
-                return message.Content.ReadAsStringAsync().Result;
-            }
+            if (message.StatusCode == HttpStatusCode.OK) return message.Content.ReadAsStringAsync().Result;
             throw new OsuSharpException(message.Content.ReadAsStringAsync().Result);
         }
 
@@ -970,9 +1105,7 @@ namespace OsuSharp
             HttpResponseMessage message = await _httpClient.GetAsync(ROOT_DOMAIN + url, cancellationToken).ConfigureAwait(false);
 
             if (message.StatusCode == HttpStatusCode.OK)
-            {
                 return await message.Content.ReadAsStringAsync().ConfigureAwait(false);
-            }
             throw new OsuSharpException(await message.Content.ReadAsStringAsync().ConfigureAwait(false));
         }
 
@@ -980,10 +1113,7 @@ namespace OsuSharp
         {
             StringBuilder builder = new StringBuilder();
 
-            foreach (var param in parameters)
-            {
-                builder.Append($"[{param.GetType().Name}: {param}] ");
-            }
+            foreach (object param in parameters) builder.Append($"[{param.GetType().Name}: {param}] ");
 
             return builder.ToString();
         }

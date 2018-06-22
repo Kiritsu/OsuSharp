@@ -1,7 +1,7 @@
 ﻿namespace OsuSharp.Misc
 {
     /// <summary>
-    /// Enum representing different available osu gamemodes
+    ///     Enum representing different available osu gamemodes
     /// </summary>
     public enum GameMode
     {

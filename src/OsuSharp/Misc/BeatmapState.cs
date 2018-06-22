@@ -1,7 +1,7 @@
 ﻿namespace OsuSharp.Misc
 {
     /// <summary>
-    /// Enum representing the different possible states of a beatmap
+    ///     Enum representing the different possible states of a beatmap
     /// </summary>
     public enum BeatmapState
     {

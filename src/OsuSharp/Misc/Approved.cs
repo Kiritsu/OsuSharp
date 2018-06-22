@@ -5,7 +5,7 @@ namespace OsuSharp.Misc
     public class Approved
     {
         /// <summary>
-        /// Returns a <see cref="BeatmapState"/> of the given beatmap state.
+        ///     Returns a <see cref="BeatmapState" /> of the given beatmap state.
         /// </summary>
         /// <param name="currentState">State of the beatmap in number.</param>
         /// <returns></returns>

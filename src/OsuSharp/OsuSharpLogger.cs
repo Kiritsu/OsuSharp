@@ -23,7 +23,6 @@ namespace OsuSharp
         public void LogMessage(LoggingLevel level, string from, string message, DateTime time)
         {
             if (level <= Level)
-            {
                 LogMessageReceived?.Invoke(this, new OsuSharpLoggerEventArgs
                 {
                     Instance = Instance,
@@ -33,7 +32,6 @@ namespace OsuSharp
                     From = from,
                     Level = level
                 });
-            }
         }
 
         /// <inheritdoc />

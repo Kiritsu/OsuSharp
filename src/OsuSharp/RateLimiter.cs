@@ -58,7 +58,9 @@ namespace OsuSharp
                 }
                 else if (Requests > MaxRequests)
                 {
-                    Logger.LogMessage(LoggingLevel.Warning, "RateLimiter", $"Rate limit exceeded. Queuing the current request, retrying after {(int)(Time - now).TotalMilliseconds}ms", now);
+                    Logger.LogMessage(LoggingLevel.Warning, "RateLimiter",
+                        $"Rate limit exceeded. Queuing the current request, retrying after {(int) (Time - now).TotalMilliseconds}ms",
+                        now);
                     await Task.Delay(Time - now, cancellationToken).ConfigureAwait(false);
                     Time = DateTime.Now + TimeInterval;
                     Requests = 0;

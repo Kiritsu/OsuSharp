@@ -59,7 +59,8 @@ namespace OsuSharp.Misc
 
         [ModsString("LastMod")] LastMod = 4194304,
 
-        [ModsString("FreeModAllowed")] FreeModAllowed = NoFail | Easy | Hidden | HardRock | SuddenDeath | Flashlight | FadeIn | Relax | Relax2 | SpunOut | KeyMod,
+        [ModsString("FreeModAllowed")] FreeModAllowed = NoFail | Easy | Hidden | HardRock | SuddenDeath | Flashlight |
+                                                        FadeIn | Relax | Relax2 | SpunOut | KeyMod,
 
         [ModsString("9K")] Key9 = 16777216,
 
@@ -94,27 +95,22 @@ namespace OsuSharp.Misc
             IEnumerable<Mods> mods = Enum.GetValues(t).Cast<Mods>();
 
             foreach (Mods mod in mods)
-            {
                 ModsStrings[mod] = ti.DeclaredMembers
                     .FirstOrDefault(xm => xm.Name == mod.ToString())
                     .GetCustomAttribute<ModsStringAttribute>().String;
-            }
         }
 
         private static Dictionary<Mods, string> ModsStrings { get; }
 
         /// <summary>
-        /// Method that returns a <see cref="string"/> of the given bitflag <see cref="Mods"/>.
+        ///     Method that returns a <see cref="string" /> of the given bitflag <see cref="Mods" />.
         /// </summary>
         /// <param name="mods">Bitflag of the mod.</param>
         /// <param name="instance">Instance of the OsuApi (needed to get the ModsSeparator stuff)</param>
         /// <returns></returns>
         public static string ToModString(this Mods mods, IOsuApi instance)
         {
-            if (mods == Mods.None)
-            {
-                return ModsStrings[mods];
-            }
+            if (mods == Mods.None) return ModsStrings[mods];
 
             IEnumerable<string> enumerableMods = ModsStrings
                 .Where(k => k.Key != Mods.None && (mods & k.Key) == k.Key)
