@@ -5,7 +5,7 @@
 **OsuSharp is a wrapper written in C# for the Osu!Api.**
 
 - Compatible with .NET Standard (2.0)
-- Is Asynchrone
+- Is synchrone and asynchrone
 
 ## Requirements:
 
