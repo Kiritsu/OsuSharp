@@ -20,7 +20,7 @@ using OsuSharp.UserRecentEndpoint;
 namespace OsuSharp
 {
     public class OsuApi : IOsuApi
-    { 
+    {
         private const string ROOT_DOMAIN = "https://osu.ppy.sh";
         private const string GET_BEATMAPS_URL = "/api/get_beatmaps";
         private const string GET_USER_URL = "/api/get_user";
@@ -184,7 +184,8 @@ namespace OsuSharp
             Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
                 $"/api/get_beatmap called: {GetNameValues(id, bmType, gameMode, limit)}", DateTime.Now);
 
-            string request = Get($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{id}{LIMIT_PARAMETER}{limit}{mode}");
+            string request =
+                Get($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{id}{LIMIT_PARAMETER}{limit}{mode}");
 
             return JsonConvert.DeserializeObject<List<Beatmap>>(request);
         }
@@ -274,7 +275,8 @@ namespace OsuSharp
             Logger.LogMessage(LoggingLevel.Debug, "Endpoints",
                 $"/api/get_user called: {GetNameValues(username, gameMode)}", DateTime.Now);
 
-            string request = await GetAsync($"{GET_USER_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}",
+            string request = await GetAsync(
+                $"{GET_USER_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}",
                 cancellationToken).ConfigureAwait(false);
 
             List<User> r = JsonConvert.DeserializeObject<List<User>>(request);
@@ -1092,20 +1094,27 @@ namespace OsuSharp
         {
             Limiter.HandleAsync().ConfigureAwait(false).GetAwaiter().GetResult();
 
-            HttpResponseMessage message = _httpClient.GetAsync(ROOT_DOMAIN + url).Result;
+            HttpResponseMessage message = _httpClient.GetAsync(ROOT_DOMAIN + url)
+                .ConfigureAwait(false).GetAwaiter().GetResult();
 
-            if (message.StatusCode == HttpStatusCode.OK) return message.Content.ReadAsStringAsync().Result;
-            throw new OsuSharpException(message.Content.ReadAsStringAsync().Result);
+            if (message.StatusCode == HttpStatusCode.OK)
+                return message.Content.ReadAsStringAsync()
+                    .ConfigureAwait(false).GetAwaiter().GetResult();
+
+            throw new OsuSharpException(message.Content.ReadAsStringAsync()
+                .ConfigureAwait(false).GetAwaiter().GetResult());
         }
 
         private async Task<string> GetAsync(string url, CancellationToken cancellationToken)
         {
             await Limiter.HandleAsync(cancellationToken).ConfigureAwait(false);
 
-            HttpResponseMessage message = await _httpClient.GetAsync(ROOT_DOMAIN + url, cancellationToken).ConfigureAwait(false);
+            HttpResponseMessage message =
+                await _httpClient.GetAsync(ROOT_DOMAIN + url, cancellationToken).ConfigureAwait(false);
 
             if (message.StatusCode == HttpStatusCode.OK)
                 return await message.Content.ReadAsStringAsync().ConfigureAwait(false);
+
             throw new OsuSharpException(await message.Content.ReadAsStringAsync().ConfigureAwait(false));
         }
 
