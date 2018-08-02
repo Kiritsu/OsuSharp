@@ -36,7 +36,7 @@ namespace OsuSharp
 
         public async Task HandleAsync()
         {
-            await HandleAsync(CancellationToken.None);
+            await HandleAsync(CancellationToken.None).ConfigureAwait(false);
         }
 
         public async Task HandleAsync(CancellationToken cancellationToken)
