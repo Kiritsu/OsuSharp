@@ -1,0 +1,38 @@
+version: 2.0.{build}
+
+image: Visual Studio 2017
+
+branches:
+  only:
+    - master
+
+install:
+  - cmd: appveyor downloadfile https://dist.nuget.org/win-x86-commandline/v4.3.0/nuget.exe
+
+before_build:
+  - cmd: nuget restore src
+
+build: off
+
+build_script: 
+  - ps: dotnet msbuild src\OsuSharp\OsuSharp.csproj /p:Configuration=Release
+        
+        dotnet pack src\OsuSharp\OsuSharp.csproj -c Release -o "nugetpck" /p:PackageVersion=$env:APPVEYOR_BUILD_NUMBER --no-build
+
+artifacts:
+  - path: 'src\OsuSharp\nugetpck\*.nupkg'
+  
+deploy:
+  - provider: NuGet
+    skip_symbols: false
+    api_key:
+      secure: 'feg96FYgO+XekNQv7mgh83GhYKxrVsIoplnecm9zVq0JN0B/h2Ru08571YZCzLny'
+    artifact: /.*\.nupkg/
+    
+notifications:
+  - provider: Slack
+    on_build_success: true
+    on_build_failure: true
+    on_build_status_changed: true
+    incoming_webhook:
+      secure: 'oUv6XLAL1ZAr8hMCy+YxYm2wlqZJPyhHRZcucvjB3/JtIILKW4DHqFhXVoe6dKb0FbxKN24JAxVG7R0Zn5+m/m5EHcC6genkvxLxPAYCrq6fZs/DaKuRsJKf+l/ja5Cq3giSALakCxTu5UDbRATqa50eBAuYUsWMX+bauoFu+jEczb/sjbIl9/WwET04j3WZ'

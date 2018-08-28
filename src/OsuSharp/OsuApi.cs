@@ -583,7 +583,7 @@ namespace OsuSharp
         public async Task<List<UserBest>> GetUserBestByUsernameAsync(string username,
             GameMode gameMode = GameMode.Standard, int limit = 10)
         {
-            return await GetUserBestByUsernameAsync(username, gameMode, limit, CancellationToken.None);
+            return await GetUserBestByUsernameAsync(username, gameMode, limit, CancellationToken.None).ConfigureAwait(false);
         }
 
         public async Task<List<UserBest>> GetUserBestByUsernameAsync(string username, GameMode gameMode, int limit,
