@@ -17,7 +17,7 @@ build: off
 build_script: 
   - ps: dotnet msbuild src\OsuSharp\OsuSharp.csproj /p:Configuration=Release
         
-        dotnet pack src\OsuSharp\OsuSharp.csproj -c Release -o "nugetpck" /p:PackageVersion=$env:APPVEYOR_BUILD_NUMBER --no-build
+        dotnet pack src\OsuSharp\OsuSharp.csproj -c Release -o "nugetpck" /p:PackageVersion=3.0.$env:APPVEYOR_BUILD_NUMBER --no-build
 
 artifacts:
   - path: 'src\OsuSharp\nugetpck\*.nupkg'
