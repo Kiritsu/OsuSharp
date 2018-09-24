@@ -1,0 +1,160 @@
+### YamlMime:ManagedReference
+items:
+- uid: OsuSharp.Misc.GameMode
+  commentId: T:OsuSharp.Misc.GameMode
+  id: GameMode
+  parent: OsuSharp.Misc
+  children:
+  - OsuSharp.Misc.GameMode.Catch
+  - OsuSharp.Misc.GameMode.Mania
+  - OsuSharp.Misc.GameMode.Standard
+  - OsuSharp.Misc.GameMode.Taiko
+  langs:
+  - csharp
+  - vb
+  name: GameMode
+  nameWithType: GameMode
+  fullName: OsuSharp.Misc.GameMode
+  type: Enum
+  source:
+    id: GameMode
+    path: ''
+    startLine: 2617
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Misc
+  summary: "\nEnum representing different available osu gamemodes\n"
+  example: []
+  syntax:
+    content: public enum GameMode
+    content.vb: Public Enum GameMode
+  modifiers.csharp:
+  - public
+  - enum
+  modifiers.vb:
+  - Public
+  - Enum
+- uid: OsuSharp.Misc.GameMode.Standard
+  commentId: F:OsuSharp.Misc.GameMode.Standard
+  id: Standard
+  parent: OsuSharp.Misc.GameMode
+  langs:
+  - csharp
+  - vb
+  name: Standard
+  nameWithType: GameMode.Standard
+  fullName: OsuSharp.Misc.GameMode.Standard
+  type: Field
+  source:
+    id: Standard
+    path: ''
+    startLine: 2619
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Misc
+  syntax:
+    content: Standard = 0
+    return:
+      type: OsuSharp.Misc.GameMode
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: OsuSharp.Misc.GameMode.Taiko
+  commentId: F:OsuSharp.Misc.GameMode.Taiko
+  id: Taiko
+  parent: OsuSharp.Misc.GameMode
+  langs:
+  - csharp
+  - vb
+  name: Taiko
+  nameWithType: GameMode.Taiko
+  fullName: OsuSharp.Misc.GameMode.Taiko
+  type: Field
+  source:
+    id: Taiko
+    path: ''
+    startLine: 2620
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Misc
+  syntax:
+    content: Taiko = 1
+    return:
+      type: OsuSharp.Misc.GameMode
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: OsuSharp.Misc.GameMode.Catch
+  commentId: F:OsuSharp.Misc.GameMode.Catch
+  id: Catch
+  parent: OsuSharp.Misc.GameMode
+  langs:
+  - csharp
+  - vb
+  name: Catch
+  nameWithType: GameMode.Catch
+  fullName: OsuSharp.Misc.GameMode.Catch
+  type: Field
+  source:
+    id: Catch
+    path: ''
+    startLine: 2621
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Misc
+  syntax:
+    content: Catch = 2
+    return:
+      type: OsuSharp.Misc.GameMode
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: OsuSharp.Misc.GameMode.Mania
+  commentId: F:OsuSharp.Misc.GameMode.Mania
+  id: Mania
+  parent: OsuSharp.Misc.GameMode
+  langs:
+  - csharp
+  - vb
+  name: Mania
+  nameWithType: GameMode.Mania
+  fullName: OsuSharp.Misc.GameMode.Mania
+  type: Field
+  source:
+    id: Mania
+    path: ''
+    startLine: 2622
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Misc
+  syntax:
+    content: Mania = 3
+    return:
+      type: OsuSharp.Misc.GameMode
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+references:
+- uid: OsuSharp.Misc
+  commentId: N:OsuSharp.Misc
+  name: OsuSharp.Misc
+  nameWithType: OsuSharp.Misc
+  fullName: OsuSharp.Misc
+- uid: OsuSharp.Misc.GameMode
+  commentId: T:OsuSharp.Misc.GameMode
+  parent: OsuSharp.Misc
+  name: GameMode
+  nameWithType: GameMode
+  fullName: OsuSharp.Misc.GameMode

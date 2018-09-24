@@ -1,0 +1,158 @@
+### YamlMime:ManagedReference
+items:
+- uid: OsuSharp.Misc.LoggingLevel
+  commentId: T:OsuSharp.Misc.LoggingLevel
+  id: LoggingLevel
+  parent: OsuSharp.Misc
+  children:
+  - OsuSharp.Misc.LoggingLevel.Debug
+  - OsuSharp.Misc.LoggingLevel.Error
+  - OsuSharp.Misc.LoggingLevel.Info
+  - OsuSharp.Misc.LoggingLevel.Warning
+  langs:
+  - csharp
+  - vb
+  name: LoggingLevel
+  nameWithType: LoggingLevel
+  fullName: OsuSharp.Misc.LoggingLevel
+  type: Enum
+  source:
+    id: LoggingLevel
+    path: ''
+    startLine: 2627
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Misc
+  syntax:
+    content: public enum LoggingLevel
+    content.vb: Public Enum LoggingLevel
+  modifiers.csharp:
+  - public
+  - enum
+  modifiers.vb:
+  - Public
+  - Enum
+- uid: OsuSharp.Misc.LoggingLevel.Info
+  commentId: F:OsuSharp.Misc.LoggingLevel.Info
+  id: Info
+  parent: OsuSharp.Misc.LoggingLevel
+  langs:
+  - csharp
+  - vb
+  name: Info
+  nameWithType: LoggingLevel.Info
+  fullName: OsuSharp.Misc.LoggingLevel.Info
+  type: Field
+  source:
+    id: Info
+    path: ''
+    startLine: 2629
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Misc
+  syntax:
+    content: Info = 0
+    return:
+      type: OsuSharp.Misc.LoggingLevel
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: OsuSharp.Misc.LoggingLevel.Warning
+  commentId: F:OsuSharp.Misc.LoggingLevel.Warning
+  id: Warning
+  parent: OsuSharp.Misc.LoggingLevel
+  langs:
+  - csharp
+  - vb
+  name: Warning
+  nameWithType: LoggingLevel.Warning
+  fullName: OsuSharp.Misc.LoggingLevel.Warning
+  type: Field
+  source:
+    id: Warning
+    path: ''
+    startLine: 2630
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Misc
+  syntax:
+    content: Warning = 1
+    return:
+      type: OsuSharp.Misc.LoggingLevel
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: OsuSharp.Misc.LoggingLevel.Error
+  commentId: F:OsuSharp.Misc.LoggingLevel.Error
+  id: Error
+  parent: OsuSharp.Misc.LoggingLevel
+  langs:
+  - csharp
+  - vb
+  name: Error
+  nameWithType: LoggingLevel.Error
+  fullName: OsuSharp.Misc.LoggingLevel.Error
+  type: Field
+  source:
+    id: Error
+    path: ''
+    startLine: 2631
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Misc
+  syntax:
+    content: Error = 2
+    return:
+      type: OsuSharp.Misc.LoggingLevel
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: OsuSharp.Misc.LoggingLevel.Debug
+  commentId: F:OsuSharp.Misc.LoggingLevel.Debug
+  id: Debug
+  parent: OsuSharp.Misc.LoggingLevel
+  langs:
+  - csharp
+  - vb
+  name: Debug
+  nameWithType: LoggingLevel.Debug
+  fullName: OsuSharp.Misc.LoggingLevel.Debug
+  type: Field
+  source:
+    id: Debug
+    path: ''
+    startLine: 2632
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Misc
+  syntax:
+    content: Debug = 3
+    return:
+      type: OsuSharp.Misc.LoggingLevel
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+references:
+- uid: OsuSharp.Misc
+  commentId: N:OsuSharp.Misc
+  name: OsuSharp.Misc
+  nameWithType: OsuSharp.Misc
+  fullName: OsuSharp.Misc
+- uid: OsuSharp.Misc.LoggingLevel
+  commentId: T:OsuSharp.Misc.LoggingLevel
+  parent: OsuSharp.Misc
+  name: LoggingLevel
+  nameWithType: LoggingLevel
+  fullName: OsuSharp.Misc.LoggingLevel

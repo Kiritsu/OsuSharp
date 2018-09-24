@@ -1,0 +1,46 @@
+### YamlMime:ManagedReference
+items:
+- uid: OsuSharp
+  commentId: N:OsuSharp
+  id: OsuSharp
+  children:
+  - OsuSharp.OsuApi
+  - OsuSharp.OsuSharpConfiguration
+  - OsuSharp.OsuSharpException
+  - OsuSharp.OsuSharpLogger
+  langs:
+  - csharp
+  - vb
+  name: OsuSharp
+  nameWithType: OsuSharp
+  fullName: OsuSharp
+  type: Namespace
+  assemblies:
+  - cs.temp.dll
+references:
+- uid: OsuSharp.OsuApi
+  commentId: T:OsuSharp.OsuApi
+  parent: OsuSharp
+  name: OsuApi
+  nameWithType: OsuApi
+  fullName: OsuSharp.OsuApi
+- uid: OsuSharp.OsuSharpConfiguration
+  commentId: T:OsuSharp.OsuSharpConfiguration
+  name: OsuSharpConfiguration
+  nameWithType: OsuSharpConfiguration
+  fullName: OsuSharp.OsuSharpConfiguration
+- uid: OsuSharp.OsuSharpException
+  commentId: T:OsuSharp.OsuSharpException
+  name: OsuSharpException
+  nameWithType: OsuSharpException
+  fullName: OsuSharp.OsuSharpException
+- uid: OsuSharp.OsuSharpLogger
+  commentId: T:OsuSharp.OsuSharpLogger
+  name: OsuSharpLogger
+  nameWithType: OsuSharpLogger
+  fullName: OsuSharp.OsuSharpLogger
+- uid: OsuSharp
+  commentId: N:OsuSharp
+  name: OsuSharp
+  nameWithType: OsuSharp
+  fullName: OsuSharp

@@ -1,0 +1,78 @@
+### YamlMime:TableOfContent
+- uid: OsuSharp
+  name: OsuSharp
+  items:
+  - uid: OsuSharp.OsuApi
+    name: OsuApi
+  - uid: OsuSharp.OsuSharpConfiguration
+    name: OsuSharpConfiguration
+  - uid: OsuSharp.OsuSharpException
+    name: OsuSharpException
+  - uid: OsuSharp.OsuSharpLogger
+    name: OsuSharpLogger
+- uid: OsuSharp.Endpoints
+  name: OsuSharp.Endpoints
+  items:
+  - uid: OsuSharp.Endpoints.Beatmap
+    name: Beatmap
+  - uid: OsuSharp.Endpoints.Event
+    name: Event
+  - uid: OsuSharp.Endpoints.Game
+    name: Game
+  - uid: OsuSharp.Endpoints.Match
+    name: Match
+  - uid: OsuSharp.Endpoints.Multiplayer
+    name: Multiplayer
+  - uid: OsuSharp.Endpoints.Replay
+    name: Replay
+  - uid: OsuSharp.Endpoints.Score
+    name: Score
+  - uid: OsuSharp.Endpoints.ScoreMatch
+    name: ScoreMatch
+  - uid: OsuSharp.Endpoints.User
+    name: User
+  - uid: OsuSharp.Endpoints.UserBest
+    name: UserBest
+  - uid: OsuSharp.Endpoints.UserRecent
+    name: UserRecent
+- uid: OsuSharp.Entities
+  name: OsuSharp.Entities
+  items:
+  - uid: OsuSharp.Entities.BeatmapScores
+    name: BeatmapScores
+  - uid: OsuSharp.Entities.BeatmapScoresUsers
+    name: BeatmapScoresUsers
+  - uid: OsuSharp.Entities.UserBestBeatmap
+    name: UserBestBeatmap
+  - uid: OsuSharp.Entities.UserRecentBeatmap
+    name: UserRecentBeatmap
+- uid: OsuSharp.Interfaces
+  name: OsuSharp.Interfaces
+  items:
+  - uid: OsuSharp.Interfaces.IOsuApi
+    name: IOsuApi
+  - uid: OsuSharp.Interfaces.IOsuSharpConfiguration
+    name: IOsuSharpConfiguration
+  - uid: OsuSharp.Interfaces.IOsuSharpLogger
+    name: IOsuSharpLogger
+  - uid: OsuSharp.Interfaces.IRateLimiter
+    name: IRateLimiter
+- uid: OsuSharp.Misc
+  name: OsuSharp.Misc
+  items:
+  - uid: OsuSharp.Misc.BeatmapState
+    name: BeatmapState
+  - uid: OsuSharp.Misc.BeatmapType
+    name: BeatmapType
+  - uid: OsuSharp.Misc.GameMode
+    name: GameMode
+  - uid: OsuSharp.Misc.LoggingLevel
+    name: LoggingLevel
+  - uid: OsuSharp.Misc.Mods
+    name: Mods
+  - uid: OsuSharp.Misc.ModsStringAttribute
+    name: ModsStringAttribute
+  - uid: OsuSharp.Misc.ModsUtilities
+    name: ModsUtilities
+  - uid: OsuSharp.Misc.OsuSharpLoggerEventArgs
+    name: OsuSharpLoggerEventArgs

@@ -1,0 +1,809 @@
+### YamlMime:ManagedReference
+items:
+- uid: OsuSharp.OsuSharpLogger
+  commentId: T:OsuSharp.OsuSharpLogger
+  id: OsuSharpLogger
+  parent: OsuSharp
+  children:
+  - OsuSharp.OsuSharpLogger.#ctor(OsuSharp.OsuApi,OsuSharp.Misc.LoggingLevel)
+  - OsuSharp.OsuSharpLogger.LogMessage(OsuSharp.Misc.LoggingLevel,System.String,System.String,System.DateTime)
+  - OsuSharp.OsuSharpLogger.LogMessageReceived
+  - OsuSharp.OsuSharpLogger.Print(OsuSharp.Misc.LoggingLevel,System.String,System.String,System.DateTime)
+  langs:
+  - csharp
+  - vb
+  name: OsuSharpLogger
+  nameWithType: OsuSharpLogger
+  fullName: OsuSharp.OsuSharpLogger
+  type: Class
+  source:
+    id: OsuSharpLogger
+    path: ''
+    startLine: 1416
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp
+  syntax:
+    content: 'public class OsuSharpLogger : IOsuSharpLogger'
+    content.vb: >-
+      Public Class OsuSharpLogger
+
+          Implements IOsuSharpLogger
+  inheritance:
+  - System.Object
+  implements:
+  - OsuSharp.Interfaces.IOsuSharpLogger
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: OsuSharp.OsuSharpLogger.#ctor(OsuSharp.OsuApi,OsuSharp.Misc.LoggingLevel)
+  commentId: M:OsuSharp.OsuSharpLogger.#ctor(OsuSharp.OsuApi,OsuSharp.Misc.LoggingLevel)
+  id: '#ctor(OsuSharp.OsuApi,OsuSharp.Misc.LoggingLevel)'
+  parent: OsuSharp.OsuSharpLogger
+  langs:
+  - csharp
+  - vb
+  name: OsuSharpLogger(OsuApi, LoggingLevel)
+  nameWithType: OsuSharpLogger.OsuSharpLogger(OsuApi, LoggingLevel)
+  fullName: OsuSharp.OsuSharpLogger.OsuSharpLogger(OsuSharp.OsuApi, OsuSharp.Misc.LoggingLevel)
+  type: Constructor
+  source:
+    id: .ctor
+    path: ''
+    startLine: 1422
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp
+  syntax:
+    content: public OsuSharpLogger(OsuApi instance, LoggingLevel level)
+    parameters:
+    - id: instance
+      type: OsuSharp.OsuApi
+    - id: level
+      type: OsuSharp.Misc.LoggingLevel
+    content.vb: Public Sub New(instance As OsuApi, level As LoggingLevel)
+  overload: OsuSharp.OsuSharpLogger.#ctor*
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: OsuSharp.OsuSharpLogger.LogMessageReceived
+  commentId: E:OsuSharp.OsuSharpLogger.LogMessageReceived
+  id: LogMessageReceived
+  parent: OsuSharp.OsuSharpLogger
+  langs:
+  - csharp
+  - vb
+  name: LogMessageReceived
+  nameWithType: OsuSharpLogger.LogMessageReceived
+  fullName: OsuSharp.OsuSharpLogger.LogMessageReceived
+  type: Event
+  source:
+    id: LogMessageReceived
+    path: ''
+    startLine: 1432
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp
+  summary: "\nEvent that fires when IOsuSharpLogger#LogMessage is invoked.\n"
+  example: []
+  syntax:
+    content: public event EventHandler<OsuSharpLoggerEventArgs> LogMessageReceived
+    return:
+      type: System.EventHandler{OsuSharp.Misc.OsuSharpLoggerEventArgs}
+    content.vb: Public Event LogMessageReceived As EventHandler(Of OsuSharpLoggerEventArgs)
+  implements:
+  - OsuSharp.Interfaces.IOsuSharpLogger.LogMessageReceived
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: OsuSharp.OsuSharpLogger.LogMessage(OsuSharp.Misc.LoggingLevel,System.String,System.String,System.DateTime)
+  commentId: M:OsuSharp.OsuSharpLogger.LogMessage(OsuSharp.Misc.LoggingLevel,System.String,System.String,System.DateTime)
+  id: LogMessage(OsuSharp.Misc.LoggingLevel,System.String,System.String,System.DateTime)
+  parent: OsuSharp.OsuSharpLogger
+  langs:
+  - csharp
+  - vb
+  name: LogMessage(LoggingLevel, String, String, DateTime)
+  nameWithType: OsuSharpLogger.LogMessage(LoggingLevel, String, String, DateTime)
+  fullName: OsuSharp.OsuSharpLogger.LogMessage(OsuSharp.Misc.LoggingLevel, System.String, System.String, System.DateTime)
+  type: Method
+  source:
+    id: LogMessage
+    path: ''
+    startLine: 1441
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp
+  summary: "\nInvoke the event to log a new message.\n"
+  example: []
+  syntax:
+    content: public void LogMessage(LoggingLevel level, string from, string message, DateTime time)
+    parameters:
+    - id: level
+      type: OsuSharp.Misc.LoggingLevel
+      description: Level of the message to log
+    - id: from
+      type: System.String
+      description: Where does the log come from
+    - id: message
+      type: System.String
+      description: Content to log
+    - id: time
+      type: System.DateTime
+      description: Time when it happened
+    content.vb: Public Sub LogMessage(level As LoggingLevel, from As String, message As String, time As Date)
+  overload: OsuSharp.OsuSharpLogger.LogMessage*
+  implements:
+  - OsuSharp.Interfaces.IOsuSharpLogger.LogMessage(OsuSharp.Misc.LoggingLevel,System.String,System.String,System.DateTime)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: OsuSharp.OsuSharpLogger.Print(OsuSharp.Misc.LoggingLevel,System.String,System.String,System.DateTime)
+  commentId: M:OsuSharp.OsuSharpLogger.Print(OsuSharp.Misc.LoggingLevel,System.String,System.String,System.DateTime)
+  id: Print(OsuSharp.Misc.LoggingLevel,System.String,System.String,System.DateTime)
+  parent: OsuSharp.OsuSharpLogger
+  langs:
+  - csharp
+  - vb
+  name: Print(LoggingLevel, String, String, DateTime)
+  nameWithType: OsuSharpLogger.Print(LoggingLevel, String, String, DateTime)
+  fullName: OsuSharp.OsuSharpLogger.Print(OsuSharp.Misc.LoggingLevel, System.String, System.String, System.DateTime)
+  type: Method
+  source:
+    id: Print
+    path: ''
+    startLine: 1462
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp
+  summary: "\nPrint a colored message to the console depending on the LoggingLevel\n"
+  example: []
+  syntax:
+    content: public void Print(LoggingLevel level, string from, string message, DateTime time)
+    parameters:
+    - id: level
+      type: OsuSharp.Misc.LoggingLevel
+      description: Level of the log
+    - id: from
+      type: System.String
+      description: From where does the message come from
+    - id: message
+      type: System.String
+      description: Content to be logged
+    - id: time
+      type: System.DateTime
+      description: Time when it happened
+    content.vb: Public Sub Print(level As LoggingLevel, from As String, message As String, time As Date)
+  overload: OsuSharp.OsuSharpLogger.Print*
+  implements:
+  - OsuSharp.Interfaces.IOsuSharpLogger.Print(OsuSharp.Misc.LoggingLevel,System.String,System.String,System.DateTime)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+references:
+- uid: OsuSharp
+  commentId: N:OsuSharp
+  name: OsuSharp
+  nameWithType: OsuSharp
+  fullName: OsuSharp
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: OsuSharp.Interfaces.IOsuSharpLogger
+  commentId: T:OsuSharp.Interfaces.IOsuSharpLogger
+  parent: OsuSharp.Interfaces
+  name: IOsuSharpLogger
+  nameWithType: IOsuSharpLogger
+  fullName: OsuSharp.Interfaces.IOsuSharpLogger
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: OsuSharp.Interfaces
+  commentId: N:OsuSharp.Interfaces
+  name: OsuSharp.Interfaces
+  nameWithType: OsuSharp.Interfaces
+  fullName: OsuSharp.Interfaces
+- uid: OsuSharp.OsuSharpLogger.#ctor*
+  commentId: Overload:OsuSharp.OsuSharpLogger.#ctor
+  name: OsuSharpLogger
+  nameWithType: OsuSharpLogger.OsuSharpLogger
+  fullName: OsuSharp.OsuSharpLogger.OsuSharpLogger
+- uid: OsuSharp.OsuApi
+  commentId: T:OsuSharp.OsuApi
+  parent: OsuSharp
+  name: OsuApi
+  nameWithType: OsuApi
+  fullName: OsuSharp.OsuApi
+- uid: OsuSharp.Misc.LoggingLevel
+  commentId: T:OsuSharp.Misc.LoggingLevel
+  parent: OsuSharp.Misc
+  name: LoggingLevel
+  nameWithType: LoggingLevel
+  fullName: OsuSharp.Misc.LoggingLevel
+- uid: OsuSharp.Misc
+  commentId: N:OsuSharp.Misc
+  name: OsuSharp.Misc
+  nameWithType: OsuSharp.Misc
+  fullName: OsuSharp.Misc
+- uid: OsuSharp.Interfaces.IOsuSharpLogger.LogMessageReceived
+  commentId: E:OsuSharp.Interfaces.IOsuSharpLogger.LogMessageReceived
+  parent: OsuSharp.Interfaces.IOsuSharpLogger
+  name: LogMessageReceived
+  nameWithType: IOsuSharpLogger.LogMessageReceived
+  fullName: OsuSharp.Interfaces.IOsuSharpLogger.LogMessageReceived
+- uid: System.EventHandler{OsuSharp.Misc.OsuSharpLoggerEventArgs}
+  commentId: T:System.EventHandler{OsuSharp.Misc.OsuSharpLoggerEventArgs}
+  parent: System
+  definition: System.EventHandler`1
+  name: EventHandler<OsuSharpLoggerEventArgs>
+  nameWithType: EventHandler<OsuSharpLoggerEventArgs>
+  fullName: System.EventHandler<OsuSharp.Misc.OsuSharpLoggerEventArgs>
+  nameWithType.vb: EventHandler(Of OsuSharpLoggerEventArgs)
+  fullName.vb: System.EventHandler(Of OsuSharp.Misc.OsuSharpLoggerEventArgs)
+  name.vb: EventHandler(Of OsuSharpLoggerEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: OsuSharp.Misc.OsuSharpLoggerEventArgs
+    name: OsuSharpLoggerEventArgs
+    nameWithType: OsuSharpLoggerEventArgs
+    fullName: OsuSharp.Misc.OsuSharpLoggerEventArgs
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: OsuSharp.Misc.OsuSharpLoggerEventArgs
+    name: OsuSharpLoggerEventArgs
+    nameWithType: OsuSharpLoggerEventArgs
+    fullName: OsuSharp.Misc.OsuSharpLoggerEventArgs
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.EventHandler`1
+  commentId: T:System.EventHandler`1
+  isExternal: true
+  name: EventHandler<TEventArgs>
+  nameWithType: EventHandler<TEventArgs>
+  fullName: System.EventHandler<TEventArgs>
+  nameWithType.vb: EventHandler(Of TEventArgs)
+  fullName.vb: System.EventHandler(Of TEventArgs)
+  name.vb: EventHandler(Of TEventArgs)
+  spec.csharp:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TEventArgs
+    nameWithType: TEventArgs
+    fullName: TEventArgs
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.EventHandler`1
+    name: EventHandler
+    nameWithType: EventHandler
+    fullName: System.EventHandler
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TEventArgs
+    nameWithType: TEventArgs
+    fullName: TEventArgs
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: OsuSharp.OsuSharpLogger.LogMessage*
+  commentId: Overload:OsuSharp.OsuSharpLogger.LogMessage
+  name: LogMessage
+  nameWithType: OsuSharpLogger.LogMessage
+  fullName: OsuSharp.OsuSharpLogger.LogMessage
+- uid: OsuSharp.Interfaces.IOsuSharpLogger.LogMessage(OsuSharp.Misc.LoggingLevel,System.String,System.String,System.DateTime)
+  commentId: M:OsuSharp.Interfaces.IOsuSharpLogger.LogMessage(OsuSharp.Misc.LoggingLevel,System.String,System.String,System.DateTime)
+  parent: OsuSharp.Interfaces.IOsuSharpLogger
+  isExternal: true
+  name: LogMessage(LoggingLevel, String, String, DateTime)
+  nameWithType: IOsuSharpLogger.LogMessage(LoggingLevel, String, String, DateTime)
+  fullName: OsuSharp.Interfaces.IOsuSharpLogger.LogMessage(OsuSharp.Misc.LoggingLevel, System.String, System.String, System.DateTime)
+  spec.csharp:
+  - uid: OsuSharp.Interfaces.IOsuSharpLogger.LogMessage(OsuSharp.Misc.LoggingLevel,System.String,System.String,System.DateTime)
+    name: LogMessage
+    nameWithType: IOsuSharpLogger.LogMessage
+    fullName: OsuSharp.Interfaces.IOsuSharpLogger.LogMessage
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: OsuSharp.Misc.LoggingLevel
+    name: LoggingLevel
+    nameWithType: LoggingLevel
+    fullName: OsuSharp.Misc.LoggingLevel
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.DateTime
+    name: DateTime
+    nameWithType: DateTime
+    fullName: System.DateTime
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: OsuSharp.Interfaces.IOsuSharpLogger.LogMessage(OsuSharp.Misc.LoggingLevel,System.String,System.String,System.DateTime)
+    name: LogMessage
+    nameWithType: IOsuSharpLogger.LogMessage
+    fullName: OsuSharp.Interfaces.IOsuSharpLogger.LogMessage
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: OsuSharp.Misc.LoggingLevel
+    name: LoggingLevel
+    nameWithType: LoggingLevel
+    fullName: OsuSharp.Misc.LoggingLevel
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.DateTime
+    name: DateTime
+    nameWithType: DateTime
+    fullName: System.DateTime
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  parent: System
+  isExternal: true
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+- uid: OsuSharp.OsuSharpLogger.Print*
+  commentId: Overload:OsuSharp.OsuSharpLogger.Print
+  name: Print
+  nameWithType: OsuSharpLogger.Print
+  fullName: OsuSharp.OsuSharpLogger.Print
+- uid: OsuSharp.Interfaces.IOsuSharpLogger.Print(OsuSharp.Misc.LoggingLevel,System.String,System.String,System.DateTime)
+  commentId: M:OsuSharp.Interfaces.IOsuSharpLogger.Print(OsuSharp.Misc.LoggingLevel,System.String,System.String,System.DateTime)
+  parent: OsuSharp.Interfaces.IOsuSharpLogger
+  isExternal: true
+  name: Print(LoggingLevel, String, String, DateTime)
+  nameWithType: IOsuSharpLogger.Print(LoggingLevel, String, String, DateTime)
+  fullName: OsuSharp.Interfaces.IOsuSharpLogger.Print(OsuSharp.Misc.LoggingLevel, System.String, System.String, System.DateTime)
+  spec.csharp:
+  - uid: OsuSharp.Interfaces.IOsuSharpLogger.Print(OsuSharp.Misc.LoggingLevel,System.String,System.String,System.DateTime)
+    name: Print
+    nameWithType: IOsuSharpLogger.Print
+    fullName: OsuSharp.Interfaces.IOsuSharpLogger.Print
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: OsuSharp.Misc.LoggingLevel
+    name: LoggingLevel
+    nameWithType: LoggingLevel
+    fullName: OsuSharp.Misc.LoggingLevel
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.DateTime
+    name: DateTime
+    nameWithType: DateTime
+    fullName: System.DateTime
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: OsuSharp.Interfaces.IOsuSharpLogger.Print(OsuSharp.Misc.LoggingLevel,System.String,System.String,System.DateTime)
+    name: Print
+    nameWithType: IOsuSharpLogger.Print
+    fullName: OsuSharp.Interfaces.IOsuSharpLogger.Print
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: OsuSharp.Misc.LoggingLevel
+    name: LoggingLevel
+    nameWithType: LoggingLevel
+    fullName: OsuSharp.Misc.LoggingLevel
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.DateTime
+    name: DateTime
+    nameWithType: DateTime
+    fullName: System.DateTime
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )

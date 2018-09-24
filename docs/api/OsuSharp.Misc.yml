@@ -1,0 +1,75 @@
+### YamlMime:ManagedReference
+items:
+- uid: OsuSharp.Misc
+  commentId: N:OsuSharp.Misc
+  id: OsuSharp.Misc
+  children:
+  - OsuSharp.Misc.BeatmapState
+  - OsuSharp.Misc.BeatmapType
+  - OsuSharp.Misc.GameMode
+  - OsuSharp.Misc.LoggingLevel
+  - OsuSharp.Misc.Mods
+  - OsuSharp.Misc.ModsStringAttribute
+  - OsuSharp.Misc.ModsUtilities
+  - OsuSharp.Misc.OsuSharpLoggerEventArgs
+  langs:
+  - csharp
+  - vb
+  name: OsuSharp.Misc
+  nameWithType: OsuSharp.Misc
+  fullName: OsuSharp.Misc
+  type: Namespace
+  assemblies:
+  - cs.temp.dll
+references:
+- uid: OsuSharp.Misc.BeatmapState
+  commentId: T:OsuSharp.Misc.BeatmapState
+  parent: OsuSharp.Misc
+  name: BeatmapState
+  nameWithType: BeatmapState
+  fullName: OsuSharp.Misc.BeatmapState
+- uid: OsuSharp.Misc.BeatmapType
+  commentId: T:OsuSharp.Misc.BeatmapType
+  parent: OsuSharp.Misc
+  name: BeatmapType
+  nameWithType: BeatmapType
+  fullName: OsuSharp.Misc.BeatmapType
+- uid: OsuSharp.Misc.GameMode
+  commentId: T:OsuSharp.Misc.GameMode
+  parent: OsuSharp.Misc
+  name: GameMode
+  nameWithType: GameMode
+  fullName: OsuSharp.Misc.GameMode
+- uid: OsuSharp.Misc.LoggingLevel
+  commentId: T:OsuSharp.Misc.LoggingLevel
+  parent: OsuSharp.Misc
+  name: LoggingLevel
+  nameWithType: LoggingLevel
+  fullName: OsuSharp.Misc.LoggingLevel
+- uid: OsuSharp.Misc.Mods
+  commentId: T:OsuSharp.Misc.Mods
+  parent: OsuSharp.Misc
+  name: Mods
+  nameWithType: Mods
+  fullName: OsuSharp.Misc.Mods
+- uid: OsuSharp.Misc.ModsStringAttribute
+  commentId: T:OsuSharp.Misc.ModsStringAttribute
+  parent: OsuSharp.Misc
+  name: ModsStringAttribute
+  nameWithType: ModsStringAttribute
+  fullName: OsuSharp.Misc.ModsStringAttribute
+- uid: OsuSharp.Misc.ModsUtilities
+  commentId: T:OsuSharp.Misc.ModsUtilities
+  name: ModsUtilities
+  nameWithType: ModsUtilities
+  fullName: OsuSharp.Misc.ModsUtilities
+- uid: OsuSharp.Misc.OsuSharpLoggerEventArgs
+  commentId: T:OsuSharp.Misc.OsuSharpLoggerEventArgs
+  name: OsuSharpLoggerEventArgs
+  nameWithType: OsuSharpLoggerEventArgs
+  fullName: OsuSharp.Misc.OsuSharpLoggerEventArgs
+- uid: OsuSharp.Misc
+  commentId: N:OsuSharp.Misc
+  name: OsuSharp.Misc
+  nameWithType: OsuSharp.Misc
+  fullName: OsuSharp.Misc

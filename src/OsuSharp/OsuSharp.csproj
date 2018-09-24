@@ -6,7 +6,7 @@
     <StartupObject />
     <Authors>Kiritsu and contributors</Authors>
     <Company></Company>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>3.0.0</Version>
     <Description>.NET Standard wrapper for the osu!api</Description>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>

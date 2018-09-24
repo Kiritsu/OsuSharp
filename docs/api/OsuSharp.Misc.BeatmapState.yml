@@ -1,0 +1,276 @@
+### YamlMime:ManagedReference
+items:
+- uid: OsuSharp.Misc.BeatmapState
+  commentId: T:OsuSharp.Misc.BeatmapState
+  id: BeatmapState
+  parent: OsuSharp.Misc
+  children:
+  - OsuSharp.Misc.BeatmapState.Approved
+  - OsuSharp.Misc.BeatmapState.Graveyard
+  - OsuSharp.Misc.BeatmapState.Loved
+  - OsuSharp.Misc.BeatmapState.Pending
+  - OsuSharp.Misc.BeatmapState.Qualified
+  - OsuSharp.Misc.BeatmapState.Ranked
+  - OsuSharp.Misc.BeatmapState.Unknown
+  - OsuSharp.Misc.BeatmapState.Wip
+  langs:
+  - csharp
+  - vb
+  name: BeatmapState
+  nameWithType: BeatmapState
+  fullName: OsuSharp.Misc.BeatmapState
+  type: Enum
+  source:
+    id: BeatmapState
+    path: ''
+    startLine: 2588
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Misc
+  summary: "\nEnum representing the different possible states of a beatmap\n"
+  example: []
+  syntax:
+    content: public enum BeatmapState
+    content.vb: Public Enum BeatmapState
+  modifiers.csharp:
+  - public
+  - enum
+  modifiers.vb:
+  - Public
+  - Enum
+- uid: OsuSharp.Misc.BeatmapState.Graveyard
+  commentId: F:OsuSharp.Misc.BeatmapState.Graveyard
+  id: Graveyard
+  parent: OsuSharp.Misc.BeatmapState
+  langs:
+  - csharp
+  - vb
+  name: Graveyard
+  nameWithType: BeatmapState.Graveyard
+  fullName: OsuSharp.Misc.BeatmapState.Graveyard
+  type: Field
+  source:
+    id: Graveyard
+    path: ''
+    startLine: 2590
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Misc
+  syntax:
+    content: Graveyard = -2
+    return:
+      type: OsuSharp.Misc.BeatmapState
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: OsuSharp.Misc.BeatmapState.Wip
+  commentId: F:OsuSharp.Misc.BeatmapState.Wip
+  id: Wip
+  parent: OsuSharp.Misc.BeatmapState
+  langs:
+  - csharp
+  - vb
+  name: Wip
+  nameWithType: BeatmapState.Wip
+  fullName: OsuSharp.Misc.BeatmapState.Wip
+  type: Field
+  source:
+    id: Wip
+    path: ''
+    startLine: 2591
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Misc
+  syntax:
+    content: Wip = -1
+    return:
+      type: OsuSharp.Misc.BeatmapState
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: OsuSharp.Misc.BeatmapState.Pending
+  commentId: F:OsuSharp.Misc.BeatmapState.Pending
+  id: Pending
+  parent: OsuSharp.Misc.BeatmapState
+  langs:
+  - csharp
+  - vb
+  name: Pending
+  nameWithType: BeatmapState.Pending
+  fullName: OsuSharp.Misc.BeatmapState.Pending
+  type: Field
+  source:
+    id: Pending
+    path: ''
+    startLine: 2592
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Misc
+  syntax:
+    content: Pending = 0
+    return:
+      type: OsuSharp.Misc.BeatmapState
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: OsuSharp.Misc.BeatmapState.Ranked
+  commentId: F:OsuSharp.Misc.BeatmapState.Ranked
+  id: Ranked
+  parent: OsuSharp.Misc.BeatmapState
+  langs:
+  - csharp
+  - vb
+  name: Ranked
+  nameWithType: BeatmapState.Ranked
+  fullName: OsuSharp.Misc.BeatmapState.Ranked
+  type: Field
+  source:
+    id: Ranked
+    path: ''
+    startLine: 2593
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Misc
+  syntax:
+    content: Ranked = 1
+    return:
+      type: OsuSharp.Misc.BeatmapState
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: OsuSharp.Misc.BeatmapState.Approved
+  commentId: F:OsuSharp.Misc.BeatmapState.Approved
+  id: Approved
+  parent: OsuSharp.Misc.BeatmapState
+  langs:
+  - csharp
+  - vb
+  name: Approved
+  nameWithType: BeatmapState.Approved
+  fullName: OsuSharp.Misc.BeatmapState.Approved
+  type: Field
+  source:
+    id: Approved
+    path: ''
+    startLine: 2594
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Misc
+  syntax:
+    content: Approved = 2
+    return:
+      type: OsuSharp.Misc.BeatmapState
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: OsuSharp.Misc.BeatmapState.Qualified
+  commentId: F:OsuSharp.Misc.BeatmapState.Qualified
+  id: Qualified
+  parent: OsuSharp.Misc.BeatmapState
+  langs:
+  - csharp
+  - vb
+  name: Qualified
+  nameWithType: BeatmapState.Qualified
+  fullName: OsuSharp.Misc.BeatmapState.Qualified
+  type: Field
+  source:
+    id: Qualified
+    path: ''
+    startLine: 2595
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Misc
+  syntax:
+    content: Qualified = 3
+    return:
+      type: OsuSharp.Misc.BeatmapState
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: OsuSharp.Misc.BeatmapState.Loved
+  commentId: F:OsuSharp.Misc.BeatmapState.Loved
+  id: Loved
+  parent: OsuSharp.Misc.BeatmapState
+  langs:
+  - csharp
+  - vb
+  name: Loved
+  nameWithType: BeatmapState.Loved
+  fullName: OsuSharp.Misc.BeatmapState.Loved
+  type: Field
+  source:
+    id: Loved
+    path: ''
+    startLine: 2596
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Misc
+  syntax:
+    content: Loved = 4
+    return:
+      type: OsuSharp.Misc.BeatmapState
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+- uid: OsuSharp.Misc.BeatmapState.Unknown
+  commentId: F:OsuSharp.Misc.BeatmapState.Unknown
+  id: Unknown
+  parent: OsuSharp.Misc.BeatmapState
+  langs:
+  - csharp
+  - vb
+  name: Unknown
+  nameWithType: BeatmapState.Unknown
+  fullName: OsuSharp.Misc.BeatmapState.Unknown
+  type: Field
+  source:
+    id: Unknown
+    path: ''
+    startLine: 2597
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Misc
+  syntax:
+    content: Unknown = 5
+    return:
+      type: OsuSharp.Misc.BeatmapState
+  modifiers.csharp:
+  - public
+  - const
+  modifiers.vb:
+  - Public
+  - Const
+references:
+- uid: OsuSharp.Misc
+  commentId: N:OsuSharp.Misc
+  name: OsuSharp.Misc
+  nameWithType: OsuSharp.Misc
+  fullName: OsuSharp.Misc
+- uid: OsuSharp.Misc.BeatmapState
+  commentId: T:OsuSharp.Misc.BeatmapState
+  parent: OsuSharp.Misc
+  name: BeatmapState
+  nameWithType: BeatmapState
+  fullName: OsuSharp.Misc.BeatmapState

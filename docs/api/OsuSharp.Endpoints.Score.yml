@@ -1,0 +1,1183 @@
+### YamlMime:ManagedReference
+items:
+- uid: OsuSharp.Endpoints.Score
+  commentId: T:OsuSharp.Endpoints.Score
+  id: Score
+  parent: OsuSharp.Endpoints
+  children:
+  - OsuSharp.Endpoints.Score.Accuracy
+  - OsuSharp.Endpoints.Score.Count100
+  - OsuSharp.Endpoints.Score.Count300
+  - OsuSharp.Endpoints.Score.Count50
+  - OsuSharp.Endpoints.Score.Date
+  - OsuSharp.Endpoints.Score.EnabledMods
+  - OsuSharp.Endpoints.Score.Geki
+  - OsuSharp.Endpoints.Score.Katu
+  - OsuSharp.Endpoints.Score.MaxCombo
+  - OsuSharp.Endpoints.Score.Miss
+  - OsuSharp.Endpoints.Score.Mods
+  - OsuSharp.Endpoints.Score.Perfect
+  - OsuSharp.Endpoints.Score.Pp
+  - OsuSharp.Endpoints.Score.Rank
+  - OsuSharp.Endpoints.Score.ScoreId
+  - OsuSharp.Endpoints.Score.ScorePoints
+  - OsuSharp.Endpoints.Score.Userid
+  - OsuSharp.Endpoints.Score.Username
+  langs:
+  - csharp
+  - vb
+  name: Score
+  nameWithType: Score
+  fullName: OsuSharp.Endpoints.Score
+  type: Class
+  source:
+    id: Score
+    path: ''
+    startLine: 1965
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Endpoints
+  syntax:
+    content: public class Score
+    content.vb: Public Class Score
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.ToString
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  modifiers.csharp:
+  - public
+  - class
+  modifiers.vb:
+  - Public
+  - Class
+- uid: OsuSharp.Endpoints.Score.ScorePoints
+  commentId: P:OsuSharp.Endpoints.Score.ScorePoints
+  id: ScorePoints
+  parent: OsuSharp.Endpoints.Score
+  langs:
+  - csharp
+  - vb
+  name: ScorePoints
+  nameWithType: Score.ScorePoints
+  fullName: OsuSharp.Endpoints.Score.ScorePoints
+  type: Property
+  source:
+    id: ScorePoints
+    path: ''
+    startLine: 1973
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Endpoints
+  summary: "\nScore points of the play\n"
+  example: []
+  syntax:
+    content: public long ScorePoints { get; set; }
+    parameters: []
+    return:
+      type: System.Int64
+    content.vb: Public Property ScorePoints As Long
+  overload: OsuSharp.Endpoints.Score.ScorePoints*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: OsuSharp.Endpoints.Score.ScoreId
+  commentId: P:OsuSharp.Endpoints.Score.ScoreId
+  id: ScoreId
+  parent: OsuSharp.Endpoints.Score
+  langs:
+  - csharp
+  - vb
+  name: ScoreId
+  nameWithType: Score.ScoreId
+  fullName: OsuSharp.Endpoints.Score.ScoreId
+  type: Property
+  source:
+    id: ScoreId
+    path: ''
+    startLine: 1979
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Endpoints
+  summary: "\nScore id\n"
+  example: []
+  syntax:
+    content: public long ScoreId { get; set; }
+    parameters: []
+    return:
+      type: System.Int64
+    content.vb: Public Property ScoreId As Long
+  overload: OsuSharp.Endpoints.Score.ScoreId*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: OsuSharp.Endpoints.Score.Username
+  commentId: P:OsuSharp.Endpoints.Score.Username
+  id: Username
+  parent: OsuSharp.Endpoints.Score
+  langs:
+  - csharp
+  - vb
+  name: Username
+  nameWithType: Score.Username
+  fullName: OsuSharp.Endpoints.Score.Username
+  type: Property
+  source:
+    id: Username
+    path: ''
+    startLine: 1985
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Endpoints
+  summary: "\nName of the player\n"
+  example: []
+  syntax:
+    content: public string Username { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Username As String
+  overload: OsuSharp.Endpoints.Score.Username*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: OsuSharp.Endpoints.Score.Count300
+  commentId: P:OsuSharp.Endpoints.Score.Count300
+  id: Count300
+  parent: OsuSharp.Endpoints.Score
+  langs:
+  - csharp
+  - vb
+  name: Count300
+  nameWithType: Score.Count300
+  fullName: OsuSharp.Endpoints.Score.Count300
+  type: Property
+  source:
+    id: Count300
+    path: ''
+    startLine: 1991
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Endpoints
+  summary: "\nCount of 300\n"
+  example: []
+  syntax:
+    content: public int Count300 { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property Count300 As Integer
+  overload: OsuSharp.Endpoints.Score.Count300*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: OsuSharp.Endpoints.Score.Count100
+  commentId: P:OsuSharp.Endpoints.Score.Count100
+  id: Count100
+  parent: OsuSharp.Endpoints.Score
+  langs:
+  - csharp
+  - vb
+  name: Count100
+  nameWithType: Score.Count100
+  fullName: OsuSharp.Endpoints.Score.Count100
+  type: Property
+  source:
+    id: Count100
+    path: ''
+    startLine: 1997
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Endpoints
+  summary: "\nCount of 100\n"
+  example: []
+  syntax:
+    content: public int Count100 { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property Count100 As Integer
+  overload: OsuSharp.Endpoints.Score.Count100*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: OsuSharp.Endpoints.Score.Count50
+  commentId: P:OsuSharp.Endpoints.Score.Count50
+  id: Count50
+  parent: OsuSharp.Endpoints.Score
+  langs:
+  - csharp
+  - vb
+  name: Count50
+  nameWithType: Score.Count50
+  fullName: OsuSharp.Endpoints.Score.Count50
+  type: Property
+  source:
+    id: Count50
+    path: ''
+    startLine: 2003
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Endpoints
+  summary: "\nCount of 50\n"
+  example: []
+  syntax:
+    content: public int Count50 { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property Count50 As Integer
+  overload: OsuSharp.Endpoints.Score.Count50*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: OsuSharp.Endpoints.Score.Miss
+  commentId: P:OsuSharp.Endpoints.Score.Miss
+  id: Miss
+  parent: OsuSharp.Endpoints.Score
+  langs:
+  - csharp
+  - vb
+  name: Miss
+  nameWithType: Score.Miss
+  fullName: OsuSharp.Endpoints.Score.Miss
+  type: Property
+  source:
+    id: Miss
+    path: ''
+    startLine: 2009
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Endpoints
+  summary: "\nCount of misses\n"
+  example: []
+  syntax:
+    content: public int Miss { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property Miss As Integer
+  overload: OsuSharp.Endpoints.Score.Miss*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: OsuSharp.Endpoints.Score.Accuracy
+  commentId: P:OsuSharp.Endpoints.Score.Accuracy
+  id: Accuracy
+  parent: OsuSharp.Endpoints.Score
+  langs:
+  - csharp
+  - vb
+  name: Accuracy
+  nameWithType: Score.Accuracy
+  fullName: OsuSharp.Endpoints.Score.Accuracy
+  type: Property
+  source:
+    id: Accuracy
+    path: ''
+    startLine: 2015
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Endpoints
+  summary: "\nAccuracy of the play\n"
+  example: []
+  syntax:
+    content: public double Accuracy { get; }
+    parameters: []
+    return:
+      type: System.Double
+    content.vb: Public ReadOnly Property Accuracy As Double
+  overload: OsuSharp.Endpoints.Score.Accuracy*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: OsuSharp.Endpoints.Score.MaxCombo
+  commentId: P:OsuSharp.Endpoints.Score.MaxCombo
+  id: MaxCombo
+  parent: OsuSharp.Endpoints.Score
+  langs:
+  - csharp
+  - vb
+  name: MaxCombo
+  nameWithType: Score.MaxCombo
+  fullName: OsuSharp.Endpoints.Score.MaxCombo
+  type: Property
+  source:
+    id: MaxCombo
+    path: ''
+    startLine: 2023
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Endpoints
+  summary: "\nMax combo of the play\n"
+  example: []
+  syntax:
+    content: public int? MaxCombo { get; set; }
+    parameters: []
+    return:
+      type: System.Nullable{System.Int32}
+    content.vb: Public Property MaxCombo As Integer?
+  overload: OsuSharp.Endpoints.Score.MaxCombo*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: OsuSharp.Endpoints.Score.Katu
+  commentId: P:OsuSharp.Endpoints.Score.Katu
+  id: Katu
+  parent: OsuSharp.Endpoints.Score
+  langs:
+  - csharp
+  - vb
+  name: Katu
+  nameWithType: Score.Katu
+  fullName: OsuSharp.Endpoints.Score.Katu
+  type: Property
+  source:
+    id: Katu
+    path: ''
+    startLine: 2029
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Endpoints
+  summary: "\nCount of katus\n"
+  example: []
+  syntax:
+    content: public int Katu { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property Katu As Integer
+  overload: OsuSharp.Endpoints.Score.Katu*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: OsuSharp.Endpoints.Score.Geki
+  commentId: P:OsuSharp.Endpoints.Score.Geki
+  id: Geki
+  parent: OsuSharp.Endpoints.Score
+  langs:
+  - csharp
+  - vb
+  name: Geki
+  nameWithType: Score.Geki
+  fullName: OsuSharp.Endpoints.Score.Geki
+  type: Property
+  source:
+    id: Geki
+    path: ''
+    startLine: 2035
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Endpoints
+  summary: "\nCount of gekies\n"
+  example: []
+  syntax:
+    content: public int Geki { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property Geki As Integer
+  overload: OsuSharp.Endpoints.Score.Geki*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: OsuSharp.Endpoints.Score.Perfect
+  commentId: P:OsuSharp.Endpoints.Score.Perfect
+  id: Perfect
+  parent: OsuSharp.Endpoints.Score
+  langs:
+  - csharp
+  - vb
+  name: Perfect
+  nameWithType: Score.Perfect
+  fullName: OsuSharp.Endpoints.Score.Perfect
+  type: Property
+  source:
+    id: Perfect
+    path: ''
+    startLine: 2041
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Endpoints
+  summary: "\nIs the map a perfect?\n"
+  example: []
+  syntax:
+    content: public bool Perfect { get; }
+    parameters: []
+    return:
+      type: System.Boolean
+    content.vb: Public ReadOnly Property Perfect As Boolean
+  overload: OsuSharp.Endpoints.Score.Perfect*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: OsuSharp.Endpoints.Score.EnabledMods
+  commentId: P:OsuSharp.Endpoints.Score.EnabledMods
+  id: EnabledMods
+  parent: OsuSharp.Endpoints.Score
+  langs:
+  - csharp
+  - vb
+  name: EnabledMods
+  nameWithType: Score.EnabledMods
+  fullName: OsuSharp.Endpoints.Score.EnabledMods
+  type: Property
+  source:
+    id: EnabledMods
+    path: ''
+    startLine: 2047
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Endpoints
+  summary: "\nMods used for this play\n"
+  example: []
+  syntax:
+    content: public int EnabledMods { get; set; }
+    parameters: []
+    return:
+      type: System.Int32
+    content.vb: Public Property EnabledMods As Integer
+  overload: OsuSharp.Endpoints.Score.EnabledMods*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: OsuSharp.Endpoints.Score.Mods
+  commentId: P:OsuSharp.Endpoints.Score.Mods
+  id: Mods
+  parent: OsuSharp.Endpoints.Score
+  langs:
+  - csharp
+  - vb
+  name: Mods
+  nameWithType: Score.Mods
+  fullName: OsuSharp.Endpoints.Score.Mods
+  type: Property
+  source:
+    id: Mods
+    path: ''
+    startLine: 2053
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Endpoints
+  summary: "\nBetter representation of &apos;EnabledMods&apos;\n"
+  example: []
+  syntax:
+    content: public Mods Mods { get; }
+    parameters: []
+    return:
+      type: OsuSharp.Misc.Mods
+    content.vb: Public ReadOnly Property Mods As Mods
+  overload: OsuSharp.Endpoints.Score.Mods*
+  modifiers.csharp:
+  - public
+  - get
+  modifiers.vb:
+  - Public
+  - ReadOnly
+- uid: OsuSharp.Endpoints.Score.Userid
+  commentId: P:OsuSharp.Endpoints.Score.Userid
+  id: Userid
+  parent: OsuSharp.Endpoints.Score
+  langs:
+  - csharp
+  - vb
+  name: Userid
+  nameWithType: Score.Userid
+  fullName: OsuSharp.Endpoints.Score.Userid
+  type: Property
+  source:
+    id: Userid
+    path: ''
+    startLine: 2059
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Endpoints
+  summary: "\nId of the player\n"
+  example: []
+  syntax:
+    content: public long Userid { get; set; }
+    parameters: []
+    return:
+      type: System.Int64
+    content.vb: Public Property Userid As Long
+  overload: OsuSharp.Endpoints.Score.Userid*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: OsuSharp.Endpoints.Score.Date
+  commentId: P:OsuSharp.Endpoints.Score.Date
+  id: Date
+  parent: OsuSharp.Endpoints.Score
+  langs:
+  - csharp
+  - vb
+  name: Date
+  nameWithType: Score.Date
+  fullName: OsuSharp.Endpoints.Score.Date
+  type: Property
+  source:
+    id: Date
+    path: ''
+    startLine: 2065
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Endpoints
+  summary: "\nDate the score was submitted\n"
+  example: []
+  syntax:
+    content: public DateTime Date { get; set; }
+    parameters: []
+    return:
+      type: System.DateTime
+    content.vb: Public Property Date As Date
+  overload: OsuSharp.Endpoints.Score.Date*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: OsuSharp.Endpoints.Score.Rank
+  commentId: P:OsuSharp.Endpoints.Score.Rank
+  id: Rank
+  parent: OsuSharp.Endpoints.Score
+  langs:
+  - csharp
+  - vb
+  name: Rank
+  nameWithType: Score.Rank
+  fullName: OsuSharp.Endpoints.Score.Rank
+  type: Property
+  source:
+    id: Rank
+    path: ''
+    startLine: 2071
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Endpoints
+  summary: "\nRank of the player (in the map leaderboard) for this play\n"
+  example: []
+  syntax:
+    content: public string Rank { get; set; }
+    parameters: []
+    return:
+      type: System.String
+    content.vb: Public Property Rank As String
+  overload: OsuSharp.Endpoints.Score.Rank*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+- uid: OsuSharp.Endpoints.Score.Pp
+  commentId: P:OsuSharp.Endpoints.Score.Pp
+  id: Pp
+  parent: OsuSharp.Endpoints.Score
+  langs:
+  - csharp
+  - vb
+  name: Pp
+  nameWithType: Score.Pp
+  fullName: OsuSharp.Endpoints.Score.Pp
+  type: Property
+  source:
+    id: Pp
+    path: ''
+    startLine: 2077
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp.Endpoints
+  summary: "\nPp given by the map\n"
+  example: []
+  syntax:
+    content: public float Pp { get; set; }
+    parameters: []
+    return:
+      type: System.Single
+    content.vb: Public Property Pp As Single
+  overload: OsuSharp.Endpoints.Score.Pp*
+  modifiers.csharp:
+  - public
+  - get
+  - set
+  modifiers.vb:
+  - Public
+references:
+- uid: OsuSharp.Endpoints
+  commentId: N:OsuSharp.Endpoints
+  name: OsuSharp.Endpoints
+  nameWithType: OsuSharp.Endpoints
+  fullName: OsuSharp.Endpoints
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: OsuSharp.Endpoints.Score.ScorePoints*
+  commentId: Overload:OsuSharp.Endpoints.Score.ScorePoints
+  name: ScorePoints
+  nameWithType: Score.ScorePoints
+  fullName: OsuSharp.Endpoints.Score.ScorePoints
+- uid: System.Int64
+  commentId: T:System.Int64
+  parent: System
+  isExternal: true
+  name: Int64
+  nameWithType: Int64
+  fullName: System.Int64
+- uid: OsuSharp.Endpoints.Score.ScoreId*
+  commentId: Overload:OsuSharp.Endpoints.Score.ScoreId
+  name: ScoreId
+  nameWithType: Score.ScoreId
+  fullName: OsuSharp.Endpoints.Score.ScoreId
+- uid: OsuSharp.Endpoints.Score.Username*
+  commentId: Overload:OsuSharp.Endpoints.Score.Username
+  name: Username
+  nameWithType: Score.Username
+  fullName: OsuSharp.Endpoints.Score.Username
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: OsuSharp.Endpoints.Score.Count300*
+  commentId: Overload:OsuSharp.Endpoints.Score.Count300
+  name: Count300
+  nameWithType: Score.Count300
+  fullName: OsuSharp.Endpoints.Score.Count300
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
+- uid: OsuSharp.Endpoints.Score.Count100*
+  commentId: Overload:OsuSharp.Endpoints.Score.Count100
+  name: Count100
+  nameWithType: Score.Count100
+  fullName: OsuSharp.Endpoints.Score.Count100
+- uid: OsuSharp.Endpoints.Score.Count50*
+  commentId: Overload:OsuSharp.Endpoints.Score.Count50
+  name: Count50
+  nameWithType: Score.Count50
+  fullName: OsuSharp.Endpoints.Score.Count50
+- uid: OsuSharp.Endpoints.Score.Miss*
+  commentId: Overload:OsuSharp.Endpoints.Score.Miss
+  name: Miss
+  nameWithType: Score.Miss
+  fullName: OsuSharp.Endpoints.Score.Miss
+- uid: OsuSharp.Endpoints.Score.Accuracy*
+  commentId: Overload:OsuSharp.Endpoints.Score.Accuracy
+  name: Accuracy
+  nameWithType: Score.Accuracy
+  fullName: OsuSharp.Endpoints.Score.Accuracy
+- uid: System.Double
+  commentId: T:System.Double
+  parent: System
+  isExternal: true
+  name: Double
+  nameWithType: Double
+  fullName: System.Double
+- uid: OsuSharp.Endpoints.Score.MaxCombo*
+  commentId: Overload:OsuSharp.Endpoints.Score.MaxCombo
+  name: MaxCombo
+  nameWithType: Score.MaxCombo
+  fullName: OsuSharp.Endpoints.Score.MaxCombo
+- uid: System.Nullable{System.Int32}
+  commentId: T:System.Nullable{System.Int32}
+  parent: System
+  definition: System.Nullable`1
+  name: Nullable<Int32>
+  nameWithType: Nullable<Int32>
+  fullName: System.Nullable<System.Int32>
+  nameWithType.vb: Nullable(Of Int32)
+  fullName.vb: System.Nullable(Of System.Int32)
+  name.vb: Nullable(Of Int32)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Nullable`1
+  commentId: T:System.Nullable`1
+  isExternal: true
+  name: Nullable<T>
+  nameWithType: Nullable<T>
+  fullName: System.Nullable<T>
+  nameWithType.vb: Nullable(Of T)
+  fullName.vb: System.Nullable(Of T)
+  name.vb: Nullable(Of T)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: OsuSharp.Endpoints.Score.Katu*
+  commentId: Overload:OsuSharp.Endpoints.Score.Katu
+  name: Katu
+  nameWithType: Score.Katu
+  fullName: OsuSharp.Endpoints.Score.Katu
+- uid: OsuSharp.Endpoints.Score.Geki*
+  commentId: Overload:OsuSharp.Endpoints.Score.Geki
+  name: Geki
+  nameWithType: Score.Geki
+  fullName: OsuSharp.Endpoints.Score.Geki
+- uid: OsuSharp.Endpoints.Score.Perfect*
+  commentId: Overload:OsuSharp.Endpoints.Score.Perfect
+  name: Perfect
+  nameWithType: Score.Perfect
+  fullName: OsuSharp.Endpoints.Score.Perfect
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: OsuSharp.Endpoints.Score.EnabledMods*
+  commentId: Overload:OsuSharp.Endpoints.Score.EnabledMods
+  name: EnabledMods
+  nameWithType: Score.EnabledMods
+  fullName: OsuSharp.Endpoints.Score.EnabledMods
+- uid: OsuSharp.Endpoints.Score.Mods*
+  commentId: Overload:OsuSharp.Endpoints.Score.Mods
+  name: Mods
+  nameWithType: Score.Mods
+  fullName: OsuSharp.Endpoints.Score.Mods
+- uid: OsuSharp.Misc.Mods
+  commentId: T:OsuSharp.Misc.Mods
+  parent: OsuSharp.Misc
+  name: Mods
+  nameWithType: Mods
+  fullName: OsuSharp.Misc.Mods
+- uid: OsuSharp.Misc
+  commentId: N:OsuSharp.Misc
+  name: OsuSharp.Misc
+  nameWithType: OsuSharp.Misc
+  fullName: OsuSharp.Misc
+- uid: OsuSharp.Endpoints.Score.Userid*
+  commentId: Overload:OsuSharp.Endpoints.Score.Userid
+  name: Userid
+  nameWithType: Score.Userid
+  fullName: OsuSharp.Endpoints.Score.Userid
+- uid: OsuSharp.Endpoints.Score.Date*
+  commentId: Overload:OsuSharp.Endpoints.Score.Date
+  name: Date
+  nameWithType: Score.Date
+  fullName: OsuSharp.Endpoints.Score.Date
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  parent: System
+  isExternal: true
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+- uid: OsuSharp.Endpoints.Score.Rank*
+  commentId: Overload:OsuSharp.Endpoints.Score.Rank
+  name: Rank
+  nameWithType: Score.Rank
+  fullName: OsuSharp.Endpoints.Score.Rank
+- uid: OsuSharp.Endpoints.Score.Pp*
+  commentId: Overload:OsuSharp.Endpoints.Score.Pp
+  name: Pp
+  nameWithType: Score.Pp
+  fullName: OsuSharp.Endpoints.Score.Pp
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  name: Single
+  nameWithType: Single
+  fullName: System.Single

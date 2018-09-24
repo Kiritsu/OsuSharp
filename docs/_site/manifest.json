@@ -1,0 +1,513 @@
+{
+  "homepages": [],
+  "source_base_path": "C:/Users/Allan/Desktop/VS Projects/OsuSharp/docs",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Endpoints.Beatmap.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Endpoints.Beatmap.html",
+          "hash": "P8GXJ21ygDUCynsHi7ulmQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Endpoints.Event.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Endpoints.Event.html",
+          "hash": "svEE34VVnn0PiqrHkLHGgw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Endpoints.Game.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Endpoints.Game.html",
+          "hash": "zedOn4uhO9VJLLClLhJmDw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Endpoints.Match.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Endpoints.Match.html",
+          "hash": "GAE9zCAn45UDkBwXUzpDdA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Endpoints.Multiplayer.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Endpoints.Multiplayer.html",
+          "hash": "l966BlwVLNTpQSLHl+LZDQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Endpoints.Replay.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Endpoints.Replay.html",
+          "hash": "Lg08w9oxEvKIxmC6BoeyLA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Endpoints.Score.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Endpoints.Score.html",
+          "hash": "LdfnaQX++NeL5YC6TsNzGA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Endpoints.ScoreMatch.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Endpoints.ScoreMatch.html",
+          "hash": "Xaud12CtjsDWtcwelAONPg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Endpoints.User.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Endpoints.User.html",
+          "hash": "bjGx7zF10+YjLoC0MxDH3Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Endpoints.UserBest.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Endpoints.UserBest.html",
+          "hash": "fu3Ix8pjIvHOlP7esWY0qw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Endpoints.UserRecent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Endpoints.UserRecent.html",
+          "hash": "dIghTpKZm61BTNnczE2cbg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Endpoints.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Endpoints.html",
+          "hash": "6d+GuRyawhP3swmOyp0OTA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Entities.BeatmapScores.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Entities.BeatmapScores.html",
+          "hash": "Tm7EyHR0UN3lnq26YABo7g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Entities.BeatmapScoresUsers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Entities.BeatmapScoresUsers.html",
+          "hash": "QvTyyXDbpVhKAji2ORp6Ww=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Entities.UserBestBeatmap.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Entities.UserBestBeatmap.html",
+          "hash": "EUhSFp3CoqV9O3W/KJ7i8Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Entities.UserRecentBeatmap.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Entities.UserRecentBeatmap.html",
+          "hash": "mereOoG1F8PxSgRl9CTy+A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Entities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Entities.html",
+          "hash": "eEyIzWOcQoy7OehVcxYQtw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Interfaces.IOsuApi.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Interfaces.IOsuApi.html",
+          "hash": "LTP4g8Us+fZxY65e/o/AXg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Interfaces.IOsuSharpConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Interfaces.IOsuSharpConfiguration.html",
+          "hash": "39H8dCgfG2vY58OH40CTOQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Interfaces.IOsuSharpLogger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Interfaces.IOsuSharpLogger.html",
+          "hash": "19knn2eZzPTxHmFi/QWkmA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Interfaces.IRateLimiter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Interfaces.IRateLimiter.html",
+          "hash": "EnGAaWZYQFcP2PhZslpiNg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Interfaces.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Interfaces.html",
+          "hash": "JuNwH5fsbRXWVGUg/DxPCw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Misc.BeatmapState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Misc.BeatmapState.html",
+          "hash": "3OETgKnJL8dY4+TKW32aXQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Misc.BeatmapType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Misc.BeatmapType.html",
+          "hash": "iJnWwIRiyJntXS9GlPUjiw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Misc.GameMode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Misc.GameMode.html",
+          "hash": "LLXi1PkKFuEdovzlTdQ3BA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Misc.LoggingLevel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Misc.LoggingLevel.html",
+          "hash": "Q7uAq0Nmpk2RMY4HiQKomQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Misc.Mods.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Misc.Mods.html",
+          "hash": "uK+U0gjj6uZSOwj28QxLhA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Misc.ModsStringAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Misc.ModsStringAttribute.html",
+          "hash": "yCHTSFP2oInz/1FQK7rFgA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Misc.ModsUtilities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Misc.ModsUtilities.html",
+          "hash": "jFh6KvCuV18BRXFsWnOZ7w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Misc.OsuSharpLoggerEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Misc.OsuSharpLoggerEventArgs.html",
+          "hash": "tOGcJXEXvS20cuc+wkqRng=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.Misc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.Misc.html",
+          "hash": "eVhRRav+DGKbIbzONgVr2Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.OsuApi.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.OsuApi.html",
+          "hash": "gIxhx308E3LO/fZux5ZhkA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.OsuSharpConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.OsuSharpConfiguration.html",
+          "hash": "fu2LBKUtlqjFjfuvOMGCZQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.OsuSharpException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.OsuSharpException.html",
+          "hash": "l1VCcC4uriBEppacct2vzg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.OsuSharpLogger.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.OsuSharpLogger.html",
+          "hash": "Mxn+Sj/FQeA79XlX0mvJbA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/OsuSharp.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/OsuSharp.html",
+          "hash": "Oz9bNbPlTkrQRS0uFbOhMA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "X5n89x+uDoHQ8HhBWax77g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "tjctsSTfJkXYs7viB7C4lQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "jmoVSGIvD56vF1wcY4sBZA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build"
+      },
+      "processors": {
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build"
+        },
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build"
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: last post processor info is null.",
+        "incrementalPhase": "postProcessing"
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
