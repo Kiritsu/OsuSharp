@@ -2,31 +2,33 @@
 using System;
 using Newtonsoft.Json;
 
-namespace OsuSharp.MatchEndpoint
+namespace OsuSharp.Endpoints
 {
     public class ScoreMatch
     {
-        [JsonProperty("pass")] private short _pass;
+        [JsonProperty("pass")]
+        private int PassInt { get; set; }
 
-        [JsonProperty("perfect")] private short _perfect;
+        [JsonProperty("perfect")]
+        private int PerfectInt { get; set; }
 
         /// <summary>
         ///     Slot of the player
         /// </summary>
         [JsonProperty("slot")]
-        public ushort SlotId { get; set; }
+        public int SlotId { get; set; }
 
         /// <summary>
         ///     Id of the team where the player is playing
         /// </summary>
         [JsonProperty("team")]
-        public ushort TeamId { get; set; }
+        public int TeamId { get; set; }
 
         /// <summary>
         ///     Id of the player
         /// </summary>
         [JsonProperty("user_id")]
-        public ulong Userid { get; set; }
+        public long Userid { get; set; }
 
         /// <summary>
         ///     Score of the player
@@ -85,12 +87,14 @@ namespace OsuSharp.MatchEndpoint
         /// <summary>
         ///     Is the play a perfect?
         /// </summary>
-        public bool Perfect => Convert.ToBoolean(_perfect);
+        public bool Perfect
+            => Convert.ToBoolean(PerfectInt);
 
         /// <summary>
         ///     Has the player passed the map?
         /// </summary>
-        public bool Pass => Convert.ToBoolean(_pass);
+        public bool Pass
+            => Convert.ToBoolean(PassInt);
 
         /// <summary>
         ///     Accuracy of the play

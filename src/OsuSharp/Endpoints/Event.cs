@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace OsuSharp.UserEndpoint
+namespace OsuSharp.Endpoints
 {
     public class Event
     {
@@ -15,13 +15,13 @@ namespace OsuSharp.UserEndpoint
         ///     Id of the beatmap
         /// </summary>
         [JsonProperty("beatmap_id")]
-        public ulong BeatmapId { get; set; }
+        public long BeatmapId { get; set; }
 
         /// <summary>
         ///     Id of the beatmapset
         /// </summary>
         [JsonProperty("beatmapset_id")]
-        public ulong BeatmapsetId { get; set; }
+        public long BeatmapsetId { get; set; }
 
         /// <summary>
         ///     Date of the event
@@ -33,6 +33,6 @@ namespace OsuSharp.UserEndpoint
         ///     ???
         /// </summary>
         [JsonProperty("epicfactor")]
-        public ushort Epicfactor { get; set; }
+        public int Epicfactor { get; set; }
     }
 }

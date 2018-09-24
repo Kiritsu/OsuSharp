@@ -3,28 +3,30 @@ using System;
 using Newtonsoft.Json;
 using OsuSharp.Misc;
 
-namespace OsuSharp.BeatmapEndpoint
+namespace OsuSharp.Endpoints
 {
     public class Beatmap
     {
-        [JsonProperty("approved")] private string _approved;
+        [JsonProperty("approved")]
+        private string ApprovedId { get; set; }
 
         /// <summary>
         ///     Id of the beatmapset
         /// </summary>
         [JsonProperty("beatmapset_id")]
-        public ulong BeatmapsetId { get; set; }
+        public long BeatmapsetId { get; set; }
 
         /// <summary>
         ///     Id of the beatmap
         /// </summary>
         [JsonProperty("beatmap_id")]
-        public ulong BeatmapId { get; set; }
+        public long BeatmapId { get; set; }
 
         /// <summary>
         ///     Enum that represent the state of the map
         /// </summary>
-        public BeatmapState Approved => Misc.Approved.ToBeatmapState(_approved);
+        public BeatmapState Approved
+            => Misc.Approved.ToBeatmapState(ApprovedId);
 
         /// <summary>
         ///     Length of the beatmap (includes breaks)
@@ -44,7 +46,11 @@ namespace OsuSharp.BeatmapEndpoint
         [JsonProperty("version")]
         public string Difficulty { get; set; }
 
-        [JsonProperty("file_md5")] public string FileMd5 { get; set; }
+        /// <summary>
+        ///     ?
+        /// </summary>
+        [JsonProperty("file_md5")]
+        public string FileMd5 { get; set; }
 
         /// <summary>
         ///     Circle size (CS)
@@ -70,11 +76,14 @@ namespace OsuSharp.BeatmapEndpoint
         [JsonProperty("diff_drain")]
         public float HpDrain { get; set; }
 
+        [JsonProperty("mode")]
+        private int GameModeInt { get; set; }
+
         /// <summary>
         ///     Game mode of the map (standard/taiko/catch/mania)
         /// </summary>
-        [JsonProperty("mode")]
-        public ushort GameMode { get; set; }
+        public GameMode GameMode
+            => (GameMode) Enum.Parse(typeof(GameMode), GameModeInt.ToString());
 
         /// <summary>
         ///     DateTime of beatmap's approval
@@ -128,13 +137,13 @@ namespace OsuSharp.BeatmapEndpoint
         ///     Genre id
         /// </summary>
         [JsonProperty("genre_id")]
-        public ushort GenreId { get; set; }
+        public int GenreId { get; set; }
 
         /// <summary>
         ///     Language id
         /// </summary>
         [JsonProperty("language_id")]
-        public ushort LanguageId { get; set; }
+        public int LanguageId { get; set; }
 
         /// <summary>
         ///     Total count of favorites
@@ -170,18 +179,21 @@ namespace OsuSharp.BeatmapEndpoint
         ///     Thumbnail url of the beatmap
         /// </summary>
         [JsonIgnore]
-        public string ThumbnailUrl => $"https://b.ppy.sh/thumb/{BeatmapsetId}l.jpg";
+        public string ThumbnailUrl
+            => $"https://b.ppy.sh/thumb/{BeatmapsetId}l.jpg";
 
         /// <summary>
         ///     Cover url of the beatmap
         /// </summary>
         [JsonIgnore]
-        public string CoverUrl => $"https://assets.ppy.sh/beatmaps/{BeatmapsetId}/covers/cover.jpg";
+        public string CoverUrl
+            => $"https://assets.ppy.sh/beatmaps/{BeatmapsetId}/covers/cover.jpg";
 
         /// <summary>
         ///     Sound preview url of the beatmap
         /// </summary>
         [JsonIgnore]
-        public string SoundPreviewUrl => $"https://b.ppy.sh/preview/{BeatmapsetId}.mp3";
+        public string SoundPreviewUrl
+            => $"https://b.ppy.sh/preview/{BeatmapsetId}.mp3";
     }
 }

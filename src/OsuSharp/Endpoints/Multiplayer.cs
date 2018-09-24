@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace OsuSharp.MatchEndpoint
+namespace OsuSharp.Endpoints
 {
-    public class Matchs
+    public class Multiplayer
     {
         /// <summary>
         ///     Represents the room

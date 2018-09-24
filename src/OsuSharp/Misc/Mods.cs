@@ -59,7 +59,8 @@ namespace OsuSharp.Misc
 
         [ModsString("LastMod")] LastMod = 4194304,
 
-        [ModsString("FreeModAllowed")] FreeModAllowed = NoFail | Easy | Hidden | HardRock | SuddenDeath | Flashlight |
+        [ModsString("FreeModAllowed")]
+        FreeModAllowed = NoFail | Easy | Hidden | HardRock | SuddenDeath | Flashlight |
                                                         FadeIn | Relax | Relax2 | SpunOut | KeyMod,
 
         [ModsString("9K")] Key9 = 16777216,

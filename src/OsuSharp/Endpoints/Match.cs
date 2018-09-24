@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace OsuSharp.MatchEndpoint
+namespace OsuSharp.Endpoints
 {
     public class Match
     {
@@ -9,7 +9,7 @@ namespace OsuSharp.MatchEndpoint
         ///     Id of the match
         /// </summary>
         [JsonProperty("match_id")]
-        public ulong MatchId { get; set; }
+        public long MatchId { get; set; }
 
         /// <summary>
         ///     Name of the room

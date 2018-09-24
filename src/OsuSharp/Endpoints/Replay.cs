@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace OsuSharp.ReplayEndpoint
+namespace OsuSharp.Endpoints
 {
     public class Replay
     {

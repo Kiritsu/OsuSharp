@@ -3,23 +3,24 @@ using System;
 using Newtonsoft.Json;
 using OsuSharp.Misc;
 
-namespace OsuSharp.UserBestEndpoint
+namespace OsuSharp.Endpoints
 {
     public class UserBest
     {
-        [JsonProperty("perfect")] private ushort _perfect;
+        [JsonProperty("perfect")]
+        private int PerfectInt { get; set; }
 
         /// <summary>
         ///     Id of the beatmap
         /// </summary>
         [JsonProperty("beatmap_id")]
-        public ulong BeatmapId { get; set; }
+        public long BeatmapId { get; set; }
 
         /// <summary>
         ///     Score points of the play
         /// </summary>
         [JsonProperty("score")]
-        public ulong ScorePoints { get; set; }
+        public long ScorePoints { get; set; }
 
         /// <summary>
         ///     Name of the player
@@ -55,8 +56,9 @@ namespace OsuSharp.UserBestEndpoint
         ///     Accuracy of the play
         /// </summary>
         [JsonIgnore]
-        public double Accuracy => (Count50 * 50 + Count100 * 100 + Count300 * 300)
-                                  / (300.0 * (Count50 + Count100 + Count300 + Miss)) * 100;
+        public double Accuracy 
+            => (Count50 * 50 + Count100 * 100 + Count300 * 300)
+                / (300.0 * (Count50 + Count100 + Count300 + Miss)) * 100;
 
         /// <summary>
         ///     Max combo of the play
@@ -79,7 +81,8 @@ namespace OsuSharp.UserBestEndpoint
         /// <summary>
         ///     Is the map a perfect?
         /// </summary>
-        public bool Perfect => Convert.ToBoolean(_perfect);
+        public bool Perfect
+            => Convert.ToBoolean(PerfectInt);
 
         /// <summary>
         ///     Mods used for this play
@@ -90,13 +93,14 @@ namespace OsuSharp.UserBestEndpoint
         /// <summary>
         ///     Better representation of 'EnabledMods'
         /// </summary>
-        public Mods Mods => (Mods) EnabledMods;
+        public Mods Mods
+            => (Mods)EnabledMods;
 
         /// <summary>
         ///     Id of the user
         /// </summary>
         [JsonProperty("user_id")]
-        public ulong Userid { get; set; }
+        public long Userid { get; set; }
 
         /// <summary>
         ///     Date the play was submitted

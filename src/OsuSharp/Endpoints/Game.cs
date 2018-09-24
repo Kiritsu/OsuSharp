@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using OsuSharp.Endpoints;
 using OsuSharp.Misc;
 
-namespace OsuSharp.MatchEndpoint
+namespace OsuSharp.Endpoints
 {
     public class Game
     {
@@ -11,7 +12,7 @@ namespace OsuSharp.MatchEndpoint
         ///     Id of the game
         /// </summary>
         [JsonProperty("game_id")]
-        public ulong GameId { get; set; }
+        public long GameId { get; set; }
 
         /// <summary>
         ///     Time where the game started
@@ -29,42 +30,43 @@ namespace OsuSharp.MatchEndpoint
         ///     Id of the beatmap played
         /// </summary>
         [JsonProperty("beatmap_id")]
-        public ulong BeatmapId { get; set; }
+        public long BeatmapId { get; set; }
 
         /// <summary>
         ///     Game mode of the play
         /// </summary>
         [JsonProperty("play_mode")]
-        public ushort GameMode { get; set; }
+        public int GameMode { get; set; }
 
         /// <summary>
         ///     Match type
         /// </summary>
         [JsonProperty("match_type")]
-        public ushort MatchType { get; set; }
+        public int MatchType { get; set; }
 
         /// <summary>
         ///     Score type
         /// </summary>
         [JsonProperty("scoring_type")]
-        public ushort ScoringType { get; set; }
+        public int ScoringType { get; set; }
 
         /// <summary>
         ///     Team type
         /// </summary>
         [JsonProperty("team_type")]
-        public ushort TeamType { get; set; }
+        public int TeamType { get; set; }
 
         /// <summary>
         ///     Mods used
         /// </summary>
         [JsonProperty("enabled_mods")]
-        public uint EnabledMods { get; set; }
+        public int EnabledMods { get; set; }
 
         /// <summary>
         ///     Better representation of 'EnabledMods'
         /// </summary>
-        public Mods Mods => (Mods) EnabledMods;
+        public Mods Mods
+            => (Mods)EnabledMods;
 
         /// <summary>
         ///     List of scores made by players in this game

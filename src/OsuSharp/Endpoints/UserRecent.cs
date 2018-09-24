@@ -3,29 +3,33 @@ using System;
 using Newtonsoft.Json;
 using OsuSharp.Misc;
 
-namespace OsuSharp.ScoreEndpoint
+namespace OsuSharp.Endpoints
 {
-    public class Score
+    public class UserRecent
     {
-        [JsonProperty("perfect")] private ushort _perfect;
+        /// <summary>
+        ///     Value given by the Osu!Api then converted into a better 
+        /// </summary>
+        [JsonProperty("perfect")]
+        private int PerfectInt { get; set; }
 
         /// <summary>
-        ///     Score points of the play
+        ///     Id of the beatmaps
+        /// </summary>
+        [JsonProperty("beatmap_id")]
+        public long BeatmapId { get; set; }
+
+        /// <summary>
+        ///     Total score of the player in this play
         /// </summary>
         [JsonProperty("score")]
-        public ulong ScorePoints { get; set; }
+        public long ScorePoints { get; set; }
 
         /// <summary>
-        ///     Score id
+        ///     Max combo of the play
         /// </summary>
-        [JsonProperty("score_id")]
-        public ulong ScoreId { get; set; }
-
-        /// <summary>
-        ///     Name of the player
-        /// </summary>
-        [JsonProperty("username")]
-        public string Username { get; set; }
+        [JsonProperty("maxcombo")]
+        public int? MaxCombo { get; set; }
 
         /// <summary>
         ///     Count of 300
@@ -46,23 +50,18 @@ namespace OsuSharp.ScoreEndpoint
         public int Count50 { get; set; }
 
         /// <summary>
+        ///     Accuracy of this play
+        /// </summary>
+        [JsonIgnore]
+        public double Accuracy
+            => (Count50 * 50 + Count100 * 100 + Count300 * 300)
+                / (300.0 * (Count50 + Count100 + Count300 + Miss)) * 100;
+
+        /// <summary>
         ///     Count of misses
         /// </summary>
         [JsonProperty("countmiss")]
         public int Miss { get; set; }
-
-        /// <summary>
-        ///     Accuracy of the play
-        /// </summary>
-        [JsonIgnore]
-        public double Accuracy => (Count50 * 50 + Count100 * 100 + Count300 * 300)
-                                  / (300.0 * (Count50 + Count100 + Count300 + Miss)) * 100;
-
-        /// <summary>
-        ///     Max combo of the play
-        /// </summary>
-        [JsonProperty("maxcombo")]
-        public int? MaxCombo { get; set; }
 
         /// <summary>
         ///     Count of katus
@@ -77,26 +76,28 @@ namespace OsuSharp.ScoreEndpoint
         public int Geki { get; set; }
 
         /// <summary>
-        ///     Is the map a perfect?
+        ///     Is this map a perfect?
         /// </summary>
-        public bool Perfect => Convert.ToBoolean(_perfect);
+        public bool Perfect
+            => Convert.ToBoolean(PerfectInt);
 
         /// <summary>
         ///     Mods used for this play
         /// </summary>
         [JsonProperty("enabled_mods")]
-        public uint EnabledMods { get; set; }
+        public int EnabledMods { get; set; }
 
         /// <summary>
-        ///     Better representation of 'EnabledMods'
+        ///     Better representation of EnabledMods
         /// </summary>
-        public Mods Mods => (Mods) EnabledMods;
+        public Mods Mods
+            => (Mods)EnabledMods;
 
         /// <summary>
         ///     Id of the player
         /// </summary>
         [JsonProperty("user_id")]
-        public ulong Userid { get; set; }
+        public long Userid { get; set; }
 
         /// <summary>
         ///     Date the score was submitted
@@ -105,15 +106,9 @@ namespace OsuSharp.ScoreEndpoint
         public DateTime Date { get; set; }
 
         /// <summary>
-        ///     Rank of the player (in the map leaderboard) for this play
+        ///     Rank of the user for this play in the leaderboard
         /// </summary>
         [JsonProperty("rank")]
         public string Rank { get; set; }
-
-        /// <summary>
-        ///     Pp given by the map
-        /// </summary>
-        [JsonProperty("pp")]
-        public float Pp { get; set; }
     }
 }
