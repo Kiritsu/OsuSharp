@@ -1,6 +1,7 @@
-# OsuSharp 2.0.1 (06-22-2018)
+# OsuSharp 3.0.0 (09-24-2018)
 
 [![NuGet version](https://badge.fury.io/nu/OsuSharp.svg)](https://badge.fury.io/nu/OsuSharp)
+[![Build status](https://ci.appveyor.com/api/projects/status/jhrtfqgrhidw331x?svg=true)](https://ci.appveyor.com/project/Kiritsu/osusharp)
 
 **OsuSharp is a wrapper written in C# for the Osu!Api.**
 
@@ -16,7 +17,7 @@
 You can install the wrapper with Nuget
 
 ```
-PM> Install-Package OsuSharp -Version 2.0.1
+PM> Install-Package OsuSharp -Version 3.0.0
 ```
 
 Or compile from source
