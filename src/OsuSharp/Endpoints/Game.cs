@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using OsuSharp.Endpoints;
 using OsuSharp.Misc;
 
 namespace OsuSharp.Endpoints

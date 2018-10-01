@@ -15,13 +15,13 @@ namespace OsuSharp.Endpoints
         ///     Id of the beatmap
         /// </summary>
         [JsonProperty("beatmap_id")]
-        public long BeatmapId { get; set; }
+        public long? BeatmapId { get; set; }
 
         /// <summary>
         ///     Id of the beatmapset
         /// </summary>
         [JsonProperty("beatmapset_id")]
-        public long BeatmapsetId { get; set; }
+        public long? BeatmapsetId { get; set; }
 
         /// <summary>
         ///     Date of the event
@@ -33,6 +33,6 @@ namespace OsuSharp.Endpoints
         ///     ???
         /// </summary>
         [JsonProperty("epicfactor")]
-        public int Epicfactor { get; set; }
+        public int? Epicfactor { get; set; }
     }
 }
