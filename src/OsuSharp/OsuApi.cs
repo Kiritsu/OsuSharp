@@ -1231,8 +1231,7 @@ namespace OsuSharp
                 Get(
                     $"{GET_REPLAY_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{BEATMAP_PARAMETER}{beatmapid}{USER_PARAMETER}{username}");
 
-            List<Replay> r = JsonConvert.DeserializeObject<List<Replay>>(request);
-            return r.Count > 0 ? r[0] : null;
+            Replay r = JsonConvert.DeserializeObject<Replay>(request);
         }
 
         /// <summary>
@@ -1260,8 +1259,7 @@ namespace OsuSharp
                     $"{GET_REPLAY_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{BEATMAP_PARAMETER}{beatmapid}{USER_PARAMETER}{username}",
                     cancellationToken).ConfigureAwait(false);
 
-            List<Replay> r = JsonConvert.DeserializeObject<List<Replay>>(request);
-            return r.Count > 0 ? r[0] : null;
+            return JsonConvert.DeserializeObject<Replay>(request);
         }
 
         /// <summary>
@@ -1283,8 +1281,7 @@ namespace OsuSharp
                 Get(
                     $"{GET_REPLAY_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{BEATMAP_PARAMETER}{beatmapid}{USER_PARAMETER}{userid}");
 
-            List<Replay> r = JsonConvert.DeserializeObject<List<Replay>>(request);
-            return r.Count > 0 ? r[0] : null;
+            return JsonConvert.DeserializeObject<Replay>(request);
         }
 
         /// <summary>
@@ -1309,8 +1306,7 @@ namespace OsuSharp
                     $"{GET_REPLAY_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{BEATMAP_PARAMETER}{beatmapid}{USER_PARAMETER}{userid}",
                     cancellationToken).ConfigureAwait(false);
 
-            List<Replay> r = JsonConvert.DeserializeObject<List<Replay>>(request);
-            return r.Count > 0 ? r[0] : null;
+            return JsonConvert.DeserializeObject<Replay>(request);
         }
 
         private string Get(string url)
