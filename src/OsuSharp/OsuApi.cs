@@ -1231,7 +1231,7 @@ namespace OsuSharp
                 Get(
                     $"{GET_REPLAY_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{BEATMAP_PARAMETER}{beatmapid}{USER_PARAMETER}{username}");
 
-            Replay r = JsonConvert.DeserializeObject<Replay>(request);
+            return JsonConvert.DeserializeObject<Replay>(request);
         }
 
         /// <summary>
