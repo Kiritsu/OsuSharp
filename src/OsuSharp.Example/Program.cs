@@ -22,7 +22,7 @@ namespace OsuSharp.Example
         {
             try
             {
-                IOsuApi instance = new OsuApi(new OsuSharpConfiguration
+                var instance = new OsuApi(new OsuSharpConfiguration
                 {
                     ApiKey = File.ReadAllText("token.txt"),
                     ModsSeparator = "|",
@@ -30,6 +30,31 @@ namespace OsuSharp.Example
                     TimeInterval = TimeSpan.FromSeconds(8),
                     LogLevel = LoggingLevel.Debug
                 });
+
+                // Getting a specific user's replay
+                Console.WriteLine("specific replay");
+                var bm = await instance.GetBeatmapAsync(936026);
+                var scr = await instance.GetScoreByUsernameAsync(936026, "filsdelama");
+                var usr = await instance.GetUserByNameAsync("filsdelama");
+                var rpl = await instance.GetReplayByUsernameAsync(936026, "filsdelama");
+
+                var rp = ReplayFile.CreateReplayFile(rpl, usr, scr, bm);
+                var fs = new FileStream("replay-specific.osr", FileMode.OpenOrCreate);
+                rp.ToStream(fs);
+                fs.Close();
+                Console.WriteLine("specific replay done");
+
+                // Get a top replay
+                Console.WriteLine("top replay");
+                var scrs = instance.GetScores(1775286).First();
+                var usrs = instance.GetUserById(scrs.Userid);
+                var bms = instance.GetBeatmap(1775286);
+                var rpls = instance.GetReplayByUserid(1775286, scrs.Userid);
+                var replaye = ReplayFile.CreateReplayFile(rpls, usrs, scrs, bms);
+                var filestr = new FileStream("replay-top.osr", FileMode.OpenOrCreate);
+                replaye.ToStream(filestr);
+                filestr.Close();
+                Console.WriteLine("top replay done");
 
                 instance.Logger.LogMessageReceived += (sender, args) =>
                     args.Logger.Print(args.Level, args.From, args.Message, args.Time);
