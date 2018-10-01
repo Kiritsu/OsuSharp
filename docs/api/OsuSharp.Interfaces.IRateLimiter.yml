@@ -16,7 +16,7 @@ items:
   source:
     id: IRateLimiter
     path: ''
-    startLine: 3269
+    startLine: 3670
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Interfaces
@@ -43,7 +43,7 @@ items:
   source:
     id: HandleAsync
     path: ''
-    startLine: 3271
+    startLine: 3672
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Interfaces

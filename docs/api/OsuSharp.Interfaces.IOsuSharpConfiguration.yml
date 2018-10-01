@@ -22,7 +22,7 @@ items:
   source:
     id: IOsuSharpConfiguration
     path: ''
-    startLine: 3195
+    startLine: 3596
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Interfaces
@@ -49,7 +49,7 @@ items:
   source:
     id: ApiKey
     path: ''
-    startLine: 3200
+    startLine: 3601
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Interfaces
@@ -79,7 +79,7 @@ items:
   source:
     id: ModsSeparator
     path: ''
-    startLine: 3205
+    startLine: 3606
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Interfaces
@@ -109,7 +109,7 @@ items:
   source:
     id: CustomHttpClient
     path: ''
-    startLine: 3210
+    startLine: 3611
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Interfaces
@@ -139,7 +139,7 @@ items:
   source:
     id: MaxRequests
     path: ''
-    startLine: 3215
+    startLine: 3616
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Interfaces
@@ -169,7 +169,7 @@ items:
   source:
     id: TimeInterval
     path: ''
-    startLine: 3220
+    startLine: 3621
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Interfaces
@@ -199,7 +199,7 @@ items:
   source:
     id: ThrowOnMaxRequests
     path: ''
-    startLine: 3225
+    startLine: 3626
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Interfaces
@@ -229,7 +229,7 @@ items:
   source:
     id: LogLevel
     path: ''
-    startLine: 3230
+    startLine: 3631
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Interfaces

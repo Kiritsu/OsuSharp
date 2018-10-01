@@ -16,7 +16,7 @@ items:
   source:
     id: OsuSharpException
     path: ''
-    startLine: 1402
+    startLine: 1420
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -24,9 +24,7 @@ items:
     content: 'public class OsuSharpException : Exception, ISerializable, _Exception'
     content.vb: >-
       Public Class OsuSharpException
-
           Inherits Exception
-
           Implements ISerializable, _Exception
   inheritance:
   - System.Object
@@ -73,7 +71,7 @@ items:
   source:
     id: .ctor
     path: ''
-    startLine: 1404
+    startLine: 1422
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp

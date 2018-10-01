@@ -46,7 +46,7 @@ items:
   source:
     id: Mods
     path: ''
-    startLine: 3319
+    startLine: 3720
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -83,7 +83,7 @@ items:
   source:
     id: None
     path: ''
-    startLine: 3322
+    startLine: 3723
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -124,7 +124,7 @@ items:
   source:
     id: NoFail
     path: ''
-    startLine: 3324
+    startLine: 3725
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -165,7 +165,7 @@ items:
   source:
     id: Easy
     path: ''
-    startLine: 3326
+    startLine: 3727
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -206,7 +206,7 @@ items:
   source:
     id: NoVideo
     path: ''
-    startLine: 3328
+    startLine: 3729
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -247,7 +247,7 @@ items:
   source:
     id: Hidden
     path: ''
-    startLine: 3330
+    startLine: 3731
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -288,7 +288,7 @@ items:
   source:
     id: HardRock
     path: ''
-    startLine: 3332
+    startLine: 3733
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -329,7 +329,7 @@ items:
   source:
     id: SuddenDeath
     path: ''
-    startLine: 3334
+    startLine: 3735
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -370,7 +370,7 @@ items:
   source:
     id: DoubleTime
     path: ''
-    startLine: 3336
+    startLine: 3737
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -411,7 +411,7 @@ items:
   source:
     id: Relax
     path: ''
-    startLine: 3338
+    startLine: 3739
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -452,7 +452,7 @@ items:
   source:
     id: HalfTime
     path: ''
-    startLine: 3340
+    startLine: 3741
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -493,7 +493,7 @@ items:
   source:
     id: Nightcore
     path: ''
-    startLine: 3342
+    startLine: 3743
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -534,7 +534,7 @@ items:
   source:
     id: Flashlight
     path: ''
-    startLine: 3344
+    startLine: 3745
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -575,7 +575,7 @@ items:
   source:
     id: Autoplay
     path: ''
-    startLine: 3346
+    startLine: 3747
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -616,7 +616,7 @@ items:
   source:
     id: SpunOut
     path: ''
-    startLine: 3348
+    startLine: 3749
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -657,7 +657,7 @@ items:
   source:
     id: Relax2
     path: ''
-    startLine: 3350
+    startLine: 3751
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -698,7 +698,7 @@ items:
   source:
     id: Perfect
     path: ''
-    startLine: 3352
+    startLine: 3753
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -739,7 +739,7 @@ items:
   source:
     id: Key4
     path: ''
-    startLine: 3354
+    startLine: 3755
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -780,7 +780,7 @@ items:
   source:
     id: Key5
     path: ''
-    startLine: 3356
+    startLine: 3757
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -821,7 +821,7 @@ items:
   source:
     id: Key6
     path: ''
-    startLine: 3358
+    startLine: 3759
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -862,7 +862,7 @@ items:
   source:
     id: Key7
     path: ''
-    startLine: 3360
+    startLine: 3761
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -903,7 +903,7 @@ items:
   source:
     id: Key8
     path: ''
-    startLine: 3362
+    startLine: 3763
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -944,7 +944,7 @@ items:
   source:
     id: KeyMod
     path: ''
-    startLine: 3364
+    startLine: 3765
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -985,7 +985,7 @@ items:
   source:
     id: FadeIn
     path: ''
-    startLine: 3366
+    startLine: 3767
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -1026,7 +1026,7 @@ items:
   source:
     id: Random
     path: ''
-    startLine: 3368
+    startLine: 3769
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -1067,7 +1067,7 @@ items:
   source:
     id: LastMod
     path: ''
-    startLine: 3370
+    startLine: 3771
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -1108,7 +1108,7 @@ items:
   source:
     id: FreeModAllowed
     path: ''
-    startLine: 3372
+    startLine: 3773
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -1149,7 +1149,7 @@ items:
   source:
     id: Key9
     path: ''
-    startLine: 3376
+    startLine: 3777
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -1190,7 +1190,7 @@ items:
   source:
     id: Key10
     path: ''
-    startLine: 3378
+    startLine: 3779
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -1231,7 +1231,7 @@ items:
   source:
     id: Key1
     path: ''
-    startLine: 3380
+    startLine: 3781
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -1272,7 +1272,7 @@ items:
   source:
     id: Key3
     path: ''
-    startLine: 3382
+    startLine: 3783
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -1313,7 +1313,7 @@ items:
   source:
     id: Key2
     path: ''
-    startLine: 3384
+    startLine: 3785
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc

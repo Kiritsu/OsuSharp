@@ -42,6 +42,8 @@
     name: BeatmapScores
   - uid: OsuSharp.Entities.BeatmapScoresUsers
     name: BeatmapScoresUsers
+  - uid: OsuSharp.Entities.ReplayFile
+    name: ReplayFile
   - uid: OsuSharp.Entities.UserBestBeatmap
     name: UserBestBeatmap
   - uid: OsuSharp.Entities.UserRecentBeatmap

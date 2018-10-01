@@ -17,7 +17,7 @@ items:
   source:
     id: BeatmapScores
     path: ''
-    startLine: 2545
+    startLine: 2562
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Entities
@@ -54,7 +54,7 @@ items:
   source:
     id: Beatmap
     path: ''
-    startLine: 2547
+    startLine: 2564
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Entities
@@ -85,7 +85,7 @@ items:
   source:
     id: Score
     path: ''
-    startLine: 2548
+    startLine: 2565
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Entities

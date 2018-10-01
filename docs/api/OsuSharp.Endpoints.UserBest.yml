@@ -33,7 +33,7 @@ items:
   source:
     id: UserBest
     path: ''
-    startLine: 2310
+    startLine: 2327
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -70,7 +70,7 @@ items:
   source:
     id: BeatmapId
     path: ''
-    startLine: 2318
+    startLine: 2335
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -103,7 +103,7 @@ items:
   source:
     id: ScorePoints
     path: ''
-    startLine: 2324
+    startLine: 2341
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -136,7 +136,7 @@ items:
   source:
     id: Username
     path: ''
-    startLine: 2330
+    startLine: 2347
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -169,7 +169,7 @@ items:
   source:
     id: Count300
     path: ''
-    startLine: 2336
+    startLine: 2353
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -202,7 +202,7 @@ items:
   source:
     id: Count100
     path: ''
-    startLine: 2342
+    startLine: 2359
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -235,7 +235,7 @@ items:
   source:
     id: Count50
     path: ''
-    startLine: 2348
+    startLine: 2365
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -268,7 +268,7 @@ items:
   source:
     id: Miss
     path: ''
-    startLine: 2354
+    startLine: 2371
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -301,7 +301,7 @@ items:
   source:
     id: Accuracy
     path: ''
-    startLine: 2360
+    startLine: 2377
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -334,7 +334,7 @@ items:
   source:
     id: MaxCombo
     path: ''
-    startLine: 2368
+    startLine: 2385
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -367,7 +367,7 @@ items:
   source:
     id: Katu
     path: ''
-    startLine: 2374
+    startLine: 2391
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -400,7 +400,7 @@ items:
   source:
     id: Geki
     path: ''
-    startLine: 2380
+    startLine: 2397
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -433,7 +433,7 @@ items:
   source:
     id: Perfect
     path: ''
-    startLine: 2386
+    startLine: 2403
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -466,7 +466,7 @@ items:
   source:
     id: EnabledMods
     path: ''
-    startLine: 2392
+    startLine: 2409
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -499,7 +499,7 @@ items:
   source:
     id: Mods
     path: ''
-    startLine: 2398
+    startLine: 2415
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -532,7 +532,7 @@ items:
   source:
     id: Userid
     path: ''
-    startLine: 2404
+    startLine: 2421
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -565,7 +565,7 @@ items:
   source:
     id: Date
     path: ''
-    startLine: 2410
+    startLine: 2427
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -598,7 +598,7 @@ items:
   source:
     id: Rank
     path: ''
-    startLine: 2416
+    startLine: 2433
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -631,7 +631,7 @@ items:
   source:
     id: Pp
     path: ''
-    startLine: 2422
+    startLine: 2439
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints

@@ -6,6 +6,7 @@ items:
   children:
   - OsuSharp.Entities.BeatmapScores
   - OsuSharp.Entities.BeatmapScoresUsers
+  - OsuSharp.Entities.ReplayFile
   - OsuSharp.Entities.UserBestBeatmap
   - OsuSharp.Entities.UserRecentBeatmap
   langs:
@@ -30,6 +31,12 @@ references:
   name: BeatmapScoresUsers
   nameWithType: BeatmapScoresUsers
   fullName: OsuSharp.Entities.BeatmapScoresUsers
+- uid: OsuSharp.Entities.ReplayFile
+  commentId: T:OsuSharp.Entities.ReplayFile
+  parent: OsuSharp.Entities
+  name: ReplayFile
+  nameWithType: ReplayFile
+  fullName: OsuSharp.Entities.ReplayFile
 - uid: OsuSharp.Entities.UserBestBeatmap
   commentId: T:OsuSharp.Entities.UserBestBeatmap
   name: UserBestBeatmap

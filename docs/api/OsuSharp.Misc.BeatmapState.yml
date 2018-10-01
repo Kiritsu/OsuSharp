@@ -23,7 +23,7 @@ items:
   source:
     id: BeatmapState
     path: ''
-    startLine: 2588
+    startLine: 2989
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -52,7 +52,7 @@ items:
   source:
     id: Graveyard
     path: ''
-    startLine: 2590
+    startLine: 2991
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -80,7 +80,7 @@ items:
   source:
     id: Wip
     path: ''
-    startLine: 2591
+    startLine: 2992
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -108,7 +108,7 @@ items:
   source:
     id: Pending
     path: ''
-    startLine: 2592
+    startLine: 2993
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -136,7 +136,7 @@ items:
   source:
     id: Ranked
     path: ''
-    startLine: 2593
+    startLine: 2994
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -164,7 +164,7 @@ items:
   source:
     id: Approved
     path: ''
-    startLine: 2594
+    startLine: 2995
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -192,7 +192,7 @@ items:
   source:
     id: Qualified
     path: ''
-    startLine: 2595
+    startLine: 2996
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -220,7 +220,7 @@ items:
   source:
     id: Loved
     path: ''
-    startLine: 2596
+    startLine: 2997
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -248,7 +248,7 @@ items:
   source:
     id: Unknown
     path: ''
-    startLine: 2597
+    startLine: 2998
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc

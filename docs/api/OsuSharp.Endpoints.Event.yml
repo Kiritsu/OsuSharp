@@ -20,7 +20,7 @@ items:
   source:
     id: Event
     path: ''
-    startLine: 1777
+    startLine: 1795
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -57,7 +57,7 @@ items:
   source:
     id: DisplayHtml
     path: ''
-    startLine: 1782
+    startLine: 1800
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -90,18 +90,18 @@ items:
   source:
     id: BeatmapId
     path: ''
-    startLine: 1788
+    startLine: 1806
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
   summary: "\nId of the beatmap\n"
   example: []
   syntax:
-    content: public long BeatmapId { get; set; }
+    content: public long? BeatmapId { get; set; }
     parameters: []
     return:
-      type: System.Int64
-    content.vb: Public Property BeatmapId As Long
+      type: System.Nullable{System.Int64}
+    content.vb: Public Property BeatmapId As Long?
   overload: OsuSharp.Endpoints.Event.BeatmapId*
   modifiers.csharp:
   - public
@@ -123,18 +123,18 @@ items:
   source:
     id: BeatmapsetId
     path: ''
-    startLine: 1794
+    startLine: 1812
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
   summary: "\nId of the beatmapset\n"
   example: []
   syntax:
-    content: public long BeatmapsetId { get; set; }
+    content: public long? BeatmapsetId { get; set; }
     parameters: []
     return:
-      type: System.Int64
-    content.vb: Public Property BeatmapsetId As Long
+      type: System.Nullable{System.Int64}
+    content.vb: Public Property BeatmapsetId As Long?
   overload: OsuSharp.Endpoints.Event.BeatmapsetId*
   modifiers.csharp:
   - public
@@ -156,7 +156,7 @@ items:
   source:
     id: Date
     path: ''
-    startLine: 1800
+    startLine: 1818
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -189,18 +189,18 @@ items:
   source:
     id: Epicfactor
     path: ''
-    startLine: 1806
+    startLine: 1824
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
   summary: "\n???\n"
   example: []
   syntax:
-    content: public int Epicfactor { get; set; }
+    content: public int? Epicfactor { get; set; }
     parameters: []
     return:
-      type: System.Int32
-    content.vb: Public Property Epicfactor As Integer
+      type: System.Nullable{System.Int32}
+    content.vb: Public Property Epicfactor As Integer?
   overload: OsuSharp.Endpoints.Event.Epicfactor*
   modifiers.csharp:
   - public
@@ -523,13 +523,89 @@ references:
   name: BeatmapId
   nameWithType: Event.BeatmapId
   fullName: OsuSharp.Endpoints.Event.BeatmapId
-- uid: System.Int64
-  commentId: T:System.Int64
+- uid: System.Nullable{System.Int64}
+  commentId: T:System.Nullable{System.Int64}
   parent: System
+  definition: System.Nullable`1
+  name: Nullable<Int64>
+  nameWithType: Nullable<Int64>
+  fullName: System.Nullable<System.Int64>
+  nameWithType.vb: Nullable(Of Int64)
+  fullName.vb: System.Nullable(Of System.Int64)
+  name.vb: Nullable(Of Int64)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Int64
+    name: Int64
+    nameWithType: Int64
+    fullName: System.Int64
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Int64
+    name: Int64
+    nameWithType: Int64
+    fullName: System.Int64
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Nullable`1
+  commentId: T:System.Nullable`1
   isExternal: true
-  name: Int64
-  nameWithType: Int64
-  fullName: System.Int64
+  name: Nullable<T>
+  nameWithType: Nullable<T>
+  fullName: System.Nullable<T>
+  nameWithType.vb: Nullable(Of T)
+  fullName.vb: System.Nullable(Of T)
+  name.vb: Nullable(Of T)
+  spec.csharp:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Nullable`1
+    name: Nullable
+    nameWithType: Nullable
+    fullName: System.Nullable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: OsuSharp.Endpoints.Event.BeatmapsetId*
   commentId: Overload:OsuSharp.Endpoints.Event.BeatmapsetId
   name: BeatmapsetId
@@ -584,15 +660,21 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Nullable`1
-  commentId: T:System.Nullable`1
-  isExternal: true
-  name: Nullable<T>
-  nameWithType: Nullable<T>
-  fullName: System.Nullable<T>
-  nameWithType.vb: Nullable(Of T)
-  fullName.vb: System.Nullable(Of T)
-  name.vb: Nullable(Of T)
+- uid: OsuSharp.Endpoints.Event.Epicfactor*
+  commentId: Overload:OsuSharp.Endpoints.Event.Epicfactor
+  name: Epicfactor
+  nameWithType: Event.Epicfactor
+  fullName: OsuSharp.Endpoints.Event.Epicfactor
+- uid: System.Nullable{System.Int32}
+  commentId: T:System.Nullable{System.Int32}
+  parent: System
+  definition: System.Nullable`1
+  name: Nullable<Int32>
+  nameWithType: Nullable<Int32>
+  fullName: System.Nullable<System.Int32>
+  nameWithType.vb: Nullable(Of Int32)
+  fullName.vb: System.Nullable(Of System.Int32)
+  name.vb: Nullable(Of Int32)
   spec.csharp:
   - uid: System.Nullable`1
     name: Nullable
@@ -602,9 +684,11 @@ references:
   - name: <
     nameWithType: <
     fullName: <
-  - name: T
-    nameWithType: T
-    fullName: T
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
   - name: '>'
     nameWithType: '>'
     fullName: '>'
@@ -617,21 +701,11 @@ references:
   - name: '(Of '
     nameWithType: '(Of '
     fullName: '(Of '
-  - name: T
-    nameWithType: T
-    fullName: T
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
   - name: )
     nameWithType: )
     fullName: )
-- uid: OsuSharp.Endpoints.Event.Epicfactor*
-  commentId: Overload:OsuSharp.Endpoints.Event.Epicfactor
-  name: Epicfactor
-  nameWithType: Event.Epicfactor
-  fullName: OsuSharp.Endpoints.Event.Epicfactor
-- uid: System.Int32
-  commentId: T:System.Int32
-  parent: System
-  isExternal: true
-  name: Int32
-  nameWithType: Int32
-  fullName: System.Int32

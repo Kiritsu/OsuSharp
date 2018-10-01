@@ -17,7 +17,7 @@ items:
   source:
     id: UserRecentBeatmap
     path: ''
-    startLine: 2577
+    startLine: 2978
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Entities
@@ -54,7 +54,7 @@ items:
   source:
     id: Beatmap
     path: ''
-    startLine: 2579
+    startLine: 2980
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Entities
@@ -85,7 +85,7 @@ items:
   source:
     id: UserRecent
     path: ''
-    startLine: 2580
+    startLine: 2981
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Entities

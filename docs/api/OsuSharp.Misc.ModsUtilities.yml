@@ -16,7 +16,7 @@ items:
   source:
     id: ModsUtilities
     path: ''
-    startLine: 3398
+    startLine: 3799
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -55,7 +55,7 @@ items:
   source:
     id: ToModString
     path: ''
-    startLine: 3422
+    startLine: 3823
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc

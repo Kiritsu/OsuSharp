@@ -17,7 +17,7 @@ items:
   source:
     id: Replay
     path: ''
-    startLine: 1943
+    startLine: 1960
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -54,7 +54,7 @@ items:
   source:
     id: Content
     path: ''
-    startLine: 1948
+    startLine: 1965
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -87,7 +87,7 @@ items:
   source:
     id: Encoding
     path: ''
-    startLine: 1954
+    startLine: 1971
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints

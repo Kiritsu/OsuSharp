@@ -17,7 +17,7 @@ items:
   source:
     id: ModsStringAttribute
     path: ''
-    startLine: 3387
+    startLine: 3788
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -30,9 +30,7 @@ items:
       <AttributeUsage(AttributeTargets.Field)>
 
       Public NotInheritable Class ModsStringAttribute
-
           Inherits Attribute
-
           Implements _Attribute
   inheritance:
   - System.Object
@@ -114,7 +112,7 @@ items:
   source:
     id: .ctor
     path: ''
-    startLine: 3390
+    startLine: 3791
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -143,7 +141,7 @@ items:
   source:
     id: String
     path: ''
-    startLine: 3395
+    startLine: 3796
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc

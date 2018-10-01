@@ -21,7 +21,7 @@ items:
   source:
     id: OsuSharpLoggerEventArgs
     path: ''
-    startLine: 3439
+    startLine: 3840
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -60,7 +60,7 @@ items:
   source:
     id: From
     path: ''
-    startLine: 3444
+    startLine: 3845
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -93,7 +93,7 @@ items:
   source:
     id: Time
     path: ''
-    startLine: 3449
+    startLine: 3850
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -126,7 +126,7 @@ items:
   source:
     id: Message
     path: ''
-    startLine: 3454
+    startLine: 3855
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -159,7 +159,7 @@ items:
   source:
     id: Instance
     path: ''
-    startLine: 3459
+    startLine: 3860
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -192,7 +192,7 @@ items:
   source:
     id: Logger
     path: ''
-    startLine: 3464
+    startLine: 3865
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -225,7 +225,7 @@ items:
   source:
     id: Level
     path: ''
-    startLine: 3469
+    startLine: 3870
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc

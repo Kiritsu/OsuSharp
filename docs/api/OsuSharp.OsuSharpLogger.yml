@@ -19,7 +19,7 @@ items:
   source:
     id: OsuSharpLogger
     path: ''
-    startLine: 1416
+    startLine: 1434
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -27,7 +27,6 @@ items:
     content: 'public class OsuSharpLogger : IOsuSharpLogger'
     content.vb: >-
       Public Class OsuSharpLogger
-
           Implements IOsuSharpLogger
   inheritance:
   - System.Object
@@ -61,7 +60,7 @@ items:
   source:
     id: .ctor
     path: ''
-    startLine: 1422
+    startLine: 1440
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -92,7 +91,7 @@ items:
   source:
     id: LogMessageReceived
     path: ''
-    startLine: 1432
+    startLine: 1450
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -123,7 +122,7 @@ items:
   source:
     id: LogMessage
     path: ''
-    startLine: 1441
+    startLine: 1459
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -166,7 +165,7 @@ items:
   source:
     id: Print
     path: ''
-    startLine: 1462
+    startLine: 1480
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp

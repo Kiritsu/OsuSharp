@@ -17,7 +17,7 @@ items:
   source:
     id: Multiplayer
     path: ''
-    startLine: 1924
+    startLine: 1941
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -54,7 +54,7 @@ items:
   source:
     id: Match
     path: ''
-    startLine: 1929
+    startLine: 1946
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -87,7 +87,7 @@ items:
   source:
     id: Games
     path: ''
-    startLine: 1935
+    startLine: 1952
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints

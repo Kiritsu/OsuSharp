@@ -22,7 +22,7 @@ items:
   source:
     id: OsuSharpConfiguration
     path: ''
-    startLine: 1360
+    startLine: 1378
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -30,7 +30,6 @@ items:
     content: 'public class OsuSharpConfiguration : IOsuSharpConfiguration'
     content.vb: >-
       Public Class OsuSharpConfiguration
-
           Implements IOsuSharpConfiguration
   inheritance:
   - System.Object
@@ -64,7 +63,7 @@ items:
   source:
     id: ApiKey
     path: ''
-    startLine: 1365
+    startLine: 1383
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -99,7 +98,7 @@ items:
   source:
     id: ModsSeparator
     path: ''
-    startLine: 1370
+    startLine: 1388
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -134,7 +133,7 @@ items:
   source:
     id: CustomHttpClient
     path: ''
-    startLine: 1375
+    startLine: 1393
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -169,7 +168,7 @@ items:
   source:
     id: MaxRequests
     path: ''
-    startLine: 1380
+    startLine: 1398
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -204,7 +203,7 @@ items:
   source:
     id: TimeInterval
     path: ''
-    startLine: 1385
+    startLine: 1403
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -239,7 +238,7 @@ items:
   source:
     id: ThrowOnMaxRequests
     path: ''
-    startLine: 1390
+    startLine: 1408
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -274,7 +273,7 @@ items:
   source:
     id: LogLevel
     path: ''
-    startLine: 1395
+    startLine: 1413
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp

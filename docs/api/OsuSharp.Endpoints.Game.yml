@@ -26,7 +26,7 @@ items:
   source:
     id: Game
     path: ''
-    startLine: 1818
+    startLine: 1835
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -63,7 +63,7 @@ items:
   source:
     id: GameId
     path: ''
-    startLine: 1823
+    startLine: 1840
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -96,7 +96,7 @@ items:
   source:
     id: StartTime
     path: ''
-    startLine: 1829
+    startLine: 1846
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -129,7 +129,7 @@ items:
   source:
     id: EndTime
     path: ''
-    startLine: 1835
+    startLine: 1852
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -162,7 +162,7 @@ items:
   source:
     id: BeatmapId
     path: ''
-    startLine: 1841
+    startLine: 1858
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -195,7 +195,7 @@ items:
   source:
     id: GameMode
     path: ''
-    startLine: 1847
+    startLine: 1864
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -228,7 +228,7 @@ items:
   source:
     id: MatchType
     path: ''
-    startLine: 1853
+    startLine: 1870
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -261,7 +261,7 @@ items:
   source:
     id: ScoringType
     path: ''
-    startLine: 1859
+    startLine: 1876
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -294,7 +294,7 @@ items:
   source:
     id: TeamType
     path: ''
-    startLine: 1865
+    startLine: 1882
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -327,7 +327,7 @@ items:
   source:
     id: EnabledMods
     path: ''
-    startLine: 1871
+    startLine: 1888
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -360,7 +360,7 @@ items:
   source:
     id: Mods
     path: ''
-    startLine: 1877
+    startLine: 1894
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -393,7 +393,7 @@ items:
   source:
     id: Scores
     path: ''
-    startLine: 1883
+    startLine: 1900
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints

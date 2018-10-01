@@ -7,6 +7,7 @@ items:
   children:
   - OsuSharp.OsuApi.#ctor(OsuSharp.Interfaces.IOsuSharpConfiguration)
   - OsuSharp.OsuApi.ApiKey
+  - OsuSharp.OsuApi.CreateReplayFile(System.String,OsuSharp.Endpoints.Replay,OsuSharp.Endpoints.User,OsuSharp.Endpoints.Score,OsuSharp.Endpoints.Beatmap)
   - OsuSharp.OsuApi.Default(OsuSharp.Interfaces.IOsuSharpConfiguration)
   - OsuSharp.OsuApi.GetBeatmap(System.Int64,OsuSharp.Misc.BeatmapType,OsuSharp.Misc.GameMode)
   - OsuSharp.OsuApi.GetBeatmapAsync(System.Int64,OsuSharp.Misc.BeatmapType,OsuSharp.Misc.GameMode,System.Threading.CancellationToken)
@@ -64,7 +65,7 @@ items:
   source:
     id: OsuApi
     path: ''
-    startLine: 15
+    startLine: 16
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -72,7 +73,6 @@ items:
     content: 'public class OsuApi : IOsuApi'
     content.vb: >-
       Public Class OsuApi
-
           Implements IOsuApi
   inheritance:
   - System.Object
@@ -106,7 +106,7 @@ items:
   source:
     id: ApiKey
     path: ''
-    startLine: 41
+    startLine: 42
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -141,7 +141,7 @@ items:
   source:
     id: ModsSeparator
     path: ''
-    startLine: 46
+    startLine: 47
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -176,7 +176,7 @@ items:
   source:
     id: Logger
     path: ''
-    startLine: 51
+    startLine: 52
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -211,7 +211,7 @@ items:
   source:
     id: .ctor
     path: ''
-    startLine: 60
+    startLine: 61
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -243,7 +243,7 @@ items:
   source:
     id: Default
     path: ''
-    startLine: 84
+    startLine: 85
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -279,7 +279,7 @@ items:
   source:
     id: GetBeatmap
     path: ''
-    startLine: 98
+    startLine: 99
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -322,7 +322,7 @@ items:
   source:
     id: GetBeatmapAsync
     path: ''
-    startLine: 123
+    startLine: 124
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -368,7 +368,7 @@ items:
   source:
     id: GetBeatmapsByCreator
     path: ''
-    startLine: 149
+    startLine: 150
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -411,7 +411,7 @@ items:
   source:
     id: GetBeatmapsByCreatorAsync
     path: ''
-    startLine: 177
+    startLine: 178
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -457,7 +457,7 @@ items:
   source:
     id: GetBeatmaps
     path: ''
-    startLine: 207
+    startLine: 208
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -503,7 +503,7 @@ items:
   source:
     id: GetBeatmapsAsync
     path: ''
-    startLine: 233
+    startLine: 234
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -552,7 +552,7 @@ items:
   source:
     id: GetLastBeatmaps
     path: ''
-    startLine: 256
+    startLine: 257
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -589,7 +589,7 @@ items:
   source:
     id: GetLastBeatmapsAsync
     path: ''
-    startLine: 274
+    startLine: 275
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -629,7 +629,7 @@ items:
   source:
     id: GetUserByName
     path: ''
-    startLine: 293
+    startLine: 294
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -669,7 +669,7 @@ items:
   source:
     id: GetUserByNameAsync
     path: ''
-    startLine: 318
+    startLine: 319
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -712,7 +712,7 @@ items:
   source:
     id: GetUserById
     path: ''
-    startLine: 345
+    startLine: 346
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -752,7 +752,7 @@ items:
   source:
     id: GetUserByIdAsync
     path: ''
-    startLine: 367
+    startLine: 368
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -795,7 +795,7 @@ items:
   source:
     id: GetScoreByUsername
     path: ''
-    startLine: 391
+    startLine: 392
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -838,7 +838,7 @@ items:
   source:
     id: GetScoreByUsernameAsync
     path: ''
-    startLine: 419
+    startLine: 420
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -884,7 +884,7 @@ items:
   source:
     id: GetScoreByUserid
     path: ''
-    startLine: 448
+    startLine: 449
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -927,7 +927,7 @@ items:
   source:
     id: GetScoreByUseridAsync
     path: ''
-    startLine: 473
+    startLine: 474
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -973,7 +973,7 @@ items:
   source:
     id: GetScores
     path: ''
-    startLine: 499
+    startLine: 500
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1016,7 +1016,7 @@ items:
   source:
     id: GetScoresAsync
     path: ''
-    startLine: 523
+    startLine: 524
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1062,7 +1062,7 @@ items:
   source:
     id: GetScoresAndBeatmap
     path: ''
-    startLine: 548
+    startLine: 549
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1105,7 +1105,7 @@ items:
   source:
     id: GetScoresAndBeatmapAsync
     path: ''
-    startLine: 579
+    startLine: 580
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1151,7 +1151,7 @@ items:
   source:
     id: GetScoresWithUsersAndBeatmap
     path: ''
-    startLine: 612
+    startLine: 613
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1194,7 +1194,7 @@ items:
   source:
     id: GetScoresWithUsersAndBeatmapAsync
     path: ''
-    startLine: 648
+    startLine: 649
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1240,7 +1240,7 @@ items:
   source:
     id: GetUserBestByUsername
     path: ''
-    startLine: 685
+    startLine: 686
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1283,7 +1283,7 @@ items:
   source:
     id: GetUserBestByUsernameAsync
     path: ''
-    startLine: 713
+    startLine: 714
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1329,7 +1329,7 @@ items:
   source:
     id: GetUserBestAndBeatmapByUsername
     path: ''
-    startLine: 741
+    startLine: 742
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1372,7 +1372,7 @@ items:
   source:
     id: GetUserBestAndBeatmapByUsernameAsync
     path: ''
-    startLine: 778
+    startLine: 779
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1418,7 +1418,7 @@ items:
   source:
     id: GetUserBestByUserid
     path: ''
-    startLine: 816
+    startLine: 817
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1461,7 +1461,7 @@ items:
   source:
     id: GetUserBestByUseridAsync
     path: ''
-    startLine: 840
+    startLine: 841
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1507,7 +1507,7 @@ items:
   source:
     id: GetUserBestAndBeatmapByUserid
     path: ''
-    startLine: 865
+    startLine: 866
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1550,7 +1550,7 @@ items:
   source:
     id: GetUserBestAndBeatmapByUseridAsync
     path: ''
-    startLine: 899
+    startLine: 900
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1596,7 +1596,7 @@ items:
   source:
     id: GetUserRecentByUsername
     path: ''
-    startLine: 934
+    startLine: 935
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1639,7 +1639,7 @@ items:
   source:
     id: GetUserRecentByUsernameAsync
     path: ''
-    startLine: 962
+    startLine: 963
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1685,7 +1685,7 @@ items:
   source:
     id: GetUserRecentAndBeatmapByUsername
     path: ''
-    startLine: 990
+    startLine: 991
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1728,7 +1728,7 @@ items:
   source:
     id: GetUserRecentAndBeatmapByUsernameAsync
     path: ''
-    startLine: 1027
+    startLine: 1028
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1774,7 +1774,7 @@ items:
   source:
     id: GetUserRecentByUserid
     path: ''
-    startLine: 1065
+    startLine: 1066
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1817,7 +1817,7 @@ items:
   source:
     id: GetUserRecentByUseridAsync
     path: ''
-    startLine: 1090
+    startLine: 1091
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1863,7 +1863,7 @@ items:
   source:
     id: GetUserRecentAndBeatmapByUserid
     path: ''
-    startLine: 1115
+    startLine: 1116
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1906,7 +1906,7 @@ items:
   source:
     id: GetUserRecentAndBeatmapByUseridAsync
     path: ''
-    startLine: 1149
+    startLine: 1150
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1952,7 +1952,7 @@ items:
   source:
     id: GetMatch
     path: ''
-    startLine: 1181
+    startLine: 1182
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -1989,7 +1989,7 @@ items:
   source:
     id: GetMatchAsync
     path: ''
-    startLine: 1199
+    startLine: 1200
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -2029,7 +2029,7 @@ items:
   source:
     id: GetReplayByUsername
     path: ''
-    startLine: 1220
+    startLine: 1221
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -2118,7 +2118,7 @@ items:
   source:
     id: GetReplayByUserid
     path: ''
-    startLine: 1275
+    startLine: 1274
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -2161,7 +2161,7 @@ items:
   source:
     id: GetReplayByUseridAsync
     path: ''
-    startLine: 1299
+    startLine: 1297
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp
@@ -2189,6 +2189,50 @@ items:
   overload: OsuSharp.OsuApi.GetReplayByUseridAsync*
   implements:
   - OsuSharp.Interfaces.IOsuApi.GetReplayByUseridAsync(System.Int64,System.Int64,OsuSharp.Misc.GameMode,System.Threading.CancellationToken)
+  modifiers.csharp:
+  - public
+  modifiers.vb:
+  - Public
+- uid: OsuSharp.OsuApi.CreateReplayFile(System.String,OsuSharp.Endpoints.Replay,OsuSharp.Endpoints.User,OsuSharp.Endpoints.Score,OsuSharp.Endpoints.Beatmap)
+  commentId: M:OsuSharp.OsuApi.CreateReplayFile(System.String,OsuSharp.Endpoints.Replay,OsuSharp.Endpoints.User,OsuSharp.Endpoints.Score,OsuSharp.Endpoints.Beatmap)
+  id: CreateReplayFile(System.String,OsuSharp.Endpoints.Replay,OsuSharp.Endpoints.User,OsuSharp.Endpoints.Score,OsuSharp.Endpoints.Beatmap)
+  parent: OsuSharp.OsuApi
+  langs:
+  - csharp
+  - vb
+  name: CreateReplayFile(String, Replay, User, Score, Beatmap)
+  nameWithType: OsuApi.CreateReplayFile(String, Replay, User, Score, Beatmap)
+  fullName: OsuSharp.OsuApi.CreateReplayFile(System.String, OsuSharp.Endpoints.Replay, OsuSharp.Endpoints.User, OsuSharp.Endpoints.Score, OsuSharp.Endpoints.Beatmap)
+  type: Method
+  source:
+    id: CreateReplayFile
+    path: ''
+    startLine: 1322
+  assemblies:
+  - cs.temp.dll
+  namespace: OsuSharp
+  summary: "\nCreate a replay from api entities.\nYou shouldn&apos;t mix up replays, users, beatmaps and scores, but.. you could.\n"
+  example: []
+  syntax:
+    content: public void CreateReplayFile(string filename, Replay replay, User user, Score score, Beatmap beatmap)
+    parameters:
+    - id: filename
+      type: System.String
+      description: Name of the file to create
+    - id: replay
+      type: OsuSharp.Endpoints.Replay
+      description: Replay entity
+    - id: user
+      type: OsuSharp.Endpoints.User
+      description: User entity
+    - id: score
+      type: OsuSharp.Endpoints.Score
+      description: Score entity
+    - id: beatmap
+      type: OsuSharp.Endpoints.Beatmap
+      description: Beatmap entity
+    content.vb: Public Sub CreateReplayFile(filename As String, replay As Replay, user As User, score As Score, beatmap As Beatmap)
+  overload: OsuSharp.OsuApi.CreateReplayFile*
   modifiers.csharp:
   - public
   modifiers.vb:
@@ -7163,3 +7207,8 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: OsuSharp.OsuApi.CreateReplayFile*
+  commentId: Overload:OsuSharp.OsuApi.CreateReplayFile
+  name: CreateReplayFile
+  nameWithType: OsuApi.CreateReplayFile
+  fullName: OsuSharp.OsuApi.CreateReplayFile

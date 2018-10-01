@@ -45,7 +45,7 @@ items:
   source:
     id: Beatmap
     path: ''
-    startLine: 1580
+    startLine: 1598
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -82,7 +82,7 @@ items:
   source:
     id: BeatmapsetId
     path: ''
-    startLine: 1588
+    startLine: 1606
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -115,7 +115,7 @@ items:
   source:
     id: BeatmapId
     path: ''
-    startLine: 1594
+    startLine: 1612
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -148,7 +148,7 @@ items:
   source:
     id: Approved
     path: ''
-    startLine: 1600
+    startLine: 1618
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -181,7 +181,7 @@ items:
   source:
     id: TotalLength
     path: ''
-    startLine: 1606
+    startLine: 1624
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -214,7 +214,7 @@ items:
   source:
     id: HitLength
     path: ''
-    startLine: 1612
+    startLine: 1630
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -247,7 +247,7 @@ items:
   source:
     id: Difficulty
     path: ''
-    startLine: 1618
+    startLine: 1636
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -280,7 +280,7 @@ items:
   source:
     id: FileMd5
     path: ''
-    startLine: 1624
+    startLine: 1642
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -313,7 +313,7 @@ items:
   source:
     id: CircleSize
     path: ''
-    startLine: 1630
+    startLine: 1648
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -346,7 +346,7 @@ items:
   source:
     id: OverallDifficulty
     path: ''
-    startLine: 1636
+    startLine: 1654
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -379,7 +379,7 @@ items:
   source:
     id: ApproachRate
     path: ''
-    startLine: 1642
+    startLine: 1660
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -412,7 +412,7 @@ items:
   source:
     id: HpDrain
     path: ''
-    startLine: 1648
+    startLine: 1666
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -445,7 +445,7 @@ items:
   source:
     id: GameMode
     path: ''
-    startLine: 1657
+    startLine: 1675
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -478,7 +478,7 @@ items:
   source:
     id: ApprovedDate
     path: ''
-    startLine: 1663
+    startLine: 1681
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -511,7 +511,7 @@ items:
   source:
     id: LastUpdate
     path: ''
-    startLine: 1669
+    startLine: 1687
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -544,7 +544,7 @@ items:
   source:
     id: Artist
     path: ''
-    startLine: 1675
+    startLine: 1693
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -577,7 +577,7 @@ items:
   source:
     id: Title
     path: ''
-    startLine: 1681
+    startLine: 1699
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -610,7 +610,7 @@ items:
   source:
     id: Creator
     path: ''
-    startLine: 1687
+    startLine: 1705
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -643,7 +643,7 @@ items:
   source:
     id: Bpm
     path: ''
-    startLine: 1693
+    startLine: 1711
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -676,7 +676,7 @@ items:
   source:
     id: Sources
     path: ''
-    startLine: 1699
+    startLine: 1717
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -709,7 +709,7 @@ items:
   source:
     id: Tags
     path: ''
-    startLine: 1705
+    startLine: 1723
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -742,7 +742,7 @@ items:
   source:
     id: GenreId
     path: ''
-    startLine: 1711
+    startLine: 1729
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -775,7 +775,7 @@ items:
   source:
     id: LanguageId
     path: ''
-    startLine: 1717
+    startLine: 1735
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -808,7 +808,7 @@ items:
   source:
     id: FavouriteCount
     path: ''
-    startLine: 1723
+    startLine: 1741
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -841,7 +841,7 @@ items:
   source:
     id: PlayCount
     path: ''
-    startLine: 1729
+    startLine: 1747
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -874,7 +874,7 @@ items:
   source:
     id: PassCount
     path: ''
-    startLine: 1735
+    startLine: 1753
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -907,7 +907,7 @@ items:
   source:
     id: MaxCombo
     path: ''
-    startLine: 1741
+    startLine: 1759
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -940,7 +940,7 @@ items:
   source:
     id: DifficultyRating
     path: ''
-    startLine: 1747
+    startLine: 1765
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -973,7 +973,7 @@ items:
   source:
     id: ThumbnailUrl
     path: ''
-    startLine: 1753
+    startLine: 1771
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -1006,7 +1006,7 @@ items:
   source:
     id: CoverUrl
     path: ''
-    startLine: 1760
+    startLine: 1778
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -1039,7 +1039,7 @@ items:
   source:
     id: SoundPreviewUrl
     path: ''
-    startLine: 1767
+    startLine: 1785
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints

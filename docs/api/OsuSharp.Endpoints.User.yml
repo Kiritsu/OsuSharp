@@ -33,7 +33,7 @@ items:
   source:
     id: User
     path: ''
-    startLine: 2192
+    startLine: 2209
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -70,7 +70,7 @@ items:
   source:
     id: Userid
     path: ''
-    startLine: 2197
+    startLine: 2214
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -103,7 +103,7 @@ items:
   source:
     id: Username
     path: ''
-    startLine: 2203
+    startLine: 2220
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -136,7 +136,7 @@ items:
   source:
     id: PlayCount
     path: ''
-    startLine: 2209
+    startLine: 2226
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -169,7 +169,7 @@ items:
   source:
     id: Accuracy
     path: ''
-    startLine: 2215
+    startLine: 2232
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -202,7 +202,7 @@ items:
   source:
     id: GlobalRank
     path: ''
-    startLine: 2221
+    startLine: 2238
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -235,7 +235,7 @@ items:
   source:
     id: Pp
     path: ''
-    startLine: 2227
+    startLine: 2244
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -268,7 +268,7 @@ items:
   source:
     id: Country
     path: ''
-    startLine: 2233
+    startLine: 2250
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -301,7 +301,7 @@ items:
   source:
     id: RegionalRank
     path: ''
-    startLine: 2239
+    startLine: 2256
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -334,7 +334,7 @@ items:
   source:
     id: Level
     path: ''
-    startLine: 2245
+    startLine: 2262
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -367,7 +367,7 @@ items:
   source:
     id: TotalScore
     path: ''
-    startLine: 2251
+    startLine: 2268
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -400,7 +400,7 @@ items:
   source:
     id: RankedScore
     path: ''
-    startLine: 2257
+    startLine: 2274
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -433,7 +433,7 @@ items:
   source:
     id: Count300
     path: ''
-    startLine: 2263
+    startLine: 2280
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -466,7 +466,7 @@ items:
   source:
     id: Count100
     path: ''
-    startLine: 2269
+    startLine: 2286
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -499,7 +499,7 @@ items:
   source:
     id: Count50
     path: ''
-    startLine: 2275
+    startLine: 2292
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -532,7 +532,7 @@ items:
   source:
     id: SsRank
     path: ''
-    startLine: 2281
+    startLine: 2298
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -565,7 +565,7 @@ items:
   source:
     id: SRank
     path: ''
-    startLine: 2287
+    startLine: 2304
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -598,7 +598,7 @@ items:
   source:
     id: ARank
     path: ''
-    startLine: 2293
+    startLine: 2310
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints
@@ -631,7 +631,7 @@ items:
   source:
     id: Events
     path: ''
-    startLine: 2299
+    startLine: 2316
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Endpoints

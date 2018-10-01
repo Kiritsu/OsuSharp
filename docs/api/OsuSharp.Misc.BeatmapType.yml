@@ -18,7 +18,7 @@ items:
   source:
     id: BeatmapType
     path: ''
-    startLine: 2605
+    startLine: 3006
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -47,7 +47,7 @@ items:
   source:
     id: ByBeatmap
     path: ''
-    startLine: 2607
+    startLine: 3008
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -75,7 +75,7 @@ items:
   source:
     id: ByDifficulty
     path: ''
-    startLine: 2608
+    startLine: 3009
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -103,7 +103,7 @@ items:
   source:
     id: ByCreator
     path: ''
-    startLine: 2609
+    startLine: 3010
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc

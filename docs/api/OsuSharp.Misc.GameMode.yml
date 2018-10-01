@@ -19,7 +19,7 @@ items:
   source:
     id: GameMode
     path: ''
-    startLine: 2617
+    startLine: 3018
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -48,7 +48,7 @@ items:
   source:
     id: Standard
     path: ''
-    startLine: 2619
+    startLine: 3020
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -76,7 +76,7 @@ items:
   source:
     id: Taiko
     path: ''
-    startLine: 2620
+    startLine: 3021
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -104,7 +104,7 @@ items:
   source:
     id: Catch
     path: ''
-    startLine: 2621
+    startLine: 3022
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
@@ -132,7 +132,7 @@ items:
   source:
     id: Mania
     path: ''
-    startLine: 2622
+    startLine: 3023
   assemblies:
   - cs.temp.dll
   namespace: OsuSharp.Misc
