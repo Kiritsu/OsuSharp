@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using OsuSharp.Endpoints;
 using OsuSharp.Entities;
-using OsuSharp.Interfaces;
 using OsuSharp.Misc;
 
 namespace OsuSharp.Example
@@ -33,16 +32,17 @@ namespace OsuSharp.Example
 
                 // Getting a specific user's replay
                 Console.WriteLine("specific replay");
-                var bm = await instance.GetBeatmapAsync(936026);
-                var scr = await instance.GetScoreByUsernameAsync(936026, "filsdelama");
-                var usr = await instance.GetUserByNameAsync("filsdelama");
-                var rpl = await instance.GetReplayByUsernameAsync(936026, "filsdelama");
-
+                var bm = await instance.GetBeatmapAsync(936026).ConfigureAwait(false);
+                var scr = await instance.GetScoreByUsernameAsync(936026, "filsdelama").ConfigureAwait(false);
+                var usr = await instance.GetUserByNameAsync("filsdelama").ConfigureAwait(false);
+                var rpl = await instance.GetReplayByUsernameAsync(936026, "filsdelama").ConfigureAwait(false);
                 var rp = ReplayFile.CreateReplayFile(rpl, usr, scr, bm);
                 var fs = new FileStream("replay-specific.osr", FileMode.OpenOrCreate);
                 rp.ToStream(fs);
                 fs.Close();
-                Console.WriteLine("specific replay done");
+
+                // ^ can also be done with this:
+                // instance.CreateReplayFile("test.osr", rpl, usr, scr, bm);
 
                 // Get a top replay
                 Console.WriteLine("top replay");

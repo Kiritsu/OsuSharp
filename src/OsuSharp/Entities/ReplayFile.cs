@@ -36,78 +36,97 @@ namespace OsuSharp.Entities
         /// Game mode of the replay (byte)
         /// </summary>
         public GameMode GameMode;
+
         /// <summary>
         /// Version of the game when the replay was created
         /// </summary>
         public int OsuVersion;
+
         /// <summary>
         /// osu! beatmap MD5 hash
         /// </summary>
         public string BeatmapHash;
+
         /// <summary>
         /// Player name
         /// </summary>
         public string PlayerName;
+
         /// <summary>
         /// osu! replay MD5 hash (includes certain properties of the replay)
         /// </summary>
         public string ReplayHash;
+
         /// <summary>
         /// Number of 300s
         /// </summary>
         public short Amount300;
+
         /// <summary>
         /// Number of 100s in standard, 150s in Taiko, 100s in CTB, 200s in mania
         /// </summary>
         public short Amount100;
+
         /// <summary>
         /// Number of 50s in standard, small fruit in CTB, 50s in mania
         /// </summary>
         public short Amount50;
+
         /// <summary>
         /// Number of Gekis in standard, Max 300s in mania
         /// </summary>
         public short AmountGeki;
+
         /// <summary>
         /// Number of Katus in standard, 100s in mania
         /// </summary>
         public short AmountKatu;
+
         /// <summary>
         /// Number of misses
         /// </summary>
         public short AmountMiss;
+
         /// <summary>
         /// Total score displayed on the score report
         /// </summary>
         public int TotalScore;
+
         /// <summary>
         /// Greatest combo displayed on the score report
         /// </summary>
         public short MaxCombo;
+
         /// <summary>
         /// Perfect/full combo (1 = no misses and no slider breaks and no early finished sliders)
         /// </summary>
         public bool Perfect;
+
         /// <summary>
         /// Mods used
         /// </summary>
         public Mods Mods;
+
         /// <summary>
         /// Life bar graph: comma separated pairs u/v, where u is the time in milliseconds into the song and v is a floating point value from 0 - 1 that represents the amount of life you have at the given time (0 = life bar is empty, 1= life bar is full)
         /// </summary>
         public string LifebarGraph;
+
         /// <summary>
         /// Time stamp (Windows ticks)
         /// </summary>
         public long Timestamp;
+
         /// <summary>
         /// Replay data length
         /// </summary>
         public int ReplayLength;
+
         /// <summary>
         /// Compressed replay data
         /// </summary>
         public byte[] ReplayData;
+
         /// <summary>
         /// That's literally in osu's docs. unknown. welp.
         /// </summary>
@@ -123,29 +142,31 @@ namespace OsuSharp.Entities
             file.Position = 0;
             var binreader = new BinaryReader(file);
             var reader = new ReplayReader(binreader);
-            var replay = new ReplayFile();
+            var replay = new ReplayFile
+            {
+                GameMode = (GameMode) reader.ReadNextByte(),
+                OsuVersion = reader.ReadNextInt(),
+                BeatmapHash = reader.ReadNextOsuString(),
+                PlayerName = reader.ReadNextOsuString(),
+                ReplayHash = reader.ReadNextOsuString(),
+                Amount300 = reader.ReadNextShort(),
+                Amount100 = reader.ReadNextShort(),
+                Amount50 = reader.ReadNextShort(),
+                AmountGeki = reader.ReadNextShort(),
+                AmountKatu = reader.ReadNextShort(),
+                AmountMiss = reader.ReadNextShort(),
+                TotalScore = reader.ReadNextInt(),
+                MaxCombo = reader.ReadNextShort(),
+                Perfect = reader.ReadNextBool(),
+                Mods = (Mods) reader.ReadNextInt(),
+                LifebarGraph = reader.ReadNextOsuString(),
+                Timestamp = reader.ReadNextLong(),
+                ReplayLength = reader.ReadNextInt()
+            };
 
-            replay.GameMode = (GameMode)reader.ReadNextByte();
-            replay.OsuVersion = reader.ReadNextInt();
-            replay.BeatmapHash = reader.ReadNextOsuString();
-            replay.PlayerName = reader.ReadNextOsuString();
-            replay.ReplayHash = reader.ReadNextOsuString();
-            replay.Amount300 = reader.ReadNextShort();
-            replay.Amount100 = reader.ReadNextShort();
-            replay.Amount50 = reader.ReadNextShort();
-            replay.AmountGeki = reader.ReadNextShort();
-            replay.AmountKatu = reader.ReadNextShort();
-            replay.AmountMiss = reader.ReadNextShort();
-            replay.TotalScore = reader.ReadNextInt();
-            replay.MaxCombo = reader.ReadNextShort();
-            replay.Perfect = reader.ReadNextBool();
-            replay.Mods = (Mods)reader.ReadNextInt();
-            replay.LifebarGraph = reader.ReadNextOsuString();
-            replay.Timestamp = reader.ReadNextLong();
-            replay.ReplayLength = reader.ReadNextInt();
             replay.ReplayData = reader.ReadNextBytes(replay.ReplayLength);
             replay.Unknown = reader.ReadNextLong();
-            var last = reader.readlastdata();
+            reader.Readlastdata();
 
             return replay;
         }
@@ -160,26 +181,26 @@ namespace OsuSharp.Entities
             var binwriter = new BinaryWriter(file);
             var writer = new ReplayWriter(binwriter);
 
-            writer.WriteNextByte((byte)this.GameMode);
-            writer.WriteNextInt(this.OsuVersion);
-            writer.WriteNextOsuString(this.BeatmapHash);
-            writer.WriteNextOsuString(this.PlayerName);
-            writer.WriteNextOsuString(this.ReplayHash);
-            writer.WriteNextShort(this.Amount300);
-            writer.WriteNextShort(this.Amount100);
-            writer.WriteNextShort(this.Amount50);
-            writer.WriteNextShort(this.AmountGeki);
-            writer.WriteNextShort(this.AmountKatu);
-            writer.WriteNextShort(this.AmountMiss);
+            writer.WriteNextByte((byte)GameMode);
+            writer.WriteNextInt(OsuVersion);
+            writer.WriteNextOsuString(BeatmapHash);
+            writer.WriteNextOsuString(PlayerName);
+            writer.WriteNextOsuString(ReplayHash);
+            writer.WriteNextShort(Amount300);
+            writer.WriteNextShort(Amount100);
+            writer.WriteNextShort(Amount50);
+            writer.WriteNextShort(AmountGeki);
+            writer.WriteNextShort(AmountKatu);
+            writer.WriteNextShort(AmountMiss);
             writer.WriteNextInt(TotalScore);
-            writer.WriteNextShort(this.MaxCombo);
-            writer.WriteNextBool(this.Perfect);
-            writer.WriteNextInt((int)this.Mods);
-            writer.WriteNextOsuString(this.LifebarGraph);
-            writer.WriteNextLong(this.Timestamp);
+            writer.WriteNextShort(MaxCombo);
+            writer.WriteNextBool(Perfect);
+            writer.WriteNextInt((int)Mods);
+            writer.WriteNextOsuString(LifebarGraph);
+            writer.WriteNextLong(Timestamp);
             writer.WriteNextInt(ReplayLength);
-            writer.WriteNextBytes(this.ReplayData);
-            writer.WriteNextLong(this.Unknown);
+            writer.WriteNextBytes(ReplayData);
+            writer.WriteNextLong(Unknown);
         }
 
         /// <summary>
@@ -194,7 +215,7 @@ namespace OsuSharp.Entities
         public static ReplayFile CreateReplayFile(Replay replay, User user, Score score, Beatmap beatmap)
         {
             var playbytes = Convert.FromBase64String(replay.Content);
-            return new ReplayFile()
+            return new ReplayFile
             {
                 Amount300 = (short)score.Count300,
                 Amount100 = (short)score.Count100,
@@ -222,20 +243,21 @@ namespace OsuSharp.Entities
 
     internal class ReplayReader
     {
-        BinaryReader _reader;
+        private BinaryReader Reader { get; }
+
         public ReplayReader(BinaryReader reader)
         {
-            this._reader = reader;
+            Reader = reader;
         }
 
         public byte ReadNextByte()
         {
-            return _reader.ReadByte();
+            return Reader.ReadByte();
         }
 
         public int ReadNextInt()
         {
-            return _reader.ReadInt32();
+            return Reader.ReadInt32();
         }
 
         public string ReadNextOsuString()
@@ -245,7 +267,7 @@ namespace OsuSharp.Entities
             if (ispresent == 0x0b)
             {
                 int length = (int)ReadNextULeb128();
-                byte[] text = _reader.ReadBytes(length);
+                byte[] text = Reader.ReadBytes(length);
                 return Encoding.UTF8.GetString(text);
             }
             return null;
@@ -253,23 +275,23 @@ namespace OsuSharp.Entities
 
         public short ReadNextShort()
         {
-            return _reader.ReadInt16();
+            return Reader.ReadInt16();
         }
 
         public bool ReadNextBool()
         {
-            return _reader.ReadBoolean();
+            return Reader.ReadBoolean();
         }
 
         public long ReadNextLong()
         {
             // for reading that unknown :^)
-            return _reader.ReadInt64();
+            return Reader.ReadInt64();
         }
 
         public byte[] ReadNextBytes(int length)
         {
-            return _reader.ReadBytes(length);
+            return Reader.ReadBytes(length);
         }
 
         private uint ReadNextULeb128()
@@ -278,7 +300,7 @@ namespace OsuSharp.Entities
             int shift = 0;
             while (true)
             {
-                byte b = _reader.ReadByte();
+                byte b = Reader.ReadByte();
                 result |= (uint)((b & 0x7F) << shift);
                 if ((b & 0x80) == 0)
                     break;
@@ -286,28 +308,30 @@ namespace OsuSharp.Entities
             }
             return result;
         }
-        public byte[] readlastdata()
+
+        public byte[] Readlastdata()
         {
-            return _reader.ReadBytes((int)(_reader.BaseStream.Length - _reader.BaseStream.Position));
+            return Reader.ReadBytes((int)(Reader.BaseStream.Length - Reader.BaseStream.Position));
         }
     }
 
     internal class ReplayWriter
     {
-        BinaryWriter _writer;
+        private BinaryWriter Writer { get; }
+
         public ReplayWriter(BinaryWriter writer)
         {
-            this._writer = writer;
+            Writer = writer;
         }
 
         public void WriteNextByte(byte value)
         {
-            _writer.Write(value);
+            Writer.Write(value);
         }
 
         public void WriteNextInt(int value)
         {
-            _writer.Write(value);
+            Writer.Write(value);
         }
 
         public void WriteNextOsuString(string value)
@@ -320,40 +344,40 @@ namespace OsuSharp.Entities
             var bytes = Encoding.UTF8.GetBytes(value);
             WriteNextByte(0x0b);
             WriteNextULeb128((uint)bytes.Length);
-            _writer.Write(bytes);
+            Writer.Write(bytes);
         }
 
         public void WriteNextShort(short value)
         {
-            _writer.Write(value);
+            Writer.Write(value);
         }
 
         public void WriteNextBool(bool value)
         {
-            _writer.Write(value);
+            Writer.Write(value);
         }
 
         public void WriteNextLong(long value)
         {
             // for reading that unknown :^)
-            _writer.Write(value);
+            Writer.Write(value);
         }
 
         public void WriteNextBytes(byte[] value)
         {
-            _writer.Write(value);
+            Writer.Write(value);
         }
 
-        private void WriteNextULeb128(uint Value)
+        private void WriteNextULeb128(uint value)
         {
             do
             {
-                byte b = (byte)(Value & 0x7F);
-                Value >>= 7;
-                if (Value != 0) /* more bytes to come */
+                byte b = (byte)(value & 0x7F);
+                value >>= 7;
+                if (value != 0) /* more bytes to come */
                     b |= 0x80;
-                _writer.Write(b);
-            } while (Value != 0);
+                Writer.Write(b);
+            } while (value != 0);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -659,7 +660,7 @@ namespace OsuSharp
                     $"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}",
                     cancellationToken).ConfigureAwait(false);
 
-            Beatmap beatmap = await GetBeatmapAsync(beatmapid).ConfigureAwait(false);
+            Beatmap beatmap = await GetBeatmapAsync(beatmapid, cancellationToken: cancellationToken).ConfigureAwait(false);
 
             List<User> users = new List<User>();
             List<Score> scores = JsonConvert.DeserializeObject<List<Score>>(request);
@@ -1307,6 +1308,27 @@ namespace OsuSharp
                     cancellationToken).ConfigureAwait(false);
 
             return JsonConvert.DeserializeObject<Replay>(request);
+        }
+
+        /// <summary>
+        ///     Create a replay from api entities.
+        ///     You shouldn't mix up replays, users, beatmaps and scores, but.. you could.
+        /// </summary>
+        /// <param name="filename">Name of the file to create</param>
+        /// <param name="replay">Replay entity</param>
+        /// <param name="user">User entity</param>
+        /// <param name="score">Score entity</param>
+        /// <param name="beatmap">Beatmap entity</param>
+        /// <returns></returns>
+        public void CreateReplayFile(string filename, Replay replay, User user, Score score, Beatmap beatmap)
+        {
+            filename = filename.EndsWith(".osr") ? filename : filename + ".osr";
+
+            ReplayFile rp = ReplayFile.CreateReplayFile(replay, user, score, beatmap);
+            FileStream fs = new FileStream(filename, FileMode.OpenOrCreate);
+
+            rp.ToStream(fs);
+            fs.Close();
         }
 
         private string Get(string url)
