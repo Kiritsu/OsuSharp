@@ -22,7 +22,7 @@ namespace OsuSharp.Example
         {
             try
             {
-                IOsuApi instance = new OsuApi(new OsuSharpConfiguration
+                var instance = new OsuApi(new OsuSharpConfiguration
                 {
                     ApiKey = File.ReadAllText("token.txt"),
                     ModsSeparator = "|",
@@ -30,6 +30,19 @@ namespace OsuSharp.Example
                     TimeInterval = TimeSpan.FromSeconds(8),
                     LogLevel = LoggingLevel.Debug
                 });
+
+                var bm = await instance.GetBeatmapAsync(936026);
+                Console.Write(bm.Title);
+                var scr = await instance.GetScoreByUsernameAsync(936026, "filsdelama");
+                var usr = await instance.GetUserByNameAsync("filsdelama");
+                var rpl = await instance.GetReplayByUsernameAsync(936026, "filsdelama");
+
+                var rp = instance.CreateReplayFile(rpl, usr, scr, bm);
+                var fs = new FileStream("replay-test.osr", FileMode.OpenOrCreate);
+                rp.ToFile(fs);
+                fs.Close();
+
+                instance.Logger.LogMessage(LoggingLevel.Debug, "CreateReplayFile", "Created \"replay-test.osr\".", DateTime.UtcNow);
 
                 instance.Logger.LogMessageReceived += (sender, args) =>
                     args.Logger.Print(args.Level, args.From, args.Message, args.Time);
