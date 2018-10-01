@@ -39,7 +39,7 @@ namespace OsuSharp.Example
 
                 var rp = ReplayFile.CreateReplayFile(rpl, usr, scr, bm);
                 var fs = new FileStream("replay-test.osr", FileMode.OpenOrCreate);
-                rp.ToFile(fs);
+                rp.ToStream(fs);
                 fs.Close();
 
                 instance.Logger.LogMessage(LoggingLevel.Debug, "CreateReplayFile", "Created \"replay-test.osr\".", DateTime.UtcNow);
