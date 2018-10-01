@@ -37,7 +37,7 @@ namespace OsuSharp.Example
                 var usr = await instance.GetUserByNameAsync("filsdelama");
                 var rpl = await instance.GetReplayByUsernameAsync(936026, "filsdelama");
 
-                var rp = instance.CreateReplayFile(rpl, usr, scr, bm);
+                var rp = ReplayFile.CreateReplayFile(rpl, usr, scr, bm);
                 var fs = new FileStream("replay-test.osr", FileMode.OpenOrCreate);
                 rp.ToFile(fs);
                 fs.Close();

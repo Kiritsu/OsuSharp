@@ -192,7 +192,7 @@ namespace OsuSharp.Entities
         /// <param name="score">Score entity</param>
         /// <param name="beatmap">Beatmap entity</param>
         /// <returns></returns>
-        public ReplayFile CreateReplayFile(Replay replay, User user, Score score, Beatmap beatmap)
+        public static ReplayFile CreateReplayFile(Replay replay, User user, Score score, Beatmap beatmap)
         {
             var playbytes = Convert.FromBase64String(replay.Content);
             return new ReplayFile()
