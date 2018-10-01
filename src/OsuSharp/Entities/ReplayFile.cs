@@ -33,107 +33,107 @@ namespace OsuSharp.Entities
         // Exact order.
 
         /// <summary>
-        /// Game mode of the replay (byte)
+        ///     Game mode of the replay (byte)
         /// </summary>
         public GameMode GameMode;
 
         /// <summary>
-        /// Version of the game when the replay was created
+        ///     Version of the game when the replay was created
         /// </summary>
         public int OsuVersion;
 
         /// <summary>
-        /// osu! beatmap MD5 hash
+        ///     osu! beatmap MD5 hash
         /// </summary>
         public string BeatmapHash;
 
         /// <summary>
-        /// Player name
+        ///     Player name
         /// </summary>
         public string PlayerName;
 
         /// <summary>
-        /// osu! replay MD5 hash (includes certain properties of the replay)
+        ///     osu! replay MD5 hash (includes certain properties of the replay)
         /// </summary>
         public string ReplayHash;
 
         /// <summary>
-        /// Number of 300s
+        ///     Number of 300s
         /// </summary>
         public short Amount300;
 
         /// <summary>
-        /// Number of 100s in standard, 150s in Taiko, 100s in CTB, 200s in mania
+        ///     Number of 100s in standard, 150s in Taiko, 100s in CTB, 200s in mania
         /// </summary>
         public short Amount100;
 
         /// <summary>
-        /// Number of 50s in standard, small fruit in CTB, 50s in mania
+        ///     Number of 50s in standard, small fruit in CTB, 50s in mania
         /// </summary>
         public short Amount50;
 
         /// <summary>
-        /// Number of Gekis in standard, Max 300s in mania
+        ///     Number of Gekis in standard, Max 300s in mania
         /// </summary>
         public short AmountGeki;
 
         /// <summary>
-        /// Number of Katus in standard, 100s in mania
+        ///     Number of Katus in standard, 100s in mania
         /// </summary>
         public short AmountKatu;
 
         /// <summary>
-        /// Number of misses
+        ///     Number of misses
         /// </summary>
         public short AmountMiss;
 
         /// <summary>
-        /// Total score displayed on the score report
+        ///     Total score displayed on the score report
         /// </summary>
         public int TotalScore;
 
         /// <summary>
-        /// Greatest combo displayed on the score report
+        ///     Greatest combo displayed on the score report
         /// </summary>
         public short MaxCombo;
 
         /// <summary>
-        /// Perfect/full combo (1 = no misses and no slider breaks and no early finished sliders)
+        ///     Perfect/full combo (1 = no misses and no slider breaks and no early finished sliders)
         /// </summary>
         public bool Perfect;
 
         /// <summary>
-        /// Mods used
+        ///     Mods used
         /// </summary>
         public Mods Mods;
 
         /// <summary>
-        /// Life bar graph: comma separated pairs u/v, where u is the time in milliseconds into the song and v is a floating point value from 0 - 1 that represents the amount of life you have at the given time (0 = life bar is empty, 1= life bar is full)
+        ///     Life bar graph: comma separated pairs u/v, where u is the time in milliseconds into the song and v is a floating point value from 0 - 1 that represents the amount of life you have at the given time (0 = life bar is empty, 1= life bar is full)
         /// </summary>
         public string LifebarGraph;
 
         /// <summary>
-        /// Time stamp (Windows ticks)
+        ///     Time stamp (Windows ticks)
         /// </summary>
         public long Timestamp;
 
         /// <summary>
-        /// Replay data length
+        ///     Replay data length
         /// </summary>
         public int ReplayLength;
 
         /// <summary>
-        /// Compressed replay data
+        ///     Compressed replay data
         /// </summary>
         public byte[] ReplayData;
 
         /// <summary>
-        /// That's literally in osu's docs. unknown. welp.
+        ///     That's literally in osu's docs. unknown. welp.
         /// </summary>
         public long Unknown;
 
         /// <summary>
-        /// Loads a Replay file from a stream
+        ///     Loads a Replay file from a stream
         /// </summary>
         /// <param name="file">file to load</param>
         /// <returns></returns>
@@ -172,7 +172,7 @@ namespace OsuSharp.Entities
         }
 
         /// <summary>
-        /// Writes a replay file to a stream
+        ///     Writes a replay file to a stream
         /// </summary>
         /// <param name="file">stream to write to</param>
         public void ToStream(Stream file)
@@ -204,8 +204,8 @@ namespace OsuSharp.Entities
         }
 
         /// <summary>
-        /// Create a replay from api entities.
-        /// You shouldn't mix up replays, users, beatmaps and scores, but.. you could.
+        ///     Create a replay from api entities.
+        ///     You shouldn't mix up replays, users, beatmaps and scores, but.. you could.
         /// </summary>
         /// <param name="replay">Replay entity</param>
         /// <param name="user">User entity</param>
