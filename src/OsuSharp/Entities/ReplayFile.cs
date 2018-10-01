@@ -1,7 +1,6 @@
 ﻿using OsuSharp.Endpoints;
 using OsuSharp.Misc;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -337,7 +336,6 @@ namespace OsuSharp.Entities
         public void WriteNextLong(long value)
         {
             // for reading that unknown :^)
-            Console.WriteLine("Obviously writing a long");
             _writer.Write(value);
         }
 
