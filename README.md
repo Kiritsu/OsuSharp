@@ -44,6 +44,7 @@ Thanks to the following contributors:
 - [NaamloosDT](https://github.com/NaamloosDT)
 - [Kamdzy](https://github.com/Kamdzy)
 - [Bond-009](https://github.com/Bond-009)
+- [Leah](https://github.com/leahmpersand)
 
 ## Example
 
