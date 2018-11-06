@@ -3,8 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using OsuSharp.Endpoints;
 using OsuSharp.Entities;
-using OsuSharp.Interfaces;
-using OsuSharp.Misc;
+using OsuSharp.Enums;
 
 namespace OsuSharp.Interfaces
 {

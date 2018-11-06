@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using OsuSharp.Endpoints;
 using OsuSharp.Entities;
+using OsuSharp.Enums;
 using OsuSharp.Misc;
 
 namespace OsuSharp.Example
@@ -81,7 +82,7 @@ namespace OsuSharp.Example
                 Beatmap beatmap = await instance.GetBeatmapAsync(75).ConfigureAwait(false);
                 Console.WriteLine($"\n\nBeatmap {beatmap.Title} with id {beatmap.BeatmapId} mapped by {beatmap.Creator}\n" +
                                   $" > Difficulty : {beatmap.Difficulty}\n" +
-                                  $" > State : {beatmap.Approved}\n" +
+                                  $" > State : {beatmap.State}\n" +
                                   $" > BPM : {beatmap.Bpm}\n" +
                                   $" > AR : {beatmap.ApproachRate}\n" +
                                   $" > OD : {beatmap.OverallDifficulty}\n" +
@@ -98,7 +99,7 @@ namespace OsuSharp.Example
                 BeatmapScores beatmapScores = await instance.GetScoresAndBeatmapAsync(75).ConfigureAwait(false);
                 Console.WriteLine($"\n\nBeatmap {beatmapScores.Beatmap.Title} with id {beatmapScores.Beatmap.BeatmapId} mapped by {beatmapScores.Beatmap.Creator}\n" +
                                   $" > Difficulty : {beatmapScores.Beatmap.Difficulty}\n" +
-                                  $" > State : {beatmapScores.Beatmap.Approved}\n" +
+                                  $" > State : {beatmapScores.Beatmap.State}\n" +
                                   $" > BPM : {beatmapScores.Beatmap.Bpm}\n" +
                                   $" > AR : {beatmapScores.Beatmap.ApproachRate}\n" +
                                   $" > OD : {beatmapScores.Beatmap.OverallDifficulty}\n" +
@@ -107,13 +108,13 @@ namespace OsuSharp.Example
                                   $" > Star difficulty : {beatmapScores.Beatmap.DifficultyRating}");
                 foreach (Score score in beatmapScores.Score)
                 {
-                    Console.WriteLine($"\nScore {score.ScorePoints} with {score.Accuracy}% accuracy made by {score.Username}");
+                    Console.WriteLine($"\nScore {score.TotalScore} with {score.Accuracy}% accuracy made by {score.Username}");
                 }
 
                 BeatmapScoresUsers beatmapScoresUsers = await instance.GetScoresWithUsersAndBeatmapAsync(75).ConfigureAwait(false);
                 Console.WriteLine($"\n\nBeatmap {beatmapScores.Beatmap.Title} with id {beatmapScores.Beatmap.BeatmapId} mapped by {beatmapScores.Beatmap.Creator}\n" +
                                   $" > Difficulty : {beatmapScores.Beatmap.Difficulty}\n" +
-                                  $" > State : {beatmapScores.Beatmap.Approved}\n" +
+                                  $" > State : {beatmapScores.Beatmap.State}\n" +
                                   $" > BPM : {beatmapScores.Beatmap.Bpm}\n" +
                                   $" > AR : {beatmapScores.Beatmap.ApproachRate}\n" +
                                   $" > OD : {beatmapScores.Beatmap.OverallDifficulty}\n" +
@@ -124,8 +125,8 @@ namespace OsuSharp.Example
                 {
                     User currentUser = beatmapScoresUsers.Users.SingleOrDefault(x => x.Username == score.Username);
                     Console.WriteLine(currentUser != null
-                        ? $"\nScore {score.ScorePoints} with {score.Accuracy}% accuracy made by {currentUser.Username} that has {currentUser.Pp} performance points."
-                        : $"\nScore {score.ScorePoints} with {score.Accuracy}% accuracy made by {score.Username}");
+                        ? $"\nScore {score.TotalScore} with {score.Accuracy}% accuracy made by {currentUser.Username} that has {currentUser.Pp} performance points."
+                        : $"\nScore {score.TotalScore} with {score.Accuracy}% accuracy made by {score.Username}");
                 }
             }
             catch (Exception e)

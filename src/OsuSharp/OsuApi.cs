@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using OsuSharp.Endpoints;
 using OsuSharp.Entities;
+using OsuSharp.Enums;
 using OsuSharp.Interfaces;
 using OsuSharp.Misc;
 
 namespace OsuSharp
 {
-    public class OsuApi : IOsuApi
+    public sealed class OsuApi : IOsuApi
     {
         private const string ROOT_DOMAIN = "https://osu.ppy.sh";
         private const string GET_BEATMAPS_URL = "/api/get_beatmaps";

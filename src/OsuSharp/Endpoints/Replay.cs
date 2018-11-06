@@ -2,18 +2,18 @@
 
 namespace OsuSharp.Endpoints
 {
-    public class Replay
+    public sealed class Replay
     {
         /// <summary>
         ///     Replay's content
         /// </summary>
         [JsonProperty("content")]
-        public string Content { get; set; }
+        public string Content { get; internal set; }
 
         /// <summary>
         ///     How is the content encoded
         /// </summary>
         [JsonProperty("encoding")]
-        public string Encoding { get; set; }
+        public string Encoding { get; internal set; }
     }
 }

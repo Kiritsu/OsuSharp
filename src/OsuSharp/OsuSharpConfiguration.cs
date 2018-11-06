@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Net.Http;
+using OsuSharp.Enums;
 using OsuSharp.Interfaces;
-using OsuSharp.Misc;
 
 namespace OsuSharp
 {
-    public class OsuSharpConfiguration : IOsuSharpConfiguration
+    public sealed class OsuSharpConfiguration : IOsuSharpConfiguration
     {
         /// <summary>
         ///     Your osu!API key (required)

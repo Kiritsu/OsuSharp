@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Net.Http;
-using OsuSharp.Misc;
+using OsuSharp.Enums;
 
 namespace OsuSharp.Interfaces
 {

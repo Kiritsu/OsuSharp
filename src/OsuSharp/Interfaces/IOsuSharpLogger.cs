@@ -1,4 +1,5 @@
 ﻿using System;
+using OsuSharp.Enums;
 using OsuSharp.Misc;
 
 namespace OsuSharp.Interfaces

@@ -3,10 +3,10 @@ using OsuSharp.Endpoints;
 
 namespace OsuSharp.Entities
 {
-    public class BeatmapScoresUsers
+    public sealed class BeatmapScoresUsers
     {
-        public Beatmap Beatmap { get; set; }
-        public List<Score> Scores { get; set; }
-        public List<User> Users { get; set; }
+        public Beatmap Beatmap { get; internal set; }
+        public IReadOnlyList<Score> Scores { get; internal set; }
+        public IReadOnlyList<User> Users { get; internal set; }
     }
 }

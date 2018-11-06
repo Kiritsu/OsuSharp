@@ -2,9 +2,9 @@
 
 namespace OsuSharp.Entities
 {
-    public class UserBestBeatmap
+    public sealed class UserBestBeatmap
     {
-        public Beatmap Beatmap { get; set; }
-        public UserBest UserBest { get; set; }
+        public Beatmap Beatmap { get; internal set; }
+        public UserBest UserBest { get; internal set; }
     }
 }

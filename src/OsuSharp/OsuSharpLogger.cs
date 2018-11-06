@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Threading;
+using OsuSharp.Enums;
 using OsuSharp.Interfaces;
 using OsuSharp.Misc;
 
 namespace OsuSharp
 {
-    public class OsuSharpLogger : IOsuSharpLogger
+    public sealed class OsuSharpLogger : IOsuSharpLogger
     {
         private OsuApi Instance { get; }
         private SemaphoreSlim Semaphore { get; }

@@ -3,18 +3,22 @@ using Newtonsoft.Json;
 
 namespace OsuSharp.Endpoints
 {
-    public class Multiplayer
+    public sealed class Multiplayer
     {
         /// <summary>
         ///     Represents the room
         /// </summary>
         [JsonProperty("match")]
-        public Match Match { get; set; }
+        public Match Match { get; internal set; }
+
+        [JsonProperty("games")]
+        internal List<Game> _games;
 
         /// <summary>
         ///     Represents every games played in this room
         /// </summary>
-        [JsonProperty("games")]
-        public List<Game> Games { get; set; }
+        [JsonIgnore]
+        public IReadOnlyList<Game> Games
+            => _games.AsReadOnly();
     }
 }

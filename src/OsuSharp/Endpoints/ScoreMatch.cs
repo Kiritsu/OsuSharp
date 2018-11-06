@@ -4,13 +4,13 @@ using Newtonsoft.Json;
 
 namespace OsuSharp.Endpoints
 {
-    public class ScoreMatch
+    public sealed class ScoreMatch
     {
         [JsonProperty("pass")]
-        private int PassInt { get; set; }
+        internal int _pass;
 
         [JsonProperty("perfect")]
-        private int PerfectInt { get; set; }
+        internal int _perfect;
 
         /// <summary>
         ///     Slot of the player
@@ -39,8 +39,8 @@ namespace OsuSharp.Endpoints
         /// <summary>
         ///     Max combo of the player
         /// </summary>
-        [JsonProperty("maxcombo")]
-        public int? MaxCombo { get; set; }
+        [JsonProperty("maxcombo", NullValueHandling = NullValueHandling.Ignore)]
+        public int MaxCombo { get; set; }
 
         /// <summary>
         ///     Rank of the player in the match
@@ -87,14 +87,16 @@ namespace OsuSharp.Endpoints
         /// <summary>
         ///     Is the play a perfect?
         /// </summary>
+        [JsonIgnore]
         public bool Perfect
-            => Convert.ToBoolean(PerfectInt);
+            => Convert.ToBoolean(_perfect);
 
         /// <summary>
         ///     Has the player passed the map?
         /// </summary>
+        [JsonIgnore]
         public bool Pass
-            => Convert.ToBoolean(PassInt);
+            => Convert.ToBoolean(_pass);
 
         /// <summary>
         ///     Accuracy of the play

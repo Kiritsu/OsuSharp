@@ -1,179 +1,182 @@
 ﻿#pragma warning disable 0649
 using System;
 using Newtonsoft.Json;
+using OsuSharp.Enums;
 using OsuSharp.Misc;
 
 namespace OsuSharp.Endpoints
 {
-    public class Beatmap
+    public sealed class Beatmap
     {
-        [JsonProperty("approved")]
-        private string ApprovedId { get; set; }
+        [JsonProperty("approved")] 
+        internal string _approved;
 
         /// <summary>
         ///     Id of the beatmapset
         /// </summary>
         [JsonProperty("beatmapset_id")]
-        public long BeatmapsetId { get; set; }
+        public long BeatmapsetId { get; internal set; }
 
         /// <summary>
         ///     Id of the beatmap
         /// </summary>
         [JsonProperty("beatmap_id")]
-        public long BeatmapId { get; set; }
+        public long BeatmapId { get; internal set; }
 
         /// <summary>
         ///     Enum that represent the state of the map
         /// </summary>
-        public BeatmapState Approved
-            => Misc.Approved.ToBeatmapState(ApprovedId);
+        [JsonIgnore]
+        public BeatmapState State
+            => Approved.ToBeatmapState(_approved);
 
         /// <summary>
         ///     Length of the beatmap (includes breaks)
         /// </summary>
         [JsonProperty("total_length")]
-        public int TotalLength { get; set; }
+        public int TotalLength { get; internal set; }
 
         /// <summary>
         ///     Length of the beatmap (doesn't include breaks)
         /// </summary>
         [JsonProperty("hit_length")]
-        public int HitLength { get; set; }
+        public int HitLength { get; internal set; }
 
         /// <summary>
         ///     Difficulty of the beatmap
         /// </summary>
         [JsonProperty("version")]
-        public string Difficulty { get; set; }
+        public string Difficulty { get; internal set; }
 
         /// <summary>
         ///     ?
         /// </summary>
         [JsonProperty("file_md5")]
-        public string FileMd5 { get; set; }
+        public string FileMd5 { get; internal set; }
 
         /// <summary>
         ///     Circle size (CS)
         /// </summary>
         [JsonProperty("diff_size")]
-        public float CircleSize { get; set; }
+        public float CircleSize { get; internal set; }
 
         /// <summary>
         ///     Overall difficulty (OD)
         /// </summary>
         [JsonProperty("diff_overall")]
-        public float OverallDifficulty { get; set; }
+        public float OverallDifficulty { get; internal set; }
 
         /// <summary>
         ///     Approach rate (AR)
         /// </summary>
         [JsonProperty("diff_approach")]
-        public float ApproachRate { get; set; }
+        public float ApproachRate { get; internal set; }
 
         /// <summary>
         ///     Hp drain (HP)
         /// </summary>
         [JsonProperty("diff_drain")]
-        public float HpDrain { get; set; }
+        public float HpDrain { get; internal set; }
 
-        [JsonProperty("mode")]
-        private int GameModeInt { get; set; }
+        [JsonProperty("mode")] 
+        internal int _mode;
 
         /// <summary>
         ///     Game mode of the map (standard/taiko/catch/mania)
         /// </summary>
+        [JsonIgnore]
         public GameMode GameMode
-            => (GameMode) Enum.Parse(typeof(GameMode), GameModeInt.ToString());
+            => (GameMode) Enum.Parse(typeof(GameMode), _mode.ToString());
 
         /// <summary>
         ///     DateTime of beatmap's approval
         /// </summary>
-        [JsonProperty("approved_date")]
-        public DateTime? ApprovedDate { get; set; }
+        [JsonProperty("approved_date", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTime ApprovedDate { get; internal set; }
 
         /// <summary>
         ///     DateTime of beatmap's latest update
         /// </summary>
-        [JsonProperty("last_update")]
-        public DateTime? LastUpdate { get; set; }
+        [JsonProperty("last_update", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTime LastUpdate { get; internal set; }
 
         /// <summary>
         ///     Name of the artist
         /// </summary>
         [JsonProperty("artist")]
-        public string Artist { get; set; }
+        public string Artist { get; internal set; }
 
         /// <summary>
         ///     Title of the beatmap
         /// </summary>
         [JsonProperty("title")]
-        public string Title { get; set; }
+        public string Title { get; internal set; }
 
         /// <summary>
         ///     Name of the creator
         /// </summary>
         [JsonProperty("creator")]
-        public string Creator { get; set; }
+        public string Creator { get; internal set; }
 
         /// <summary>
         ///     BPM of the beatmap
         /// </summary>
         [JsonProperty("bpm")]
-        public float Bpm { get; set; }
+        public float Bpm { get; internal set; }
 
         /// <summary>
         ///     Sources (added manually in bm editor)
         /// </summary>
         [JsonProperty("source")]
-        public string Sources { get; set; }
+        public string Sources { get; internal set; }
 
         /// <summary>
         ///     Tags (added manually in bm editor)
         /// </summary>
         [JsonProperty("tags")]
-        public string Tags { get; set; }
+        public string Tags { get; internal set; }
 
         /// <summary>
         ///     Genre id
         /// </summary>
         [JsonProperty("genre_id")]
-        public int GenreId { get; set; }
+        public int GenreId { get; internal set; }
 
         /// <summary>
         ///     Language id
         /// </summary>
         [JsonProperty("language_id")]
-        public int LanguageId { get; set; }
+        public int LanguageId { get; internal set; }
 
         /// <summary>
         ///     Total count of favorites
         /// </summary>
         [JsonProperty("favourite_count")]
-        public int FavouriteCount { get; set; }
+        public int FavouriteCount { get; internal set; }
 
         /// <summary>
         ///     Total count of playcounts
         /// </summary>
         [JsonProperty("playcount")]
-        public int PlayCount { get; set; }
+        public int PlayCount { get; internal set; }
 
         /// <summary>
         ///     Total count of passcounts
         /// </summary>
         [JsonProperty("passcount")]
-        public int PassCount { get; set; }
+        public int PassCount { get; internal set; }
 
         /// <summary>
         ///     Probably the count of combo max (may be null, depending on the 'GameMode'
         /// </summary>
-        [JsonProperty("max_combo")]
-        public int? MaxCombo { get; set; }
+        [JsonProperty("max_combo", NullValueHandling = NullValueHandling.Ignore)]
+        public int MaxCombo { get; internal set; }
 
         /// <summary>
         ///     Rating of the difficulty
         /// </summary>
         [JsonProperty("difficultyrating")]
-        public float DifficultyRating { get; set; }
+        public float DifficultyRating { get; internal set; }
 
         /// <summary>
         ///     Thumbnail url of the beatmap

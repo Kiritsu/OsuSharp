@@ -3,6 +3,7 @@ using OsuSharp.Misc;
 using System;
 using System.IO;
 using System.Text;
+using OsuSharp.Enums;
 
 namespace OsuSharp.Entities
 {
@@ -27,7 +28,7 @@ namespace OsuSharp.Entities
      * and then the string itself, encoded in UTF-8.
      */
 
-    public class ReplayFile
+    public sealed class ReplayFile
     {
         // These values appear in a .osr file in this 
         // Exact order.
@@ -35,102 +36,102 @@ namespace OsuSharp.Entities
         /// <summary>
         ///     Game mode of the replay (byte)
         /// </summary>
-        public GameMode GameMode;
+        public GameMode GameMode { get; private set; }
 
         /// <summary>
         ///     Version of the game when the replay was created
         /// </summary>
-        public int OsuVersion;
+        public int OsuVersion { get; private set; }
 
         /// <summary>
         ///     osu! beatmap MD5 hash
         /// </summary>
-        public string BeatmapHash;
+        public string BeatmapHash { get; private set; }
 
         /// <summary>
         ///     Player name
         /// </summary>
-        public string PlayerName;
+        public string PlayerName { get; private set; }
 
         /// <summary>
         ///     osu! replay MD5 hash (includes certain properties of the replay)
         /// </summary>
-        public string ReplayHash;
+        public string ReplayHash { get; private set; }
 
         /// <summary>
         ///     Number of 300s
         /// </summary>
-        public short Amount300;
+        public short Amount300 { get; private set; }
 
         /// <summary>
         ///     Number of 100s in standard, 150s in Taiko, 100s in CTB, 200s in mania
         /// </summary>
-        public short Amount100;
+        public short Amount100 { get; private set; }
 
         /// <summary>
         ///     Number of 50s in standard, small fruit in CTB, 50s in mania
         /// </summary>
-        public short Amount50;
+        public short Amount50 { get; private set; }
 
         /// <summary>
         ///     Number of Gekis in standard, Max 300s in mania
         /// </summary>
-        public short AmountGeki;
+        public short AmountGeki { get; private set; }
 
         /// <summary>
         ///     Number of Katus in standard, 100s in mania
         /// </summary>
-        public short AmountKatu;
+        public short AmountKatu { get; private set; }
 
         /// <summary>
         ///     Number of misses
         /// </summary>
-        public short AmountMiss;
+        public short AmountMiss { get; private set; }
 
         /// <summary>
         ///     Total score displayed on the score report
         /// </summary>
-        public int TotalScore;
+        public int TotalScore { get; private set; }
 
         /// <summary>
         ///     Greatest combo displayed on the score report
         /// </summary>
-        public short MaxCombo;
+        public short MaxCombo { get; private set; }
 
         /// <summary>
         ///     Perfect/full combo (1 = no misses and no slider breaks and no early finished sliders)
         /// </summary>
-        public bool Perfect;
+        public bool Perfect { get; private set; }
 
         /// <summary>
         ///     Mods used
         /// </summary>
-        public Mods Mods;
+        public Mods Mods { get; private set; }
 
         /// <summary>
         ///     Life bar graph: comma separated pairs u/v, where u is the time in milliseconds into the song and v is a floating point value from 0 - 1 that represents the amount of life you have at the given time (0 = life bar is empty, 1= life bar is full)
         /// </summary>
-        public string LifebarGraph;
+        public string LifebarGraph { get; private set; }
 
         /// <summary>
         ///     Time stamp (Windows ticks)
         /// </summary>
-        public long Timestamp;
+        public long Timestamp { get; private set; }
 
         /// <summary>
         ///     Replay data length
         /// </summary>
-        public int ReplayLength;
+        public int ReplayLength { get; private set; }
 
         /// <summary>
         ///     Compressed replay data
         /// </summary>
-        public byte[] ReplayData;
+        public byte[] ReplayData { get; private set; }
 
         /// <summary>
         ///     That's literally in osu's docs. unknown. welp.
         /// </summary>
-        public long Unknown;
+        public long Unknown { get; private set; }
 
         /// <summary>
         ///     Loads a Replay file from a stream
@@ -144,7 +145,7 @@ namespace OsuSharp.Entities
             var reader = new ReplayReader(binreader);
             var replay = new ReplayFile
             {
-                GameMode = (GameMode) reader.ReadNextByte(),
+                GameMode = (GameMode)reader.ReadNextByte(),
                 OsuVersion = reader.ReadNextInt(),
                 BeatmapHash = reader.ReadNextOsuString(),
                 PlayerName = reader.ReadNextOsuString(),
@@ -158,7 +159,7 @@ namespace OsuSharp.Entities
                 TotalScore = reader.ReadNextInt(),
                 MaxCombo = reader.ReadNextShort(),
                 Perfect = reader.ReadNextBool(),
-                Mods = (Mods) reader.ReadNextInt(),
+                Mods = (Mods)reader.ReadNextInt(),
                 LifebarGraph = reader.ReadNextOsuString(),
                 Timestamp = reader.ReadNextLong(),
                 ReplayLength = reader.ReadNextInt()
@@ -225,7 +226,7 @@ namespace OsuSharp.Entities
                 AmountMiss = (short)score.Miss,
                 BeatmapHash = beatmap.FileMd5,
                 GameMode = beatmap.GameMode,
-                TotalScore = (int)score.ScorePoints,
+                TotalScore = (int)score.TotalScore,
                 ReplayLength = playbytes.Length,
                 ReplayData = playbytes,
                 ReplayHash = "idk where to get replay hash",
@@ -336,7 +337,7 @@ namespace OsuSharp.Entities
 
         public void WriteNextOsuString(string value)
         {
-            if(value == null)
+            if (value == null)
             {
                 WriteNextByte(0x00);
                 return;

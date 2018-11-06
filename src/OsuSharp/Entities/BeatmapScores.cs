@@ -3,9 +3,9 @@ using OsuSharp.Endpoints;
 
 namespace OsuSharp.Entities
 {
-    public class BeatmapScores
+    public sealed class BeatmapScores
     {
-        public Beatmap Beatmap { get; set; }
-        public List<Score> Score { get; set; }
+        public Beatmap Beatmap { get; internal set; }
+        public IReadOnlyList<Score> Score { get; internal set; }
     }
 }

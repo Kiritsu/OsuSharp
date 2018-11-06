@@ -5,10 +5,10 @@ using OsuSharp.Misc;
 
 namespace OsuSharp.Endpoints
 {
-    public class UserBest
+    public sealed class UserBest
     {
         [JsonProperty("perfect")]
-        private int PerfectInt { get; set; }
+        internal int _perfect;
 
         /// <summary>
         ///     Id of the beatmap
@@ -63,8 +63,8 @@ namespace OsuSharp.Endpoints
         /// <summary>
         ///     Max combo of the play
         /// </summary>
-        [JsonProperty("maxcombo")]
-        public int? MaxCombo { get; set; }
+        [JsonProperty("maxcombo", NullValueHandling = NullValueHandling.Ignore)]
+        public int MaxCombo { get; set; }
 
         /// <summary>
         ///     Count of katus
@@ -81,8 +81,9 @@ namespace OsuSharp.Endpoints
         /// <summary>
         ///     Is the map a perfect?
         /// </summary>
+        [JsonIgnore]
         public bool Perfect
-            => Convert.ToBoolean(PerfectInt);
+            => Convert.ToBoolean(_perfect);
 
         /// <summary>
         ///     Mods used for this play
@@ -93,6 +94,7 @@ namespace OsuSharp.Endpoints
         /// <summary>
         ///     Better representation of 'EnabledMods'
         /// </summary>
+        [JsonIgnore]
         public Mods Mods
             => (Mods)EnabledMods;
 
@@ -105,8 +107,8 @@ namespace OsuSharp.Endpoints
         /// <summary>
         ///     Date the play was submitted
         /// </summary>
-        [JsonProperty("date")]
-        public DateTime? Date { get; set; }
+        [JsonProperty("date", NullValueHandling = NullValueHandling.Ignore)]
+        public DateTime Date { get; set; }
 
         /// <summary>
         ///     Rank of the player in this play

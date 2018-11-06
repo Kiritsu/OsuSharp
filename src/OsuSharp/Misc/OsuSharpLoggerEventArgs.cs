@@ -1,4 +1,5 @@
 ﻿using System;
+using OsuSharp.Enums;
 using OsuSharp.Interfaces;
 
 namespace OsuSharp.Misc
@@ -8,31 +9,31 @@ namespace OsuSharp.Misc
         /// <summary>
         ///     Where does the log invoke come from
         /// </summary>
-        public string From { get; set; }
+        public string From { get; internal set; }
 
         /// <summary>
         ///     Time where the LogMessage was invoked
         /// </summary>
-        public DateTime Time { get; set; }
+        public DateTime Time { get; internal set; }
 
         /// <summary>
         ///     Logged message
         /// </summary>
-        public string Message { get; set; }
+        public string Message { get; internal set; }
 
         /// <summary>
         ///     Instance of the IOsuApi
         /// </summary>
-        public IOsuApi Instance { get; set; }
+        public IOsuApi Instance { get; internal set; }
 
         /// <summary>
         ///     Instance of the logger
         /// </summary>
-        public IOsuSharpLogger Logger { get; set; }
+        public IOsuSharpLogger Logger { get; internal set; }
 
         /// <summary>
         ///     Level of the logs
         /// </summary>
-        public LoggingLevel Level { get; set; }
+        public LoggingLevel Level { get; internal set; }
     }
 }

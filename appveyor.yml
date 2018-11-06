@@ -1,4 +1,4 @@
-version: 3.1.{build}
+version: 3.2.{build}
 
 image: Visual Studio 2017
 
@@ -17,7 +17,7 @@ build: off
 build_script: 
   - ps: dotnet msbuild src\OsuSharp\OsuSharp.csproj /p:Configuration=Release
         
-        dotnet pack src\OsuSharp\OsuSharp.csproj -c Release -o "nugetpck" /p:PackageVersion=3.1.$env:APPVEYOR_BUILD_NUMBER --no-build
+        dotnet pack src\OsuSharp\OsuSharp.csproj -c Release -o "nugetpck" /p:PackageVersion=$env:APPVEYOR_BUILD_VERSION --no-build
 
 artifacts:
   - path: 'src\OsuSharp\nugetpck\*.nupkg'

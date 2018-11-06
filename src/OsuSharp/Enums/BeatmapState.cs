@@ -1,4 +1,4 @@
-﻿namespace OsuSharp.Misc
+﻿namespace OsuSharp.Enums
 {
     /// <summary>
     ///     Enum representing the different possible states of a beatmap

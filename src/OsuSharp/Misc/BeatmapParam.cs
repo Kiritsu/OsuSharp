@@ -1,4 +1,6 @@
-﻿namespace OsuSharp.Misc
+﻿using OsuSharp.Enums;
+
+namespace OsuSharp.Misc
 {
     internal sealed class BeatmapParam
     {

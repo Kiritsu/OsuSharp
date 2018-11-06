@@ -1,4 +1,4 @@
-﻿namespace OsuSharp.Misc
+﻿namespace OsuSharp.Enums
 {
     public enum LoggingLevel
     {
