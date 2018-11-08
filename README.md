@@ -1,4 +1,4 @@
-# OsuSharp 3.1.3 (10-01-2018)
+# OsuSharp 3.2.0 (11-06-2018)
 
 [![NuGet version](https://badge.fury.io/nu/OsuSharp.svg)](https://badge.fury.io/nu/OsuSharp)
 [![Build status](https://ci.appveyor.com/api/projects/status/jhrtfqgrhidw331x?svg=true)](https://ci.appveyor.com/project/Kiritsu/osusharp)
@@ -17,7 +17,7 @@
 You can install the wrapper with NuGet:
 
 ```
-PM> Install-Package OsuSharp -Version 3.1.3
+PM> Install-Package OsuSharp -Version 3.2.0
 ```
 
 Or compile from source:
@@ -44,7 +44,7 @@ Thanks to the following contributors:
 - [NaamloosDT](https://github.com/NaamloosDT)
 - [Kamdzy](https://github.com/Kamdzy)
 - [Bond-009](https://github.com/Bond-009)
-- [Leah](https://github.com/leahmpersand)
+- [POP/STARS](https://github.com/popstars)
 
 ## Example
 
