@@ -40,7 +40,7 @@ namespace OsuSharp
 
             try
             {
-                DateTime now = DateTime.Now;
+                var now = DateTime.Now;
 
                 if (Time - now <= TimeSpan.Zero)
                 {

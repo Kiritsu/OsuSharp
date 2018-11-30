@@ -60,7 +60,7 @@ namespace OsuSharp.Example
                 instance.Logger.LogMessageReceived += (sender, args) =>
                     args.Logger.Print(args.Level, args.From, args.Message, args.Time);
 
-                User user = await instance.GetUserByNameAsync("Evolia").ConfigureAwait(false);
+                var user = await instance.GetUserByNameAsync("Evolia").ConfigureAwait(false);
                 Console.WriteLine($"User {user.Username} with id {user.Userid}\n" +
                                   $" > Current accuracy : {user.Accuracy}\n" +
                                   $" > Total Score : {user.TotalScore}\n" +
@@ -69,9 +69,9 @@ namespace OsuSharp.Example
                                   $" > Performance Points : {user.Pp}\n" +
                                   $" > Play count : {user.PlayCount}");
 
-                List<UserBest> bests = await instance.GetUserBestByUsernameAsync("Evolia", GameMode.Standard, 20).ConfigureAwait(false);
-                int cnt = 0;
-                foreach (UserBest best in bests)
+                var bests = await instance.GetUserBestByUsernameAsync("Evolia", GameMode.Standard, 20).ConfigureAwait(false);
+                var cnt = 0;
+                foreach (var best in bests)
                 {
                     Console.WriteLine($"Top Score {cnt}:");
                     Console.WriteLine($"Accuracy: {best.Accuracy}\nMods: {best.Mods.ToModString(instance)}");
@@ -79,7 +79,7 @@ namespace OsuSharp.Example
                     cnt++;
                 }
 
-                Beatmap beatmap = await instance.GetBeatmapAsync(75).ConfigureAwait(false);
+                var beatmap = await instance.GetBeatmapAsync(75).ConfigureAwait(false);
                 Console.WriteLine($"\n\nBeatmap {beatmap.Title} with id {beatmap.BeatmapId} mapped by {beatmap.Creator}\n" +
                                   $" > Difficulty : {beatmap.Difficulty}\n" +
                                   $" > State : {beatmap.State}\n" +
@@ -90,13 +90,13 @@ namespace OsuSharp.Example
                                   $" > HP : {beatmap.HpDrain}\n" +
                                   $" > Star difficulty : {beatmap.DifficultyRating}\n");
 
-                List<UserBestBeatmap> userBestsBeatmaps = await instance.GetUserBestAndBeatmapByUsernameAsync("Evolia").ConfigureAwait(false);
-                foreach (UserBestBeatmap userBestBeatmap in userBestsBeatmaps)
+                var userBestsBeatmaps = await instance.GetUserBestAndBeatmapByUsernameAsync("Evolia").ConfigureAwait(false);
+                foreach (var userBestBeatmap in userBestsBeatmaps)
                 {
                     Console.WriteLine($"\nScore {userBestBeatmap.UserBest.ScorePoints} with {userBestBeatmap.UserBest.Accuracy} accuracy\nOn map {userBestBeatmap.Beatmap.Title} made by {userBestBeatmap.Beatmap.Creator} with difficulty {userBestBeatmap.Beatmap.Difficulty}");
                 }
 
-                BeatmapScores beatmapScores = await instance.GetScoresAndBeatmapAsync(75).ConfigureAwait(false);
+                var beatmapScores = await instance.GetScoresAndBeatmapAsync(75).ConfigureAwait(false);
                 Console.WriteLine($"\n\nBeatmap {beatmapScores.Beatmap.Title} with id {beatmapScores.Beatmap.BeatmapId} mapped by {beatmapScores.Beatmap.Creator}\n" +
                                   $" > Difficulty : {beatmapScores.Beatmap.Difficulty}\n" +
                                   $" > State : {beatmapScores.Beatmap.State}\n" +
@@ -106,12 +106,12 @@ namespace OsuSharp.Example
                                   $" > CS : {beatmapScores.Beatmap.CircleSize}\n" +
                                   $" > HP : {beatmapScores.Beatmap.HpDrain}\n" +
                                   $" > Star difficulty : {beatmapScores.Beatmap.DifficultyRating}");
-                foreach (Score score in beatmapScores.Score)
+                foreach (var score in beatmapScores.Score)
                 {
                     Console.WriteLine($"\nScore {score.TotalScore} with {score.Accuracy}% accuracy made by {score.Username}");
                 }
 
-                BeatmapScoresUsers beatmapScoresUsers = await instance.GetScoresWithUsersAndBeatmapAsync(75).ConfigureAwait(false);
+                var beatmapScoresUsers = await instance.GetScoresWithUsersAndBeatmapAsync(75).ConfigureAwait(false);
                 Console.WriteLine($"\n\nBeatmap {beatmapScores.Beatmap.Title} with id {beatmapScores.Beatmap.BeatmapId} mapped by {beatmapScores.Beatmap.Creator}\n" +
                                   $" > Difficulty : {beatmapScores.Beatmap.Difficulty}\n" +
                                   $" > State : {beatmapScores.Beatmap.State}\n" +
@@ -121,9 +121,9 @@ namespace OsuSharp.Example
                                   $" > CS : {beatmapScores.Beatmap.CircleSize}\n" +
                                   $" > HP : {beatmapScores.Beatmap.HpDrain}\n" +
                                   $" > Star difficulty : {beatmapScores.Beatmap.DifficultyRating}");
-                foreach (Score score in beatmapScores.Score)
+                foreach (var score in beatmapScores.Score)
                 {
-                    User currentUser = beatmapScoresUsers.Users.SingleOrDefault(x => x.Username == score.Username);
+                    var currentUser = beatmapScoresUsers.Users.SingleOrDefault(x => x.Username == score.Username);
                     Console.WriteLine(currentUser != null
                         ? $"\nScore {score.TotalScore} with {score.Accuracy}% accuracy made by {currentUser.Username} that has {currentUser.Pp} performance points."
                         : $"\nScore {score.TotalScore} with {score.Accuracy}% accuracy made by {score.Username}");

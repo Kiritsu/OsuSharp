@@ -91,14 +91,16 @@ namespace OsuSharp.Misc
         {
             ModsStrings = new Dictionary<Mods, string>();
 
-            Type t = typeof(Mods);
-            TypeInfo ti = t.GetTypeInfo();
-            IEnumerable<Mods> mods = Enum.GetValues(t).Cast<Mods>();
+            var t = typeof(Mods);
+            var ti = t.GetTypeInfo();
+            var mods = Enum.GetValues(t).Cast<Mods>();
 
-            foreach (Mods mod in mods)
+            foreach (var mod in mods)
+            {
                 ModsStrings[mod] = ti.DeclaredMembers
                     .FirstOrDefault(xm => xm.Name == mod.ToString())
                     .GetCustomAttribute<ModsStringAttribute>().String;
+            }
         }
 
         private static Dictionary<Mods, string> ModsStrings { get; }
@@ -111,9 +113,12 @@ namespace OsuSharp.Misc
         /// <returns></returns>
         public static string ToModString(this Mods mods, IOsuApi instance)
         {
-            if (mods == Mods.None) return ModsStrings[mods];
+            if (mods == Mods.None)
+            {
+                return ModsStrings[mods];
+            }
 
-            IEnumerable<string> enumerableMods = ModsStrings
+            var enumerableMods = ModsStrings
                 .Where(k => k.Key != Mods.None && (mods & k.Key) == k.Key)
                 .Select(k => k.Value);
 

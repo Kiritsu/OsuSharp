@@ -263,12 +263,12 @@ namespace OsuSharp.Entities
 
         public string ReadNextOsuString()
         {
-            byte ispresent = ReadNextByte();
+            var ispresent = ReadNextByte();
             // 0x00 if not present and 0x0b if present
             if (ispresent == 0x0b)
             {
-                int length = (int)ReadNextULeb128();
-                byte[] text = Reader.ReadBytes(length);
+                var length = (int)ReadNextULeb128();
+                var text = Reader.ReadBytes(length);
                 return Encoding.UTF8.GetString(text);
             }
             return null;
@@ -298,13 +298,16 @@ namespace OsuSharp.Entities
         private uint ReadNextULeb128()
         {
             uint result = 0;
-            int shift = 0;
+            var shift = 0;
             while (true)
             {
-                byte b = Reader.ReadByte();
+                var b = Reader.ReadByte();
                 result |= (uint)((b & 0x7F) << shift);
                 if ((b & 0x80) == 0)
+                {
                     break;
+                }
+
                 shift += 7;
             }
             return result;
@@ -373,10 +376,13 @@ namespace OsuSharp.Entities
         {
             do
             {
-                byte b = (byte)(value & 0x7F);
+                var b = (byte)(value & 0x7F);
                 value >>= 7;
                 if (value != 0) /* more bytes to come */
+                {
                     b |= 0x80;
+                }
+
                 Writer.Write(b);
             } while (value != 0);
         }
