@@ -317,7 +317,13 @@ namespace OsuSharp
             var request = Get($"{GET_USER_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}");
 
             var r = JsonConvert.DeserializeObject<List<User>>(request);
-            return r.Count > 0 ? r[0] : null;
+            if (r.Count == 0)
+            {
+                return null;
+            }
+
+            r[0].GameMode = gameMode;
+            return r[0];
         }
 
         /// <summary>
@@ -347,7 +353,13 @@ namespace OsuSharp
                 cancellationToken).ConfigureAwait(false);
 
             var r = JsonConvert.DeserializeObject<List<User>>(request);
-            return r.Count > 0 ? r[0] : null;
+            if (r.Count == 0)
+            {
+                return null;
+            }
+
+            r[0].GameMode = gameMode;
+            return r[0];
         }
 
         /// <summary>
@@ -368,7 +380,13 @@ namespace OsuSharp
             var request = Get($"{GET_USER_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}");
 
             var r = JsonConvert.DeserializeObject<List<User>>(request);
-            return r.Count > 0 ? r[0] : null;
+            if (r.Count == 0)
+            {
+                return null;
+            }
+
+            r[0].GameMode = gameMode;
+            return r[0];
         }
 
         /// <summary>
@@ -392,7 +410,13 @@ namespace OsuSharp
                 cancellationToken).ConfigureAwait(false);
 
             var r = JsonConvert.DeserializeObject<List<User>>(request);
-            return r.Count > 0 ? r[0] : null;
+            if (r.Count == 0)
+            {
+                return null;
+            }
+
+            r[0].GameMode = gameMode;
+            return r[0];
         }
 
         /// <summary>

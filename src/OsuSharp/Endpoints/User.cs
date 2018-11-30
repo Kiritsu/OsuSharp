@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using OsuSharp.Enums;
 
 namespace OsuSharp.Endpoints
 {
@@ -116,6 +117,11 @@ namespace OsuSharp.Endpoints
         [JsonIgnore]
         public IReadOnlyList<Event> Events
             => _events.AsReadOnly();
+        
+        /// <summary>
+        ///     GameMode that user's informations belong to.
+        /// </summary>
+        public GameMode GameMode { get; internal set; }
 
         internal User()
         {
