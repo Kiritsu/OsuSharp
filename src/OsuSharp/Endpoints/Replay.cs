@@ -2,7 +2,7 @@
 
 namespace OsuSharp.Endpoints
 {
-    public sealed class Replay
+    public sealed class Replay : Endpoint
     {
         /// <summary>
         ///     Replay's content
@@ -15,5 +15,10 @@ namespace OsuSharp.Endpoints
         /// </summary>
         [JsonProperty("encoding")]
         public string Encoding { get; internal set; }
+
+        internal Replay()
+        {
+
+        }
     }
 }

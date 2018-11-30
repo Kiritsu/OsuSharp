@@ -6,5 +6,10 @@ namespace OsuSharp.Entities
     {
         public Beatmap Beatmap { get; internal set; }
         public UserBest UserBest { get; internal set; }
+
+        internal UserBestBeatmap()
+        {
+
+        }
     }
 }

@@ -34,5 +34,10 @@ namespace OsuSharp.Endpoints
         /// </summary>
         [JsonProperty("epicfactor", NullValueHandling = NullValueHandling.Ignore)]
         public int Epicfactor { get; internal set; }
+
+        internal Event()
+        {
+
+        }
     }
 }

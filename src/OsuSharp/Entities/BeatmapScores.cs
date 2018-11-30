@@ -7,5 +7,10 @@ namespace OsuSharp.Entities
     {
         public Beatmap Beatmap { get; internal set; }
         public IReadOnlyList<Score> Score { get; internal set; }
+
+        internal BeatmapScores()
+        {
+
+        }
     }
 }

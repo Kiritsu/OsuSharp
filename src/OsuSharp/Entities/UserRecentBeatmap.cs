@@ -6,5 +6,10 @@ namespace OsuSharp.Entities
     {
         public Beatmap Beatmap { get; internal set; }
         public UserRecent UserRecent { get; internal set; }
+
+        internal UserRecentBeatmap()
+        {
+
+        }
     }
 }

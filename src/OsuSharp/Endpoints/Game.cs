@@ -77,5 +77,10 @@ namespace OsuSharp.Endpoints
         [JsonIgnore]
         public IReadOnlyList<ScoreMatch> Scores
             => _scores.AsReadOnly();
+
+        internal Game()
+        {
+
+        }
     }
 }

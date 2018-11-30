@@ -6,7 +6,7 @@ using OsuSharp.Misc;
 
 namespace OsuSharp.Endpoints
 {
-    public sealed class Beatmap
+    public sealed class Beatmap : Endpoint
     {
         [JsonProperty("approved")] 
         internal string _approved;
@@ -198,5 +198,10 @@ namespace OsuSharp.Endpoints
         [JsonIgnore]
         public string SoundPreviewUrl
             => $"https://b.ppy.sh/preview/{BeatmapsetId}.mp3";
+
+        internal Beatmap()
+        {
+
+        }
     }
 }

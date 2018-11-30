@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace OsuSharp.Endpoints
 {
-    public sealed class User
+    public sealed class User : Endpoint
     {
         /// <summary>
         ///     Id of the player
@@ -116,5 +116,10 @@ namespace OsuSharp.Endpoints
         [JsonIgnore]
         public IReadOnlyList<Event> Events
             => _events.AsReadOnly();
+
+        internal User()
+        {
+
+        }
     }
 }

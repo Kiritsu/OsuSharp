@@ -28,5 +28,10 @@ namespace OsuSharp.Endpoints
         /// </summary>
         [JsonProperty("end_time", NullValueHandling = NullValueHandling.Ignore)]
         public DateTime EndTime { get; internal set; }
+
+        internal Match()
+        {
+
+        }
     }
 }

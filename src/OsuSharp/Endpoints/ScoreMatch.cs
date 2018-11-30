@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace OsuSharp.Endpoints
 {
-    public sealed class ScoreMatch
+    public sealed class ScoreMatch : Endpoint
     {
         [JsonProperty("pass")]
         internal int _pass;
@@ -102,7 +102,12 @@ namespace OsuSharp.Endpoints
         ///     Accuracy of the play
         /// </summary>
         [JsonIgnore]
-        public double Accuracy => (Count50 * 50 + Count100 * 100 + Count300 * 300)
+        public double Accuracy => ((Count50 * 50) + (Count100 * 100) + (Count300 * 300))
                                   / (300.0 * (Count50 + Count100 + Count300 + Miss)) * 100;
+
+        internal ScoreMatch()
+        {
+
+        }
     }
 }

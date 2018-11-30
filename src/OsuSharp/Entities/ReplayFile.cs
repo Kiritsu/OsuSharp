@@ -1,9 +1,9 @@
-﻿using OsuSharp.Endpoints;
-using OsuSharp.Misc;
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
+using OsuSharp.Endpoints;
 using OsuSharp.Enums;
+using OsuSharp.Misc;
 
 namespace OsuSharp.Entities
 {
@@ -240,6 +240,11 @@ namespace OsuSharp.Entities
                 Unknown = score.Userid // whatever it's both a long
             };
         }
+
+        internal ReplayFile()
+        {
+
+        }
     }
 
     internal class ReplayReader
@@ -247,19 +252,13 @@ namespace OsuSharp.Entities
         private BinaryReader Reader { get; }
 
         public ReplayReader(BinaryReader reader)
-        {
-            Reader = reader;
-        }
+            => Reader = reader;
 
         public byte ReadNextByte()
-        {
-            return Reader.ReadByte();
-        }
+            => Reader.ReadByte();
 
         public int ReadNextInt()
-        {
-            return Reader.ReadInt32();
-        }
+            => Reader.ReadInt32();
 
         public string ReadNextOsuString()
         {
@@ -271,29 +270,22 @@ namespace OsuSharp.Entities
                 var text = Reader.ReadBytes(length);
                 return Encoding.UTF8.GetString(text);
             }
+
             return null;
         }
 
         public short ReadNextShort()
-        {
-            return Reader.ReadInt16();
-        }
+            => Reader.ReadInt16();
 
         public bool ReadNextBool()
-        {
-            return Reader.ReadBoolean();
-        }
+            => Reader.ReadBoolean();
 
+        // for reading that unknown :^)
         public long ReadNextLong()
-        {
-            // for reading that unknown :^)
-            return Reader.ReadInt64();
-        }
+            => Reader.ReadInt64();
 
         public byte[] ReadNextBytes(int length)
-        {
-            return Reader.ReadBytes(length);
-        }
+            => Reader.ReadBytes(length);
 
         private uint ReadNextULeb128()
         {
@@ -314,9 +306,7 @@ namespace OsuSharp.Entities
         }
 
         public byte[] Readlastdata()
-        {
-            return Reader.ReadBytes((int)(Reader.BaseStream.Length - Reader.BaseStream.Position));
-        }
+            => Reader.ReadBytes((int)(Reader.BaseStream.Length - Reader.BaseStream.Position));
     }
 
     internal class ReplayWriter
@@ -324,19 +314,13 @@ namespace OsuSharp.Entities
         private BinaryWriter Writer { get; }
 
         public ReplayWriter(BinaryWriter writer)
-        {
-            Writer = writer;
-        }
+            => Writer = writer;
 
         public void WriteNextByte(byte value)
-        {
-            Writer.Write(value);
-        }
+            => Writer.Write(value);
 
         public void WriteNextInt(int value)
-        {
-            Writer.Write(value);
-        }
+            => Writer.Write(value);
 
         public void WriteNextOsuString(string value)
         {
@@ -351,26 +335,18 @@ namespace OsuSharp.Entities
             Writer.Write(bytes);
         }
 
-        public void WriteNextShort(short value)
-        {
-            Writer.Write(value);
-        }
+        public void WriteNextShort(short value) 
+            => Writer.Write(value);
 
         public void WriteNextBool(bool value)
-        {
-            Writer.Write(value);
-        }
+            => Writer.Write(value);
 
+        // for reading that unknown :^)
         public void WriteNextLong(long value)
-        {
-            // for reading that unknown :^)
-            Writer.Write(value);
-        }
+            => Writer.Write(value);
 
-        public void WriteNextBytes(byte[] value)
-        {
-            Writer.Write(value);
-        }
+        public void WriteNextBytes(byte[] value) 
+            => Writer.Write(value);
 
         private void WriteNextULeb128(uint value)
         {

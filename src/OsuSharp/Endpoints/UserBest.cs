@@ -5,7 +5,7 @@ using OsuSharp.Misc;
 
 namespace OsuSharp.Endpoints
 {
-    public sealed class UserBest
+    public sealed class UserBest : Endpoint
     {
         [JsonProperty("perfect")]
         internal int _perfect;
@@ -57,7 +57,7 @@ namespace OsuSharp.Endpoints
         /// </summary>
         [JsonIgnore]
         public double Accuracy 
-            => (Count50 * 50 + Count100 * 100 + Count300 * 300)
+            => ((Count50 * 50) + (Count100 * 100) + (Count300 * 300))
                 / (300.0 * (Count50 + Count100 + Count300 + Miss)) * 100;
 
         /// <summary>
@@ -121,5 +121,10 @@ namespace OsuSharp.Endpoints
         /// </summary>
         [JsonProperty("pp")]
         public float Pp { get; set; }
+
+        internal UserBest()
+        {
+
+        }
     }
 }
