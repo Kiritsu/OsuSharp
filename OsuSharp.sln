@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsuSharp", "OsuSharp\OsuSharp.csproj", "{F47FED04-3AFC-4848-BF14-1416F9291810}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsuSharp", "src\OsuSharp\OsuSharp.csproj", "{F47FED04-3AFC-4848-BF14-1416F9291810}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsuSharp.Example", "OsuSharp.Example\OsuSharp.Example.csproj", "{A47D4DE8-7695-48CB-AC53-D472D483ADAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsuSharp.Example", "src\OsuSharp.Example\OsuSharp.Example.csproj", "{A47D4DE8-7695-48CB-AC53-D472D483ADAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuSharp.Analyzer", "OsuSharp.Analyzer\OsuSharp.Analyzer.csproj", "{2471A298-50BD-4758-AE0A-1357269E8BE0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuSharp.Analyzer", "src\OsuSharp.Analyzer\OsuSharp.Analyzer.csproj", "{2471A298-50BD-4758-AE0A-1357269E8BE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

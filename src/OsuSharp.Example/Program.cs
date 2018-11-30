@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using OsuSharp.Analyzer;
 using OsuSharp.Entities;
 using OsuSharp.Enums;
 using OsuSharp.Misc;
@@ -27,12 +28,24 @@ namespace OsuSharp.Example
                     LogLevel = LoggingLevel.Debug
                 });
 
+                instance.Logger.LogMessageReceived += (sender, args) =>
+                    args.Logger.Print(args.Level, args.From, args.Message, args.Time);
+
+                var analyzer = new UserAnalyzer(instance);
+
+                var user = await instance.GetUserByNameAsync("Evolia");
+                analyzer.AddEntity(user);
+
+                await Task.Delay(10000);
+
+                await analyzer.UpdateEntityAsync(user.Userid);
+
                 // Getting a specific user's replay
                 Console.WriteLine("specific replay");
                 var bm = await instance.GetBeatmapAsync(936026).ConfigureAwait(false);
-                var scr = await instance.GetScoreByUsernameAsync(936026, "filsdelama").ConfigureAwait(false);
-                var usr = await instance.GetUserByNameAsync("filsdelama").ConfigureAwait(false);
-                var rpl = await instance.GetReplayByUsernameAsync(936026, "filsdelama").ConfigureAwait(false);
+                var scr = await instance.GetScoreByUsernameAsync(936026, "Sub2PewDiePie").ConfigureAwait(false);
+                var usr = await instance.GetUserByNameAsync("Sub2PewDiePie").ConfigureAwait(false);
+                var rpl = await instance.GetReplayByUsernameAsync(936026, "Sub2PewDiePie").ConfigureAwait(false);
                 var rp = ReplayFile.CreateReplayFile(rpl, usr, scr, bm);
                 var fs = new FileStream("replay-specific.osr", FileMode.OpenOrCreate);
                 rp.ToStream(fs);
@@ -53,10 +66,7 @@ namespace OsuSharp.Example
                 filestr.Close();
                 Console.WriteLine("top replay done");
 
-                instance.Logger.LogMessageReceived += (sender, args) =>
-                    args.Logger.Print(args.Level, args.From, args.Message, args.Time);
-
-                var user = await instance.GetUserByNameAsync("Evolia").ConfigureAwait(false);
+                user = await instance.GetUserByNameAsync("Evolia").ConfigureAwait(false);
                 Console.WriteLine($"User {user.Username} with id {user.Userid}\n" +
                                   $" > Current accuracy : {user.Accuracy}\n" +
                                   $" > Total Score : {user.TotalScore}\n" +

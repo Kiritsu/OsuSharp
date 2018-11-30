@@ -13,9 +13,17 @@ namespace OsuSharp.Analyzer
         protected readonly ConcurrentDictionary<TKey, TValue> _entities;
         protected IOsuApi Api { get; }
 
+        /// <summary>
+        ///     Represents every entities that are being updated.
+        /// </summary>
         public IReadOnlyDictionary<TKey, TValue> Entities => _entities;
 
-        public void Add(TKey key, TValue entity)
+        /// <summary>
+        ///     Adds an entity to analyze.
+        /// </summary>
+        /// <param name="key">Key of the entity to analyze.</param>
+        /// <param name="entity">Entity to analyze.</param>
+        public void AddEntity(TKey key, TValue entity)
         {
             if (!_entities.TryAdd(key, entity))
             {
@@ -23,7 +31,11 @@ namespace OsuSharp.Analyzer
             }
         }
 
-        public void Remove(TKey key)
+        /// <summary>
+        ///     Removes an entity to stop analyzing it.
+        /// </summary>
+        /// <param name="key">Entity key to remove.</param>
+        public void RemoveEntity(TKey key)
         {
             if (!_entities.TryRemove(key, out _))
             {
@@ -31,7 +43,12 @@ namespace OsuSharp.Analyzer
             }
         }
 
-        public abstract Task<TValue> UpdateValueAsync(TKey key);
+        /// <summary>
+        ///     Updates the entity associated with the given key.
+        /// </summary>
+        /// <param name="key">Key associated with the TValue.</param>
+        /// <returns></returns>
+        public abstract Task<TValue> UpdateEntityAsync(TKey key);
 
         /// <summary>
         ///     Fires when a value has been updated.

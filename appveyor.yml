@@ -17,10 +17,12 @@ build: off
 build_script: 
   - ps: dotnet msbuild src\OsuSharp\OsuSharp.csproj /p:Configuration=Release
         
-        dotnet pack src\OsuSharp\OsuSharp.csproj -c Release -o "nugetpck" /p:PackageVersion=$env:APPVEYOR_BUILD_VERSION --no-build
+        dotnet pack src\OsuSharp\OsuSharp.csproj -c Release -o "..\nugetpck" /p:PackageVersion=$env:APPVEYOR_BUILD_VERSION --no-build
+        
+        dotnet pack src\OsuSharp.Analyzer\OsuSharp.Analyzer.csproj -c Release -o "..\nugetpck" /p:PackageVersion=$env:APPVEYOR_BUILD_VERSION --no-build
         
 artifacts:
-  - path: 'src\OsuSharp\nugetpck\*.nupkg'
+  - path: 'src\nugetpck\*.nupkg'
   
 deploy:
   - provider: NuGet

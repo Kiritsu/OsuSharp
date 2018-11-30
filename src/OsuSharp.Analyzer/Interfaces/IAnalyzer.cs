@@ -13,13 +13,14 @@ namespace OsuSharp.Analyzer.Interfaces
         /// <summary>
         ///     Adds an entity to analyze.
         /// </summary>
+        /// <param name="key">Key of the entity to analyze.</param>
         /// <param name="entity">Entity to analyze.</param>
-        void Add(TKey key, TValue entity);
+        void AddEntity(TKey key, TValue entity);
 
         /// <summary>
         ///     Removes an entity to stop analyzing it.
         /// </summary>
-        /// <param name="entity">Entity to remove.</param>
-        void Remove(TKey key);
+        /// <param name="key">Entity key to remove.</param>
+        void RemoveEntity(TKey key);
     }
 }

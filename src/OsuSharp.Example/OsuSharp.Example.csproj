@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OsuSharp.Analyzer\OsuSharp.Analyzer.csproj" />
     <ProjectReference Include="..\OsuSharp\OsuSharp.csproj" />
   </ItemGroup>
 
