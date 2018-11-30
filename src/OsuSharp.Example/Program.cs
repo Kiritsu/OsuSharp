@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using OsuSharp.Endpoints;
 using OsuSharp.Entities;
 using OsuSharp.Enums;
 using OsuSharp.Misc;
@@ -13,10 +11,8 @@ namespace OsuSharp.Example
 {
     internal class Program
     {
-        private static void Main()
-        {
-            MainAsync().GetAwaiter().GetResult();
-        }
+        private static void Main() 
+            => MainAsync().GetAwaiter().GetResult();
 
         public static async Task MainAsync()
         {

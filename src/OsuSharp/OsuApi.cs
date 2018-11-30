@@ -1,10 +1,4 @@
-﻿using Newtonsoft.Json;
-using OsuSharp.Endpoints;
-using OsuSharp.Entities;
-using OsuSharp.Enums;
-using OsuSharp.Interfaces;
-using OsuSharp.Misc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -12,6 +6,12 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using OsuSharp.Endpoints;
+using OsuSharp.Entities;
+using OsuSharp.Enums;
+using OsuSharp.Interfaces;
+using OsuSharp.Misc;
 
 namespace OsuSharp
 {
