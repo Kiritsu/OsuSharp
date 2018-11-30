@@ -121,6 +121,7 @@ namespace OsuSharp.Endpoints
         /// <summary>
         ///     GameMode that user's informations belong to.
         /// </summary>
+        [JsonIgnore]
         public GameMode GameMode { get; internal set; }
 
         internal User()
