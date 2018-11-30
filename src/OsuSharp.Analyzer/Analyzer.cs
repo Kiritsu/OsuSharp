@@ -2,13 +2,14 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using OsuSharp.Analyzer.Entities;
 using OsuSharp.Analyzer.Interfaces;
 using OsuSharp.Endpoints;
 using OsuSharp.Interfaces;
 
 namespace OsuSharp.Analyzer
 {
-    public abstract class Analyzer<TKey, TValue> : IAnalyzer<TKey, TValue> where TValue : Endpoint
+    public abstract class Analyzer<TKey, TValue> : IAnalyzer<TKey, TValue>
     {
         protected readonly ConcurrentDictionary<TKey, TValue> _entities;
         protected IOsuApi Api { get; }
@@ -53,7 +54,7 @@ namespace OsuSharp.Analyzer
         /// <summary>
         ///     Fires when a value has been updated.
         /// </summary>
-        public abstract event EventHandler<TValue> EntityUpdated;
+        public abstract event EventHandler<UpdateEventArgs<TValue>> EntityUpdated;
 
         public Analyzer(IOsuApi api)
         {

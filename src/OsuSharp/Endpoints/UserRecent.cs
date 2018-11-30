@@ -1,6 +1,7 @@
 ﻿#pragma warning disable 0649
 using System;
 using Newtonsoft.Json;
+using OsuSharp.Enums;
 using OsuSharp.Misc;
 
 namespace OsuSharp.Endpoints
@@ -109,6 +110,12 @@ namespace OsuSharp.Endpoints
         /// </summary>
         [JsonProperty("rank")]
         public string Rank { get; internal set; }
+
+        /// <summary>
+        ///     GameMode that scores's informations belong to.
+        /// </summary>
+        [JsonIgnore]
+        public GameMode GameMode { get; internal set; }
 
         internal UserRecent()
         {

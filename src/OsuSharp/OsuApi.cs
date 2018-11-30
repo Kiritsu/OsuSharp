@@ -115,7 +115,13 @@ namespace OsuSharp
             var request = Get($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{beatmapId}{mode}");
 
             var r = JsonConvert.DeserializeObject<List<Beatmap>>(request);
-            return r.Count > 0 ? r[0] : null;
+            if (r.Count == 0)
+            {
+                return null;
+            }
+
+            r[0].BeatmapType = bmType;
+            return r[0];
         }
 
         /// <summary>
@@ -142,7 +148,13 @@ namespace OsuSharp
                     cancellationToken).ConfigureAwait(false);
 
             var r = JsonConvert.DeserializeObject<List<Beatmap>>(request);
-            return r.Count > 0 ? r[0] : null;
+            if (r.Count == 0)
+            {
+                return null;
+            }
+
+            r[0].BeatmapType = bmType;
+            return r[0];
         }
 
         /// <summary>
@@ -171,7 +183,13 @@ namespace OsuSharp
             var request =
                 Get($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{username}{LIMIT_PARAMETER}{limit}{mode}");
 
-            return JsonConvert.DeserializeObject<List<Beatmap>>(request);
+            var bms = JsonConvert.DeserializeObject<List<Beatmap>>(request);
+            foreach (var bm in bms)
+            {
+                bm.BeatmapType = BeatmapType.ByBeatmap;
+            }
+
+            return bms;
         }
 
         /// <summary>
@@ -203,7 +221,13 @@ namespace OsuSharp
                     $"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{username}{LIMIT_PARAMETER}{limit}{mode}",
                     cancellationToken).ConfigureAwait(false);
 
-            return JsonConvert.DeserializeObject<List<Beatmap>>(request);
+            var bms = JsonConvert.DeserializeObject<List<Beatmap>>(request);
+            foreach (var bm in bms)
+            {
+                bm.BeatmapType = BeatmapType.ByCreator;
+            }
+
+            return bms;
         }
 
         /// <summary>
@@ -228,7 +252,13 @@ namespace OsuSharp
             var request =
                 Get($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{id}{LIMIT_PARAMETER}{limit}{mode}");
 
-            return JsonConvert.DeserializeObject<List<Beatmap>>(request);
+            var bms = JsonConvert.DeserializeObject<List<Beatmap>>(request);
+            foreach (var bm in bms)
+            {
+                bm.BeatmapType = bmType;
+            }
+
+            return bms;
         }
 
         /// <summary>
@@ -255,7 +285,13 @@ namespace OsuSharp
                 await GetAsync($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{type}{id}{LIMIT_PARAMETER}{limit}{mode}",
                     cancellationToken).ConfigureAwait(false);
 
-            return JsonConvert.DeserializeObject<List<Beatmap>>(request);
+            var bms = JsonConvert.DeserializeObject<List<Beatmap>>(request);
+            foreach (var bm in bms)
+            {
+                bm.BeatmapType = bmType;
+            }
+
+            return bms;
         }
 
         /// <summary>
@@ -272,7 +308,13 @@ namespace OsuSharp
 
             var request = Get($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{LIMIT_PARAMETER}{limit}");
 
-            return JsonConvert.DeserializeObject<List<Beatmap>>(request);
+            var bms = JsonConvert.DeserializeObject<List<Beatmap>>(request);
+            foreach (var bm in bms)
+            {
+                bm.BeatmapType = BeatmapType.ByBeatmap;
+            }
+
+            return bms;
         }
 
         /// <summary>
@@ -291,7 +333,13 @@ namespace OsuSharp
             var request = await GetAsync($"{GET_BEATMAPS_URL}{API_KEY_PARAMETER}{ApiKey}{LIMIT_PARAMETER}{limit}",
                 cancellationToken).ConfigureAwait(false);
 
-            return JsonConvert.DeserializeObject<List<Beatmap>>(request);
+            var bms = JsonConvert.DeserializeObject<List<Beatmap>>(request);
+            foreach (var bm in bms)
+            {
+                bm.BeatmapType = BeatmapType.ByBeatmap;
+            }
+
+            return bms;
         }
 
         /// <summary>
@@ -445,7 +493,13 @@ namespace OsuSharp
                     $"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{USER_PARAMETER}{username}{BEATMAP_PARAMETER}{beatmapid}");
 
             var r = JsonConvert.DeserializeObject<List<Score>>(request);
-            return r.Count > 0 ? r[0] : null;
+            if (r.Count == 0)
+            {
+                return null;
+            }
+
+            r[0].GameMode = gameMode;
+            return r[0];
         }
 
         /// <summary>
@@ -477,7 +531,13 @@ namespace OsuSharp
                     cancellationToken).ConfigureAwait(false);
 
             var r = JsonConvert.DeserializeObject<List<Score>>(request);
-            return r.Count > 0 ? r[0] : null;
+            if (r.Count == 0)
+            {
+                return null;
+            }
+
+            r[0].GameMode = gameMode;
+            return r[0];
         }
 
         /// <summary>
@@ -501,7 +561,13 @@ namespace OsuSharp
                     $"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{USER_PARAMETER}{userid}{BEATMAP_PARAMETER}{beatmapid}");
 
             var r = JsonConvert.DeserializeObject<List<Score>>(request);
-            return r.Count > 0 ? r[0] : null;
+            if (r.Count == 0)
+            {
+                return null;
+            }
+
+            r[0].GameMode = gameMode;
+            return r[0];
         }
 
         /// <summary>
@@ -528,7 +594,13 @@ namespace OsuSharp
                     cancellationToken).ConfigureAwait(false);
 
             var r = JsonConvert.DeserializeObject<List<Score>>(request);
-            return r.Count > 0 ? r[0] : null;
+            if (r.Count == 0)
+            {
+                return null;
+            }
+
+            r[0].GameMode = gameMode;
+            return r[0];
         }
 
         /// <summary>
@@ -551,7 +623,13 @@ namespace OsuSharp
                 Get(
                     $"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}");
 
-            return JsonConvert.DeserializeObject<List<Score>>(request);
+            var scores = JsonConvert.DeserializeObject<List<Score>>(request);
+            foreach (var score in scores)
+            {
+                score.GameMode = gameMode;
+            }
+
+            return scores;
         }
 
         /// <summary>
@@ -577,7 +655,13 @@ namespace OsuSharp
                     $"{GET_SCORES_URL}{API_KEY_PARAMETER}{ApiKey}{mode}{LIMIT_PARAMETER}{limit}{BEATMAP_PARAMETER}{beatmapid}",
                     cancellationToken).ConfigureAwait(false);
 
-            return JsonConvert.DeserializeObject<List<Score>>(request);
+            var scores = JsonConvert.DeserializeObject<List<Score>>(request);
+            foreach (var score in scores)
+            {
+                score.GameMode = gameMode;
+            }
+
+            return scores;
         }
 
         /// <summary>
@@ -602,11 +686,16 @@ namespace OsuSharp
 
             var beatmap = GetBeatmap(beatmapid, gameMode: gameMode);
 
-            var score = JsonConvert.DeserializeObject<List<Score>>(request);
+            var scores = JsonConvert.DeserializeObject<List<Score>>(request);
+            foreach (var score in scores)
+            {
+                score.GameMode = gameMode;
+            }
+
             return new BeatmapScores
             {
                 Beatmap = beatmap,
-                Score = score
+                Scores = scores
             };
         }
 
@@ -640,7 +729,7 @@ namespace OsuSharp
             return new BeatmapScores
             {
                 Beatmap = beatmap,
-                Score = score
+                Scores = score
             };
         }
 
@@ -672,6 +761,7 @@ namespace OsuSharp
             foreach (var score in scores)
             {
                 users.Add(GetUserById(score.Userid, gameMode));
+                score.GameMode = gameMode;
             }
 
             return new BeatmapScoresUsers
@@ -712,6 +802,7 @@ namespace OsuSharp
             foreach (var score in scores)
             {
                 users.Add(await GetUserByIdAsync(score.Userid, gameMode, cancellationToken).ConfigureAwait(false));
+                score.GameMode = gameMode;
             }
 
             return new BeatmapScoresUsers
@@ -748,7 +839,13 @@ namespace OsuSharp
                 Get(
                     $"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}");
 
-            return JsonConvert.DeserializeObject<List<UserBest>>(request);
+            var objs = JsonConvert.DeserializeObject<List<UserBest>>(request);
+            foreach (var obj in objs)
+            {
+                obj.GameMode = gameMode;
+            }
+
+            return objs;
         }
 
         /// <summary>
@@ -779,7 +876,13 @@ namespace OsuSharp
                     $"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}",
                     cancellationToken).ConfigureAwait(false);
 
-            return JsonConvert.DeserializeObject<List<UserBest>>(request);
+            var objs = JsonConvert.DeserializeObject<List<UserBest>>(request);
+            foreach (var obj in objs)
+            {
+                obj.GameMode = gameMode;
+            }
+
+            return objs;
         }
 
         /// <summary>
@@ -817,6 +920,9 @@ namespace OsuSharp
                     Beatmap = GetBeatmap(best.BeatmapId),
                     UserBest = best
                 });
+
+
+                best.GameMode = gameMode;
             }
 
             return userBestBeatmap;
@@ -860,6 +966,8 @@ namespace OsuSharp
                         cancellationToken).ConfigureAwait(false),
                     UserBest = best
                 });
+
+                best.GameMode = gameMode;
             }
 
             return userBestBeatmap;
@@ -885,7 +993,13 @@ namespace OsuSharp
                 Get(
                     $"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}");
 
-            return JsonConvert.DeserializeObject<List<UserBest>>(request);
+            var objs = JsonConvert.DeserializeObject<List<UserBest>>(request);
+            foreach (var obj in objs)
+            {
+                obj.GameMode = gameMode;
+            }
+
+            return objs;
         }
 
         /// <summary>
@@ -911,7 +1025,13 @@ namespace OsuSharp
                     $"{GET_USER_BEST_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}",
                     cancellationToken).ConfigureAwait(false);
 
-            return JsonConvert.DeserializeObject<List<UserBest>>(request);
+            var objs = JsonConvert.DeserializeObject<List<UserBest>>(request);
+            foreach (var obj in objs)
+            {
+                obj.GameMode = gameMode;
+            }
+
+            return objs;
         }
 
         /// <summary>
@@ -944,6 +1064,8 @@ namespace OsuSharp
                     Beatmap = GetBeatmap(best.BeatmapId),
                     UserBest = best
                 });
+
+                best.GameMode = gameMode;
             }
 
             return userBestBeatmap;
@@ -982,6 +1104,8 @@ namespace OsuSharp
                         cancellationToken).ConfigureAwait(false),
                     UserBest = best
                 });
+
+                best.GameMode = gameMode;
             }
 
             return userBestBeatmap;
@@ -1013,7 +1137,13 @@ namespace OsuSharp
                 Get(
                     $"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}");
 
-            return JsonConvert.DeserializeObject<List<UserRecent>>(request);
+            var objs = JsonConvert.DeserializeObject<List<UserRecent>>(request);
+            foreach (var obj in objs)
+            {
+                obj.GameMode = gameMode;
+            }
+
+            return objs;
         }
 
         /// <summary>
@@ -1044,7 +1174,13 @@ namespace OsuSharp
                     $"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{username}{mode}{LIMIT_PARAMETER}{limit}",
                     cancellationToken).ConfigureAwait(false);
 
-            return JsonConvert.DeserializeObject<List<UserRecent>>(request);
+            var objs = JsonConvert.DeserializeObject<List<UserRecent>>(request);
+            foreach (var obj in objs)
+            {
+                obj.GameMode = gameMode;
+            }
+
+            return objs;
         }
 
         /// <summary>
@@ -1082,6 +1218,8 @@ namespace OsuSharp
                     Beatmap = GetBeatmap(recent.BeatmapId),
                     UserRecent = recent
                 });
+
+                recent.GameMode = gameMode;
             }
 
             return userRecentBeatmap;
@@ -1125,6 +1263,8 @@ namespace OsuSharp
                         cancellationToken).ConfigureAwait(false),
                     UserRecent = recent
                 });
+
+                recent.GameMode = gameMode;
             }
 
             return userRecentBeatmap;
@@ -1151,7 +1291,13 @@ namespace OsuSharp
                 Get(
                     $"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}");
 
-            return JsonConvert.DeserializeObject<List<UserRecent>>(request);
+            var objs = JsonConvert.DeserializeObject<List<UserRecent>>(request);
+            foreach (var obj in objs)
+            {
+                obj.GameMode = gameMode;
+            }
+
+            return objs;
         }
 
         /// <summary>
@@ -1177,7 +1323,13 @@ namespace OsuSharp
                     $"{GET_USER_RECENT_URL}{API_KEY_PARAMETER}{ApiKey}{USER_PARAMETER}{userid}{mode}{LIMIT_PARAMETER}{limit}",
                     cancellationToken).ConfigureAwait(false);
 
-            return JsonConvert.DeserializeObject<List<UserRecent>>(request);
+            var objs = JsonConvert.DeserializeObject<List<UserRecent>>(request);
+            foreach (var obj in objs)
+            {
+                obj.GameMode = gameMode;
+            }
+
+            return objs;
         }
 
         /// <summary>
@@ -1210,6 +1362,8 @@ namespace OsuSharp
                     Beatmap = GetBeatmap(recent.BeatmapId),
                     UserRecent = recent
                 });
+
+                recent.GameMode = gameMode;
             }
 
             return userRecentBeatmap;
@@ -1247,6 +1401,8 @@ namespace OsuSharp
                         cancellationToken).ConfigureAwait(false),
                     UserRecent = recent
                 });
+
+                recent.GameMode = gameMode;
             }
 
             return userRecentBeatmap;

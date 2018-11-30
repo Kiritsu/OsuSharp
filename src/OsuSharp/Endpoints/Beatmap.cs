@@ -89,6 +89,12 @@ namespace OsuSharp.Endpoints
             => (GameMode) Enum.Parse(typeof(GameMode), _mode.ToString());
 
         /// <summary>
+        ///     Type of the map.
+        /// </summary>
+        [JsonIgnore]
+        public BeatmapType BeatmapType { get; internal set; }
+
+        /// <summary>
         ///     DateTime of beatmap's approval
         /// </summary>
         [JsonProperty("approved_date", NullValueHandling = NullValueHandling.Ignore)]

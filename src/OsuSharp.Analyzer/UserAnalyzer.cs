@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using OsuSharp.Analyzer.Entities;
 using OsuSharp.Endpoints;
 using OsuSharp.Enums;
 using OsuSharp.Interfaces;
@@ -15,7 +16,7 @@ namespace OsuSharp.Analyzer
         /// <summary>
         ///     Fired when an User has been updated.
         /// </summary>
-        public override event EventHandler<User> EntityUpdated;
+        public override event EventHandler<UpdateEventArgs<User>> EntityUpdated;
 
         /// <summary>
         ///     Updates the User associated with the given key.
@@ -29,12 +30,12 @@ namespace OsuSharp.Analyzer
                 throw new InvalidOperationException($"The user with key {key} is not being cached yet.");
             }
 
-            Api.Logger.LogMessage(LoggingLevel.Info, "UserAnalyzer", $"User with key {key} is being updated.", DateTime.Now);
+            Api.Logger.LogMessage(LoggingLevel.Debug, "UserAnalyzer", $"User with key {key} is being updated.", DateTime.Now);
 
             var user = await Api.GetUserByIdAsync(key, usr.GameMode);
 
-            _entities.TryUpdate(key, user, _entities[key]);
-            EntityUpdated?.Invoke(this, _entities[key]);
+            _entities.TryUpdate(key, user, usr);
+            EntityUpdated?.Invoke(this, new UpdateEventArgs<User>(usr, user, Api));
 
             return user;
         }

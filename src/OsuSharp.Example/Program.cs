@@ -42,10 +42,10 @@ namespace OsuSharp.Example
 
                 // Getting a specific user's replay
                 Console.WriteLine("specific replay");
-                var bm = await instance.GetBeatmapAsync(936026).ConfigureAwait(false);
-                var scr = await instance.GetScoreByUsernameAsync(936026, "Sub2PewDiePie").ConfigureAwait(false);
-                var usr = await instance.GetUserByNameAsync("Sub2PewDiePie").ConfigureAwait(false);
-                var rpl = await instance.GetReplayByUsernameAsync(936026, "Sub2PewDiePie").ConfigureAwait(false);
+                var bm = await instance.GetBeatmapAsync(936026);
+                var scr = await instance.GetScoreByUsernameAsync(936026, "Sub2PewDiePie");
+                var usr = await instance.GetUserByNameAsync("Sub2PewDiePie");
+                var rpl = await instance.GetReplayByUsernameAsync(936026, "Sub2PewDiePie");
                 var rp = ReplayFile.CreateReplayFile(rpl, usr, scr, bm);
                 var fs = new FileStream("replay-specific.osr", FileMode.OpenOrCreate);
                 rp.ToStream(fs);
@@ -66,7 +66,7 @@ namespace OsuSharp.Example
                 filestr.Close();
                 Console.WriteLine("top replay done");
 
-                user = await instance.GetUserByNameAsync("Evolia").ConfigureAwait(false);
+                user = await instance.GetUserByNameAsync("Evolia");
                 Console.WriteLine($"User {user.Username} with id {user.Userid}\n" +
                                   $" > Current accuracy : {user.Accuracy}\n" +
                                   $" > Total Score : {user.TotalScore}\n" +
@@ -75,7 +75,7 @@ namespace OsuSharp.Example
                                   $" > Performance Points : {user.Pp}\n" +
                                   $" > Play count : {user.PlayCount}");
 
-                var bests = await instance.GetUserBestByUsernameAsync("Evolia", GameMode.Standard, 20).ConfigureAwait(false);
+                var bests = await instance.GetUserBestByUsernameAsync("Evolia", GameMode.Standard, 20);
                 var cnt = 0;
                 foreach (var best in bests)
                 {
@@ -85,7 +85,7 @@ namespace OsuSharp.Example
                     cnt++;
                 }
 
-                var beatmap = await instance.GetBeatmapAsync(75).ConfigureAwait(false);
+                var beatmap = await instance.GetBeatmapAsync(75);
                 Console.WriteLine($"\n\nBeatmap {beatmap.Title} with id {beatmap.BeatmapId} mapped by {beatmap.Creator}\n" +
                                   $" > Difficulty : {beatmap.Difficulty}\n" +
                                   $" > State : {beatmap.State}\n" +
@@ -96,13 +96,13 @@ namespace OsuSharp.Example
                                   $" > HP : {beatmap.HpDrain}\n" +
                                   $" > Star difficulty : {beatmap.DifficultyRating}\n");
 
-                var userBestsBeatmaps = await instance.GetUserBestAndBeatmapByUsernameAsync("Evolia").ConfigureAwait(false);
+                var userBestsBeatmaps = await instance.GetUserBestAndBeatmapByUsernameAsync("Evolia");
                 foreach (var userBestBeatmap in userBestsBeatmaps)
                 {
-                    Console.WriteLine($"\nScore {userBestBeatmap.UserBest.ScorePoints} with {userBestBeatmap.UserBest.Accuracy} accuracy\nOn map {userBestBeatmap.Beatmap.Title} made by {userBestBeatmap.Beatmap.Creator} with difficulty {userBestBeatmap.Beatmap.Difficulty}");
+                    Console.WriteLine($"\nScore {userBestBeatmap.UserBest.TotalScore} with {userBestBeatmap.UserBest.Accuracy} accuracy\nOn map {userBestBeatmap.Beatmap.Title} made by {userBestBeatmap.Beatmap.Creator} with difficulty {userBestBeatmap.Beatmap.Difficulty}");
                 }
 
-                var beatmapScores = await instance.GetScoresAndBeatmapAsync(75).ConfigureAwait(false);
+                var beatmapScores = await instance.GetScoresAndBeatmapAsync(75);
                 Console.WriteLine($"\n\nBeatmap {beatmapScores.Beatmap.Title} with id {beatmapScores.Beatmap.BeatmapId} mapped by {beatmapScores.Beatmap.Creator}\n" +
                                   $" > Difficulty : {beatmapScores.Beatmap.Difficulty}\n" +
                                   $" > State : {beatmapScores.Beatmap.State}\n" +
@@ -112,12 +112,12 @@ namespace OsuSharp.Example
                                   $" > CS : {beatmapScores.Beatmap.CircleSize}\n" +
                                   $" > HP : {beatmapScores.Beatmap.HpDrain}\n" +
                                   $" > Star difficulty : {beatmapScores.Beatmap.DifficultyRating}");
-                foreach (var score in beatmapScores.Score)
+                foreach (var score in beatmapScores.Scores)
                 {
                     Console.WriteLine($"\nScore {score.TotalScore} with {score.Accuracy}% accuracy made by {score.Username}");
                 }
 
-                var beatmapScoresUsers = await instance.GetScoresWithUsersAndBeatmapAsync(75).ConfigureAwait(false);
+                var beatmapScoresUsers = await instance.GetScoresWithUsersAndBeatmapAsync(75);
                 Console.WriteLine($"\n\nBeatmap {beatmapScores.Beatmap.Title} with id {beatmapScores.Beatmap.BeatmapId} mapped by {beatmapScores.Beatmap.Creator}\n" +
                                   $" > Difficulty : {beatmapScores.Beatmap.Difficulty}\n" +
                                   $" > State : {beatmapScores.Beatmap.State}\n" +
@@ -127,7 +127,7 @@ namespace OsuSharp.Example
                                   $" > CS : {beatmapScores.Beatmap.CircleSize}\n" +
                                   $" > HP : {beatmapScores.Beatmap.HpDrain}\n" +
                                   $" > Star difficulty : {beatmapScores.Beatmap.DifficultyRating}");
-                foreach (var score in beatmapScores.Score)
+                foreach (var score in beatmapScores.Scores)
                 {
                     var currentUser = beatmapScoresUsers.Users.SingleOrDefault(x => x.Username == score.Username);
                     Console.WriteLine(currentUser != null
@@ -140,7 +140,7 @@ namespace OsuSharp.Example
                 Console.WriteLine(e);
             }
 
-            await Task.Delay(Timeout.Infinite).ConfigureAwait(false);
+            await Task.Delay(Timeout.Infinite);
         }
     }
 }

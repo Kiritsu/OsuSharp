@@ -3,7 +3,7 @@ using OsuSharp.Endpoints;
 
 namespace OsuSharp.Analyzer.Interfaces
 {
-    public interface IAnalyzer<TKey, TValue> where TValue : Endpoint
+    public interface IAnalyzer<TKey, TValue>
     {
         /// <summary>
         ///     Represents every entities that are being updated.

@@ -6,7 +6,7 @@ namespace OsuSharp.Entities
     public sealed class BeatmapScores
     {
         public Beatmap Beatmap { get; internal set; }
-        public IReadOnlyList<Score> Score { get; internal set; }
+        public IReadOnlyList<Score> Scores { get; internal set; }
 
         internal BeatmapScores()
         {
