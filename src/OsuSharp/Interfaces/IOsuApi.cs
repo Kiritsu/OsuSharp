@@ -47,7 +47,7 @@ namespace OsuSharp.Interfaces
         ///     <see cref="Beatmap" />
         /// </returns>
         Task<Beatmap> GetBeatmapAsync(long beatmapId, BeatmapType bmType = BeatmapType.ByDifficulty, GameMode gameMode = GameMode.Standard,
-            CancellationToken cancellationToken = default(CancellationToken));
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a list of <see cref="Beatmap" /> by the given creator's nickname.
@@ -72,7 +72,7 @@ namespace OsuSharp.Interfaces
         ///     <see cref="List{T}" />
         /// </returns>
         Task<List<Beatmap>> GetBeatmapsByCreatorAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 500,
-            CancellationToken cancellationToken = default(CancellationToken));
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a list of <see cref="Beatmap" /> by the given beatmapset id.
@@ -99,7 +99,7 @@ namespace OsuSharp.Interfaces
         ///     <see cref="List{T}" />
         /// </returns>
         Task<List<Beatmap>> GetBeatmapsAsync(long id, BeatmapType bmType = BeatmapType.ByBeatmap, GameMode gameMode = GameMode.Standard, int limit = 500,
-            CancellationToken cancellationToken = default(CancellationToken));
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a list of lasts uploaded <see cref="Beatmap" />.
@@ -118,7 +118,7 @@ namespace OsuSharp.Interfaces
         /// <returns>
         ///     <see cref="List{T}" />
         /// </returns>
-        Task<List<Beatmap>> GetLastBeatmapsAsync(int limit, CancellationToken cancellationToken = default(CancellationToken));
+        Task<List<Beatmap>> GetLastBeatmapsAsync(int limit, CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a <see cref="User" /> by the given Username.
@@ -140,7 +140,7 @@ namespace OsuSharp.Interfaces
         ///     <see cref="User" />
         /// </returns>
         Task<User> GetUserByNameAsync(string username, GameMode gameMode = GameMode.Standard,
-            CancellationToken cancellationToken = default(CancellationToken));
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a <see cref="User" /> by the given Userid.
@@ -161,7 +161,7 @@ namespace OsuSharp.Interfaces
         /// <returns>
         ///     <see cref="User" />
         /// </returns>
-        Task<User> GetUserByIdAsync(long userid, GameMode gameMode = GameMode.Standard, CancellationToken cancellationToken = default(CancellationToken));
+        Task<User> GetUserByIdAsync(long userid, GameMode gameMode = GameMode.Standard, CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a <see cref="Score" /> by the given beatmapid and username.
@@ -185,7 +185,7 @@ namespace OsuSharp.Interfaces
         ///     <see cref="Score" />
         /// </returns>
         Task<Score> GetScoreByUsernameAsync(long beatmapid, string username, GameMode gameMode = GameMode.Standard,
-            CancellationToken cancellationToken = default(CancellationToken));
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a <see cref="Score" /> by the given beatmapid and userid.
@@ -209,7 +209,7 @@ namespace OsuSharp.Interfaces
         ///     <see cref="Score" />
         /// </returns>
         Task<Score> GetScoreByUseridAsync(long beatmapid, long userid, GameMode gameMode = GameMode.Standard,
-            CancellationToken cancellationToken = default(CancellationToken));
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a list of <see cref="Score" /> by the given beatmapid.
@@ -233,7 +233,7 @@ namespace OsuSharp.Interfaces
         ///     <see cref="Score" />
         /// </returns>
         Task<List<Score>> GetScoresAsync(long beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50,
-            CancellationToken cancellationToken = default(CancellationToken));
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a list of <see cref="BeatmapScores" /> by the given beatmapid.
@@ -257,7 +257,7 @@ namespace OsuSharp.Interfaces
         ///     <see cref="BeatmapScores" />
         /// </returns>
         Task<BeatmapScores> GetScoresAndBeatmapAsync(long beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50,
-            CancellationToken cancellationToken = default(CancellationToken));
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a list of <see cref="BeatmapScoresUsers" /> by the given beatmapid.
@@ -282,7 +282,7 @@ namespace OsuSharp.Interfaces
         ///     <see cref="BeatmapScoresUsers" />
         /// </returns>
         Task<BeatmapScoresUsers> GetScoresWithUsersAndBeatmapAsync(long beatmapid, GameMode gameMode = GameMode.Standard,
-            int limit = 50, CancellationToken cancellationToken = default(CancellationToken));
+            int limit = 50, CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a list of <see cref="UserBest" /> by the given username.
@@ -307,7 +307,7 @@ namespace OsuSharp.Interfaces
         ///     <see cref="List{T}" />
         /// </returns>
         Task<List<UserBest>> GetUserBestByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 10,
-            CancellationToken cancellationToken = default(CancellationToken));
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a list of <see cref="UserBestBeatmap" /> by the given username.
@@ -332,7 +332,7 @@ namespace OsuSharp.Interfaces
         ///     <see cref="List{T}" />
         /// </returns>
         Task<List<UserBestBeatmap>> GetUserBestAndBeatmapByUsernameAsync(string username,
-            GameMode gameMode = GameMode.Standard, int limit = 10, CancellationToken cancellationToken = default(CancellationToken));
+            GameMode gameMode = GameMode.Standard, int limit = 10, CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a list of <see cref="UserBest" /> by the given userid.
@@ -356,7 +356,7 @@ namespace OsuSharp.Interfaces
         ///     <see cref="List{T}" />
         /// </returns>
         Task<List<UserBest>> GetUserBestByUseridAsync(long userid, GameMode gameMode = GameMode.Standard, int limit = 10,
-            CancellationToken cancellationToken = default(CancellationToken));
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a list of <see cref="UserBestBeatmap" /> by the given username.
@@ -381,7 +381,7 @@ namespace OsuSharp.Interfaces
         ///     <see cref="List{T}" />
         /// </returns>
         Task<List<UserBestBeatmap>> GetUserBestAndBeatmapByUseridAsync(long userid, GameMode gameMode = GameMode.Standard,
-            int limit = 10, CancellationToken cancellationToken = default(CancellationToken));
+            int limit = 10, CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a list of <see cref="UserRecent" /> by the given username.
@@ -406,7 +406,7 @@ namespace OsuSharp.Interfaces
         ///     <see cref="List{T}" />
         /// </returns>
         Task<List<UserRecent>> GetUserRecentByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int limit = 10,
-            CancellationToken cancellationToken = default(CancellationToken));
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a list of <see cref="UserRecentBeatmap" /> by the given username.
@@ -431,7 +431,7 @@ namespace OsuSharp.Interfaces
         ///     <see cref="List{T}" />
         /// </returns>
         Task<List<UserRecentBeatmap>> GetUserRecentAndBeatmapByUsernameAsync(string username,
-            GameMode gameMode = GameMode.Standard, int limit = 10, CancellationToken cancellationToken = default(CancellationToken));
+            GameMode gameMode = GameMode.Standard, int limit = 10, CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a list of <see cref="UserRecent" /> by the given userid.
@@ -456,7 +456,7 @@ namespace OsuSharp.Interfaces
         ///     <see cref="List{T}" />
         /// </returns>
         Task<List<UserRecent>> GetUserRecentByUseridAsync(long userid, GameMode gameMode = GameMode.Standard, int limit = 10,
-            CancellationToken cancellationToken = default(CancellationToken));
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a list of <see cref="UserRecentBeatmap" /> by the given userid.
@@ -481,7 +481,7 @@ namespace OsuSharp.Interfaces
         ///     <see cref="List{T}" />
         /// </returns>
         Task<List<UserRecentBeatmap>> GetUserRecentAndBeatmapByUseridAsync(long userid, GameMode gameMode = GameMode.Standard,
-            int limit = 10, CancellationToken cancellationToken = default(CancellationToken));
+            int limit = 10, CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a <see cref="Multiplayer" /> by the given matchid.
@@ -500,7 +500,7 @@ namespace OsuSharp.Interfaces
         /// <returns>
         ///     <see cref="Multiplayer" />
         /// </returns>
-        Task<Multiplayer> GetMatchAsync(long matchid, CancellationToken cancellationToken = default(CancellationToken));
+        Task<Multiplayer> GetMatchAsync(long matchid, CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a <see cref="Replay" /> by the given beatmapid and username.
@@ -524,7 +524,7 @@ namespace OsuSharp.Interfaces
         ///     <see cref="Replay" />
         /// </returns>
         Task<Replay> GetReplayByUsernameAsync(long beatmapid, string username, GameMode gameMode = GameMode.Standard,
-            CancellationToken cancellationToken = default(CancellationToken));
+            CancellationToken cancellationToken = default);
 
         /// <summary>
         ///     Method that returns a <see cref="Replay" /> by the given beatmapid and userid.
@@ -548,6 +548,6 @@ namespace OsuSharp.Interfaces
         ///     <see cref="Replay" />
         /// </returns>
         Task<Replay> GetReplayByUseridAsync(long beatmapid, long userid, GameMode gameMode = GameMode.Standard,
-            CancellationToken cancellationToken = default(CancellationToken));
+            CancellationToken cancellationToken = default);
     }
 }

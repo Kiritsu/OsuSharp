@@ -5,6 +5,6 @@ namespace OsuSharp.Interfaces
 {
     public interface IRateLimiter
     {
-        Task HandleAsync(CancellationToken cancellationToken = default(CancellationToken));
+        Task HandleAsync(CancellationToken cancellationToken = default);
     }
 }

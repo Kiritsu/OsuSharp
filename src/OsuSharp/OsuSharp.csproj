@@ -15,6 +15,7 @@
     <FileVersion>3.2.0.0</FileVersion>
     <PackageProjectUrl>https://github.com/Kiritsu/OsuSharp</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/Kiritsu/OsuSharp/blob/master/LICENSE.md</PackageLicenseUrl>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

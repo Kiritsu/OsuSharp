@@ -34,7 +34,7 @@ namespace OsuSharp
             Time = DateTime.Now + timeInterval;
         }
 
-        public async Task HandleAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public async Task HandleAsync(CancellationToken cancellationToken = default)
         {
             await Semaphore.WaitAsync(cancellationToken).ConfigureAwait(false);
 

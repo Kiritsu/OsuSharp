@@ -135,7 +135,7 @@ namespace OsuSharp
         ///     <see cref="Beatmap" />
         /// </returns>
         public async Task<Beatmap> GetBeatmapAsync(long beatmapId, BeatmapType bmType = BeatmapType.ByDifficulty,
-            GameMode gameMode = GameMode.Standard, CancellationToken cancellationToken = default(CancellationToken))
+            GameMode gameMode = GameMode.Standard, CancellationToken cancellationToken = default)
         {
             var mode = UserMode.ToString(gameMode);
             var type = BeatmapParam.ToString(bmType);
@@ -203,7 +203,7 @@ namespace OsuSharp
         ///     <see cref="List{T}" />
         /// </returns>
         public async Task<List<Beatmap>> GetBeatmapsByCreatorAsync(string username, GameMode gameMode = GameMode.Standard,
-            int limit = 500, CancellationToken cancellationToken = default(CancellationToken))
+            int limit = 500, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(username))
             {
@@ -273,7 +273,7 @@ namespace OsuSharp
         ///     <see cref="List{T}" />
         /// </returns>
         public async Task<List<Beatmap>> GetBeatmapsAsync(long id, BeatmapType bmType = BeatmapType.ByBeatmap,
-            GameMode gameMode = GameMode.Standard, int limit = 500, CancellationToken cancellationToken = default(CancellationToken))
+            GameMode gameMode = GameMode.Standard, int limit = 500, CancellationToken cancellationToken = default)
         {
             var mode = UserMode.ToString(gameMode);
             var type = BeatmapParam.ToString(bmType);
@@ -325,7 +325,7 @@ namespace OsuSharp
         /// <returns>
         ///     <see cref="List{T}" />
         /// </returns>
-        public async Task<List<Beatmap>> GetLastBeatmapsAsync(int limit, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<List<Beatmap>> GetLastBeatmapsAsync(int limit, CancellationToken cancellationToken = default)
         {
             Logger.LogMessage(LoggingLevel.Debug, "Endpoints", $"/api/get_beatmap called: {GetNameValues(limit)}",
                 DateTime.Now);
@@ -384,7 +384,7 @@ namespace OsuSharp
         ///     <see cref="User" />
         /// </returns>
         public async Task<User> GetUserByNameAsync(string username, GameMode gameMode = GameMode.Standard,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(username))
             {
@@ -447,7 +447,7 @@ namespace OsuSharp
         ///     <see cref="User" />
         /// </returns>
         public async Task<User> GetUserByIdAsync(long userid, GameMode gameMode = GameMode.Standard,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             var mode = UserMode.ToString(gameMode);
 
@@ -513,7 +513,7 @@ namespace OsuSharp
         ///     <see cref="Score" />
         /// </returns>
         public async Task<Score> GetScoreByUsernameAsync(long beatmapid, string username, GameMode gameMode = GameMode.Standard,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(username))
             {
@@ -581,7 +581,7 @@ namespace OsuSharp
         ///     <see cref="Score" />
         /// </returns>
         public async Task<Score> GetScoreByUseridAsync(long beatmapid, long userid, GameMode gameMode = GameMode.Standard,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             var mode = UserMode.ToString(gameMode);
 
@@ -643,7 +643,7 @@ namespace OsuSharp
         ///     <see cref="Score" />
         /// </returns>
         public async Task<List<Score>> GetScoresAsync(long beatmapid, GameMode gameMode = GameMode.Standard, int limit = 50,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             var mode = UserMode.ToString(gameMode);
 
@@ -710,7 +710,7 @@ namespace OsuSharp
         ///     <see cref="BeatmapScores" />
         /// </returns>
         public async Task<BeatmapScores> GetScoresAndBeatmapAsync(long beatmapid, GameMode gameMode = GameMode.Standard,
-            int limit = 50, CancellationToken cancellationToken = default(CancellationToken))
+            int limit = 50, CancellationToken cancellationToken = default)
         {
             var mode = UserMode.ToString(gameMode);
 
@@ -783,7 +783,7 @@ namespace OsuSharp
         ///     <see cref="BeatmapScoresUsers" />
         /// </returns>
         public async Task<BeatmapScoresUsers> GetScoresWithUsersAndBeatmapAsync(long beatmapid, GameMode gameMode = GameMode.Standard,
-            int limit = 50, CancellationToken cancellationToken = default(CancellationToken))
+            int limit = 50, CancellationToken cancellationToken = default)
         {
             var mode = UserMode.ToString(gameMode);
 
@@ -859,7 +859,7 @@ namespace OsuSharp
         ///     <see cref="List{T}" />
         /// </returns>
         public async Task<List<UserBest>> GetUserBestByUsernameAsync(string username, GameMode gameMode = GameMode.Standard,
-            int limit = 10, CancellationToken cancellationToken = default(CancellationToken))
+            int limit = 10, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(username))
             {
@@ -939,7 +939,7 @@ namespace OsuSharp
         ///     <see cref="List{T}" />
         /// </returns>
         public async Task<List<UserBestBeatmap>> GetUserBestAndBeatmapByUsernameAsync(string username,
-            GameMode gameMode = GameMode.Standard, int limit = 10, CancellationToken cancellationToken = default(CancellationToken))
+            GameMode gameMode = GameMode.Standard, int limit = 10, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(username))
             {
@@ -1013,7 +1013,7 @@ namespace OsuSharp
         ///     <see cref="List{T}" />
         /// </returns>
         public async Task<List<UserBest>> GetUserBestByUseridAsync(long userid, GameMode gameMode = GameMode.Standard,
-            int limit = 10, CancellationToken cancellationToken = default(CancellationToken))
+            int limit = 10, CancellationToken cancellationToken = default)
         {
             var mode = UserMode.ToString(gameMode);
 
@@ -1082,7 +1082,7 @@ namespace OsuSharp
         ///     <see cref="List{T}" />
         /// </returns>
         public async Task<List<UserBestBeatmap>> GetUserBestAndBeatmapByUseridAsync(long userid, GameMode gameMode = GameMode.Standard,
-            int limit = 10, CancellationToken cancellationToken = default(CancellationToken))
+            int limit = 10, CancellationToken cancellationToken = default)
         {
             var mode = UserMode.ToString(gameMode);
 
@@ -1157,7 +1157,7 @@ namespace OsuSharp
         ///     <see cref="List{T}" />
         /// </returns>
         public async Task<List<UserRecent>> GetUserRecentByUsernameAsync(string username, GameMode gameMode = GameMode.Standard,
-            int limit = 10, CancellationToken cancellationToken = default(CancellationToken))
+            int limit = 10, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(username))
             {
@@ -1236,7 +1236,7 @@ namespace OsuSharp
         ///     <see cref="List{T}" />
         /// </returns>
         public async Task<List<UserRecentBeatmap>> GetUserRecentAndBeatmapByUsernameAsync(string username,
-            GameMode gameMode = GameMode.Standard, int limit = 10, CancellationToken cancellationToken = default(CancellationToken))
+            GameMode gameMode = GameMode.Standard, int limit = 10, CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(username))
             {
@@ -1311,7 +1311,7 @@ namespace OsuSharp
         ///     <see cref="List{T}" />
         /// </returns>
         public async Task<List<UserRecent>> GetUserRecentByUseridAsync(long userid, GameMode gameMode = GameMode.Standard,
-            int limit = 10, CancellationToken cancellationToken = default(CancellationToken))
+            int limit = 10, CancellationToken cancellationToken = default)
         {
             var mode = UserMode.ToString(gameMode);
 
@@ -1380,7 +1380,7 @@ namespace OsuSharp
         ///     <see cref="List{T}" />
         /// </returns>
         public async Task<List<UserRecentBeatmap>> GetUserRecentAndBeatmapByUseridAsync(long userid, GameMode gameMode = GameMode.Standard,
-            int limit = 10, CancellationToken cancellationToken = default(CancellationToken))
+            int limit = 10, CancellationToken cancellationToken = default)
         {
             var mode = UserMode.ToString(gameMode);
 
@@ -1433,7 +1433,7 @@ namespace OsuSharp
         /// <returns>
         ///     <see cref="Multiplayer" />
         /// </returns>
-        public async Task<Multiplayer> GetMatchAsync(long matchid, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<Multiplayer> GetMatchAsync(long matchid, CancellationToken cancellationToken = default)
         {
             Logger.LogMessage(LoggingLevel.Debug, "Endpoints", "/api/get_match called:", DateTime.Now);
 
@@ -1483,7 +1483,7 @@ namespace OsuSharp
         ///     <see cref="Replay" />
         /// </returns>
         public async Task<Replay> GetReplayByUsernameAsync(long beatmapid, string username, GameMode gameMode = GameMode.Standard,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             if (string.IsNullOrWhiteSpace(username))
             {
@@ -1535,7 +1535,7 @@ namespace OsuSharp
         ///     <see cref="Replay" />
         /// </returns>
         public async Task<Replay> GetReplayByUseridAsync(long beatmapid, long userid, GameMode gameMode = GameMode.Standard,
-            CancellationToken cancellationToken = default(CancellationToken))
+            CancellationToken cancellationToken = default)
         {
             var mode = UserMode.ToString(gameMode);
 
@@ -1587,7 +1587,7 @@ namespace OsuSharp
                 .ConfigureAwait(false).GetAwaiter().GetResult());
         }
 
-        private async Task<string> GetAsync(string url, CancellationToken cancellationToken = default(CancellationToken))
+        private async Task<string> GetAsync(string url, CancellationToken cancellationToken = default)
         {
             await Limiter.HandleAsync(cancellationToken).ConfigureAwait(false);
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using OsuSharp.Analyzer.Entities;
 using OsuSharp.Endpoints;
@@ -19,7 +20,7 @@ namespace OsuSharp.Analyzer
 
         public override event EventHandler<UpdateEventArgs<List<UserBest>>> EntityUpdated;
 
-        public override async Task<List<UserBest>> UpdateEntityAsync(long key)
+        public override async Task<List<UserBest>> UpdateEntityAsync(long key, CancellationToken token = default)
         {
             if (!_entities.TryGetValue(key, out var old))
             {
@@ -28,7 +29,7 @@ namespace OsuSharp.Analyzer
 
             Api.Logger.LogMessage(LoggingLevel.Debug, "UserAnalyzer", $"Scores for user {key} are being updated.", DateTime.Now);
 
-            var scores = await Api.GetUserBestByUseridAsync(key, _entities[key][0].GameMode, _limit);
+            var scores = await Api.GetUserBestByUseridAsync(key, _entities[key][0].GameMode, _limit, token);
 
             RemoveEntity(key);
             AddEntity(key, scores);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using OsuSharp.Analyzer.Entities;
 using OsuSharp.Endpoints;
@@ -23,7 +24,7 @@ namespace OsuSharp.Analyzer
         /// </summary>
         /// <param name="key">Key associated with the User.</param>
         /// <returns></returns>
-        public override async Task<User> UpdateEntityAsync(long key)
+        public override async Task<User> UpdateEntityAsync(long key, CancellationToken token = default)
         {
             if (!_entities.TryGetValue(key, out var usr))
             {
@@ -32,7 +33,7 @@ namespace OsuSharp.Analyzer
 
             Api.Logger.LogMessage(LoggingLevel.Debug, "UserAnalyzer", $"User with key {key} is being updated.", DateTime.Now);
 
-            var user = await Api.GetUserByIdAsync(key, usr.GameMode);
+            var user = await Api.GetUserByIdAsync(key, usr.GameMode, token);
 
             _entities.TryUpdate(key, user, usr);
             EntityUpdated?.Invoke(this, new UpdateEventArgs<User>(usr, user, Api));
@@ -52,7 +53,7 @@ namespace OsuSharp.Analyzer
         /// </summary>
         /// <param name="user">User object to update.</param>
         /// <returns></returns>
-        public Task<User> UpdateEntityAsync(User user)
-            => UpdateEntityAsync(user.Userid);
+        public Task<User> UpdateEntityAsync(User user, CancellationToken token = default)
+            => UpdateEntityAsync(user.Userid, token);
     }
 }

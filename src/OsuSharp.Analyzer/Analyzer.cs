@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using OsuSharp.Analyzer.Entities;
 using OsuSharp.Analyzer.Interfaces;
-using OsuSharp.Endpoints;
 using OsuSharp.Interfaces;
 
 namespace OsuSharp.Analyzer
@@ -49,7 +49,7 @@ namespace OsuSharp.Analyzer
         /// </summary>
         /// <param name="key">Key associated with the TValue.</param>
         /// <returns></returns>
-        public abstract Task<TValue> UpdateEntityAsync(TKey key);
+        public abstract Task<TValue> UpdateEntityAsync(TKey key, CancellationToken token = default);
 
         /// <summary>
         ///     Fires when a value has been updated.
