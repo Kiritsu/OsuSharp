@@ -1,11 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <AssemblyVersion>3.2.0.0</AssemblyVersion>
-    <FileVersion>3.2.0.0</FileVersion>
-    <Version>3.2.0</Version>
+    <ProjectUrl>https://github.com/Kiritsu/OsuSharp</ProjectUrl>
+    <PackageProjectUrl>https://github.com/Kiritsu/OsuSharp</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/Kiritsu/OsuSharp/blob/master/LICENSE.md</PackageLicenseUrl>
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 
