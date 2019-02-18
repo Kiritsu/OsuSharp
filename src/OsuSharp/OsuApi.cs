@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,6 +24,7 @@ namespace OsuSharp
         private const string UserRecent = "/api/get_user_recent";
 
         private const string Match = "/api/get_match";
+
         private const string Replay = "/api/get_replay";
 
         private OsuSharpConfiguration OsuSharpConfiguration { get; }
@@ -76,8 +78,12 @@ namespace OsuSharp
         /// <returns><see cref="IReadOnlyList{Beatmap}"/></returns>
         public async Task<IReadOnlyList<Beatmap>> GetBeatmapsAsync(int limit = 500, CancellationToken token = default)
         {
-            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}";
-            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            var dict = new Dictionary<string, object>
+            {
+                ["limit"] = limit
+            };
+
+            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
         }
 
@@ -90,8 +96,13 @@ namespace OsuSharp
         /// <returns></returns>
         public async Task<IReadOnlyList<Beatmap>> GetBeatmapsAsync(DateTimeOffset since, int limit = 500, CancellationToken token = default)
         {
-            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&since={since:yyyy-MM-dd HH:mm:ss}";
-            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            var dict = new Dictionary<string, object>
+            {
+                ["limit"] = limit,
+                ["since"] = since.ToString("yyyy-MM-dd HH:mm:ss"),
+            };
+
+            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
         }
 
@@ -105,8 +116,14 @@ namespace OsuSharp
         /// <returns><see cref="IReadOnlyList{Beatmap}"/></returns>
         public async Task<IReadOnlyList<Beatmap>> GetBeatmapsAsync(GameMode gameMode = GameMode.Standard, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
         {
-            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&m={(int)gameMode}&a={(includeConvertedBeatmaps ? 1 : 0)}";
-            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            var dict = new Dictionary<string, object>
+            {
+                ["limit"] = limit,
+                ["a"] = includeConvertedBeatmaps ? 1 : 0,
+                ["m"] = (int)gameMode
+            };
+
+            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
         }
 
@@ -121,8 +138,15 @@ namespace OsuSharp
         /// <returns></returns>
         public async Task<IReadOnlyList<Beatmap>> GetBeatmapsAsync(DateTimeOffset since, GameMode gameMode = GameMode.Standard, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
         {
-            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&since={since:yyyy-MM-dd HH:mm:ss}&m={(int)gameMode}&a={(includeConvertedBeatmaps ? 1 : 0)}";
-            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            var dict = new Dictionary<string, object>
+            {
+                ["limit"] = limit,
+                ["since"] = since.ToString("yyyy-MM-dd HH:mm:ss"),
+                ["a"] = includeConvertedBeatmaps ? 1 : 0,
+                ["m"] = (int)gameMode
+            };
+
+            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
         }
 
@@ -137,8 +161,16 @@ namespace OsuSharp
         /// <returns></returns>
         public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorIdAsync(long authorId, DateTimeOffset since, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
         {
-            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&since={since:yyyy-MM-dd HH;mm:ss}&a={(includeConvertedBeatmaps ? 1 : 0)}&type=id&u={authorId}";
-            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            var dict = new Dictionary<string, object>
+            {
+                ["limit"] = limit,
+                ["since"] = since.ToString("yyyy-MM-dd HH:mm:ss"),
+                ["a"] = includeConvertedBeatmaps ? 1 : 0,
+                ["type"] = "id",
+                ["u"] = authorId
+            };
+
+            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
         }
 
@@ -154,8 +186,17 @@ namespace OsuSharp
         /// <returns></returns>
         public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorIdAsync(long authorId, DateTimeOffset since, GameMode gameMode = GameMode.Standard, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
         {
-            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&since={since:yyyy-MM-dd HH;mm:ss}&a={(includeConvertedBeatmaps ? 1 : 0)}&type=id&u={authorId}&m={(int)gameMode}";
-            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            var dict = new Dictionary<string, object>
+            {
+                ["limit"] = limit,
+                ["since"] = since.ToString("yyyy-MM-dd HH:mm:ss"),
+                ["a"] = includeConvertedBeatmaps ? 1 : 0,
+                ["type"] = "id",
+                ["u"] = authorId,
+                ["m"] = (int)gameMode
+            };
+
+            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
         }
 
@@ -169,8 +210,15 @@ namespace OsuSharp
         /// <returns></returns>
         public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorIdAsync(long authorId, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
         {
-            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&a={(includeConvertedBeatmaps ? 1 : 0)}&type=id&u={authorId}";
-            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            var dict = new Dictionary<string, object>
+            {
+                ["limit"] = limit,
+                ["a"] = includeConvertedBeatmaps ? 1 : 0,
+                ["type"] = "id",
+                ["u"] = authorId
+            };
+
+            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
         }
 
@@ -185,8 +233,16 @@ namespace OsuSharp
         /// <returns></returns>
         public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorIdAsync(long authorId, GameMode gameMode = GameMode.Standard, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
         {
-            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&a={(includeConvertedBeatmaps ? 1 : 0)}&type=id&u={authorId}&m={(int)gameMode}";
-            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            var dict = new Dictionary<string, object>
+            {
+                ["limit"] = limit,
+                ["a"] = includeConvertedBeatmaps ? 1 : 0,
+                ["type"] = "id",
+                ["u"] = authorId,
+                ["m"] = (int)gameMode
+            };
+
+            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
         }
 
@@ -201,8 +257,16 @@ namespace OsuSharp
         /// <returns></returns>
         public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorUsernameAsync(string username, DateTimeOffset since, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
         {
-            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&since={since:yyyy-MM-dd HH;mm:ss}&a={(includeConvertedBeatmaps ? 1 : 0)}&type=string&u={username}";
-            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            var dict = new Dictionary<string, object>
+            {
+                ["limit"] = limit,
+                ["since"] = since.ToString("yyyy-MM-dd HH:mm:ss"),
+                ["a"] = includeConvertedBeatmaps ? 1 : 0,
+                ["type"] = "string",
+                ["u"] = username
+            };
+
+            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
         }
 
@@ -218,8 +282,17 @@ namespace OsuSharp
         /// <returns></returns>
         public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorUsernameAsync(string username, DateTimeOffset since, GameMode gameMode = GameMode.Standard, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
         {
-            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&since={since:yyyy-MM-dd HH;mm:ss}&a={(includeConvertedBeatmaps ? 1 : 0)}&type=string&u={username}&m={(int)gameMode}";
-            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            var dict = new Dictionary<string, object>
+            {
+                ["limit"] = limit,
+                ["since"] = since.ToString("yyyy-MM-dd HH:mm:ss"),
+                ["a"] = includeConvertedBeatmaps ? 1 : 0,
+                ["type"] = "string",
+                ["u"] = username,
+                ["m"] = (int)gameMode
+            };
+
+            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
         }
 
@@ -233,8 +306,15 @@ namespace OsuSharp
         /// <returns></returns>
         public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorUsernameAsync(string username, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
         {
-            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&a={(includeConvertedBeatmaps ? 1 : 0)}&type=string&u={username}";
-            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            var dict = new Dictionary<string, object>
+            {
+                ["limit"] = limit,
+                ["a"] = includeConvertedBeatmaps ? 1 : 0,
+                ["type"] = "string",
+                ["u"] = username
+            };
+
+            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
         }
 
@@ -249,8 +329,16 @@ namespace OsuSharp
         /// <returns></returns>
         public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorUsernameAsync(string username, GameMode gameMode = GameMode.Standard, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
         {
-            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&a={(includeConvertedBeatmaps ? 1 : 0)}&type=string&u={username}&m={(int)gameMode}";
-            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            var dict = new Dictionary<string, object>
+            {
+                ["limit"] = limit,
+                ["a"] = includeConvertedBeatmaps ? 1 : 0,
+                ["type"] = "string",
+                ["u"] = username,
+                ["m"] = (int)gameMode
+            };
+
+            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
         }
 
@@ -262,8 +350,12 @@ namespace OsuSharp
         /// <returns></returns>
         public async Task<IReadOnlyList<Beatmap>> GetBeatmapsetAsync(long beatmapsetId, CancellationToken token = default)
         {
-            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&s={beatmapsetId}";
-            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            var dict = new Dictionary<string, object>
+            {
+                ["s"] = beatmapsetId
+            };
+
+            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
         }
 
@@ -276,21 +368,30 @@ namespace OsuSharp
         /// <returns></returns>
         public async Task<IReadOnlyList<Beatmap>> GetBeatmapsetAsync(long beatmapsetId, GameMode gameMode = GameMode.Standard, CancellationToken token = default)
         {
-            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&m={(int)gameMode}&s={beatmapsetId}";
-            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            var dict = new Dictionary<string, object>
+            {
+                ["m"] = (int)gameMode,
+                ["s"] = beatmapsetId
+            };
+
+            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
         }
 
         /// <summary>
         ///     Gets a beatmap by it's id.
-        /// </summary>
+        /// </summary>C:\Users\Allan\Desktop\OsuSharp\src\OsuSharp\OsuApi.cs
         /// <param name="beatmapId">Id of the beatmap.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
         public async Task<Beatmap> GetBeatmapByIdAsync(long beatmapId, CancellationToken token = default)
         {
-            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&b={beatmapId}";
-            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            var dict = new Dictionary<string, object>
+            {
+                ["b"] = beatmapId
+            };
+
+            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
 
             var data = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
             if (data.Count > 0)
@@ -309,8 +410,12 @@ namespace OsuSharp
         /// <returns></returns>
         public async Task<Beatmap> GetBeatmapByHashAsync(string hash, CancellationToken token = default)
         {
-            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&h={hash}";
-            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            var dict = new Dictionary<string, object>
+            {
+                ["h"] = hash
+            };
+
+            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
 
             var data = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
             if (data.Count > 0)
@@ -323,13 +428,29 @@ namespace OsuSharp
 
         #endregion
 
-        private async Task<string> RequestAsync(string url, CancellationToken token = default)
+        private async Task<string> RequestAsync(string endpoint, Dictionary<string, object> parameters, CancellationToken token = default)
         {
-            await RateLimiter.HandleAsync(token);
+            await RateLimiter.HandleAsync(token).ConfigureAwait(false);
             RateLimiter.IncrementRequestCount();
 
+            string url;
+            if (parameters is null || parameters.Count == 0)
+            {
+                url = $"{Root}{endpoint}?k={OsuSharpConfiguration.ApiKey}";
+            }
+            else
+            {
+                var builder = new StringBuilder($"{Root}{endpoint}?k={OsuSharpConfiguration.ApiKey}");
+                foreach (var kvp in parameters)
+                {
+                    builder.Append($"&{kvp.Key}={kvp.Value}");
+                }
+
+                url = builder.ToString();
+            }
+
             var response = await OsuSharpConfiguration.Client.GetAsync(url, token).ConfigureAwait(false);
-            var message = await response.Content.ReadAsStringAsync();
+            var message = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
