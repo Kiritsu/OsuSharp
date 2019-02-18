@@ -428,25 +428,22 @@ namespace OsuSharp
 
         #endregion
 
-        private async Task<string> RequestAsync(string endpoint, Dictionary<string, object> parameters, CancellationToken token = default)
+        private async Task<string> RequestAsync(string endpoint, Dictionary<string, object> parameters = null, CancellationToken token = default)
         {
             await RateLimiter.HandleAsync(token).ConfigureAwait(false);
             RateLimiter.IncrementRequestCount();
 
-            string url;
-            if (parameters is null || parameters.Count == 0)
+            var url = $"{Root}{endpoint}?k={OsuSharpConfiguration.ApiKey}";
+            
+            if (parameters != null && parameters.Count > 0)
             {
-                url = $"{Root}{endpoint}?k={OsuSharpConfiguration.ApiKey}";
-            }
-            else
-            {
-                var builder = new StringBuilder($"{Root}{endpoint}?k={OsuSharpConfiguration.ApiKey}");
+                var builder = new StringBuilder();
                 foreach (var kvp in parameters)
                 {
                     builder.Append($"&{kvp.Key}={kvp.Value}");
                 }
 
-                url = builder.ToString();
+                url += builder.ToString();
             }
 
             var response = await OsuSharpConfiguration.Client.GetAsync(url, token).ConfigureAwait(false);
