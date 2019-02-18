@@ -69,9 +69,9 @@ namespace OsuSharp
         #region Beatmap
 
         /// <summary>
-        ///     Gets lasts beatmaps depending on the given limit. Default and maximum to 500.
+        ///     Gets lasts published beatmaps.
         /// </summary>
-        /// <param name="limit">Limit amount of beatmap.</param>
+        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns><see cref="IReadOnlyList{Beatmap}"/></returns>
         public async Task<IReadOnlyList<Beatmap>> GetBeatmapsAsync(int limit = 500, CancellationToken token = default)
@@ -82,10 +82,10 @@ namespace OsuSharp
         }
 
         /// <summary>
-        ///     Gets lasts beatmaps published since the given <see cref="DateTimeOffset"/> depending on the specified limit. Default and maximum to 500.
+        ///     Gets lasts published beatmaps since a specific <see cref="DateTimeOffset"/>.
         /// </summary>
-        /// <param name="since">Date and time reference.</param>
-        /// <param name="limit">Limit amount of beatmap.</param>
+        /// <param name="since">Start <see cref="DateTimeOffset"> reference.</param>
+        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
         public async Task<IReadOnlyList<Beatmap>> GetBeatmapsAsync(DateTimeOffset since, int limit = 500, CancellationToken token = default)
@@ -96,34 +96,213 @@ namespace OsuSharp
         }
 
         /// <summary>
-        ///     Gets lasts beatmaps depending on the specified limit, the game mode and if we include converted beatmaps. Default and maximum to 500 for the limit.
+        ///     Gets lasts published beatmaps on a specific <see cref="GameMode"/>.
         /// </summary>
-        /// <param name="limit">Limit amount of beatmap.</param>
+        /// <param name="gameMode">Game mode of the beatmaps.</param>
+        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
+        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns><see cref="IReadOnlyList{Beatmap}"/></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsAsync(GameMode gameMode, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsAsync(GameMode gameMode = GameMode.Standard, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
         {
-            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&m={gameMode}&a={(includeConvertedBeatmaps ? 1 : 0)}";
+            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&m={(int)gameMode}&a={(includeConvertedBeatmaps ? 1 : 0)}";
             var request = await RequestAsync(url, token).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
         }
 
         /// <summary>
-        ///     Gets lasts beatmaps published since the given <see cref="DateTimeOffset"/> depending on the specified limit, the game mode and if we include converted beatmaps. Default and maximum to 500 for the limit.
+        ///     Gets lasts published beatmaps since a specific <see cref="DateTimeOffset"/> on a specific <see cref="GameMode"/>.
         /// </summary>
-        /// <param name="since">Date and time reference.</param>
-        /// <param name="limit">Limit amount of beatmap.</param>
+        /// <param name="since">Start <see cref="DateTimeOffset"> reference.</param>
+        /// <param name="gameMode">Game mode of the beatmaps.</param>
+        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
+        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsAsync(GameMode gameMode, DateTimeOffset since, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsAsync(DateTimeOffset since, GameMode gameMode = GameMode.Standard, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
         {
-            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&since={since:yyyy-MM-dd HH:mm:ss}&m={gameMode}&a={(includeConvertedBeatmaps ? 1 : 0)}";
+            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&since={since:yyyy-MM-dd HH:mm:ss}&m={(int)gameMode}&a={(includeConvertedBeatmaps ? 1 : 0)}";
             var request = await RequestAsync(url, token).ConfigureAwait(false);
             return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
         }
 
         /// <summary>
-        ///     Gets the beatmap corresponding to the given hash.
+        ///     Gets lasts beatmaps published by the given author id since a specific <see cref="DateTimeOffset"/>.
+        /// </summary>
+        /// <param name="authorId">Id of the author.</param>
+        /// <param name="since">Start <see cref="DateTimeOffset"> reference.</param>
+        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
+        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorIdAsync(long authorId, DateTimeOffset since, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        {
+            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&since={since:yyyy-MM-dd HH;mm:ss}&a={(includeConvertedBeatmaps ? 1 : 0)}&type=id&u={authorId}";
+            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+        }
+
+        /// <summary>
+        ///     Gets lasts beatmaps published by the given author id since a specific <see cref="DateTimeOffset"/> on a specific <see cref="GameMode"/>.
+        /// </summary>
+        /// <param name="authorId">Id of the author.</param>
+        /// <param name="since">Start <see cref="DateTimeOffset"> reference.</param>
+        /// <param name="gameMode">Game mode of the beatmaps.</param>
+        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
+        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorIdAsync(long authorId, DateTimeOffset since, GameMode gameMode = GameMode.Standard, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        {
+            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&since={since:yyyy-MM-dd HH;mm:ss}&a={(includeConvertedBeatmaps ? 1 : 0)}&type=id&u={authorId}&m={(int)gameMode}";
+            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+        }
+
+        /// <summary>
+        ///     Gets lasts beatmaps published by the given author id.
+        /// </summary>
+        /// <param name="authorId">Id of the author.</param>
+        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
+        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorIdAsync(long authorId, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        {
+            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&a={(includeConvertedBeatmaps ? 1 : 0)}&type=id&u={authorId}";
+            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+        }
+
+        /// <summary>
+        ///     Gets lasts beatmaps published by the given author id on a specific <see cref="GameMode"/>.
+        /// </summary>
+        /// <param name="authorId">Id of the author.</param>
+        /// <param name="gameMode">Game mode of the beatmaps.</param>
+        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
+        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorIdAsync(long authorId, GameMode gameMode = GameMode.Standard, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        {
+            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&a={(includeConvertedBeatmaps ? 1 : 0)}&type=id&u={authorId}&m={(int)gameMode}";
+            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+        }
+
+        /// <summary>
+        ///     Gets lasts beatmaps published by the given author username since a specific <see cref="DateTimeOffset"/>.
+        /// </summary>
+        /// <param name="username">Username of the author.</param>
+        /// <param name="since">Start <see cref="DateTimeOffset"> reference.</param>
+        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
+        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorUsernameAsync(string username, DateTimeOffset since, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        {
+            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&since={since:yyyy-MM-dd HH;mm:ss}&a={(includeConvertedBeatmaps ? 1 : 0)}&type=string&u={username}";
+            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+        }
+
+        /// <summary>
+        ///     Gets lasts beatmaps published by the given author username since a specific <see cref="DateTimeOffset"/> on a specific <see cref="GameMode"/>.
+        /// </summary>
+        /// <param name="username">Username of the author.</param>
+        /// <param name="since">Start <see cref="DateTimeOffset"> reference.</param>
+        /// <param name="gameMode">Game mode of the beatmaps.</param>
+        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
+        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorUsernameAsync(string username, DateTimeOffset since, GameMode gameMode = GameMode.Standard, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        {
+            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&since={since:yyyy-MM-dd HH;mm:ss}&a={(includeConvertedBeatmaps ? 1 : 0)}&type=string&u={username}&m={(int)gameMode}";
+            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+        }
+
+        /// <summary>
+        ///     Gets lasts beatmaps published by the given author username.
+        /// </summary>
+        /// <param name="username">Username of the author.</param>
+        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
+        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorUsernameAsync(string username, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        {
+            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&a={(includeConvertedBeatmaps ? 1 : 0)}&type=string&u={username}";
+            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+        }
+
+        /// <summary>
+        ///     Gets lasts beatmaps published by the given author username on a specific <see cref="GameMode"/>.
+        /// </summary>
+        /// <param name="username">Username of the author.</param>
+        /// <param name="gameMode">Game mode of the beatmaps.</param>
+        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
+        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorUsernameAsync(string username, GameMode gameMode = GameMode.Standard, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        {
+            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&limit={limit}&a={(includeConvertedBeatmaps ? 1 : 0)}&type=string&u={username}&m={(int)gameMode}";
+            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+        }
+
+        /// <summary>
+        ///     Gets a set of beatmaps depending on the beatmapset id.
+        /// </summary>
+        /// <param name="beatmapsetId">Id of the beatmapset.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsetAsync(long beatmapsetId, CancellationToken token = default)
+        {
+            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&s={beatmapsetId}";
+            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+        }
+
+        /// <summary>
+        ///      Gets a set of beatmaps on a specific <see cref="GameMode"/> depending on the beatmapset id.
+        /// </summary>
+        /// <param name="beatmapsetId">Id of the beatmapset.</param>
+        /// <param name="gameMode">Game mode of the beatmaps.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsetAsync(long beatmapsetId, GameMode gameMode = GameMode.Standard, CancellationToken token = default)
+        {
+            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&m={(int)gameMode}&s={beatmapsetId}";
+            var request = await RequestAsync(url, token).ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+        }
+
+        /// <summary>
+        ///     Gets a beatmap by it's id.
+        /// </summary>
+        /// <param name="beatmapId">Id of the beatmap.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
+        public async Task<Beatmap> GetBeatmapByIdAsync(long beatmapId, CancellationToken token = default)
+        {
+            var url = $"{Root}{Beatmaps}?k={OsuSharpConfiguration.ApiKey}&b={beatmapId}";
+            var request = await RequestAsync(url, token).ConfigureAwait(false);
+
+            var data = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            if (data.Count > 0)
+            {
+                return data[0];
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        ///     Gets a beatmap corresponding to the given replay hash.
         /// </summary>
         /// <param name="hash">Hash of a replay.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
