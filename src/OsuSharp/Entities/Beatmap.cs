@@ -21,11 +21,13 @@ namespace OsuSharp.Entities
         [JsonProperty("total_length")]
         private readonly int totalLength;
 
+        [JsonIgnore]
         public TimeSpan TotalLength => TimeSpan.FromSeconds(totalLength);
 
         [JsonProperty("hit_length")]
         private readonly int hitLength;
 
+        [JsonIgnore]
         public TimeSpan HitLength => TimeSpan.FromSeconds(hitLength);
 
         [JsonProperty("version")]
@@ -76,6 +78,7 @@ namespace OsuSharp.Entities
         [JsonProperty("tags")]
         private readonly string _tags;
 
+        [JsonIgnore]
         public IReadOnlyList<string> Tags => _tags.Split(' ');
 
         [JsonProperty("genre_id")]
