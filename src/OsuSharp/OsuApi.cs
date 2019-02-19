@@ -1,13 +1,13 @@
-﻿using Newtonsoft.Json;
-using OsuSharp.Entities;
-using OsuSharp.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using OsuSharp.Entities;
+using OsuSharp.Enums;
 
 namespace OsuSharp
 {
@@ -27,7 +27,7 @@ namespace OsuSharp
 
         private const string Replay = "/api/get_replay";
 
-        private OsuSharpConfiguration OsuSharpConfiguration { get; }
+        internal OsuSharpConfiguration OsuSharpConfiguration { get; }
 
         private RateLimiter RateLimiter { get; }
 
@@ -99,7 +99,7 @@ namespace OsuSharp
             var dict = new Dictionary<string, object>
             {
                 ["limit"] = limit,
-                ["since"] = since.ToString("yyyy-MM-dd HH:mm:ss"),
+                ["since"] = since.ToString("yyyy-MM-dd HH:mm:ss")
             };
 
             var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
