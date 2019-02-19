@@ -31,6 +31,8 @@ namespace OsuSharp
 
         private RateLimiter RateLimiter { get; }
 
+        private RateLimiter ReplayRateLimiter { get; }
+
         /// <summary>
         ///     Represents the logger used to send log messages to the client.
         /// </summary>
@@ -54,6 +56,11 @@ namespace OsuSharp
         {
             OsuSharpConfiguration = osuSharpConfiguration;
             RateLimiter = new RateLimiter(rateLimiterConfiguration);
+            ReplayRateLimiter = new RateLimiter(new RateLimiterConfiguration
+            {
+                MaxRequest = 10,
+                ThrowOnRatelimitHit = rateLimiterConfiguration.ThrowOnRatelimitHit
+            });
 
             if (string.IsNullOrWhiteSpace(OsuSharpConfiguration.ApiKey))
             {
@@ -380,7 +387,7 @@ namespace OsuSharp
 
         /// <summary>
         ///     Gets a beatmap by it's id.
-        /// </summary>C:\Users\Allan\Desktop\OsuSharp\src\OsuSharp\OsuApi.cs
+        /// </summary>
         /// <param name="beatmapId">Id of the beatmap.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
@@ -428,13 +435,66 @@ namespace OsuSharp
 
         #endregion
 
-        private async Task<string> RequestAsync(string endpoint, Dictionary<string, object> parameters = null, CancellationToken token = default)
+        #region Replay
+
+        /// <summary>
+        ///     Gets a replay.
+        /// </summary>
+        /// <param name="beatmapId">Id of the beatmap.</param>
+        /// <param name="userId">User id that played that beatmap.</param>
+        /// <param name="gameMode">Game mode the play has been played in.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
+        public async Task<Replay> GetReplayByUserIdAsync(long beatmapId, long userId, GameMode gameMode = GameMode.Standard, CancellationToken token = default)
         {
-            await RateLimiter.HandleAsync(token).ConfigureAwait(false);
-            RateLimiter.IncrementRequestCount();
+            var dict = new Dictionary<string, object>
+            {
+                ["b"] = beatmapId,
+                ["u"] = userId,
+                ["m"] = (int)gameMode,
+                ["type"] = "id"
+            };
+
+            var request = await RequestAsync(Replay, ReplayRateLimiter, dict, token).ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<Replay>(request);
+        }
+
+        /// <summary>
+        ///     Gets a replay.
+        /// </summary>
+        /// <param name="beatmapId">Id of the beatmap.</param>
+        /// <param name="username">Username of the player.</param>
+        /// <param name="gameMode">Game mode the play has been played in.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
+        public async Task<Replay> GetReplayByUsernameAsync(long beatmapId, string username, GameMode gameMode = GameMode.Standard, CancellationToken token = default)
+        {
+            var dict = new Dictionary<string, object>
+            {
+                ["b"] = beatmapId,
+                ["u"] = username,
+                ["m"] = (int)gameMode,
+                ["type"] = "string"
+            };
+
+            var request = await RequestAsync(Replay, ReplayRateLimiter, dict, token).ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<Replay>(request);
+        }
+
+        #endregion
+
+        private Task<string> RequestAsync(string endpoint, Dictionary<string, object> parameters = null, CancellationToken token = default)
+        {
+            return RequestAsync(endpoint, RateLimiter, parameters, token);
+        }
+
+        private async Task<string> RequestAsync(string endpoint, RateLimiter rateLimiter, Dictionary<string, object> parameters = null, CancellationToken token = default)
+        {
+            await rateLimiter.HandleAsync().ConfigureAwait(false);
+            rateLimiter.IncrementRequestCount();
 
             var url = $"{Root}{endpoint}?k={OsuSharpConfiguration.ApiKey}";
-            
+
             if (parameters != null && parameters.Count > 0)
             {
                 var builder = new StringBuilder();
