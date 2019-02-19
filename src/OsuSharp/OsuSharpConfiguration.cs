@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using OsuSharp.Extensions;
 
 namespace OsuSharp
 {
@@ -15,8 +16,8 @@ namespace OsuSharp
         public HttpClient Client { get; set; }
 
         /// <summary>
-        ///     Defines the default separator to use when using <see cref="Mods.ToString()"/>.
+        ///     Defines the default separator to use when using <see cref="ModeExtensions.ToModeString(Enums.Mode, OsuApi)"/>.
         /// </summary>
-        public string ModsSeparator { get; set; }
+        public string ModeSeparator { get; set; }
     }
 }

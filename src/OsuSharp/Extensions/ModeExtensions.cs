@@ -32,7 +32,13 @@ namespace OsuSharp.Extensions
             }
         }
 
-        public static string ToModeStrings(this Mode mode, OsuApi instance)
+        /// <summary>
+        ///     Converts a <see cref="Mode"/> into a string separated with the modes separator from the <see cref="OsuSharpConfiguration"/>.
+        /// </summary>
+        /// <param name="mode">Mode to convert.</param>
+        /// <param name="instance">Instance on which we use the mode separator.</param>
+        /// <returns></returns>
+        public static string ToModeString(this Mode mode, OsuApi instance)
         {
             if (mode == Mode.None)
             {
@@ -41,7 +47,7 @@ namespace OsuSharp.Extensions
 
             var modes = ModeStrings.Where(k => k.Key != Mode.None && (mode & k.Key) == k.Key).Select(k => k.Value);
 
-            return string.Join(instance.OsuSharpConfiguration.ModsSeparator, modes);
+            return string.Join(instance.OsuSharpConfiguration.ModeSeparator, modes);
         }
     }
 }
