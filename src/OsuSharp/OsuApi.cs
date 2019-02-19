@@ -17,15 +17,15 @@ namespace OsuSharp
 
         private const string Beatmaps = "/get_beatmaps";
 
-        private const string Scores = "/api/get_scores";
+        private const string Scores = "/get_scores";
 
         private const string User = "/get_user";
-        private const string UserBest = "/api/get_user_best";
-        private const string UserRecent = "/api/get_user_recent";
+        private const string UserBest = "/get_user_best";
+        private const string UserRecent = "/get_user_recent";
 
-        private const string Match = "/api/get_match";
+        private const string Match = "/get_match";
 
-        private const string Replay = "/api/get_replay";
+        private const string Replay = "/get_replay";
 
         internal OsuSharpConfiguration OsuSharpConfiguration { get; }
 
