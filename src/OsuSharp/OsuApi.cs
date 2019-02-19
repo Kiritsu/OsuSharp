@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -483,12 +484,12 @@ namespace OsuSharp
 
         #endregion
 
-        private Task<string> RequestAsync(string endpoint, Dictionary<string, object> parameters = null, CancellationToken token = default)
+        private Task<string> RequestAsync(string endpoint, IReadOnlyDictionary<string, object> parameters = null, CancellationToken token = default)
         {
             return RequestAsync(endpoint, RateLimiter, parameters, token);
         }
 
-        private async Task<string> RequestAsync(string endpoint, RateLimiter rateLimiter, Dictionary<string, object> parameters = null, CancellationToken token = default)
+        private async Task<string> RequestAsync(string endpoint, RateLimiter rateLimiter, IReadOnlyDictionary<string, object> parameters = null, CancellationToken token = default)
         {
             await rateLimiter.HandleAsync().ConfigureAwait(false);
             rateLimiter.IncrementRequestCount();
