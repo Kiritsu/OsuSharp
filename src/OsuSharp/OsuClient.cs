@@ -626,6 +626,38 @@ namespace OsuSharp
         }
         #endregion
 
+        #region Score
+        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapId(long beatmapId, GameMode gameMode = GameMode.Standard, int limit = 100, CancellationToken token = default)
+        {
+            return null;
+        }
+
+        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapId(long beatmapId, GameMode gameMode = GameMode.Standard, Mode enabledMods = Mode.None, int limit = 100, CancellationToken token = default)
+        {
+            return null;
+        }
+
+        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUserId(long beatmapId, long userId, GameMode gameMode = GameMode.Standard, int limit = 100, CancellationToken token = default)
+        {
+            return null;
+        }
+
+        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUserId(long beatmapId, long userId, GameMode gameMode = GameMode.Standard, Mode enabledMods = Mode.None, int limit = 100, CancellationToken token = default)
+        {
+            return null;
+        }
+
+        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUsername(long beatmapId, string username, GameMode gameMode = GameMode.Standard, int limit = 100, CancellationToken token = default)
+        {
+            return null;
+        }
+
+        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUsername(long beatmapId, string username, GameMode gameMode = GameMode.Standard, Mode enabledMods = Mode.None, int limit = 100, CancellationToken token = default)
+        {
+            return null;
+        }
+        #endregion
+
         #region Multiplayer
         /// <summary>
         ///     Get a multiplayer room informations.

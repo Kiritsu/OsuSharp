@@ -1,8 +1,5 @@
 ﻿using Newtonsoft.Json;
 using OsuSharp.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace OsuSharp.Entities
 {
