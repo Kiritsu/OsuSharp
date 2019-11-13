@@ -11,7 +11,7 @@ namespace OsuSharp
         public string ApiKey { get; set; }
 
         /// <summary>
-        ///     Custom HttpClient. If not given, a new one will be instanciated.
+        ///     Custom HttpClient. If not given, a new one will be instantiated.
         /// </summary>
         public HttpClient HttpClient { get; set; }
 

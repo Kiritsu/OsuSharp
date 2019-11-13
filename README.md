@@ -46,3 +46,5 @@ Thanks to the following contributors:
 - [Bond-009](https://github.com/Bond-009)
 - [Kat](https://github.com/abyssal)
 - [Piotrekol](https://github.com/Piotrekol)
+- [Quahu](https://github.com/Quahu)
+- [Kieran](https://github.com/k-boyle)

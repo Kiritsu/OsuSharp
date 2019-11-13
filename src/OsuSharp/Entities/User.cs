@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Newtonsoft.Json;
 
 namespace OsuSharp.Entities
@@ -119,8 +120,11 @@ namespace OsuSharp.Entities
         /// <summary>
         ///     Gets the country of the user.
         /// </summary>
+        [JsonIgnore]
+        public RegionInfo Country => new RegionInfo(_country);
+
         [JsonProperty("country")]
-        public string Country { get; internal set; }
+        private string _country;
 
         /// <summary>
         ///     Gets the time the user played osu!.
