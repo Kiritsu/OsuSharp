@@ -1,13 +1,10 @@
-﻿namespace OsuSharp.Enums
+﻿namespace OsuSharp
 {
-    /// <summary>
-    ///     Enum representing different available osu gamemodes
-    /// </summary>
     public enum GameMode
     {
-        Standard,
-        Taiko,
-        Catch,
-        Mania
+        Standard = 0,
+        Taiko = 1,
+        Catch = 2,
+        Mania = 3
     }
 }

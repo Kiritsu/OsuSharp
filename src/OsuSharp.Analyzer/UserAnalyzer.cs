@@ -1,59 +1,58 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using OsuSharp.Analyzer.Entities;
-using OsuSharp.Endpoints;
-using OsuSharp.Enums;
-using OsuSharp.Interfaces;
 
 namespace OsuSharp.Analyzer
 {
-    public sealed class UserAnalyzer : Analyzer<long, User>
+    public sealed class UserAnalyzer : BaseAnalyzer<long, User>
     {
-        public UserAnalyzer(IOsuApi api) : base(api)
+        public UserAnalyzer(OsuClient client) : base(client)
         {
         }
 
         /// <summary>
-        ///     Fired when an User has been updated.
+        ///     Updates the current user by its id. If it's not being tracked, throws an exception because this method lacks of the GameMode.
         /// </summary>
-        public override event EventHandler<UpdateEventArgs<User>> EntityUpdated;
-
-        /// <summary>
-        ///     Updates the User associated with the given key.
-        /// </summary>
-        /// <param name="key">Key associated with the User.</param>
+        /// <param name="userId">Id of the user</param>
+        /// <param name="token">Cancellation Token to cancel the current requests.</param>
         /// <returns></returns>
-        public override async Task<User> UpdateEntityAsync(long key, CancellationToken token = default)
+        public override async Task<User> UpdateEntityAsync(long userId, CancellationToken token = default)
         {
-            if (!_entities.TryGetValue(key, out var usr))
+            if (!Entities.TryGetValue(userId, out var user))
             {
-                throw new InvalidOperationException($"The user with key {key} is not being cached yet.");
+                throw new InvalidOperationException($"The user with key {userId} is not being tracked yet.");
             }
 
-            Api.Logger.LogMessage(LoggingLevel.Debug, "UserAnalyzer", $"User with key {key} is being updated.", DateTime.Now);
+            var newUser = await _client.GetUserByUserIdAsync(userId, user.GameMode);
 
-            var user = await Api.GetUserByIdAsync(key, usr.GameMode, token);
+            var equality = user.UserId == newUser.UserId
+                && user.Username == newUser.Username
+                && user.Count50 == newUser.Count50
+                && user.Count100 == newUser.Count100
+                && user.Count300 == newUser.Count300
+                && user.PlayCount == newUser.PlayCount
+                && user.RankedScore == newUser.RankedScore
+                && user.Score == newUser.Score
+                && user.Rank == newUser.Rank
+                && user.Level == newUser.Level
+                && user.PerformancePoints == newUser.PerformancePoints
+                && user.Accuracy == newUser.Accuracy
+                && user.CountSS == newUser.CountSS
+                && user.CountSSH == newUser.CountSSH
+                && user.CountS == newUser.CountS
+                && user.CountSH == newUser.CountSH
+                && user.CountA == newUser.CountA
+                && user.CountryRank == newUser.CountryRank
+                && user.GameMode == newUser.GameMode;
 
-            _entities.TryUpdate(key, user, usr);
-            EntityUpdated?.Invoke(this, new UpdateEventArgs<User>(usr, user, Api));
+            _entities[userId] = newUser;
 
-            return user;
+            if (!equality)
+            {
+                EntityUpdated?.Invoke(new EntityUpdateEventArgs<User>(_client, user, newUser));
+            }
+
+            return newUser;
         }
-
-        /// <summary>
-        ///     Adds an User to analyze.
-        /// </summary>
-        /// <param name="user"></param>
-        public void AddEntity(User user) 
-            => AddEntity(user.Userid, user);
-
-        /// <summary>
-        ///     Updates the User by specifying the User object to update.
-        /// </summary>
-        /// <param name="user">User object to update.</param>
-        /// <returns></returns>
-        public Task<User> UpdateEntityAsync(User user, CancellationToken token = default)
-            => UpdateEntityAsync(user.Userid, token);
     }
 }

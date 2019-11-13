@@ -1,146 +1,80 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading;
+using System;
 using System.Threading.Tasks;
 using OsuSharp.Analyzer;
-using OsuSharp.Entities;
-using OsuSharp.Enums;
-using OsuSharp.Misc;
 
 namespace OsuSharp.Example
 {
     internal class Program
     {
-        private static void Main() 
-            => MainAsync().GetAwaiter().GetResult();
-
-        public static async Task MainAsync()
+        private static async Task Main()
         {
-            try
+            var client = new OsuClient(new OsuSharpConfiguration
             {
-                var instance = new OsuApi(new OsuSharpConfiguration
-                {
-                    ApiKey = File.ReadAllText("token.txt"),
-                    ModsSeparator = "|",
-                    MaxRequests = 4,
-                    TimeInterval = TimeSpan.FromSeconds(8),
-                    LogLevel = LoggingLevel.Debug
-                });
+                ApiKey = "yo token"
+            });
 
-                instance.Logger.LogMessageReceived += (sender, args) =>
-                    args.Logger.Print(args.Level, args.From, args.Message, args.Time);
+            client.Logger.LogMessageReceived += Logger_LogMessageReceived;
 
-                var analyzer = new UserAnalyzer(instance);
+            var bm1 = await client.GetBeatmapByHashAsync("86d35e59965dbf2078a0843f87415ebe"); //EXTREME FUCKING SOCA PARTY, Renard, Snaggletooth, Nogard's Extra
+            var bm2 = await client.GetBeatmapByIdAsync(824242); //EXTREME FUCKING SOCA PARTY, Renard, Snaggletooth, Nogard's Extra
+            var bs3 = await client.GetBeatmapsAsync(); //Last 500 beatmaps submitted
+            var bs4 = await client.GetBeatmapsAsync(DateTimeOffset.UtcNow - TimeSpan.FromDays(365)); //Bm submitted 1 year ago
+            var bs5 = await client.GetBeatmapsAsync(DateTimeOffset.UtcNow - TimeSpan.FromDays(365), GameMode.Standard); //Bm submitted 1 year ago and only standard
+            var bs6 = await client.GetBeatmapsAsync(GameMode.Taiko, false); //Latest 500 taiko map not converted
+            var bs7 = await client.GetBeatmapsByAuthorIdAsync(19048); //Beatmaps by Mismagius
+            var bs8 = await client.GetBeatmapsByAuthorUsernameAsync("DJPop"); //Beatmaps by DJPop
+            var bs9 = await client.GetBeatmapsetAsync(1391); //Kanbu de Todomatte Sugu Tokeru ~ Kyouki no Udongein, IOSYS, DJPop
 
-                var user = await instance.GetUserByNameAsync("Evolia");
-                analyzer.AddEntity(user);
+            var u1 = await client.GetUserByUserIdAsync(2363, GameMode.Standard);
+            var u2 = await client.GetUserByUserIdAsync(6170507, GameMode.Taiko);
+            var u3 = await client.GetUserByUsernameAsync("Mismagius", GameMode.Standard);
+            var u4 = await client.GetUserByUsernameAsync("Exgon", GameMode.Catch);
 
+            var ub1 = await client.GetUserBestsByUserIdAsync(6170507, GameMode.Taiko, 34);
+            var ub2 = await client.GetUserBestsByUserIdAsync(10785994, GameMode.Mania);
+            var ub3 = await client.GetUserBestsByUsernameAsync("Evolia", GameMode.Catch, 82);
+            var ub4 = await client.GetUserBestsByUsernameAsync("LaChipsNinja", GameMode.Standard);
+
+            var ur1 = await client.GetUserRecentsByUserIdAsync(6170507, GameMode.Taiko);
+            var ur2 = await client.GetUserRecentsByUserIdAsync(10785994, GameMode.Mania);
+            var ur3 = await client.GetUserRecentsByUsernameAsync("Evolia", GameMode.Catch, 82);
+            var ur4 = await client.GetUserRecentsByUsernameAsync("LaChipsNinja", GameMode.Standard);
+
+            var s1 = await client.GetScoresByBeatmapIdAndUserIdAsync(611753, 6170507, GameMode.Standard);
+            var s2 = await client.GetScoresByBeatmapIdAndUsernameAsync(40017, "Rucker", GameMode.Standard);
+            var s3 = await client.GetScoresByBeatmapIdAndUserIdAsync(40017, 284905, GameMode.Standard, Mode.Hidden | Mode.Flashlight);
+            var s4 = await client.GetScoresByBeatmapIdAndUsernameAsync(40017, "Ekoro", GameMode.Standard, Mode.Hidden | Mode.Flashlight);
+
+            var sb1 = await client.GetScoresByBeatmapId(1849148, GameMode.Standard);
+            var sb2 = await client.GetScoresByBeatmapId(1849148, GameMode.Standard, Mode.Hidden);
+
+            var r1 = await client.GetReplayByUsernameAsync(1849148, "twoj stary", GameMode.Standard);
+            var r2 = await client.GetReplayByUserIdAsync(1849148, 1516650, GameMode.Standard);
+
+            var mp1 = await client.GetMultiplayerRoomAsync(1936471);
+
+            var user = await client.GetUserByUsernameAsync("Evolia", GameMode.Standard);
+            var tracker = new UserAnalyzer(client);
+            tracker.EntityUpdated += EntityUpdated;
+            tracker.AddEntity(user.UserId, user);
+
+            var id = user.UserId;
+            while (true)
+            {
                 await Task.Delay(10000);
-
-                await analyzer.UpdateEntityAsync(user.Userid);
-
-                // Getting a specific user's replay
-                Console.WriteLine("specific replay");
-                var bm = await instance.GetBeatmapAsync(936026);
-                var scr = await instance.GetScoreByUsernameAsync(936026, "Sub2PewDiePie");
-                var usr = await instance.GetUserByNameAsync("Sub2PewDiePie");
-                var rpl = await instance.GetReplayByUsernameAsync(936026, "Sub2PewDiePie");
-                var rp = ReplayFile.CreateReplayFile(rpl, usr, scr, bm);
-                var fs = new FileStream("replay-specific.osr", FileMode.OpenOrCreate);
-                rp.ToStream(fs);
-                fs.Close();
-
-                // ^ can also be done with this:
-                // instance.CreateReplayFile("test.osr", rpl, usr, scr, bm);
-
-                // Get a top replay
-                Console.WriteLine("top replay");
-                var scrs = instance.GetScores(1775286).First();
-                var usrs = instance.GetUserById(scrs.Userid);
-                var bms = instance.GetBeatmap(1775286);
-                var rpls = instance.GetReplayByUserid(1775286, scrs.Userid);
-                var replaye = ReplayFile.CreateReplayFile(rpls, usrs, scrs, bms);
-                var filestr = new FileStream("replay-top.osr", FileMode.OpenOrCreate);
-                replaye.ToStream(filestr);
-                filestr.Close();
-                Console.WriteLine("top replay done");
-
-                user = await instance.GetUserByNameAsync("Evolia");
-                Console.WriteLine($"User {user.Username} with id {user.Userid}\n" +
-                                  $" > Current accuracy : {user.Accuracy}\n" +
-                                  $" > Total Score : {user.TotalScore}\n" +
-                                  $" > Ranked Score : {user.RankedScore}\n" +
-                                  $" > Level : {user.Level}\n" +
-                                  $" > Performance Points : {user.Pp}\n" +
-                                  $" > Play count : {user.PlayCount}");
-
-                var bests = await instance.GetUserBestByUsernameAsync("Evolia", GameMode.Standard, 20);
-                var cnt = 0;
-                foreach (var best in bests)
-                {
-                    Console.WriteLine($"Top Score {cnt}:");
-                    Console.WriteLine($"Accuracy: {best.Accuracy}\nMods: {best.Mods.ToModString(instance)}");
-                    Console.WriteLine();
-                    cnt++;
-                }
-
-                var beatmap = await instance.GetBeatmapAsync(75);
-                Console.WriteLine($"\n\nBeatmap {beatmap.Title} with id {beatmap.BeatmapId} mapped by {beatmap.Creator}\n" +
-                                  $" > Difficulty : {beatmap.Difficulty}\n" +
-                                  $" > State : {beatmap.State}\n" +
-                                  $" > BPM : {beatmap.Bpm}\n" +
-                                  $" > AR : {beatmap.ApproachRate}\n" +
-                                  $" > OD : {beatmap.OverallDifficulty}\n" +
-                                  $" > CS : {beatmap.CircleSize}\n" +
-                                  $" > HP : {beatmap.HpDrain}\n" +
-                                  $" > Star difficulty : {beatmap.DifficultyRating}\n");
-
-                var userBestsBeatmaps = await instance.GetUserBestAndBeatmapByUsernameAsync("Evolia");
-                foreach (var userBestBeatmap in userBestsBeatmaps)
-                {
-                    Console.WriteLine($"\nScore {userBestBeatmap.UserBest.TotalScore} with {userBestBeatmap.UserBest.Accuracy} accuracy\nOn map {userBestBeatmap.Beatmap.Title} made by {userBestBeatmap.Beatmap.Creator} with difficulty {userBestBeatmap.Beatmap.Difficulty}");
-                }
-
-                var beatmapScores = await instance.GetScoresAndBeatmapAsync(75);
-                Console.WriteLine($"\n\nBeatmap {beatmapScores.Beatmap.Title} with id {beatmapScores.Beatmap.BeatmapId} mapped by {beatmapScores.Beatmap.Creator}\n" +
-                                  $" > Difficulty : {beatmapScores.Beatmap.Difficulty}\n" +
-                                  $" > State : {beatmapScores.Beatmap.State}\n" +
-                                  $" > BPM : {beatmapScores.Beatmap.Bpm}\n" +
-                                  $" > AR : {beatmapScores.Beatmap.ApproachRate}\n" +
-                                  $" > OD : {beatmapScores.Beatmap.OverallDifficulty}\n" +
-                                  $" > CS : {beatmapScores.Beatmap.CircleSize}\n" +
-                                  $" > HP : {beatmapScores.Beatmap.HpDrain}\n" +
-                                  $" > Star difficulty : {beatmapScores.Beatmap.DifficultyRating}");
-                foreach (var score in beatmapScores.Scores)
-                {
-                    Console.WriteLine($"\nScore {score.TotalScore} with {score.Accuracy}% accuracy made by {score.Username}");
-                }
-
-                var beatmapScoresUsers = await instance.GetScoresWithUsersAndBeatmapAsync(75);
-                Console.WriteLine($"\n\nBeatmap {beatmapScores.Beatmap.Title} with id {beatmapScores.Beatmap.BeatmapId} mapped by {beatmapScores.Beatmap.Creator}\n" +
-                                  $" > Difficulty : {beatmapScores.Beatmap.Difficulty}\n" +
-                                  $" > State : {beatmapScores.Beatmap.State}\n" +
-                                  $" > BPM : {beatmapScores.Beatmap.Bpm}\n" +
-                                  $" > AR : {beatmapScores.Beatmap.ApproachRate}\n" +
-                                  $" > OD : {beatmapScores.Beatmap.OverallDifficulty}\n" +
-                                  $" > CS : {beatmapScores.Beatmap.CircleSize}\n" +
-                                  $" > HP : {beatmapScores.Beatmap.HpDrain}\n" +
-                                  $" > Star difficulty : {beatmapScores.Beatmap.DifficultyRating}");
-                foreach (var score in beatmapScores.Scores)
-                {
-                    var currentUser = beatmapScoresUsers.Users.SingleOrDefault(x => x.Username == score.Username);
-                    Console.WriteLine(currentUser != null
-                        ? $"\nScore {score.TotalScore} with {score.Accuracy}% accuracy made by {currentUser.Username} that has {currentUser.Pp} performance points."
-                        : $"\nScore {score.TotalScore} with {score.Accuracy}% accuracy made by {score.Username}");
-                }
+                await tracker.UpdateEntityAsync(id);
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+        }
 
-            await Task.Delay(Timeout.Infinite);
+        private static Task EntityUpdated(EntityUpdateEventArgs<User> arg)
+        {
+            Console.WriteLine($"User score has been updated: {arg.ValueBefore.Score} => {arg.ValueAfter.Score}");
+            return Task.CompletedTask;
+        }
+
+        private static void Logger_LogMessageReceived(string obj)
+        {
+            Console.WriteLine(DateTime.Now.ToString("G") + " " + obj);
         }
     }
 }

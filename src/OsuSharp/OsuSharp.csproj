@@ -2,24 +2,28 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <ApplicationIcon />
-    <StartupObject />
-    <Authors>Kiritsu and contributors</Authors>
-    <Company></Company>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>3.2.0</Version>
-    <Description>.NET Standard wrapper for the osu!api</Description>
-    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <ProjectUrl>https://github.com/Kiritsu/OsuSharp</ProjectUrl>
-    <AssemblyVersion>3.2.0.0</AssemblyVersion>
-    <FileVersion>3.2.0.0</FileVersion>
     <PackageProjectUrl>https://github.com/Kiritsu/OsuSharp</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/Kiritsu/OsuSharp/blob/master/LICENSE.md</PackageLicenseUrl>
-    <LangVersion>7.1</LangVersion>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <LangVersion>8.0</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>5.0.0</Version>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <Description>Unofficial wrapper for the osu! API (V1) written in C# and compatible with .NET Standard 2.0</Description>
+    <Copyright>Allan Mercou</Copyright>
+    <Authors>Allan Mercou</Authors>
+    <Company>Allan Mercou</Company>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

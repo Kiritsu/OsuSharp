@@ -1,74 +1,67 @@
 ﻿using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using OsuSharp.Enums;
-using OsuSharp.Interfaces;
 
 namespace OsuSharp
 {
-    internal sealed class RateLimiter : IRateLimiter
+    internal sealed class RateLimiter
     {
+        internal RateLimiterConfiguration Configuration { get; }
+
+        internal int RequestCount { get; set; }
+
         private SemaphoreSlim Semaphore { get; }
 
-        private int Requests { get; set; }
+        private DateTimeOffset TimeReference { get; set; }
 
-        private int MaxRequests { get; }
-
-        private TimeSpan TimeInterval { get; }
-
-        private DateTime Time { get; set; }
-
-        private IOsuSharpLogger Logger { get; }
-
-        private bool ThrowsOnMaxRequests { get; }
-
-        public RateLimiter(int maxRequests, TimeSpan timeInterval, bool throwsOnMaxRequests, IOsuSharpLogger logger)
+        internal RateLimiter(RateLimiterConfiguration rateLimiterConfiguration)
         {
-            MaxRequests = maxRequests;
-            TimeInterval = timeInterval;
-            ThrowsOnMaxRequests = throwsOnMaxRequests;
-            Logger = logger;
+            Configuration = rateLimiterConfiguration;
 
             Semaphore = new SemaphoreSlim(1);
 
-            Time = DateTime.Now + timeInterval;
+            RequestCount = 0;
+
+            TimeReference = DateTimeOffset.Now + Configuration.Interval;
         }
 
-        public async Task HandleAsync(CancellationToken cancellationToken = default)
+        internal async Task HandleAsync(CancellationToken token = default)
         {
-            await Semaphore.WaitAsync(cancellationToken).ConfigureAwait(false);
+            await Semaphore.WaitAsync(token).ConfigureAwait(false);
 
             try
             {
-                var now = DateTime.Now;
+                var now = DateTimeOffset.Now;
 
-                if (Time - now <= TimeSpan.Zero)
+                if (TimeReference - now <= TimeSpan.Zero)
                 {
-                    Time = now + TimeInterval;
-                    Requests = 0;
+                    TimeReference = now + Configuration.Interval;
+                    RequestCount = 0;
                 }
-                else if (Requests > MaxRequests && ThrowsOnMaxRequests)
+                else if (RequestCount > Configuration.MaxRequest)
                 {
-                    throw new OsuSharpException("OsuSharp Internal rate limit reached.");
-                }
-                else if (Requests > MaxRequests)
-                {
-                    Logger.LogMessage(LoggingLevel.Warning, "RateLimiter",
-                        $"Rate limit exceeded. Queuing the current request, retrying after {(int) (Time - now).TotalMilliseconds}ms",
-                        now);
-                    await Task.Delay(Time - now, cancellationToken).ConfigureAwait(false);
-                    Time = DateTime.Now + TimeInterval;
-                    Requests = 0;
-                }
-                else
-                {
-                    Requests++;
+                    if (Configuration.ThrowOnRatelimitHit)
+                    {
+                        throw new OsuSharpException("Internal rate limit reached.", HttpStatusCode.BadRequest);
+                    }
+
+                    await Task.Delay(TimeReference - now, token).ConfigureAwait(false);
+
+                    TimeReference = DateTimeOffset.Now + Configuration.Interval;
+
+                    RequestCount = 0;
                 }
             }
             finally
             {
                 Semaphore.Release();
             }
+        }
+
+        internal void IncrementRequestCount()
+        {
+            RequestCount++;
         }
     }
 }
