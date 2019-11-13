@@ -1,4 +1,4 @@
-# OsuSharp 4.0
+# OsuSharp 5.0
 
 [![NuGet version](https://badge.fury.io/nu/OsuSharp.svg)](https://badge.fury.io/nu/OsuSharp)
 [![Build status](https://ci.appveyor.com/api/projects/status/jhrtfqgrhidw331x?svg=true)](https://ci.appveyor.com/project/Kiritsu/osusharp)
