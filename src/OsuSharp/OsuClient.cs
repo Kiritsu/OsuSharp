@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using OsuSharp.Entities;
 using OsuSharp.Enums;
 
@@ -62,7 +63,7 @@ namespace OsuSharp
 
             if (string.IsNullOrWhiteSpace(OsuSharpConfiguration.ApiKey))
             {
-                throw new OsuSharpException("The given api key is not valid.");
+                throw new OsuSharpException("The given api key is not valid.", HttpStatusCode.Unauthorized);
             }
 
             if (OsuSharpConfiguration.HttpClient is null)
@@ -89,13 +90,12 @@ namespace OsuSharp
                 ["limit"] = limit
             };
 
-            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
-            foreach (var beatmap in obj)
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            foreach (var beatmap in request)
             {
                 beatmap.Client = this;
             }
-            return obj;
+            return request;
         }
 
         /// <summary>
@@ -113,13 +113,12 @@ namespace OsuSharp
                 ["since"] = since.ToString("yyyy-MM-dd HH:mm:ss")
             };
 
-            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
-            foreach (var beatmap in obj)
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            foreach (var beatmap in request)
             {
                 beatmap.Client = this;
             }
-            return obj;
+            return request;
         }
 
         /// <summary>
@@ -139,13 +138,12 @@ namespace OsuSharp
                 ["m"] = (int)gameMode
             };
 
-            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
-            foreach (var beatmap in obj)
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            foreach (var beatmap in request)
             {
                 beatmap.Client = this;
             }
-            return obj;
+            return request;
         }
 
         /// <summary>
@@ -167,13 +165,12 @@ namespace OsuSharp
                 ["m"] = (int)gameMode
             };
 
-            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
-            foreach (var beatmap in obj)
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            foreach (var beatmap in request)
             {
                 beatmap.Client = this;
             }
-            return obj;
+            return request;
         }
 
         /// <summary>
@@ -196,13 +193,12 @@ namespace OsuSharp
                 ["u"] = authorId
             };
 
-            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
-            foreach (var beatmap in obj)
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            foreach (var beatmap in request)
             {
                 beatmap.Client = this;
             }
-            return obj;
+            return request;
         }
 
         /// <summary>
@@ -227,13 +223,12 @@ namespace OsuSharp
                 ["m"] = (int)gameMode
             };
 
-            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
-            foreach (var beatmap in obj)
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            foreach (var beatmap in request)
             {
                 beatmap.Client = this;
             }
-            return obj;
+            return request;
         }
 
         /// <summary>
@@ -254,13 +249,12 @@ namespace OsuSharp
                 ["u"] = authorId
             };
 
-            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
-            foreach (var beatmap in obj)
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            foreach (var beatmap in request)
             {
                 beatmap.Client = this;
             }
-            return obj;
+            return request;
         }
 
         /// <summary>
@@ -283,13 +277,12 @@ namespace OsuSharp
                 ["m"] = (int)gameMode
             };
 
-            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
-            foreach (var beatmap in obj)
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            foreach (var beatmap in request)
             {
                 beatmap.Client = this;
             }
-            return obj;
+            return request;
         }
 
         /// <summary>
@@ -312,13 +305,12 @@ namespace OsuSharp
                 ["u"] = username
             };
 
-            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
-            foreach (var beatmap in obj)
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            foreach (var beatmap in request)
             {
                 beatmap.Client = this;
             }
-            return obj;
+            return request;
         }
 
         /// <summary>
@@ -343,13 +335,12 @@ namespace OsuSharp
                 ["m"] = (int)gameMode
             };
 
-            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
-            foreach (var beatmap in obj)
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            foreach (var beatmap in request)
             {
                 beatmap.Client = this;
             }
-            return obj;
+            return request;
         }
 
         /// <summary>
@@ -370,13 +361,12 @@ namespace OsuSharp
                 ["u"] = username
             };
 
-            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
-            foreach (var beatmap in obj)
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            foreach (var beatmap in request)
             {
                 beatmap.Client = this;
             }
-            return obj;
+            return request;
         }
 
         /// <summary>
@@ -399,13 +389,12 @@ namespace OsuSharp
                 ["m"] = (int)gameMode
             };
 
-            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
-            foreach (var beatmap in obj)
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            foreach (var beatmap in request)
             {
                 beatmap.Client = this;
             }
-            return obj;
+            return request;
         }
 
         /// <summary>
@@ -421,13 +410,12 @@ namespace OsuSharp
                 ["s"] = beatmapsetId
             };
 
-            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
-            foreach (var beatmap in obj)
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            foreach (var beatmap in request)
             {
                 beatmap.Client = this;
             }
-            return obj;
+            return request;
         }
 
         /// <summary>
@@ -445,13 +433,12 @@ namespace OsuSharp
                 ["s"] = beatmapsetId
             };
 
-            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
-            foreach (var beatmap in obj)
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            foreach (var beatmap in request)
             {
                 beatmap.Client = this;
             }
-            return obj;
+            return request;
         }
 
         /// <summary>
@@ -467,15 +454,12 @@ namespace OsuSharp
                 ["b"] = beatmapId
             };
 
-            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-
-            var data = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
-            if (data.Count > 0)
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            if (request.Count > 0)
             {
-                data[0].Client = this;
-                return data[0];
+                request[0].Client = this;
+                return request[0];
             }
-
             return null;
         }
 
@@ -492,15 +476,12 @@ namespace OsuSharp
                 ["h"] = hash
             };
 
-            var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-
-            var data = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
-            if (data.Count > 0)
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            if (request.Count > 0)
             {
-                data[0].Client = this;
-                return data[0];
+                request[0].Client = this;
+                return request[0];
             }
-
             return null;
         }
 
@@ -524,13 +505,11 @@ namespace OsuSharp
                 ["event_days"] = 1
             };
 
-            var request = await RequestAsync(User, dict, token).ConfigureAwait(false);
-
-            var data = JsonConvert.DeserializeObject<IReadOnlyList<User>>(request);
-            if (data.Count > 0)
+            var request = await RequestAsync<IReadOnlyList<User>>(User, dict, token).ConfigureAwait(false);
+            if (request.Count > 0)
             {
-                data[0].Client = this;
-                return data[0];
+                request[0].Client = this;
+                return request[0];
             }
 
             return null;
@@ -555,13 +534,11 @@ namespace OsuSharp
                 ["event_days"] = eventDays
             };
 
-            var request = await RequestAsync(User, dict, token).ConfigureAwait(false);
-
-            var data = JsonConvert.DeserializeObject<IReadOnlyList<User>>(request);
-            if (data.Count > 0)
+            var request = await RequestAsync<IReadOnlyList<User>>(User, dict, token).ConfigureAwait(false);
+            if (request.Count > 0)
             {
-                data[0].Client = this;
-                return data[0];
+                request[0].Client = this;
+                return request[0];
             }
 
             return null;
@@ -584,13 +561,11 @@ namespace OsuSharp
                 ["event_days"] = 1
             };
 
-            var request = await RequestAsync(User, dict, token).ConfigureAwait(false);
-
-            var data = JsonConvert.DeserializeObject<IReadOnlyList<User>>(request);
-            if (data.Count > 0)
+            var request = await RequestAsync<IReadOnlyList<User>>(User, dict, token).ConfigureAwait(false);
+            if (request.Count > 0)
             {
-                data[0].Client = this;
-                return data[0];
+                request[0].Client = this;
+                return request[0];
             }
 
             return null;
@@ -615,13 +590,11 @@ namespace OsuSharp
                 ["event_days"] = eventDays
             };
 
-            var request = await RequestAsync(User, dict, token).ConfigureAwait(false);
-
-            var data = JsonConvert.DeserializeObject<IReadOnlyList<User>>(request);
-            if (data.Count > 0)
+            var request = await RequestAsync<IReadOnlyList<User>>(User, dict, token).ConfigureAwait(false);
+            if (request.Count > 0)
             {
-                data[0].Client = this;
-                return data[0];
+                request[0].Client = this;
+                return request[0];
             }
 
             return null;
@@ -646,15 +619,13 @@ namespace OsuSharp
                 ["limit"] = limit
             };
 
-            var request = await RequestAsync(Scores, dict, token).ConfigureAwait(false);
-
-            var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
-            foreach (var score in data)
+            var request = await RequestAsync<IReadOnlyList<Score>>(Scores, dict, token).ConfigureAwait(false);
+            foreach (var score in request)
             {
                 score.Client = this;
                 score.GameMode = gameMode;
             }
-            return data;
+            return request;
         }
 
         /// <summary>
@@ -676,15 +647,13 @@ namespace OsuSharp
                 ["limit"] = limit
             };
 
-            var request = await RequestAsync(Scores, dict, token).ConfigureAwait(false);
-
-            var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
-            foreach (var score in data)
+            var request = await RequestAsync<IReadOnlyList<Score>>(Scores, dict, token).ConfigureAwait(false);
+            foreach (var score in request)
             {
                 score.Client = this;
                 score.GameMode = gameMode;
             }
-            return data;
+            return request;
         }
 
         /// <summary>
@@ -707,15 +676,13 @@ namespace OsuSharp
                 ["limit"] = limit
             };
 
-            var request = await RequestAsync(Scores, dict, token).ConfigureAwait(false);
-
-            var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
-            foreach (var score in data)
+            var request = await RequestAsync<IReadOnlyList<Score>>(Scores, dict, token).ConfigureAwait(false);
+            foreach (var score in request)
             {
                 score.Client = this;
                 score.GameMode = gameMode;
             }
-            return data;
+            return request;
         }
 
         /// <summary>
@@ -740,15 +707,13 @@ namespace OsuSharp
                 ["limit"] = limit
             };
 
-            var request = await RequestAsync(Scores, dict, token).ConfigureAwait(false);
-
-            var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
-            foreach (var score in data)
+            var request = await RequestAsync<IReadOnlyList<Score>>(Scores, dict, token).ConfigureAwait(false);
+            foreach (var score in request)
             {
                 score.Client = this;
                 score.GameMode = gameMode;
             }
-            return data;
+            return request;
         }
 
         /// <summary>
@@ -771,15 +736,13 @@ namespace OsuSharp
                 ["limit"] = limit
             };
 
-            var request = await RequestAsync(Scores, dict, token).ConfigureAwait(false);
-
-            var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
-            foreach (var score in data)
+            var request = await RequestAsync<IReadOnlyList<Score>>(Scores, dict, token).ConfigureAwait(false);
+            foreach (var score in request)
             {
                 score.Client = this;
                 score.GameMode = gameMode;
             }
-            return data;
+            return request;
         }
 
         /// <summary>
@@ -804,15 +767,13 @@ namespace OsuSharp
                 ["limit"] = limit
             };
 
-            var request = await RequestAsync(Scores, dict, token).ConfigureAwait(false);
-
-            var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
-            foreach (var score in data)
+            var request = await RequestAsync<IReadOnlyList<Score>>(Scores, dict, token).ConfigureAwait(false);
+            foreach (var score in request)
             {
                 score.Client = this;
                 score.GameMode = gameMode;
             }
-            return data;
+            return request;
         }
         #endregion
 
@@ -827,15 +788,13 @@ namespace OsuSharp
                 ["type"] = "id"
             };
 
-            var request = await RequestAsync(UserBest, dict, token).ConfigureAwait(false);
-
-            var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
-            foreach (var score in data)
+            var request = await RequestAsync<IReadOnlyList<Score>>(UserBest, dict, token).ConfigureAwait(false);
+            foreach (var score in request)
             {
                 score.Client = this;
                 score.GameMode = gameMode;
             }
-            return data;
+            return request;
         }
 
         public async Task<IReadOnlyList<Score>> GetUserBestsByUsernameAsync(string username, GameMode gameMode, int limit = 100, CancellationToken token = default)
@@ -848,15 +807,13 @@ namespace OsuSharp
                 ["type"] = "string"
             };
 
-            var request = await RequestAsync(UserBest, dict, token).ConfigureAwait(false);
-
-            var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
-            foreach (var score in data)
+            var request = await RequestAsync<IReadOnlyList<Score>>(UserBest, dict, token).ConfigureAwait(false);
+            foreach (var score in request)
             {
                 score.Client = this;
                 score.GameMode = gameMode;
             }
-            return data;
+            return request;
         }
         #endregion
 
@@ -871,15 +828,13 @@ namespace OsuSharp
                 ["type"] = "id"
             };
 
-            var request = await RequestAsync(UserBest, dict, token).ConfigureAwait(false);
-
-            var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
-            foreach (var score in data)
+            var request = await RequestAsync<IReadOnlyList<Score>>(UserRecent, dict, token).ConfigureAwait(false);
+            foreach (var score in request)
             {
                 score.Client = this;
                 score.GameMode = gameMode;
             }
-            return data;
+            return request;
         }
 
         public async Task<IReadOnlyList<Score>> GetUserRecentsByUsernameAsync(string username, GameMode gameMode, int limit = 100, CancellationToken token = default)
@@ -892,15 +847,13 @@ namespace OsuSharp
                 ["type"] = "string"
             };
 
-            var request = await RequestAsync(UserBest, dict, token).ConfigureAwait(false);
-
-            var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
-            foreach (var score in data)
+            var request = await RequestAsync<IReadOnlyList<Score>>(UserRecent, dict, token).ConfigureAwait(false);
+            foreach (var score in request)
             {
                 score.Client = this;
                 score.GameMode = gameMode;
             }
-            return data;
+            return request;
         }
         #endregion
 
@@ -918,11 +871,9 @@ namespace OsuSharp
                 ["mp"] = matchId
             };
 
-            var request = await RequestAsync(Match, dict, token).ConfigureAwait(false);
-
-            var data = JsonConvert.DeserializeObject<MultiplayerRoom>(request);
-            data.Client = this;
-            return data;
+            var request = await RequestAsync<MultiplayerRoom>(Match, dict, token).ConfigureAwait(false);
+            request.Client = this;
+            return request;
         }
         #endregion
 
@@ -946,11 +897,9 @@ namespace OsuSharp
                 ["type"] = "id"
             };
 
-            var request = await RequestAsync(Replay, ReplayRateLimiter, dict, token).ConfigureAwait(false);
-
-            var obj = JsonConvert.DeserializeObject<Replay>(request);
-            obj.Client = this;
-            return obj;
+            var request = await RequestAsync<Replay>(Replay, ReplayRateLimiter, dict, token).ConfigureAwait(false);
+            request.Client = this;
+            return request;
         }
 
         /// <summary>
@@ -971,21 +920,19 @@ namespace OsuSharp
                 ["type"] = "string"
             };
 
-            var request = await RequestAsync(Replay, ReplayRateLimiter, dict, token).ConfigureAwait(false);
-
-            var obj = JsonConvert.DeserializeObject<Replay>(request);
-            obj.Client = this;
-            return obj;
+            var request = await RequestAsync<Replay>(Replay, ReplayRateLimiter, dict, token).ConfigureAwait(false);
+            request.Client = this;
+            return request;
         }
 
         #endregion
 
-        private Task<string> RequestAsync(string endpoint, IReadOnlyDictionary<string, object> parameters = null, CancellationToken token = default)
+        private Task<T> RequestAsync<T>(string endpoint, IReadOnlyDictionary<string, object> parameters = null, CancellationToken token = default)
         {
-            return RequestAsync(endpoint, RateLimiter, parameters, token);
+            return RequestAsync<T>(endpoint, RateLimiter, parameters, token);
         }
 
-        private async Task<string> RequestAsync(string endpoint, RateLimiter rateLimiter, IReadOnlyDictionary<string, object> parameters = null, CancellationToken token = default)
+        private async Task<T> RequestAsync<T>(string endpoint, RateLimiter rateLimiter, IReadOnlyDictionary<string, object> parameters = null, CancellationToken token = default)
         {
             await rateLimiter.HandleAsync(token).ConfigureAwait(false);
             rateLimiter.IncrementRequestCount();
@@ -1008,10 +955,10 @@ namespace OsuSharp
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                return message;
+                return JsonConvert.DeserializeObject<T>(message);
             }
 
-            throw new OsuSharpException(message);
+            throw new OsuSharpException(JObject.Parse(message)["error"].Value<string>(), response.StatusCode);
         }
     }
 }
