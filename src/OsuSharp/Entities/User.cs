@@ -78,7 +78,7 @@ namespace OsuSharp.Entities
         ///     Gets the amount of performance points of the user.
         /// </summary>
         [JsonProperty("pp_raw")]
-        public long PerformancePoints { get; internal set; }
+        public double PerformancePoints { get; internal set; }
 
         /// <summary>
         ///     Gets the accuracy of the user.

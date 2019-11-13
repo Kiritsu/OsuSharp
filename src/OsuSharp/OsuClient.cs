@@ -545,7 +545,7 @@ namespace OsuSharp
         /// <param name="eventDays">Gets the max amount of day between now and last event date. [1;31]</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<User> GetUserByUserIdAsync(long userId, GameMode gameMode, int eventDays = 1, CancellationToken token = default)
+        public async Task<User> GetUserByUserIdAsync(long userId, GameMode gameMode, int eventDays, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -605,7 +605,7 @@ namespace OsuSharp
         /// <param name="eventDays">Gets the max amount of day between now and last event date. [1;31]</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<User> GetUserByUsernameAsync(string username, GameMode gameMode, int eventDays = 1, CancellationToken token = default)
+        public async Task<User> GetUserByUsernameAsync(string username, GameMode gameMode, int eventDays, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
