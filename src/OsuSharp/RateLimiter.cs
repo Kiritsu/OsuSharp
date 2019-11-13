@@ -37,6 +37,7 @@ namespace OsuSharp
                 if (TimeReference - now <= TimeSpan.Zero)
                 {
                     TimeReference = now + Configuration.Interval;
+                    RequestCount = 0;
                 }
                 else if (RequestCount > Configuration.MaxRequest)
                 {

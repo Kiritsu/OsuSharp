@@ -42,7 +42,6 @@ namespace OsuSharp.Analyzer
                 && user.CountS == newUser.CountS
                 && user.CountSH == newUser.CountSH
                 && user.CountA == newUser.CountA
-                && user.Country == newUser.Country
                 && user.CountryRank == newUser.CountryRank
                 && user.GameMode == newUser.GameMode;
 

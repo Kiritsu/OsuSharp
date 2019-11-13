@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
+using OsuSharp.Analyzer;
 
 namespace OsuSharp.Example
 {
@@ -51,6 +52,24 @@ namespace OsuSharp.Example
             var r2 = await client.GetReplayByUserIdAsync(1849148, 1516650, GameMode.Standard);
 
             var mp1 = await client.GetMultiplayerRoomAsync(1936471);
+
+            var user = await client.GetUserByUsernameAsync("Evolia", GameMode.Standard);
+            var tracker = new UserAnalyzer(client);
+            tracker.EntityUpdated += EntityUpdated;
+            tracker.AddEntity(user.UserId, user);
+
+            var id = user.UserId;
+            while (true)
+            {
+                await Task.Delay(10000);
+                await tracker.UpdateEntityAsync(id);
+            }
+        }
+
+        private static Task EntityUpdated(EntityUpdateEventArgs<User> arg)
+        {
+            Console.WriteLine($"User score has been updated: {arg.ValueBefore.Score} => {arg.ValueAfter.Score}");
+            return Task.CompletedTask;
         }
 
         private static void Logger_LogMessageReceived(string obj)
