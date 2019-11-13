@@ -506,7 +506,133 @@ namespace OsuSharp
 
         #endregion
 
+        #region User
+        /// <summary>
+        ///     Get a user by its id.
+        /// </summary>
+        /// <param name="userId">Id of the user.</param>
+        /// <param name="gameMode">Game mode to return metadata from.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
+        public async Task<User> GetUserByUserIdAsync(long userId, GameMode gameMode = GameMode.Standard, CancellationToken token = default)
+        {
+            var dict = new Dictionary<string, object>
+            {
+                ["u"] = userId,
+                ["m"] = (int)gameMode,
+                ["type"] = "id",
+                ["event_days"] = 1
+            };
+
+            var request = await RequestAsync(User, dict, token).ConfigureAwait(false);
+
+            var data = JsonConvert.DeserializeObject<IReadOnlyList<User>>(request);
+            if (data.Count > 0)
+            {
+                data[0].Client = this;
+                return data[0];
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        ///     Get a user by its id.
+        /// </summary>
+        /// <param name="userId">Id of the user.</param>
+        /// <param name="gameMode">Game mode to return metadata from.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <param name="eventDays">Gets the max amount of day between now and last event date. [1;31]</param>
+        /// <returns></returns>
+        public async Task<User> GetUserByUserIdAsync(long userId, GameMode gameMode = GameMode.Standard, int eventDays = 1, CancellationToken token = default)
+        {
+            var dict = new Dictionary<string, object>
+            {
+                ["u"] = userId,
+                ["m"] = (int)gameMode,
+                ["type"] = "id",
+                ["event_days"] = eventDays
+            };
+
+            var request = await RequestAsync(User, dict, token).ConfigureAwait(false);
+
+            var data = JsonConvert.DeserializeObject<IReadOnlyList<User>>(request);
+            if (data.Count > 0)
+            {
+                data[0].Client = this;
+                return data[0];
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        ///     Get a user by its id.
+        /// </summary>
+        /// <param name="username">Username of the user.</param>
+        /// <param name="gameMode">Game mode to return metadata from.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
+        public async Task<User> GetUserByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, CancellationToken token = default)
+        {
+            var dict = new Dictionary<string, object>
+            {
+                ["u"] = username,
+                ["m"] = (int)gameMode,
+                ["type"] = "string",
+                ["event_days"] = 1
+            };
+
+            var request = await RequestAsync(User, dict, token).ConfigureAwait(false);
+
+            var data = JsonConvert.DeserializeObject<IReadOnlyList<User>>(request);
+            if (data.Count > 0)
+            {
+                data[0].Client = this;
+                return data[0];
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        ///     Get a user by its id.
+        /// </summary>
+        /// <param name="username">Username of the user.</param>
+        /// <param name="gameMode">Game mode to return metadata from.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <param name="eventDays">Gets the max amount of day between now and last event date. [1;31]</param>
+        /// <returns></returns>
+        public async Task<User> GetUserByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int eventDays = 1, CancellationToken token = default)
+        {
+            var dict = new Dictionary<string, object>
+            {
+                ["u"] = username,
+                ["m"] = (int)gameMode,
+                ["type"] = "string",
+                ["event_days"] = eventDays
+            };
+
+            var request = await RequestAsync(User, dict, token).ConfigureAwait(false);
+
+            var data = JsonConvert.DeserializeObject<IReadOnlyList<User>>(request);
+            if (data.Count > 0)
+            {
+                data[0].Client = this;
+                return data[0];
+            }
+
+            return null;
+        }
+        #endregion
+
         #region Multiplayer
+        /// <summary>
+        ///     Get a multiplayer room informations.
+        /// </summary>
+        /// <param name="matchId">Id of the multiplayer room.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
         public async Task<MultiplayerRoom> GetMultiplayerRoomAsync(long matchId, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>

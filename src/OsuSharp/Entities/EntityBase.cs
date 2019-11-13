@@ -1,6 +1,6 @@
 ﻿namespace OsuSharp.Entities
 {
-    public class EntityBase
+    public abstract class EntityBase
     {
         public OsuClient Client { get; internal set; }
 
