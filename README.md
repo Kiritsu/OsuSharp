@@ -36,7 +36,7 @@ https://kiritsu.github.io/OsuSharp/index.html
 
 ## Contact
 
-You can join my personal Discord server: https://discord.gg/mnqsg7q
+You can join my personal Discord server: https://discord.gg/UugbeH8
 
 ## Thanks
 
