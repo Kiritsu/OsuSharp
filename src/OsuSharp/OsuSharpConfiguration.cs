@@ -13,10 +13,10 @@ namespace OsuSharp
         /// <summary>
         ///     Custom HttpClient. If not given, a new one will be instanciated.
         /// </summary>
-        public HttpClient Client { get; set; }
+        public HttpClient HttpClient { get; set; }
 
         /// <summary>
-        ///     Defines the default separator to use when using <see cref="ModeExtensions.ToModeString(Enums.Mode, OsuApi)"/>.
+        ///     Defines the default separator to use when using <see cref="ModeExtensions.ToModeString(Enums.Mode, OsuClient)"/>.
         /// </summary>
         public string ModeSeparator { get; set; }
     }

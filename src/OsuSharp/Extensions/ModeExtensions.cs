@@ -38,7 +38,7 @@ namespace OsuSharp.Extensions
         /// <param name="mode">Mode to convert.</param>
         /// <param name="instance">Instance on which we use the mode separator.</param>
         /// <returns></returns>
-        public static string ToModeString(this Mode mode, OsuApi instance)
+        public static string ToModeString(this Mode mode, OsuClient instance)
         {
             if (mode == Mode.None)
             {

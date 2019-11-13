@@ -2,7 +2,7 @@
 {
     public class EntityBase
     {
-        public OsuApi Client { get; internal set; }
+        public OsuClient Client { get; internal set; }
 
         internal EntityBase() { }
     }

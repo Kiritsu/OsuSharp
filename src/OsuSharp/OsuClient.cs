@@ -11,7 +11,7 @@ using OsuSharp.Enums;
 
 namespace OsuSharp
 {
-    public sealed class OsuApi
+    public sealed class OsuClient
     {
         #region Endpoints
         private const string Root = "https://osu.ppy.sh/api";
@@ -37,20 +37,20 @@ namespace OsuSharp
 
         #region Constructors
         /// <summary>
-        ///     Initializes a new instance of <see cref="OsuApi"/> with the given configuration and the default configuration for the rate limiter.
+        ///     Initializes a new instance of <see cref="OsuClient"/> with the given configuration and the default configuration for the rate limiter.
         /// </summary>
         /// <param name="osuSharpConfiguration">Configuration to use for this instance.</param>
-        public OsuApi(OsuSharpConfiguration osuSharpConfiguration) : this(osuSharpConfiguration, new RateLimiterConfiguration())
+        public OsuClient(OsuSharpConfiguration osuSharpConfiguration) : this(osuSharpConfiguration, new RateLimiterConfiguration())
         {
 
         }
 
         /// <summary>
-        ///     Initializes a new instance of <see cref="OsuApi"/> with the given configuration and the one for the rate limiter.
+        ///     Initializes a new instance of <see cref="OsuClient"/> with the given configuration and the one for the rate limiter.
         /// </summary>
         /// <param name="osuSharpConfiguration">Configuration to use for this instance.</param>
         /// <param name="rateLimiterConfiguration">Rate limiting configuration.</param>
-        public OsuApi(OsuSharpConfiguration osuSharpConfiguration, RateLimiterConfiguration rateLimiterConfiguration)
+        public OsuClient(OsuSharpConfiguration osuSharpConfiguration, RateLimiterConfiguration rateLimiterConfiguration)
         {
             OsuSharpConfiguration = osuSharpConfiguration;
             RateLimiter = new RateLimiter(rateLimiterConfiguration);
@@ -65,9 +65,9 @@ namespace OsuSharp
                 throw new OsuSharpException("The given api key is not valid.");
             }
 
-            if (OsuSharpConfiguration.Client is null)
+            if (OsuSharpConfiguration.HttpClient is null)
             {
-                OsuSharpConfiguration.Client = new HttpClient();
+                OsuSharpConfiguration.HttpClient = new HttpClient();
             }
 
             Logger = new OsuSharpLogger();
@@ -583,7 +583,7 @@ namespace OsuSharp
 
         private async Task<string> RequestAsync(string endpoint, RateLimiter rateLimiter, IReadOnlyDictionary<string, object> parameters = null, CancellationToken token = default)
         {
-            await rateLimiter.HandleAsync().ConfigureAwait(false);
+            await rateLimiter.HandleAsync(token).ConfigureAwait(false);
             rateLimiter.IncrementRequestCount();
 
             var url = $"{Root}{endpoint}?k={OsuSharpConfiguration.ApiKey}";
@@ -599,7 +599,7 @@ namespace OsuSharp
                 url += builder.ToString();
             }
 
-            var response = await OsuSharpConfiguration.Client.GetAsync(url, token).ConfigureAwait(false);
+            var response = await OsuSharpConfiguration.HttpClient.GetAsync(url, token).ConfigureAwait(false);
             var message = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             if (response.StatusCode == HttpStatusCode.OK)
