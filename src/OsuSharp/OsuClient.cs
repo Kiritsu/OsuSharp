@@ -508,6 +508,7 @@ namespace OsuSharp
             if (request.Count > 0)
             {
                 request[0].Client = this;
+                request[0].GameMode = gameMode;
                 return request[0];
             }
 
@@ -537,6 +538,7 @@ namespace OsuSharp
             if (request.Count > 0)
             {
                 request[0].Client = this;
+                request[0].GameMode = gameMode;
                 return request[0];
             }
 
@@ -564,6 +566,7 @@ namespace OsuSharp
             if (request.Count > 0)
             {
                 request[0].Client = this;
+                request[0].GameMode = gameMode;
                 return request[0];
             }
 
@@ -593,6 +596,7 @@ namespace OsuSharp
             if (request.Count > 0)
             {
                 request[0].Client = this;
+                request[0].GameMode = gameMode;
                 return request[0];
             }
 

@@ -142,6 +142,12 @@ namespace OsuSharp
         public long CountryRank { get; internal set; }
 
         /// <summary>
+        ///     Gets the game mode this user's stats are for.
+        /// </summary>
+        [JsonIgnore]
+        public GameMode GameMode { get; internal set; }
+
+        /// <summary>
         ///     Gets the events of the user.
         /// </summary>
         [JsonProperty("events")]
