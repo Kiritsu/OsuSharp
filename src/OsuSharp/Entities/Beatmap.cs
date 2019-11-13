@@ -5,7 +5,7 @@ using OsuSharp.Enums;
 
 namespace OsuSharp.Entities
 {
-    public sealed class Beatmap
+    public sealed class Beatmap : EntityBase
     {
         internal Beatmap() { }
 
@@ -28,7 +28,7 @@ namespace OsuSharp.Entities
         public BeatmapState State { get; internal set; }
 
         [JsonProperty("total_length")]
-        private readonly int totalLength;
+        private int totalLength;
 
         /// <summary>
         ///     Total length of the beatmap. (including breaks)
@@ -37,7 +37,7 @@ namespace OsuSharp.Entities
         public TimeSpan TotalLength => TimeSpan.FromSeconds(totalLength);
 
         [JsonProperty("hit_length")]
-        private readonly int hitLength;
+        private int hitLength;
 
         /// <summary>
         ///     Total hit length of the beatmaps. (doesn't include breaks)
@@ -61,25 +61,25 @@ namespace OsuSharp.Entities
         ///     Size of the circles.
         /// </summary>
         [JsonProperty("diff_size")]
-        public int CircleSize { get; internal set; }
+        public double CircleSize { get; internal set; }
 
         /// <summary>
         ///     Overall difficulty level.
         /// </summary>
         [JsonProperty("diff_overall")]
-        public int OverallDifficulty { get; internal set; }
+        public double OverallDifficulty { get; internal set; }
 
         /// <summary>
         ///     Approach rate level.
         /// </summary>
         [JsonProperty("diff_approach")]
-        public int ApproachRate { get; internal set; }
+        public double ApproachRate { get; internal set; }
 
         /// <summary>
         ///     Hp drain level.
         /// </summary>
         [JsonProperty("diff_drain")]
-        public int HpDrain { get; internal set; }
+        public double HpDrain { get; internal set; }
 
         /// <summary>
         ///     Game mode this map is made for.
@@ -91,13 +91,13 @@ namespace OsuSharp.Entities
         ///     Date time this map was approved. Null if the map is not at least approved.
         /// </summary>
         [JsonProperty("approved_date", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTimeOffset ApprovedDate { get; internal set; }
+        public DateTimeOffset? ApprovedDate { get; internal set; }
 
         /// <summary>
         ///     Date time this map was updated.
         /// </summary>
         [JsonProperty("last_update", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTimeOffset LastUpdate { get; internal set; }
+        public DateTimeOffset? LastUpdate { get; internal set; }
 
         /// <summary>
         ///     Name of the artist.
@@ -136,13 +136,13 @@ namespace OsuSharp.Entities
         public string Source { get; internal set; }
 
         [JsonProperty("tags")]
-        private readonly string _tags;
+        private string _tags;
 
         /// <summary>
         ///     Tags given to this map.
         /// </summary>
         [JsonIgnore]
-        public IReadOnlyList<string> Tags => _tags.Split(' ');
+        public IReadOnlyList<string> Tags => _tags?.Split(' ');
 
         /// <summary>
         ///     Genre of the beatmap.
@@ -165,26 +165,26 @@ namespace OsuSharp.Entities
         /// <summary>
         ///     Amount of plays.
         /// </summary>
-        [JsonProperty("playcount")]
-        public int PlayCount { get; internal set; }
+        [JsonProperty("playcount", NullValueHandling = NullValueHandling.Ignore)]
+        public int? PlayCount { get; internal set; }
 
         /// <summary>
         ///     Amount of pass.
         /// </summary>
-        [JsonProperty("passcount")]
-        public int PassCount { get; internal set; }
+        [JsonProperty("passcount", NullValueHandling = NullValueHandling.Ignore)]
+        public int? PassCount { get; internal set; }
 
         /// <summary>
         ///     Amount of fails.
         /// </summary>
         [JsonIgnore]
-        public int FailCount => PlayCount - PassCount;
+        public int? FailCount => PlayCount - PassCount;
 
         /// <summary>
         ///     Maximum combo. Can be null depending on the <see cref="GameMode"/>.
         /// </summary>
         [JsonProperty("max_combo", NullValueHandling = NullValueHandling.Ignore)]
-        public int MaxCombo { get; internal set; }
+        public int? MaxCombo { get; internal set; }
 
         /// <summary>
         ///     Star rating of the beatmap.

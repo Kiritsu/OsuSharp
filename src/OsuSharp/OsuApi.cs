@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -14,19 +13,16 @@ namespace OsuSharp
 {
     public sealed class OsuApi
     {
+        #region Endpoints
         private const string Root = "https://osu.ppy.sh/api";
-
         private const string Beatmaps = "/get_beatmaps";
-
         private const string Scores = "/get_scores";
-
         private const string User = "/get_user";
         private const string UserBest = "/get_user_best";
         private const string UserRecent = "/get_user_recent";
-
         private const string Match = "/get_match";
-
         private const string Replay = "/get_replay";
+        #endregion
 
         internal OsuSharpConfiguration OsuSharpConfiguration { get; }
 
@@ -39,6 +35,7 @@ namespace OsuSharp
         /// </summary>
         public OsuSharpLogger Logger { get; }
 
+        #region Constructors
         /// <summary>
         ///     Initializes a new instance of <see cref="OsuApi"/> with the given configuration and the default configuration for the rate limiter.
         /// </summary>
@@ -75,6 +72,7 @@ namespace OsuSharp
 
             Logger = new OsuSharpLogger();
         }
+        #endregion
 
         #region Beatmap
 
@@ -92,7 +90,12 @@ namespace OsuSharp
             };
 
             var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            foreach (var beatmap in obj)
+            {
+                beatmap.Client = this;
+            }
+            return obj;
         }
 
         /// <summary>
@@ -111,7 +114,12 @@ namespace OsuSharp
             };
 
             var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            foreach (var beatmap in obj)
+            {
+                beatmap.Client = this;
+            }
+            return obj;
         }
 
         /// <summary>
@@ -132,7 +140,12 @@ namespace OsuSharp
             };
 
             var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            foreach (var beatmap in obj)
+            {
+                beatmap.Client = this;
+            }
+            return obj;
         }
 
         /// <summary>
@@ -155,7 +168,12 @@ namespace OsuSharp
             };
 
             var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            foreach (var beatmap in obj)
+            {
+                beatmap.Client = this;
+            }
+            return obj;
         }
 
         /// <summary>
@@ -179,7 +197,12 @@ namespace OsuSharp
             };
 
             var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            foreach (var beatmap in obj)
+            {
+                beatmap.Client = this;
+            }
+            return obj;
         }
 
         /// <summary>
@@ -205,7 +228,12 @@ namespace OsuSharp
             };
 
             var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            foreach (var beatmap in obj)
+            {
+                beatmap.Client = this;
+            }
+            return obj;
         }
 
         /// <summary>
@@ -227,7 +255,12 @@ namespace OsuSharp
             };
 
             var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            foreach (var beatmap in obj)
+            {
+                beatmap.Client = this;
+            }
+            return obj;
         }
 
         /// <summary>
@@ -251,7 +284,12 @@ namespace OsuSharp
             };
 
             var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            foreach (var beatmap in obj)
+            {
+                beatmap.Client = this;
+            }
+            return obj;
         }
 
         /// <summary>
@@ -275,7 +313,12 @@ namespace OsuSharp
             };
 
             var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            foreach (var beatmap in obj)
+            {
+                beatmap.Client = this;
+            }
+            return obj;
         }
 
         /// <summary>
@@ -301,7 +344,12 @@ namespace OsuSharp
             };
 
             var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            foreach (var beatmap in obj)
+            {
+                beatmap.Client = this;
+            }
+            return obj;
         }
 
         /// <summary>
@@ -323,7 +371,12 @@ namespace OsuSharp
             };
 
             var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            foreach (var beatmap in obj)
+            {
+                beatmap.Client = this;
+            }
+            return obj;
         }
 
         /// <summary>
@@ -347,7 +400,12 @@ namespace OsuSharp
             };
 
             var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            foreach (var beatmap in obj)
+            {
+                beatmap.Client = this;
+            }
+            return obj;
         }
 
         /// <summary>
@@ -364,7 +422,12 @@ namespace OsuSharp
             };
 
             var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            foreach (var beatmap in obj)
+            {
+                beatmap.Client = this;
+            }
+            return obj;
         }
 
         /// <summary>
@@ -383,7 +446,12 @@ namespace OsuSharp
             };
 
             var request = await RequestAsync(Beatmaps, dict, token).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            var obj = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
+            foreach (var beatmap in obj)
+            {
+                beatmap.Client = this;
+            }
+            return obj;
         }
 
         /// <summary>
@@ -404,6 +472,7 @@ namespace OsuSharp
             var data = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
             if (data.Count > 0)
             {
+                data[0].Client = this;
                 return data[0];
             }
 
@@ -428,12 +497,29 @@ namespace OsuSharp
             var data = JsonConvert.DeserializeObject<IReadOnlyList<Beatmap>>(request);
             if (data.Count > 0)
             {
+                data[0].Client = this;
                 return data[0];
             }
 
             return null;
         }
 
+        #endregion
+
+        #region Multiplayer
+        public async Task<MultiplayerRoom> GetMultiplayerRoomAsync(long matchId, CancellationToken token = default)
+        {
+            var dict = new Dictionary<string, object>
+            {
+                ["mp"] = matchId
+            };
+
+            var request = await RequestAsync(Match, dict, token).ConfigureAwait(false);
+
+            var data = JsonConvert.DeserializeObject<MultiplayerRoom>(request);
+            data.Client = this;
+            return data;
+        }
         #endregion
 
         #region Replay
@@ -457,7 +543,10 @@ namespace OsuSharp
             };
 
             var request = await RequestAsync(Replay, ReplayRateLimiter, dict, token).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<Replay>(request);
+
+            var obj = JsonConvert.DeserializeObject<Replay>(request);
+            obj.Client = this;
+            return obj;
         }
 
         /// <summary>
@@ -479,7 +568,10 @@ namespace OsuSharp
             };
 
             var request = await RequestAsync(Replay, ReplayRateLimiter, dict, token).ConfigureAwait(false);
-            return JsonConvert.DeserializeObject<Replay>(request);
+
+            var obj = JsonConvert.DeserializeObject<Replay>(request);
+            obj.Client = this;
+            return obj;
         }
 
         #endregion
