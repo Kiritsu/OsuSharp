@@ -233,7 +233,7 @@ namespace OsuSharp
                 LifebarGraph = "",
                 Mods = score.Mods,
                 Perfect = score.Perfect,
-                Timestamp = score.Date.Ticks,
+                Timestamp = score.Date.Value.Ticks,
                 OsuVersion = 0,
                 PlayerName = score.Username,
                 Unknown = score.Userid // whatever it's both a long
