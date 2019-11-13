@@ -1,4 +1,4 @@
-﻿namespace OsuSharp.Enums
+﻿namespace OsuSharp
 {
     public enum BeatmapState
     {

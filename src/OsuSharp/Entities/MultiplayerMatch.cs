@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace OsuSharp.Entities
+namespace OsuSharp
 {
     public sealed class MultiplayerMatch : EntityBase
     {

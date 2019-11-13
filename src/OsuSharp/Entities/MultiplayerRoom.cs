@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace OsuSharp.Entities
+namespace OsuSharp
 {
     public sealed class MultiplayerRoom : EntityBase
     {

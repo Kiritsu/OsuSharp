@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using OsuSharp.Enums;
 
-namespace OsuSharp.Entities
+namespace OsuSharp
 {
     public sealed class MultiplayerGame : EntityBase
     {

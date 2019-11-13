@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
-using OsuSharp.Enums;
 
-namespace OsuSharp.Entities
+namespace OsuSharp
 {
     public sealed class MultiplayerScore : EntityBase
     {
@@ -84,7 +83,7 @@ namespace OsuSharp.Entities
         /// </summary>
         [JsonIgnore]
         public bool Perfect => _perfect == 1;
-        
+
         [JsonProperty("perfect")]
         private readonly int _perfect;
 

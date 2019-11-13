@@ -1,4 +1,4 @@
-﻿namespace OsuSharp.Entities
+﻿namespace OsuSharp
 {
     public abstract class EntityBase
     {

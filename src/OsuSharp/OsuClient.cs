@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -7,8 +8,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using OsuSharp.Entities;
-using OsuSharp.Enums;
 
 namespace OsuSharp
 {
@@ -966,6 +965,7 @@ namespace OsuSharp
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
+                Logger.LogMessage($"Endpoint {endpoint} used: [{rateLimiter.RequestCount}/{rateLimiter.Configuration.MaxRequest}]: {string.Join(", ", parameters.Select(x => x.Key + ":" + x.Value))}");
                 return JsonConvert.DeserializeObject<T>(message);
             }
 

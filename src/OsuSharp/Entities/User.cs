@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Newtonsoft.Json;
 
-namespace OsuSharp.Entities
+namespace OsuSharp
 {
     public sealed class User : EntityBase
     {

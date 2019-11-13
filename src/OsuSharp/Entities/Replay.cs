@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace OsuSharp.Entities
+namespace OsuSharp
 {
     public sealed class Replay : EntityBase
     {

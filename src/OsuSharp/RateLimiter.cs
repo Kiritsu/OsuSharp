@@ -7,11 +7,11 @@ namespace OsuSharp
 {
     internal sealed class RateLimiter
     {
-        private RateLimiterConfiguration Configuration { get; }
+        internal RateLimiterConfiguration Configuration { get; }
+
+        internal int RequestCount { get; set; }
 
         private SemaphoreSlim Semaphore { get; }
-
-        private int RequestCount { get; set; }
 
         private DateTimeOffset TimeReference { get; set; }
 

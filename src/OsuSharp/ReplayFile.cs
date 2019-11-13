@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using OsuSharp.Entities;
-using OsuSharp.Enums;
 
 namespace OsuSharp
 {

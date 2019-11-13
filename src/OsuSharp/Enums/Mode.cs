@@ -1,7 +1,7 @@
 ﻿using System;
 using OsuSharp.Attributes;
 
-namespace OsuSharp.Enums
+namespace OsuSharp
 {
     [Flags]
     public enum Mode

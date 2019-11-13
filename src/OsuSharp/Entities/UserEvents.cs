@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace OsuSharp.Entities
+namespace OsuSharp
 {
     public sealed class UserEvents : EntityBase
     {
@@ -11,7 +11,7 @@ namespace OsuSharp.Entities
         ///     Gets the HTML display for that event.
         /// </summary>
         [JsonProperty("display_html")]
-        public string? DisplayHtml { get; internal set; }
+        public string DisplayHtml { get; internal set; }
 
         /// <summary>
         ///     Id of the beatmap associated with that event.

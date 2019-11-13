@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using OsuSharp.Enums;
 
 namespace OsuSharp.Example
 {
@@ -12,6 +11,8 @@ namespace OsuSharp.Example
             {
                 ApiKey = "yo token"
             });
+
+            client.Logger.LogMessageReceived += Logger_LogMessageReceived;
 
             var bm1 = await client.GetBeatmapByHashAsync("86d35e59965dbf2078a0843f87415ebe"); //EXTREME FUCKING SOCA PARTY, Renard, Snaggletooth, Nogard's Extra
             var bm2 = await client.GetBeatmapByIdAsync(824242); //EXTREME FUCKING SOCA PARTY, Renard, Snaggletooth, Nogard's Extra
@@ -50,6 +51,11 @@ namespace OsuSharp.Example
             var r2 = await client.GetReplayByUserIdAsync(1849148, 1516650, GameMode.Standard);
 
             var mp1 = await client.GetMultiplayerRoomAsync(1936471);
+        }
+
+        private static void Logger_LogMessageReceived(string obj)
+        {
+            Console.WriteLine(DateTime.Now.ToString("G") + " " + obj);
         }
     }
 }

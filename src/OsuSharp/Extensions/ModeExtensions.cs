@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using OsuSharp.Attributes;
-using OsuSharp.Enums;
 
-namespace OsuSharp.Extensions
+namespace OsuSharp
 {
     /* 
      * Highly inspired from
