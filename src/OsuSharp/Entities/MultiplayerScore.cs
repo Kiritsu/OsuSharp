@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿#pragma warning disable CS0649
+using Newtonsoft.Json;
 
 namespace OsuSharp
 {
