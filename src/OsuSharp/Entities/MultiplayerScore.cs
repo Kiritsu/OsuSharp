@@ -86,7 +86,7 @@ namespace OsuSharp.Entities
         public bool Perfect => _perfect == 1;
         
         [JsonProperty("perfect")]
-        private int _perfect;
+        private readonly int _perfect;
 
         /// <summary>
         ///     Indicates whether the player has passed the map..
@@ -95,12 +95,12 @@ namespace OsuSharp.Entities
         public bool Pass => _pass == 1;
 
         [JsonProperty("pass")]
-        private int _pass;
+        private readonly int _pass;
 
         /// <summary>
         ///     Gets the mods by user for that song.
         /// </summary>
-        [JsonProperty("mods", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("mods")]
         public Mode? Modes { get; internal set; }
     }
 }

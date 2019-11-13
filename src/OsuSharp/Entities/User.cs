@@ -24,7 +24,7 @@ namespace OsuSharp.Entities
         /// <summary>
         ///     Gets the date the user joined osu!.
         /// </summary>
-        [JsonProperty("join_date", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("join_date")]
         public DateTimeOffset? JoinDate { get; internal set; }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace OsuSharp.Entities
         public RegionInfo Country => new RegionInfo(_country);
 
         [JsonProperty("country")]
-        private string _country;
+        private readonly string _country;
 
         /// <summary>
         ///     Gets the time the user played osu!.
@@ -133,7 +133,7 @@ namespace OsuSharp.Entities
         public TimeSpan TimePlayed => TimeSpan.FromSeconds(TotalSecondsPlayed);
 
         [JsonProperty("total_seconds_played")]
-        private int TotalSecondsPlayed;
+        private readonly int TotalSecondsPlayed;
 
         /// <summary>
         ///     Gets the country rank of the user.

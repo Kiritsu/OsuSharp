@@ -637,7 +637,7 @@ namespace OsuSharp
         /// <param name="limit">Limit [1; 100] of scores to return.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapId(long beatmapId, GameMode gameMode, Mode enabledMods = Mode.None, int limit = 100, CancellationToken token = default)
+        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapId(long beatmapId, GameMode gameMode, Mode enabledMods, int limit = 100, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -665,7 +665,7 @@ namespace OsuSharp
         /// <param name="limit">Limit [1; 100] of scores to return.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUserId(long beatmapId, long userId, GameMode gameMode, int limit = 100, CancellationToken token = default)
+        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUserIdAsync(long beatmapId, long userId, GameMode gameMode, int limit = 100, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -695,7 +695,7 @@ namespace OsuSharp
         /// <param name="limit">Limit [1; 100] of scores to return.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUserId(long beatmapId, long userId, GameMode gameMode, Mode enabledMods = Mode.None, int limit = 100, CancellationToken token = default)
+        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUserIdAsync(long beatmapId, long userId, GameMode gameMode, Mode enabledMods, int limit = 100, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -725,7 +725,7 @@ namespace OsuSharp
         /// <param name="limit">Limit [1; 100] of scores to return.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUsername(long beatmapId, string username, GameMode gameMode, int limit = 100, CancellationToken token = default)
+        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUsernameAsync(long beatmapId, string username, GameMode gameMode, int limit = 100, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -755,7 +755,7 @@ namespace OsuSharp
         /// <param name="limit">Limit [1; 100] of scores to return.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUsername(long beatmapId, string username, GameMode gameMode, Mode enabledMods = Mode.None, int limit = 100, CancellationToken token = default)
+        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUsernameAsync(long beatmapId, string username, GameMode gameMode, Mode enabledMods, int limit = 100, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -871,9 +871,20 @@ namespace OsuSharp
                 ["mp"] = matchId
             };
 
-            var request = await RequestAsync<MultiplayerRoom>(Match, dict, token).ConfigureAwait(false);
-            request.Client = this;
-            return request;
+            try
+            {
+                var request = await RequestAsync<MultiplayerRoom>(Match, dict, token).ConfigureAwait(false);
+                request.Client = this;
+                return request;
+            }
+            catch (JsonSerializationException)
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         #endregion
 

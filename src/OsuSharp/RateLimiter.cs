@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -41,7 +42,7 @@ namespace OsuSharp
                 {
                     if (Configuration.ThrowOnRatelimitHit)
                     {
-                        throw new OsuSharpException("Internal rate limit reached.");
+                        throw new OsuSharpException("Internal rate limit reached.", HttpStatusCode.BadRequest);
                     }
 
                     await Task.Delay(TimeReference - now, token).ConfigureAwait(false);

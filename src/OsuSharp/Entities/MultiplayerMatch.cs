@@ -22,13 +22,13 @@ namespace OsuSharp.Entities
         /// <summary>
         ///     Gets the date time when the match started.
         /// </summary>
-        [JsonProperty("start_time", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("start_time")]
         public DateTimeOffset? StartTime { get; internal set; }
 
         /// <summary>
         ///     Gets the date time when the match ended.
         /// </summary>
-        [JsonProperty("end_time", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("end_time")]
         public DateTimeOffset? EndTime { get; internal set; }
     }
 }

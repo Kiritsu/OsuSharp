@@ -28,7 +28,7 @@ namespace OsuSharp.Entities
         public BeatmapState State { get; internal set; }
 
         [JsonProperty("total_length")]
-        private int totalLength;
+        private readonly int totalLength;
 
         /// <summary>
         ///     Total length of the beatmap. (including breaks)
@@ -37,7 +37,7 @@ namespace OsuSharp.Entities
         public TimeSpan TotalLength => TimeSpan.FromSeconds(totalLength);
 
         [JsonProperty("hit_length")]
-        private int hitLength;
+        private readonly int hitLength;
 
         /// <summary>
         ///     Total hit length of the beatmaps. (doesn't include breaks)
@@ -90,13 +90,13 @@ namespace OsuSharp.Entities
         /// <summary>
         ///     Date time this map was approved. Null if the map has not been approved.
         /// </summary>
-        [JsonProperty("approved_date", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("approved_date")]
         public DateTimeOffset? ApprovedDate { get; internal set; }
 
         /// <summary>
         ///     Date time this map was updated.
         /// </summary>
-        [JsonProperty("last_update", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("last_update")]
         public DateTimeOffset? LastUpdate { get; internal set; }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace OsuSharp.Entities
         public string Source { get; internal set; }
 
         [JsonProperty("tags")]
-        private string _tags;
+        private readonly string _tags;
 
         /// <summary>
         ///     Tags given to this map.
@@ -165,13 +165,13 @@ namespace OsuSharp.Entities
         /// <summary>
         ///     Amount of plays.
         /// </summary>
-        [JsonProperty("playcount", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("playcount")]
         public int? PlayCount { get; internal set; }
 
         /// <summary>
         ///     Amount of pass.
         /// </summary>
-        [JsonProperty("passcount", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("passcount")]
         public int? PassCount { get; internal set; }
 
         /// <summary>
@@ -183,7 +183,7 @@ namespace OsuSharp.Entities
         /// <summary>
         ///     Maximum combo. Can be null depending on the <see cref="GameMode"/>.
         /// </summary>
-        [JsonProperty("max_combo", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("max_combo")]
         public int? MaxCombo { get; internal set; }
 
         /// <summary>

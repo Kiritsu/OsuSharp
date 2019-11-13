@@ -67,7 +67,7 @@ namespace OsuSharp.Entities
         /// <summary>
         ///     Max combo of the play.
         /// </summary>
-        [JsonProperty("maxcombo", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("maxcombo")]
         public int? MaxCombo { get; internal set; }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace OsuSharp.Entities
         public bool Perfect => _perfect == 1;
 
         [JsonProperty("perfect")]
-        private int _perfect;
+        private readonly int _perfect;
 
         /// <summary>
         ///     Mods enabled for this score.
@@ -105,8 +105,8 @@ namespace OsuSharp.Entities
         /// <summary>
         ///     Date the score was submitted.
         /// </summary>
-        [JsonProperty("date", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTimeOffset Date { get; internal set; }
+        [JsonProperty("date")]
+        public DateTimeOffset? Date { get; internal set; }
 
         /// <summary>
         ///     Indicates the rank of the map. (SS, SSH, S, SH, A, B, C, D)
@@ -127,7 +127,7 @@ namespace OsuSharp.Entities
         public bool ReplayAvailable => _replayAvailable == 1;
 
         [JsonProperty("replay_available")]
-        private int _replayAvailable;
+        private readonly int _replayAvailable;
 
         /// <summary>
         ///     Game mode played for that score.
