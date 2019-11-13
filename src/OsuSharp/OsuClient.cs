@@ -543,6 +543,7 @@ namespace OsuSharp
         /// <param name="gameMode">Game mode to return metadata from.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <param name="eventDays">Gets the max amount of day between now and last event date. [1;31]</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
         public async Task<User> GetUserByUserIdAsync(long userId, GameMode gameMode = GameMode.Standard, int eventDays = 1, CancellationToken token = default)
         {
@@ -602,6 +603,7 @@ namespace OsuSharp
         /// <param name="gameMode">Game mode to return metadata from.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <param name="eventDays">Gets the max amount of day between now and last event date. [1;31]</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
         public async Task<User> GetUserByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int eventDays = 1, CancellationToken token = default)
         {
@@ -627,34 +629,190 @@ namespace OsuSharp
         #endregion
 
         #region Score
+        /// <summary>
+        ///     Gets a set of scores by a beatmap id.
+        /// </summary>
+        /// <param name="beatmapId">Id of the beatmap.</param>
+        /// <param name="gameMode">Game mode to fetch the scores from.</param>
+        /// <param name="limit">Limit [1; 100] of scores to return.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
         public async Task<IReadOnlyList<Score>> GetScoresByBeatmapId(long beatmapId, GameMode gameMode = GameMode.Standard, int limit = 100, CancellationToken token = default)
         {
-            return null;
+            var dict = new Dictionary<string, object>
+            {
+                ["b"] = beatmapId,
+                ["m"] = (int)gameMode,
+                ["limit"] = limit
+            };
+
+            var request = await RequestAsync(Scores, dict, token).ConfigureAwait(false);
+
+            var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
+            foreach (var score in data)
+            {
+                score.Client = this;
+                score.GameMode = gameMode;
+            }
+            return data;
         }
 
+        /// <summary>
+        ///     Gets a set of scores by a beatmap id.
+        /// </summary>
+        /// <param name="beatmapId">Id of the beatmap.</param>
+        /// <param name="gameMode">Game mode to fetch the scores from.</param>
+        /// <param name="enabledMods">Mods to fetch the scores from.</param>
+        /// <param name="limit">Limit [1; 100] of scores to return.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
         public async Task<IReadOnlyList<Score>> GetScoresByBeatmapId(long beatmapId, GameMode gameMode = GameMode.Standard, Mode enabledMods = Mode.None, int limit = 100, CancellationToken token = default)
         {
-            return null;
+            var dict = new Dictionary<string, object>
+            {
+                ["b"] = beatmapId,
+                ["m"] = (int)gameMode,
+                ["mods"] = (int)enabledMods,
+                ["limit"] = limit
+            };
+
+            var request = await RequestAsync(Scores, dict, token).ConfigureAwait(false);
+
+            var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
+            foreach (var score in data)
+            {
+                score.Client = this;
+                score.GameMode = gameMode;
+            }
+            return data;
         }
 
+        /// <summary>
+        ///     Gets a set of scores by a beatmap id.
+        /// </summary>
+        /// <param name="beatmapId">Id of the beatmap.</param>
+        /// <param name="userId">Id of the user</param>
+        /// <param name="gameMode">Game mode to fetch the scores from.</param>
+        /// <param name="limit">Limit [1; 100] of scores to return.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
         public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUserId(long beatmapId, long userId, GameMode gameMode = GameMode.Standard, int limit = 100, CancellationToken token = default)
         {
-            return null;
+            var dict = new Dictionary<string, object>
+            {
+                ["b"] = beatmapId,
+                ["u"] = userId,
+                ["m"] = (int)gameMode,
+                ["type"] = "id",
+                ["limit"] = limit
+            };
+
+            var request = await RequestAsync(Scores, dict, token).ConfigureAwait(false);
+
+            var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
+            foreach (var score in data)
+            {
+                score.Client = this;
+                score.GameMode = gameMode;
+            }
+            return data;
         }
 
+        /// <summary>
+        ///     Gets a set of scores by a beatmap id.
+        /// </summary>
+        /// <param name="beatmapId">Id of the beatmap.</param>
+        /// <param name="userId">Id of the user</param>
+        /// <param name="gameMode">Game mode to fetch the scores from.</param>
+        /// <param name="enabledMods">Mods to fetch the scores from.</param>
+        /// <param name="limit">Limit [1; 100] of scores to return.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
         public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUserId(long beatmapId, long userId, GameMode gameMode = GameMode.Standard, Mode enabledMods = Mode.None, int limit = 100, CancellationToken token = default)
         {
-            return null;
+            var dict = new Dictionary<string, object>
+            {
+                ["b"] = beatmapId,
+                ["u"] = userId,
+                ["m"] = (int)gameMode,
+                ["mods"] = (int)enabledMods,
+                ["type"] = "id",
+                ["limit"] = limit
+            };
+
+            var request = await RequestAsync(Scores, dict, token).ConfigureAwait(false);
+
+            var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
+            foreach (var score in data)
+            {
+                score.Client = this;
+                score.GameMode = gameMode;
+            }
+            return data;
         }
 
+        /// <summary>
+        ///     Gets a set of scores by a beatmap id.
+        /// </summary>
+        /// <param name="beatmapId">Id of the beatmap.</param>
+        /// <param name="username">Username of the user</param>
+        /// <param name="gameMode">Game mode to fetch the scores from.</param>
+        /// <param name="limit">Limit [1; 100] of scores to return.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
         public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUsername(long beatmapId, string username, GameMode gameMode = GameMode.Standard, int limit = 100, CancellationToken token = default)
         {
-            return null;
+            var dict = new Dictionary<string, object>
+            {
+                ["b"] = beatmapId,
+                ["u"] = username,
+                ["m"] = (int)gameMode,
+                ["type"] = "string",
+                ["limit"] = limit
+            };
+
+            var request = await RequestAsync(Scores, dict, token).ConfigureAwait(false);
+
+            var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
+            foreach (var score in data)
+            {
+                score.Client = this;
+                score.GameMode = gameMode;
+            }
+            return data;
         }
 
+        /// <summary>
+        ///     Gets a set of scores by a beatmap id.
+        /// </summary>
+        /// <param name="beatmapId">Id of the beatmap.</param>
+        /// <param name="username">Username of the user</param>
+        /// <param name="gameMode">Game mode to fetch the scores from.</param>
+        /// <param name="enabledMods">Mods to fetch the scores from.</param>
+        /// <param name="limit">Limit [1; 100] of scores to return.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
         public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUsername(long beatmapId, string username, GameMode gameMode = GameMode.Standard, Mode enabledMods = Mode.None, int limit = 100, CancellationToken token = default)
         {
-            return null;
+            var dict = new Dictionary<string, object>
+            {
+                ["b"] = beatmapId,
+                ["u"] = username,
+                ["m"] = (int)gameMode,
+                ["mods"] = (int)enabledMods,
+                ["type"] = "string",
+                ["limit"] = limit
+            };
+
+            var request = await RequestAsync(Scores, dict, token).ConfigureAwait(false);
+
+            var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
+            foreach (var score in data)
+            {
+                score.Client = this;
+                score.GameMode = gameMode;
+            }
+            return data;
         }
         #endregion
 
