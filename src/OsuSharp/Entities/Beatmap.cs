@@ -88,7 +88,7 @@ namespace OsuSharp.Entities
         public GameMode GameMode { get; internal set; }
 
         /// <summary>
-        ///     Date time this map was approved. Null if the map is not at least approved.
+        ///     Date time this map was approved. Null if the map has not been approved.
         /// </summary>
         [JsonProperty("approved_date", NullValueHandling = NullValueHandling.Ignore)]
         public DateTimeOffset? ApprovedDate { get; internal set; }
