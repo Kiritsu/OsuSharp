@@ -60,7 +60,7 @@ namespace OsuSharp
         /// </summary>
         [JsonIgnore]
         public double Accuracy
-            => (Count50 * 50 + Count100 * 100 + Count300 * 300)
+            => ((Count50 * 50) + (Count100 * 100) + (Count300 * 300))
                 / (300.0 * (Count50 + Count100 + Count300 + Miss)) * 100;
 
         /// <summary>

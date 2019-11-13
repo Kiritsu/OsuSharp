@@ -206,11 +206,10 @@ namespace OsuSharp
         ///     You shouldn't mix up replays, users, beatmaps and scores, but.. you could.
         /// </summary>
         /// <param name="replay">Replay entity</param>
-        /// <param name="user">User entity</param>
         /// <param name="score">Score entity</param>
         /// <param name="beatmap">Beatmap entity</param>
         /// <returns></returns>
-        public static ReplayFile CreateReplayFile(Replay replay, User user, Score score, Beatmap beatmap)
+        public static ReplayFile CreateReplayFile(Replay replay, Score score, Beatmap beatmap)
         {
             var playbytes = Convert.FromBase64String(replay.Content);
             return new ReplayFile
