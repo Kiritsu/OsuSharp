@@ -152,5 +152,10 @@ namespace OsuSharp
         /// </summary>
         [JsonProperty("events")]
         public IReadOnlyList<UserEvents> Events { get; internal set; }
+
+        /// <summary>
+        ///     Starts spectating the user.
+        /// </summary>
+        public Uri SpectateUri => new Uri($"osu://spectate/{Username}");
     }
 }
