@@ -130,7 +130,7 @@ namespace OsuSharp
         /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns><see cref="IReadOnlyList{Beatmap}"/></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsAsync(GameMode gameMode = GameMode.Standard, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsAsync(GameMode gameMode, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -157,7 +157,7 @@ namespace OsuSharp
         /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsAsync(DateTimeOffset since, GameMode gameMode = GameMode.Standard, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsAsync(DateTimeOffset since, GameMode gameMode, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -215,7 +215,7 @@ namespace OsuSharp
         /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorIdAsync(long authorId, DateTimeOffset since, GameMode gameMode = GameMode.Standard, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorIdAsync(long authorId, DateTimeOffset since, GameMode gameMode, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -272,7 +272,7 @@ namespace OsuSharp
         /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorIdAsync(long authorId, GameMode gameMode = GameMode.Standard, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorIdAsync(long authorId, GameMode gameMode, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -331,7 +331,7 @@ namespace OsuSharp
         /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorUsernameAsync(string username, DateTimeOffset since, GameMode gameMode = GameMode.Standard, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorUsernameAsync(string username, DateTimeOffset since, GameMode gameMode, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -388,7 +388,7 @@ namespace OsuSharp
         /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorUsernameAsync(string username, GameMode gameMode = GameMode.Standard, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorUsernameAsync(string username, GameMode gameMode, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -437,7 +437,7 @@ namespace OsuSharp
         /// <param name="gameMode">Game mode of the beatmaps.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsetAsync(long beatmapsetId, GameMode gameMode = GameMode.Standard, CancellationToken token = default)
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsetAsync(long beatmapsetId, GameMode gameMode, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -514,7 +514,7 @@ namespace OsuSharp
         /// <param name="gameMode">Game mode to return metadata from.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<User> GetUserByUserIdAsync(long userId, GameMode gameMode = GameMode.Standard, CancellationToken token = default)
+        public async Task<User> GetUserByUserIdAsync(long userId, GameMode gameMode, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -545,7 +545,7 @@ namespace OsuSharp
         /// <param name="eventDays">Gets the max amount of day between now and last event date. [1;31]</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<User> GetUserByUserIdAsync(long userId, GameMode gameMode = GameMode.Standard, int eventDays = 1, CancellationToken token = default)
+        public async Task<User> GetUserByUserIdAsync(long userId, GameMode gameMode, int eventDays = 1, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -574,7 +574,7 @@ namespace OsuSharp
         /// <param name="gameMode">Game mode to return metadata from.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<User> GetUserByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, CancellationToken token = default)
+        public async Task<User> GetUserByUsernameAsync(string username, GameMode gameMode, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -605,7 +605,7 @@ namespace OsuSharp
         /// <param name="eventDays">Gets the max amount of day between now and last event date. [1;31]</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<User> GetUserByUsernameAsync(string username, GameMode gameMode = GameMode.Standard, int eventDays = 1, CancellationToken token = default)
+        public async Task<User> GetUserByUsernameAsync(string username, GameMode gameMode, int eventDays = 1, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -637,7 +637,7 @@ namespace OsuSharp
         /// <param name="limit">Limit [1; 100] of scores to return.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapId(long beatmapId, GameMode gameMode = GameMode.Standard, int limit = 100, CancellationToken token = default)
+        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapId(long beatmapId, GameMode gameMode, int limit = 100, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -666,7 +666,7 @@ namespace OsuSharp
         /// <param name="limit">Limit [1; 100] of scores to return.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapId(long beatmapId, GameMode gameMode = GameMode.Standard, Mode enabledMods = Mode.None, int limit = 100, CancellationToken token = default)
+        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapId(long beatmapId, GameMode gameMode, Mode enabledMods = Mode.None, int limit = 100, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -696,7 +696,7 @@ namespace OsuSharp
         /// <param name="limit">Limit [1; 100] of scores to return.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUserId(long beatmapId, long userId, GameMode gameMode = GameMode.Standard, int limit = 100, CancellationToken token = default)
+        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUserId(long beatmapId, long userId, GameMode gameMode, int limit = 100, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -728,7 +728,7 @@ namespace OsuSharp
         /// <param name="limit">Limit [1; 100] of scores to return.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUserId(long beatmapId, long userId, GameMode gameMode = GameMode.Standard, Mode enabledMods = Mode.None, int limit = 100, CancellationToken token = default)
+        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUserId(long beatmapId, long userId, GameMode gameMode, Mode enabledMods = Mode.None, int limit = 100, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -760,7 +760,7 @@ namespace OsuSharp
         /// <param name="limit">Limit [1; 100] of scores to return.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUsername(long beatmapId, string username, GameMode gameMode = GameMode.Standard, int limit = 100, CancellationToken token = default)
+        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUsername(long beatmapId, string username, GameMode gameMode, int limit = 100, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -792,7 +792,7 @@ namespace OsuSharp
         /// <param name="limit">Limit [1; 100] of scores to return.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUsername(long beatmapId, string username, GameMode gameMode = GameMode.Standard, Mode enabledMods = Mode.None, int limit = 100, CancellationToken token = default)
+        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUsername(long beatmapId, string username, GameMode gameMode, Mode enabledMods = Mode.None, int limit = 100, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -805,6 +805,94 @@ namespace OsuSharp
             };
 
             var request = await RequestAsync(Scores, dict, token).ConfigureAwait(false);
+
+            var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
+            foreach (var score in data)
+            {
+                score.Client = this;
+                score.GameMode = gameMode;
+            }
+            return data;
+        }
+        #endregion
+
+        #region ScoreUserBest
+        public async Task<IReadOnlyList<Score>> GetUserBestsByUserIdAsync(long userId, GameMode gameMode, int limit = 100, CancellationToken token = default)
+        {
+            var dict = new Dictionary<string, object>
+            {
+                ["u"] = userId,
+                ["m"] = (int)gameMode,
+                ["limit"] = limit,
+                ["type"] = "id"
+            };
+
+            var request = await RequestAsync(UserBest, dict, token).ConfigureAwait(false);
+
+            var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
+            foreach (var score in data)
+            {
+                score.Client = this;
+                score.GameMode = gameMode;
+            }
+            return data;
+        }
+
+        public async Task<IReadOnlyList<Score>> GetUserBestsByUsernameAsync(string username, GameMode gameMode, int limit = 100, CancellationToken token = default)
+        {
+            var dict = new Dictionary<string, object>
+            {
+                ["u"] = username,
+                ["m"] = (int)gameMode,
+                ["limit"] = limit,
+                ["type"] = "string"
+            };
+
+            var request = await RequestAsync(UserBest, dict, token).ConfigureAwait(false);
+
+            var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
+            foreach (var score in data)
+            {
+                score.Client = this;
+                score.GameMode = gameMode;
+            }
+            return data;
+        }
+        #endregion
+
+        #region ScoreUserRecent
+        public async Task<IReadOnlyList<Score>> GetUserRecentsByUserIdAsync(long userId, GameMode gameMode, int limit = 100, CancellationToken token = default)
+        {
+            var dict = new Dictionary<string, object>
+            {
+                ["u"] = userId,
+                ["m"] = (int)gameMode,
+                ["limit"] = limit,
+                ["type"] = "id"
+            };
+
+            var request = await RequestAsync(UserBest, dict, token).ConfigureAwait(false);
+
+            var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
+            foreach (var score in data)
+            {
+                score.Client = this;
+                score.GameMode = gameMode;
+            }
+            return data;
+        }
+
+        public async Task<IReadOnlyList<Score>> GetUserRecentsByUsernameAsync(string username, GameMode gameMode, int limit = 100, CancellationToken token = default)
+        {
+            var dict = new Dictionary<string, object>
+            {
+                ["u"] = username,
+                ["m"] = (int)gameMode,
+                ["limit"] = limit,
+                ["type"] = "string"
+            };
+
+            var request = await RequestAsync(UserBest, dict, token).ConfigureAwait(false);
 
             var data = JsonConvert.DeserializeObject<IReadOnlyList<Score>>(request);
             foreach (var score in data)
@@ -848,7 +936,7 @@ namespace OsuSharp
         /// <param name="gameMode">Game mode the play has been played in.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<Replay> GetReplayByUserIdAsync(long beatmapId, long userId, GameMode gameMode = GameMode.Standard, CancellationToken token = default)
+        public async Task<Replay> GetReplayByUserIdAsync(long beatmapId, long userId, GameMode gameMode, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {
@@ -873,7 +961,7 @@ namespace OsuSharp
         /// <param name="gameMode">Game mode the play has been played in.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
-        public async Task<Replay> GetReplayByUsernameAsync(long beatmapId, string username, GameMode gameMode = GameMode.Standard, CancellationToken token = default)
+        public async Task<Replay> GetReplayByUsernameAsync(long beatmapId, string username, GameMode gameMode, CancellationToken token = default)
         {
             var dict = new Dictionary<string, object>
             {

@@ -5,6 +5,8 @@ namespace OsuSharp.Entities
 {
     public sealed class UserEvents : EntityBase
     {
+        internal UserEvents() { }
+
         /// <summary>
         ///     Gets the HTML display for that event.
         /// </summary>

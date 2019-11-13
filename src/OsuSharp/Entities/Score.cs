@@ -6,6 +6,8 @@ namespace OsuSharp.Entities
 {
     public sealed class Score : EntityBase
     {
+        internal Score() { }
+
         /// <summary>
         ///     Id of the beatmap.
         /// </summary>
@@ -81,6 +83,14 @@ namespace OsuSharp.Entities
         public int Geki { get; internal set; }
 
         /// <summary>
+        ///     Indicates whether this score is full combo perfect.
+        /// </summary>
+        public bool Perfect => _perfect == 1;
+
+        [JsonProperty("perfect")]
+        private int _perfect;
+
+        /// <summary>
         ///     Mods enabled for this score.
         /// </summary>
         [JsonProperty("enabled_mods")]
@@ -109,6 +119,15 @@ namespace OsuSharp.Entities
         /// </summary>
         [JsonProperty("pp")]
         public float PerformancePoints { get; internal set; }
+
+        /// <summary>
+        ///     Indicates whether the replay is available.
+        /// </summary>
+        [JsonIgnore]
+        public bool ReplayAvailable => _replayAvailable == 1;
+
+        [JsonProperty("replay_available")]
+        private int _replayAvailable;
 
         /// <summary>
         ///     Game mode played for that score.
