@@ -1,7 +1,7 @@
-# OsuSharp 5.0
+# OsuSharp
 
 [![NuGet version](https://badge.fury.io/nu/OsuSharp.svg)](https://badge.fury.io/nu/OsuSharp)
-[![Build status](https://ci.appveyor.com/api/projects/status/jhrtfqgrhidw331x?svg=true)](https://ci.appveyor.com/project/Kiritsu/osusharp)
+[![Build Status](https://dev.azure.com/allanmercou/OsuSharp/_apis/build/status/Kiritsu.OsuSharp?branchName=master)](https://dev.azure.com/allanmercou/OsuSharp/_build/latest?definitionId=6&branchName=master)
 
 **OsuSharp is a wrapper written in C# for the osu! API.**
 
@@ -17,7 +17,7 @@
 You can install the wrapper with NuGet:
 
 ```
-PM> Install-Package OsuSharp -Version 4.0
+PM> Install-Package OsuSharp
 ```
 
 Or compile from source:
@@ -29,10 +29,6 @@ git clone https://github.com/Kiritsu/OsuSharp.git
 ## Contributing
 
 If you want to contribute, feel free to use Issues or Pull Requests!
-
-## Documentation
-
-https://kiritsu.github.io/OsuSharp/index.html
 
 ## Contact
 
