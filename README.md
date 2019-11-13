@@ -44,4 +44,5 @@ Thanks to the following contributors:
 - [NaamloosDT](https://github.com/NaamloosDT)
 - [Kamdzy](https://github.com/Kamdzy)
 - [Bond-009](https://github.com/Bond-009)
-- [Kat](https://github.com/thecatitude)
+- [Kat](https://github.com/abyssal)
+- [Piotrekol](https://github.com/Piotrekol)
