@@ -4,12 +4,26 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProjectUrl>https://github.com/Kiritsu/OsuSharp</ProjectUrl>
     <PackageProjectUrl>https://github.com/Kiritsu/OsuSharp</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/Kiritsu/OsuSharp/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <LangVersion>8.0</LangVersion>
+    <Authors>Allan Mercou</Authors>
+    <Company>Allan Mercou</Company>
+    <Description>Analyzers for the unofficial wrapper of the osu! API (V1) written in C# and compatible with .NET Standard 2.0</Description>
+    <Copyright>Allan Mercou</Copyright>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <Version>5.0.1</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\OsuSharp\OsuSharp.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
