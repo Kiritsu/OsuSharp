@@ -152,7 +152,7 @@ namespace OsuSharp
         /// <returns></returns>
         public async Task<IReadOnlyList<Beatmap>> GetBeatmapsetAsync()
         {
-            var beatmap = await GetBeatmapAsync();
+            var beatmap = await GetBeatmapAsync().ConfigureAwait(false);
             return await Client.GetBeatmapsetAsync(beatmap.BeatmapsetId, GameMode);
         }
 

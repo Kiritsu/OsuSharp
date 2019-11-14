@@ -221,9 +221,9 @@ namespace OsuSharp
         ///     Gets the entire beatmapset of this beatmap.
         /// </summary>
         /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsetAsync()
+        public Task<IReadOnlyList<Beatmap>> GetBeatmapsetAsync()
         {
-            return await Client.GetBeatmapsetAsync(BeatmapsetId, GameMode);
+            return Client.GetBeatmapsetAsync(BeatmapsetId, GameMode);
         }
 
         /// <summary>

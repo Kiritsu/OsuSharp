@@ -49,7 +49,6 @@ namespace OsuSharp
                     await Task.Delay(TimeReference - now, token).ConfigureAwait(false);
 
                     TimeReference = DateTimeOffset.Now + Configuration.Interval;
-
                     RequestCount = 0;
                 }
             }
