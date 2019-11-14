@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace OsuSharp
@@ -61,5 +62,24 @@ namespace OsuSharp
         /// </summary>
         [JsonProperty("scores")]
         public IReadOnlyList<MultiplayerScore> PlayerScores { get; internal set; }
+
+        /// <summary>
+        ///     Gets the beatmap that has been played.
+        /// </summary>
+        /// <returns></returns>
+        public Task<Beatmap> GetBeatmapAsync()
+        {
+            return Client.GetBeatmapByIdAsync(BeatmapId, GameMode);
+        }
+
+        /// <summary>
+        ///     Gets the entire beatmapset associated with the beatmap.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsetAsync()
+        {
+            var beatmap = await GetBeatmapAsync();
+            return await Client.GetBeatmapsetAsync(beatmap.BeatmapsetId, GameMode);
+        }
     }
 }

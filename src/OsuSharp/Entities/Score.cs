@@ -1,5 +1,7 @@
 ﻿#pragma warning disable CS0649
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace OsuSharp
@@ -100,7 +102,7 @@ namespace OsuSharp
         ///     Id of the player.
         /// </summary>
         [JsonProperty("user_id")]
-        public long Userid { get; internal set; }
+        public long UserId { get; internal set; }
 
         /// <summary>
         ///     Date the score was submitted.
@@ -133,6 +135,48 @@ namespace OsuSharp
         ///     Game mode played for that score.
         /// </summary>
         [JsonIgnore]
-        public GameMode? GameMode { get; internal set; } //todo: don't forget to manually assign if possible because it's not provided by the api.
+        public GameMode GameMode { get; internal set; }
+
+        /// <summary>
+        ///     Gets the beatmap entity associated with the score.
+        /// </summary>
+        /// <returns></returns>
+        public Task<Beatmap> GetBeatmapAsync()
+        {
+            return Client.GetBeatmapByIdAsync(BeatmapId, GameMode);
+        }
+
+        /// <summary>
+        ///     Gets the entire beatmapset associated with the score.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsetAsync()
+        {
+            var beatmap = await GetBeatmapAsync();
+            return await Client.GetBeatmapsetAsync(beatmap.BeatmapsetId, GameMode);
+        }
+
+        /// <summary>
+        ///     Gets the user that made this score.
+        /// </summary>
+        /// <returns></returns>
+        public Task<User> GetUserAsync()
+        {
+            return Client.GetUserByUserIdAsync(UserId, GameMode);
+        }
+
+        /// <summary>
+        ///     Gets the replay of this beatmap if it's available.
+        /// </summary>
+        /// <returns></returns>
+        public Task<Replay> GetReplayAsync()
+        {
+            if (!ReplayAvailable)
+            {
+                throw new InvalidOperationException("This replay is unavailable.");
+            }
+
+            return Client.GetReplayByUserIdAsync(BeatmapId, UserId, GameMode);
+        }
     }
 }

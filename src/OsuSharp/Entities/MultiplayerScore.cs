@@ -1,4 +1,6 @@
 ﻿#pragma warning disable CS0649
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace OsuSharp
@@ -102,5 +104,14 @@ namespace OsuSharp
         /// </summary>
         [JsonProperty("mods")]
         public Mode? Modes { get; internal set; }
+
+        /// <summary>
+        ///     Gets the user that made this score.
+        /// </summary>
+        /// <returns></returns>
+        public Task<User> GetUserAsync(GameMode gameMode)
+        {
+            return Client.GetUserByUserIdAsync(UserId, gameMode);
+        }
     }
 }

@@ -463,6 +463,29 @@ namespace OsuSharp
         }
 
         /// <summary>
+        ///     Gets a beatmap by it's id.
+        /// </summary>
+        /// <param name="beatmapId">Id of the beatmap.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
+        public async Task<Beatmap> GetBeatmapByIdAsync(long beatmapId, GameMode gameMode, CancellationToken token = default)
+        {
+            var dict = new Dictionary<string, object>
+            {
+                ["m"] = (int)gameMode,
+                ["b"] = beatmapId
+            };
+
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            if (request.Count > 0)
+            {
+                request[0].Client = this;
+                return request[0];
+            }
+            return null;
+        }
+
+        /// <summary>
         ///     Gets a beatmap corresponding to the given replay hash.
         /// </summary>
         /// <param name="hash">Hash of a replay.</param>

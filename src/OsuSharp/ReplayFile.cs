@@ -233,7 +233,7 @@ namespace OsuSharp
                 Timestamp = score.Date.Value.Ticks,
                 OsuVersion = 0,
                 PlayerName = score.Username,
-                Unknown = score.Userid // whatever it's both a long
+                Unknown = score.UserId // whatever it's both a long
             };
         }
 

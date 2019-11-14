@@ -1,6 +1,7 @@
 ﻿#pragma warning disable CS0649
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace OsuSharp
@@ -215,5 +216,23 @@ namespace OsuSharp
         /// </summary>
         [JsonIgnore]
         public Uri OsuDirectDownloadUri => new Uri($"osu://dl/{BeatmapsetId}");
+
+        /// <summary>
+        ///     Gets the entire beatmapset of this beatmap.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsetAsync()
+        {
+            return await Client.GetBeatmapsetAsync(BeatmapsetId, GameMode);
+        }
+
+        /// <summary>
+        ///     Gets the author of the beatmap.
+        /// </summary>
+        /// <returns></returns>
+        public Task<User> GetAuthorAsync(GameMode? gameMode = null)
+        {
+            return Client.GetUserByUserIdAsync(AuthorId, gameMode ?? GameMode);
+        }
     }
 }
