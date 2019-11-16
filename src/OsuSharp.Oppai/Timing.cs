@@ -5,14 +5,14 @@
         /// <summary>
         ///     In milliseconds.
         /// </summary>
-        public double Time { get; set; }
+        public double Time { get; internal set; }
 
-        public double MsPerBeat { get; set; }
+        public double MsPerBeat { get; internal set; }
 
         /// <summary>
         ///     When false, <see cref="MsPerBeat"/> is "-100 * BpmMultiplier".
         /// </summary>
-        public bool Change { get; set; }
+        public bool Change { get; internal set; }
 
         public Timing()
         {

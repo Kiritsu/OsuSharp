@@ -9,52 +9,52 @@ namespace OsuSharp.Oppai
         /// <summary>
         ///     Star rating.
         /// </summary>
-        public double Total { get; set; }
+        public double Total { get; internal set; }
 
         /// <summary>
         ///     Aim stars.
         /// </summary>
-        public double Aim { get; set; }
+        public double Aim { get; internal set; }
 
         /// <summary>
         ///     Used to calc length bonus.
         /// </summary>
-        public double AimDifficulty { get; set; }
+        public double AimDifficulty { get; internal set; }
 
         /// <summary>
         ///     Unused for now.
         /// </summary>
-        public double AimlengthBonus { get; set; }
+        public double AimlengthBonus { get; internal set; }
 
         /// <summary>
         ///     Speed stars.
         /// </summary>
-        public double Speed { get; set; }
+        public double Speed { get; internal set; }
 
         /// <summary>
         ///     Used to calc length bonus.
         /// </summary>
-        public double SpeedDifficulty { get; set; }
+        public double SpeedDifficulty { get; internal set; }
 
         /// <summary>
         ///     Unused at the moment.
         /// </summary>
-        public double SpeedLengthBonus { get; set; }
+        public double SpeedLengthBonus { get; internal set; }
 
         /// <summary>
         ///     Number of notes that are considered singletaps by the difficulty calculator.
         /// </summary>
-        public int SinglesCount { get; set; }
+        public int SinglesCount { get; internal set; }
 
         /// <summary>
         ///     Number of taps slower or equal to the singletap threshold.
         /// </summary>
-        public int SinglesCountThreshold { get; set; }
+        public int SinglesCountThreshold { get; internal set; }
 
         /// <summary>
         ///     Beatmap we want to calculate the difficulty for.
         /// </summary>
-        public ParsedBeatmap Beatmap { get; set; }
+        public ParsedBeatmap Beatmap { get; internal set; }
 
         private double _speedMultipler;
         private readonly List<double> _strains;
@@ -84,7 +84,7 @@ namespace OsuSharp.Oppai
         {
             _strains.Clear();
 
-            var strain_step = OppaiConsts.STRAIN_STEP * _speedMultipler;
+            var strain_step = OppaiUtilities.STRAIN_STEP * _speedMultipler;
             
             // the first object doesn't generate a strain
             // so we begin with an incremented interval end 
@@ -99,7 +99,7 @@ namespace OsuSharp.Oppai
 
                 if (prev != null)
                 {
-                    OppaiConsts.DStrain(type, obj, prev, _speedMultipler);
+                    OppaiUtilities.DStrain(type, obj, prev, _speedMultipler);
                 }
 
                 while (obj.Time > interval_end)
@@ -112,7 +112,7 @@ namespace OsuSharp.Oppai
                         // decay last object's strains until the next
                         // interval and use that as the initial max
                         // strain 
-                        var decay = Math.Pow(OppaiConsts.DECAY_BASE[type], (interval_end - prev.Time) / 1000.0);
+                        var decay = Math.Pow(OppaiUtilities.DECAY_BASE[type], (interval_end - prev.Time) / 1000.0);
 
                         max_strain = prev.Strains[type] * decay;
                     }
@@ -141,7 +141,7 @@ namespace OsuSharp.Oppai
             {
                 total += Math.Pow(strain, 1.2);
                 difficulty += strain * weight;
-                weight *= OppaiConsts.DECAY_WEIGHT;
+                weight *= OppaiUtilities.DECAY_WEIGHT;
             }
 
             return new DiffValues(difficulty, total);
@@ -166,22 +166,22 @@ namespace OsuSharp.Oppai
 
             var mapstats = new BeatmapStats();
             mapstats.CS = diffCalculation.Beatmap.CS;
-            mapstats.ApplyMods(mods, OppaiConsts.APPLY_CS);
+            mapstats.ApplyMods(mods, OppaiUtilities.APPLY_CS);
 
             diffCalculation._speedMultipler = mapstats.Speed;
 
-            var radius = OppaiConsts.PLAYFIELD_WIDTH / 16.0 * (1.0 - (0.7 * (mapstats.CS - 5.0) / 5.0));
+            var radius = OppaiUtilities.PLAYFIELD_WIDTH / 16.0 * (1.0 - (0.7 * (mapstats.CS - 5.0) / 5.0));
 
             // positions are normalized on circle radius so that we can
             // calc as if everything was the same circlesize 
             var scaling_factor = 52.0 / radius;
 
-            if (radius < OppaiConsts.CIRCLESIZE_BUFF_THRESHOLD)
+            if (radius < OppaiUtilities.CIRCLESIZE_BUFF_THRESHOLD)
             {
-                scaling_factor *= 1.0 + (Math.Min(OppaiConsts.CIRCLESIZE_BUFF_THRESHOLD - radius, 5.0) / 50.0);
+                scaling_factor *= 1.0 + (Math.Min(OppaiUtilities.CIRCLESIZE_BUFF_THRESHOLD - radius, 5.0) / 50.0);
             }
 
-            var normalized_center = new Vector2(OppaiConsts.PLAYFIELD_CENTER).Multiply(scaling_factor);
+            var normalized_center = new Vector2(OppaiUtilities.PLAYFIELD_CENTER).Multiply(scaling_factor);
 
             HitObject prev1 = null;
             HitObject prev2 = null;
@@ -190,7 +190,7 @@ namespace OsuSharp.Oppai
             // calculate normalized positions 
             foreach (var obj in diffCalculation.Beatmap.HitObjects)
             {
-                if (((int)obj.Type & OppaiConsts.OBJ_SPINNER) != 0)
+                if (((int)obj.Type & OppaiUtilities.OBJ_SPINNER) != 0)
                 {
                     obj.NormPosition = new Vector2(normalized_center);
                 }
@@ -199,12 +199,12 @@ namespace OsuSharp.Oppai
                 {
                     Vector2 pos;
 
-                    if (((int)obj.Type & OppaiConsts.OBJ_SLIDER) != 0)
+                    if (((int)obj.Type & OppaiUtilities.OBJ_SLIDER) != 0)
                     {
                         pos = ((Slider)obj.Note).Position;
                     }
 
-                    else if (((int)obj.Type & OppaiConsts.OBJ_CIRCLE) != 0)
+                    else if (((int)obj.Type & OppaiUtilities.OBJ_CIRCLE) != 0)
                     {
                         pos = ((Circle)obj.Note).Position;
                     }
@@ -236,25 +236,25 @@ namespace OsuSharp.Oppai
             }
 
             // speed and aim stars 
-            var aimvals = diffCalculation.CalcIndividual(OppaiConsts.DIFF_AIM);
+            var aimvals = diffCalculation.CalcIndividual(OppaiUtilities.DIFF_AIM);
             diffCalculation.Aim = aimvals.Difficulty;
             diffCalculation.AimDifficulty = aimvals.Total;
             diffCalculation.AimlengthBonus = GetLengthBonus(diffCalculation.Aim, diffCalculation.AimDifficulty);
 
-            var speedvals = diffCalculation.CalcIndividual(OppaiConsts.DIFF_SPEED);
+            var speedvals = diffCalculation.CalcIndividual(OppaiUtilities.DIFF_SPEED);
             diffCalculation.Speed = speedvals.Difficulty;
             diffCalculation.SpeedDifficulty = speedvals.Total;
             diffCalculation.SpeedLengthBonus = GetLengthBonus(diffCalculation.Speed, diffCalculation.SpeedDifficulty);
 
-            diffCalculation.Aim = Math.Sqrt(diffCalculation.Aim) * OppaiConsts.STAR_SCALING_FACTOR;
-            diffCalculation.Speed = Math.Sqrt(diffCalculation.Speed) * OppaiConsts.STAR_SCALING_FACTOR;
-            if ((mods & OppaiConsts.MODS_TOUCH_DEVICE) != 0)
+            diffCalculation.Aim = Math.Sqrt(diffCalculation.Aim) * OppaiUtilities.STAR_SCALING_FACTOR;
+            diffCalculation.Speed = Math.Sqrt(diffCalculation.Speed) * OppaiUtilities.STAR_SCALING_FACTOR;
+            if ((mods & OppaiUtilities.MODS_TOUCH_DEVICE) != 0)
             {
                 diffCalculation.Aim = Math.Pow(diffCalculation.Aim, 0.8);
             }
 
             // total stars 
-            diffCalculation.Total = diffCalculation.Aim + diffCalculation.Speed + (Math.Abs(diffCalculation.Speed - diffCalculation.Aim) * OppaiConsts.EXTREME_SCALING_FACTOR);
+            diffCalculation.Total = diffCalculation.Aim + diffCalculation.Speed + (Math.Abs(diffCalculation.Speed - diffCalculation.Aim) * OppaiUtilities.EXTREME_SCALING_FACTOR);
 
             /* singletap stats */
             for (i = 1; i < diffCalculation.Beatmap.HitObjects.Count; ++i)
@@ -267,7 +267,7 @@ namespace OsuSharp.Oppai
                     ++diffCalculation.SinglesCount;
                 }
 
-                if (((int)obj.Type & (OppaiConsts.OBJ_CIRCLE | OppaiConsts.OBJ_SLIDER)) == 0)
+                if (((int)obj.Type & (OppaiUtilities.OBJ_CIRCLE | OppaiUtilities.OBJ_SLIDER)) == 0)
                 {
                     continue;
                 }
@@ -290,13 +290,13 @@ namespace OsuSharp.Oppai
         
         public static DiffCalculation Calc(ParsedBeatmap beatmap)
         {
-            return Calc(beatmap, OppaiConsts.MODS_NOMOD, DEFAULT_SINGLETAP_THRESHOLD);
+            return Calc(beatmap, OppaiUtilities.MODS_NOMOD, DEFAULT_SINGLETAP_THRESHOLD);
         }
 
         private class DiffValues
         {
-            public double Difficulty { get; set; }
-            public double Total { get; set; }
+            public double Difficulty { get; internal set; }
+            public double Total { get; internal set; }
 
             public DiffValues(double difficulty, double total)
             {

@@ -4,10 +4,10 @@ namespace OsuSharp.Oppai
 {
     public sealed class Accuracy
     {
-        public int Count300 { get; set; }
-        public int Count100 { get; set; }
-        public int Count50 { get; set; }
-        public int CountMiss { get; set; }
+        public int Count300 { get; internal set; }
+        public int Count100 { get; internal set; }
+        public int Count50 { get; internal set; }
+        public int CountMiss { get; internal set; }
 
         public Accuracy(int count300, int count100, int count50, int countMiss)
         {
@@ -52,7 +52,7 @@ namespace OsuSharp.Oppai
             Count300 = countObjects - Count100 - Count50 - countMiss;
         }
 
-        private double GetAccuracy()
+        public double GetAccuracy()
         {
             return GetAccuracy(-1);
         }

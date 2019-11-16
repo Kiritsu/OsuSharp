@@ -4,13 +4,13 @@ namespace OsuSharp.Oppai
 {
     public sealed class BeatmapParser
     {
-        public int NbLine { get; set; }
-        public string LastLine { get; set; }
+        public int NbLine { get; internal set; }
+        public string LastLine { get; internal set; }
 
         public string LastPosition
         {
             get => _lastPosition;
-            set
+            internal set
             {
                 value = value.Trim();
                 _lastPosition = value;
@@ -18,12 +18,12 @@ namespace OsuSharp.Oppai
         }
         private string _lastPosition;
 
-        public bool Parsed { get; set; }
+        public bool Parsed { get; internal set; }
 
-        public ParsedBeatmap Beatmap { get; set; }
+        public ParsedBeatmap Beatmap { get; internal set; }
 
-        public string Section { get; set; }
-        public bool ArFound { get; set; }
+        public string Section { get; internal set; }
+        public bool ArFound { get; internal set; }
 
         private BeatmapParser()
         {
@@ -90,7 +90,7 @@ namespace OsuSharp.Oppai
                 LastPosition = properties[1];
                 Beatmap.Mode = int.Parse(LastPosition);
 
-                if (Beatmap.Mode != OppaiConsts.MODE_STD)
+                if (Beatmap.Mode != OppaiUtilities.MODE_STD)
                 {
                     throw new InvalidOperationException("This game mode is not yet supported.");
                 }
@@ -149,6 +149,8 @@ namespace OsuSharp.Oppai
             {
                 timing.Change = !(s[6].Trim() == "0");
             }
+
+            Beatmap.TimingPoints.Add(timing);
         }
 
         private void ParseHitObject()
@@ -168,43 +170,43 @@ namespace OsuSharp.Oppai
             LastPosition = s[3];
             hitObject.Type = (NoteType)int.Parse(LastPosition);
 
-            switch (hitObject.Type)
+            if (((int)hitObject.Type & OppaiUtilities.OBJ_CIRCLE) != 0)
             {
-                case NoteType.Circle:
-                    ++Beatmap.NbCircles;
+                ++Beatmap.NbCircles;
 
-                    var circle = new Circle();
-                    
-                    LastPosition = s[0];
-                    circle.Position.X = double.Parse(LastPosition);
+                var circle = new Circle();
 
-                    LastPosition = s[1];
-                    circle.Position.Y = double.Parse(LastPosition);
+                LastPosition = s[0];
+                circle.Position.X = double.Parse(LastPosition);
 
-                    hitObject.Note = circle;
-                    break;
-                case NoteType.Slider:
-                    ++Beatmap.NbSliders;
+                LastPosition = s[1];
+                circle.Position.Y = double.Parse(LastPosition);
 
-                    var slider = new Slider();
+                hitObject.Note = circle;
+            }
+            else if (((int)hitObject.Type & OppaiUtilities.OBJ_SLIDER) != 0)
+            {
+                ++Beatmap.NbSliders;
 
-                    LastPosition = s[0];
-                    slider.Position.X = double.Parse(LastPosition);
+                var slider = new Slider();
 
-                    LastPosition = s[1];
-                    slider.Position.Y = double.Parse(LastPosition);
+                LastPosition = s[0];
+                slider.Position.X = double.Parse(LastPosition);
 
-                    LastPosition = s[6];
-                    slider.Repetition = int.Parse(LastPosition);
+                LastPosition = s[1];
+                slider.Position.Y = double.Parse(LastPosition);
 
-                    LastPosition = s[7];
-                    slider.Distance = double.Parse(LastPosition);
+                LastPosition = s[6];
+                slider.Repetition = int.Parse(LastPosition);
 
-                    hitObject.Note = slider;
-                    break;
-                case NoteType.Spinner:
-                    ++Beatmap.NbSpinners;
-                    break;
+                LastPosition = s[7];
+                slider.Distance = double.Parse(LastPosition);
+
+                hitObject.Note = slider;
+            }
+            else if (((int)hitObject.Type & OppaiUtilities.OBJ_SPINNER) != 0)
+            {
+                ++Beatmap.NbSpinners;
             }
 
             Beatmap.HitObjects.Add(hitObject);

@@ -3,7 +3,7 @@ using System.Text;
 
 namespace OsuSharp.Oppai
 {
-    internal static class OppaiConsts
+    internal static class OppaiUtilities
     {
         public const int MODE_STD = 0;
 
@@ -401,6 +401,14 @@ namespace OsuSharp.Oppai
             }
 
             obj.Strains[type] = (prev.Strains[type] * decay) + value;
+        }
+
+        /// <summary>
+        ///     Returns base pp given the star rating.
+        /// </summary>
+        public static double PPBase(double stars)
+        {
+            return Math.Pow((5.0 * Math.Max(1.0, stars / 0.0675)) - 4.0, 3.0) / 100000.0;
         }
     }
 }

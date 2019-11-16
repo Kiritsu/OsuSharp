@@ -2,11 +2,11 @@
 {
     public sealed class Slider : Note
     {
-        public Vector2 Position { get; set; }
+        public Vector2 Position { get; internal set; }
 
-        public double Distance { get; set; }
+        public double Distance { get; internal set; }
 
-        public int Repetition { get; set; }
+        public int Repetition { get; internal set; }
 
         public Slider()
         {

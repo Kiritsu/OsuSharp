@@ -3,12 +3,12 @@
 namespace OsuSharp.Oppai
 {
     /// <summary>
-    ///     Represents a basic implementation of Vector2. The class is immutable.
+    ///     Represents a basic implementation of Vector2.
     /// </summary>
     public sealed class Vector2
     {
-        public double X { get; set; }
-        public double Y { get; set; }
+        public double X { get; internal set; }
+        public double Y { get; internal set; }
 
         public double Length => Math.Sqrt((X * X) + (Y * Y));
 
@@ -41,9 +41,9 @@ namespace OsuSharp.Oppai
         }
 
         /// <summary>
-        ///     Multiplies the current vector with another vector.
+        ///     Multiplies the current vector's x and y with the specified value.
         /// </summary>
-        /// <param name="other">Right side vector to multiply.</param>
+        /// <param name="value">Value to mulitply with this vector's x and y</param>
         public Vector2 Multiply(double value)
         {
             return new Vector2

@@ -5,32 +5,32 @@ namespace OsuSharp.Oppai
 {
     public sealed class ParsedBeatmap
     {
-        public int FormatVersion { get; set; }
-        public int Mode { get; set; }
+        public int FormatVersion { get; internal set; }
+        public int Mode { get; internal set; }
 
-        public string Title { get; set; }
-        public string TitleUnicode { get; set; }
+        public string Title { get; internal set; }
+        public string TitleUnicode { get; internal set; }
 
-        public string Artist { get; set; }
-        public string ArtistUnicode { get; set; }
+        public string Artist { get; internal set; }
+        public string ArtistUnicode { get; internal set; }
 
-        public string Creator { get; set; }
-        public string Difficulty { get; set; }
+        public string Creator { get; internal set; }
+        public string Difficulty { get; internal set; }
 
-        public int NbCircles { get; set; }
-        public int NbSliders { get; set; }
-        public int NbSpinners { get; set; }
+        public int NbCircles { get; internal set; }
+        public int NbSliders { get; internal set; }
+        public int NbSpinners { get; internal set; }
         
-        public float HP { get; set; }
-        public float CS { get; set; }
-        public float OD { get; set; }
-        public float AR { get; set; }
+        public float HP { get; internal set; }
+        public float CS { get; internal set; }
+        public float OD { get; internal set; }
+        public float AR { get; internal set; }
 
-        public float SV { get; set; }
-        public float TickRate { get; set; }
+        public float SV { get; internal set; }
+        public float TickRate { get; internal set; }
 
-        public List<HitObject> HitObjects { get; set; } 
-        public List<Timing> TimingPoints { get; set; }
+        public List<HitObject> HitObjects { get; internal set; } 
+        public List<Timing> TimingPoints { get; internal set; }
 
         public ParsedBeatmap()
         {
@@ -61,7 +61,7 @@ namespace OsuSharp.Oppai
         /// <summary>
         ///     Gets the max combo for this beatmap.
         /// </summary>
-        public int GetMaxCombo()
+        internal int GetMaxCombo()
         {
             var maxCombo = 0;
             var tIndex = -1;

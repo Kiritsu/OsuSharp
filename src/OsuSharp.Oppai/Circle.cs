@@ -2,7 +2,7 @@
 {
     public sealed class Circle : Note
     {
-        public Vector2 Position { get; set; }
+        public Vector2 Position { get; internal set; }
 
         public Circle()
         {

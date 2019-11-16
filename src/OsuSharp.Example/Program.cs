@@ -1,6 +1,8 @@
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using OsuSharp.Analyzer;
+using OsuSharp.Oppai;
 
 namespace OsuSharp.Example
 {
@@ -8,7 +10,13 @@ namespace OsuSharp.Example
     {
         private static async Task Main()
         {
-            var client = new OsuClient(new OsuSharpConfiguration
+            var beatmap = BeatmapParser.Parse(File.ReadAllText("./map_test.osu"));
+            var difficulty = DiffCalculation.Calc(beatmap);
+            Console.WriteLine($"Stars difficulty: {difficulty.Total} stars");
+            var pp = new PPv2(difficulty.Aim, difficulty.Speed, beatmap);
+            Console.WriteLine($"PP for this map: {pp.Total}");
+
+            /*var client = new OsuClient(new OsuSharpConfiguration
             {
                 ApiKey = "yo token"
             });
@@ -63,7 +71,7 @@ namespace OsuSharp.Example
             {
                 await Task.Delay(10000);
                 await tracker.UpdateEntityAsync(id);
-            }
+            }*/
         }
 
         private static Task EntityUpdated(EntityUpdateEventArgs<User> arg)
