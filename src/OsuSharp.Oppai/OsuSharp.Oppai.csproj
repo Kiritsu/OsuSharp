@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>5.0.2</Version>
+    <Version>5.1.0</Version>
     <Description>Osu PP calculator for the unofficial wrapper of the osu! API (V1) written in C# and compatible with .NET Standard 2.0. Ported from: https://github.com/Francesco149/oppai-ng</Description>
     <Copyright>Allan Mercou</Copyright>
     <Company>Allan Mercou</Company>
