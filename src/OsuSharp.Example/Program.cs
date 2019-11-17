@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using OsuSharp.Analyzer;
+using OsuSharp.Oppai;
 
 namespace OsuSharp.Example
 {
@@ -8,7 +10,10 @@ namespace OsuSharp.Example
     {
         private static async Task Main()
         {
-            var client = new OsuClient(new OsuSharpConfiguration
+            //var pp = await OppaiClient.GetPPAsync(824242, 100.0F, 99.0F, 98.0F, 97.0F, 95.00F);
+            //Console.WriteLine(string.Join("\n", pp.Select(x => $"{x.Key}: {x.Value}pp")));
+
+            /*var client = new OsuClient(new OsuSharpConfiguration
             {
                 ApiKey = "yo token"
             });
@@ -63,7 +68,7 @@ namespace OsuSharp.Example
             {
                 await Task.Delay(10000);
                 await tracker.UpdateEntityAsync(id);
-            }
+            }*/
         }
 
         private static Task EntityUpdated(EntityUpdateEventArgs<User> arg)

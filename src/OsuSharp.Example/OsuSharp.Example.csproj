@@ -10,6 +10,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OsuSharp.Analyzer\OsuSharp.Analyzer.csproj" />
+    <ProjectReference Include="..\OsuSharp.Oppai\OsuSharp.Oppai.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="oppai.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
