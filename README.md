@@ -26,6 +26,12 @@ Or compile from source:
 git clone https://github.com/Kiritsu/OsuSharp.git
 ```
 
+## OsuSharp.Oppai
+
+For this assembly, you will need oppai.dll which you can found here: https://github.com/Francesco149/oppai-ng/releases
+
+You must put oppai.dll in the same folder as your main executable/dll.
+
 ## Contributing
 
 If you want to contribute, feel free to use Issues or Pull Requests!

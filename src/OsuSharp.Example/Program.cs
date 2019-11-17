@@ -85,7 +85,6 @@ namespace OsuSharp.Example
 
             var mp1 = await client.GetMultiplayerRoomAsync(1936471);
 
-
             //Tracker
             var user = await client.GetUserByUsernameAsync("Evolia", GameMode.Standard);
             var tracker = new UserAnalyzer(client);
