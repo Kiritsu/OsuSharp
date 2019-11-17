@@ -53,7 +53,7 @@ namespace OsuSharp.Oppai
             {
                 case 1:
                     var spinnerCount = objectCount - sliderCount - circleCount;
-                    realAccuracy = new Accuracy(count300 - sliderCount - spinnerCount, count100, count50, countMiss).GetAccuracy();
+                    realAccuracy = accu < 0 ?  new Accuracy(count300 - sliderCount - spinnerCount, count100, count50, countMiss).GetAccuracy() : accu;
                     realAccuracy = Math.Max(0.0, realAccuracy);
                     break;
                 case 2:

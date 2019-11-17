@@ -22,6 +22,7 @@ namespace OsuSharp.Example
             {
                 var beatmap = await score.GetBeatmapAsync();
                 var pp = await score.GetPPv2Async();
+                //var pp = await beatmap.GetPPv2Async((float)score.Accuracy);
                 Console.WriteLine($"Score: {beatmap.Title} - {beatmap.Artist} [{beatmap.Author}] - {score.Mods.ToModeString(client)} => {pp.Total}pp (Accuracy: {pp.ComputedAccuracy.GetAccuracy() * 100} vs {score.Accuracy}, Speed: {pp.Speed}, Aim: {pp.Aim})");
             }
 

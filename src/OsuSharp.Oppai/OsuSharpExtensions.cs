@@ -76,6 +76,11 @@ namespace OsuSharp.Oppai
 
         public static async Task<PPv2> GetPPv2Async(this Beatmap beatmap, float accuracy)
         {
+            if (accuracy > 1.0F)
+            {
+                accuracy /= 100;
+            }
+
             var bm = BeatmapParser.Parse(await _httpClient.GetStringAsync(beatmap.BeatmapDownloadUri));
 
             var difficulty = DiffCalculation.Calc(bm);
@@ -100,6 +105,11 @@ namespace OsuSharp.Oppai
 
         public static async Task<PPv2> GetPPv2Async(this Beatmap beatmap, Mode modes, float accuracy)
         {
+            if (accuracy > 1.0F)
+            {
+                accuracy /= 100;
+            }
+
             var bm = BeatmapParser.Parse(await _httpClient.GetStringAsync(beatmap.BeatmapDownloadUri));
 
             var mods = modes.ToModInt();
