@@ -10,16 +10,43 @@ namespace OsuSharp.Example
     {
         private static async Task Main()
         {
-            //var pp = await OppaiClient.GetPPAsync(824242, 100.0F, 99.0F, 98.0F, 97.0F, 95.00F);
-            //Console.WriteLine(string.Join("\n", pp.Select(x => $"{x.Key}: {x.Value}pp")));
+            //Oppai API
+            var pp = await OppaiClient.GetPPAsync(824242);
+            Console.WriteLine($"{pp} performance points");
 
-            /*var client = new OsuClient(new OsuSharpConfiguration
+            pp = await OppaiClient.GetPPAsync(824242, Mode.DoubleTime | Mode.Hidden);
+            Console.WriteLine($"{pp} performance points");
+
+            pp = await OppaiClient.GetPPAsync(824242, 99.0F);
+            Console.WriteLine($"{pp} performance points");
+
+            pp = await OppaiClient.GetPPAsync(824242, Mode.DoubleTime | Mode.Hidden, 99.0F);
+            Console.WriteLine($"{pp} performance points");
+
+            //Osu Client
+            var client = new OsuClient(new OsuSharpConfiguration
             {
                 ApiKey = "yo token"
             });
 
             client.Logger.LogMessageReceived += Logger_LogMessageReceived;
 
+            //Oppai API from a score or beatmap:
+            var bmOppai = await client.GetBeatmapByHashAsync("86d35e59965dbf2078a0843f87415ebe");
+
+            pp = await bmOppai.GetPPAsync(Mode.DoubleTime | Mode.Hidden);
+            Console.WriteLine($"{pp} performance points");
+
+            pp = await bmOppai.GetPPAsync(99.0F);
+            Console.WriteLine($"{pp} performance points");
+
+            pp = await bmOppai.GetPPAsync(Mode.DoubleTime | Mode.Hidden, 99.0F);
+            Console.WriteLine($"{pp} performance points");
+
+            var scoreOppai = await client.GetUserBestsByUsernameAsync("Evolia", GameMode.Standard);
+            pp = await scoreOppai.First().GetPPAsync();
+
+            //Osu API endpoints
             var bm1 = await client.GetBeatmapByHashAsync("86d35e59965dbf2078a0843f87415ebe"); //EXTREME FUCKING SOCA PARTY, Renard, Snaggletooth, Nogard's Extra
             var bm2 = await client.GetBeatmapByIdAsync(824242); //EXTREME FUCKING SOCA PARTY, Renard, Snaggletooth, Nogard's Extra
             var bs3 = await client.GetBeatmapsAsync(); //Last 500 beatmaps submitted
@@ -58,6 +85,8 @@ namespace OsuSharp.Example
 
             var mp1 = await client.GetMultiplayerRoomAsync(1936471);
 
+
+            //Tracker
             var user = await client.GetUserByUsernameAsync("Evolia", GameMode.Standard);
             var tracker = new UserAnalyzer(client);
             tracker.EntityUpdated += EntityUpdated;
@@ -68,7 +97,7 @@ namespace OsuSharp.Example
             {
                 await Task.Delay(10000);
                 await tracker.UpdateEntityAsync(id);
-            }*/
+            }
         }
 
         private static Task EntityUpdated(EntityUpdateEventArgs<User> arg)

@@ -30,6 +30,14 @@ namespace OsuSharp.Oppai
         }
 
         /// <summary>
+        ///     Gets the pp for that beatmap with the specified modes and accuracy.
+        /// </summary>
+        public static Task<float> GetPPAsync(this Beatmap beatmap, Mode mode, float accuracy)
+        {
+            return OppaiClient.GetPPAsync(beatmap.BeatmapId, mode, accuracy);
+        }
+
+        /// <summary>
         ///     Gets the pps for that beatmap with the specified accuracies.
         /// </summary>
         public static Task<ReadOnlyDictionary<float, float>> GetPPAsync(this Beatmap beatmap, float[] accuracies)
@@ -38,7 +46,7 @@ namespace OsuSharp.Oppai
         }
 
         /// <summary>
-        ///     Gets the pps for that beatmap with the specified mods.
+        ///     Gets the pps for that beatmap with the specified modes.
         /// </summary>
         public static Task<ReadOnlyDictionary<Mode, float>> GetPPAsync(this Beatmap beatmap, Mode[] modes)
         {
@@ -46,7 +54,7 @@ namespace OsuSharp.Oppai
         }
 
         /// <summary>
-        ///     Gets the pps for that beatmap with the specified mods.
+        ///     Gets the pps for that beatmap with the specified modes.
         /// </summary>
         public static Task<ReadOnlyDictionary<Mode, float>> GetPPAsync(this Beatmap beatmap, Mode[] modes, 
             float accuracy)
@@ -55,7 +63,7 @@ namespace OsuSharp.Oppai
         }
 
         /// <summary>
-        ///     Gets the pps for that beatmap with the specified mods.
+        ///     Gets the pps for that beatmap with the specified modes.
         /// </summary>
         public static Task<ReadOnlyDictionary<float, float>> GetPPAsync(this Beatmap beatmap, Mode modes, 
             float[] accuracies)
@@ -64,7 +72,7 @@ namespace OsuSharp.Oppai
         }
 
         /// <summary>
-        ///     Gets the pps for that beatmap with the specified accuracies.
+        ///     Gets the pps for that beatmap with the specified modes and accuracies.
         /// </summary>
         public static Task<ReadOnlyDictionary<Mode, ReadOnlyDictionary<float, float>>> GetPPAsync(
             this Beatmap beatmap, Mode[] modes, float[] accuracies)
@@ -73,7 +81,7 @@ namespace OsuSharp.Oppai
         }
 
         /// <summary>
-        ///     Gets the pp for that beatmap.
+        ///     Gets the pp for that score.
         /// </summary>
         public static Task<float> GetPPAsync(this Score score)
         {
