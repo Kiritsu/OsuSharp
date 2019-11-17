@@ -12,11 +12,80 @@ namespace OsuSharp.Oppai
             _httpClient = new HttpClient();
         }
 
+        public static PPv2 GetPPv2(this ParsedBeatmap bm)
+        {
+            var difficulty = DiffCalculation.Calc(bm);
+            return new PPv2(difficulty.Aim, difficulty.Speed, bm);
+        }
+
+        public static PPv2 GetPPv2(this ParsedBeatmap bm, Mode mods)
+        {
+            var mds = mods.ToModeInt();
+            var difficulty = DiffCalculation.Calc(bm, mds);
+            return new PPv2(difficulty.Aim, difficulty.Speed, bm);
+        }
+
+        public static PPv2 GetPPv2(this ParsedBeatmap bm, double accuracy)
+        {
+            if (accuracy > 1.0F)
+            {
+                accuracy /= 100;
+            }
+
+            var difficulty = DiffCalculation.Calc(bm);
+
+            var ppParams = new PPv2Parameters
+            {
+                Beatmap = bm,
+                AimStars = difficulty.Aim,
+                SpeedStars = difficulty.Speed,
+                //MaxCombo = bm.GetMaxCombo(),
+                BaseAR = bm.AR,
+                BaseOD = bm.OD,
+                CircleCount = bm.NbCircles,
+                SliderCount = bm.NbSliders,
+                GameMode = bm.Mode,
+                ObjectCount = bm.HitObjects.Count,
+                Accuracy = accuracy
+            };
+
+            return new PPv2(ppParams);
+        }
+
+
+        public static PPv2 GetPPv2(this ParsedBeatmap bm, Mode mods, double accuracy)
+        {
+            if (accuracy > 1.0F)
+            {
+                accuracy /= 100;
+            }
+
+            var mds = mods.ToModeInt();
+            var difficulty = DiffCalculation.Calc(bm, mds);
+
+            var ppParams = new PPv2Parameters
+            {
+                Beatmap = bm,
+                AimStars = difficulty.Aim,
+                SpeedStars = difficulty.Speed,
+                //MaxCombo = bm.GetMaxCombo(),
+                BaseAR = bm.AR,
+                BaseOD = bm.OD,
+                CircleCount = bm.NbCircles,
+                SliderCount = bm.NbSliders,
+                GameMode = bm.Mode,
+                ObjectCount = bm.HitObjects.Count,
+                Accuracy = accuracy
+            };
+
+            return new PPv2(ppParams);
+        }
+
         public static async Task<PPv2> GetPPv2Async(this Score score)
         {
             var beatmap = await score.GetBeatmapAsync();
             var bm = BeatmapParser.Parse(await _httpClient.GetStringAsync(beatmap.BeatmapDownloadUri));
-            var mods = score.Mods.ToModInt();
+            var mods = score.Mods.ToModeInt();
             var difficulty = DiffCalculation.Calc(bm, mods);
             var ppParams = new PPv2Parameters
             {
@@ -53,7 +122,7 @@ namespace OsuSharp.Oppai
         {
             var bm = BeatmapParser.Parse(await _httpClient.GetStringAsync(beatmap.BeatmapDownloadUri));
 
-            var mods = modes.ToModInt();
+            var mods = modes.ToModeInt();
             var difficulty = DiffCalculation.Calc(bm, mods);
 
             var ppParams = new PPv2Parameters
@@ -74,7 +143,7 @@ namespace OsuSharp.Oppai
             return new PPv2(ppParams);
         }
 
-        public static async Task<PPv2> GetPPv2Async(this Beatmap beatmap, float accuracy)
+        public static async Task<PPv2> GetPPv2Async(this Beatmap beatmap, double accuracy)
         {
             if (accuracy > 1.0F)
             {
@@ -103,7 +172,7 @@ namespace OsuSharp.Oppai
             return new PPv2(ppParams);
         }
 
-        public static async Task<PPv2> GetPPv2Async(this Beatmap beatmap, Mode modes, float accuracy)
+        public static async Task<PPv2> GetPPv2Async(this Beatmap beatmap, Mode modes, double accuracy)
         {
             if (accuracy > 1.0F)
             {
@@ -112,7 +181,7 @@ namespace OsuSharp.Oppai
 
             var bm = BeatmapParser.Parse(await _httpClient.GetStringAsync(beatmap.BeatmapDownloadUri));
 
-            var mods = modes.ToModInt();
+            var mods = modes.ToModeInt();
             var difficulty = DiffCalculation.Calc(bm, mods);
 
             var ppParams = new PPv2Parameters
@@ -134,7 +203,7 @@ namespace OsuSharp.Oppai
             return new PPv2(ppParams);
         }
 
-        private static int ToModInt(this Mode mode)
+        public static int ToModeInt(this Mode mode)
         {
             var flags = OppaiUtilities.MODS_NOMOD;
 

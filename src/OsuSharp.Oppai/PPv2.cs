@@ -14,6 +14,11 @@ namespace OsuSharp.Oppai
 
         private PPv2(double aimStars, double speedStars, int maxCombo, int circleCount, int sliderCount, int objectCount, float baseAr, float baseOd, int gameMode, int mods, int combo, int count300, int count100, int count50, int countMiss, int scoreVersion, ParsedBeatmap beatmap, double accu = -1F)
         {
+            if (accu > 1)
+            {
+                accu /= 100;
+            }
+
             if (beatmap != null)
             {
                 gameMode = beatmap.Mode;
@@ -176,6 +181,11 @@ namespace OsuSharp.Oppai
         }
 
         public PPv2(double aimStars, double speedStars, ParsedBeatmap beatmap) : this(aimStars, speedStars, -1, beatmap.NbCircles, beatmap.NbSliders, beatmap.HitObjects.Count, beatmap.AR, beatmap.OD, beatmap.Mode, OppaiUtilities.MODS_NOMOD, -1, -1, 0, 0, 0, 1, beatmap)
+        {
+
+        }
+
+        public PPv2(double aimStars, double speedStars, ParsedBeatmap beatmap, double accuracy) : this(aimStars, speedStars, -1, beatmap.NbCircles, beatmap.NbSliders, beatmap.HitObjects.Count, beatmap.AR, beatmap.OD, beatmap.Mode, OppaiUtilities.MODS_NOMOD, -1, -1, 0, 0, 0, 1, beatmap, accuracy)
         {
 
         }

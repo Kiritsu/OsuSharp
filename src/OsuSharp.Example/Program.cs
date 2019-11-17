@@ -26,6 +26,9 @@ namespace OsuSharp.Example
                 Console.WriteLine($"Score: {beatmap.Title} - {beatmap.Artist} [{beatmap.Author}] - {score.Mods.ToModeString(client)} => {pp.Total}pp (Accuracy: {pp.ComputedAccuracy.GetAccuracy() * 100} vs {score.Accuracy}, Speed: {pp.Speed}, Aim: {pp.Aim})");
             }
 
+            var ppCalc = BeatmapParser.Parse(File.ReadAllText("map_test.osu")).GetPPv2(Mode.DoubleTime | Mode.Hidden, 92.32);
+            Console.WriteLine($"HDDT on this map with 92.32% accu: {ppCalc.Total}pp");
+
             /*var bm1 = await client.GetBeatmapByHashAsync("86d35e59965dbf2078a0843f87415ebe"); //EXTREME FUCKING SOCA PARTY, Renard, Snaggletooth, Nogard's Extra
             var bm2 = await client.GetBeatmapByIdAsync(824242); //EXTREME FUCKING SOCA PARTY, Renard, Snaggletooth, Nogard's Extra
             var bs3 = await client.GetBeatmapsAsync(); //Last 500 beatmaps submitted
