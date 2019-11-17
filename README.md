@@ -50,3 +50,4 @@ Thanks to the following contributors:
 - [Piotrekol](https://github.com/Piotrekol)
 - [Quahu](https://github.com/Quahu)
 - [Kieran](https://github.com/k-boyle)
+- [Francesco149](https://github.com/Francesco149) for Oppai.
