@@ -12,7 +12,7 @@ namespace OsuSharp.Oppai
 
         public Accuracy ComputedAccuracy { get; internal set; }
 
-        private PPv2(double aimStars, double speedStars, int maxCombo, int circleCount, int sliderCount, int objectCount, float baseAr, float baseOd, int gameMode, int mods, int combo, int count300, int count100, int count50, int countMiss, int scoreVersion, ParsedBeatmap beatmap)
+        private PPv2(double aimStars, double speedStars, int maxCombo, int circleCount, int sliderCount, int objectCount, float baseAr, float baseOd, int gameMode, int mods, int combo, int count300, int count100, int count50, int countMiss, int scoreVersion, ParsedBeatmap beatmap, double accu = -1F)
         {
             if (beatmap != null)
             {
@@ -46,7 +46,7 @@ namespace OsuSharp.Oppai
             }
 
             ComputedAccuracy = new Accuracy(count300, count100, count50, countMiss);
-            var accuracy = ComputedAccuracy.GetAccuracy();
+            var accuracy = accu < 0 ? ComputedAccuracy.GetAccuracy() : accu;
             var realAccuracy = accuracy;
 
             switch (scoreVersion)
@@ -170,7 +170,7 @@ namespace OsuSharp.Oppai
             Total = Math.Pow(Math.Pow(Aim, 1.1) + Math.Pow(Speed, 1.1) + Math.Pow(Accuracy, 1.1), 1.0 / 1.1) * final_multiplier;
         }
 
-        public PPv2(PPv2Parameters parameters) : this(parameters.AimStars, parameters.SpeedStars, parameters.MaxCombo, parameters.CircleCount, parameters.SliderCount, parameters.ObjectCount, parameters.BaseAR, parameters.BaseOD, parameters.GameMode, parameters.Mods, parameters.Combo, parameters.Count300, parameters.Count100, parameters.Count50, parameters.CountMiss, parameters.ScoreVersion, parameters.Beatmap)
+        public PPv2(PPv2Parameters parameters) : this(parameters.AimStars, parameters.SpeedStars, parameters.MaxCombo, parameters.CircleCount, parameters.SliderCount, parameters.ObjectCount, parameters.BaseAR, parameters.BaseOD, parameters.GameMode, parameters.Mods, parameters.Combo, parameters.Count300, parameters.Count100, parameters.Count50, parameters.CountMiss, parameters.ScoreVersion, parameters.Beatmap, parameters.Accuracy)
         {
 
         }

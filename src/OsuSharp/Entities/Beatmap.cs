@@ -218,6 +218,11 @@ namespace OsuSharp
         public Uri OsuDirectDownloadUri => new Uri($"osu://dl/{BeatmapsetId}");
 
         /// <summary>
+        ///     Uri redirecting to the beatmap (.osu) file.
+        /// </summary>
+        public Uri BeatmapDownloadUri => new Uri($"https://osu.ppy.sh/osu/{BeatmapId}");
+
+        /// <summary>
         ///     Gets the entire beatmapset of this beatmap.
         /// </summary>
         /// <returns></returns>

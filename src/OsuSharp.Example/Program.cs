@@ -10,20 +10,22 @@ namespace OsuSharp.Example
     {
         private static async Task Main()
         {
-            var beatmap = BeatmapParser.Parse(File.ReadAllText("./map_test.osu"));
-            var difficulty = DiffCalculation.Calc(beatmap);
-            Console.WriteLine($"Stars difficulty: {difficulty.Total} stars");
-            var pp = new PPv2(difficulty.Aim, difficulty.Speed, beatmap);
-            Console.WriteLine($"PP for this map: {pp.Total}");
-
-            /*var client = new OsuClient(new OsuSharpConfiguration
+            var client = new OsuClient(new OsuSharpConfiguration
             {
-                ApiKey = "yo token"
+                ApiKey = "no u"
             });
 
             client.Logger.LogMessageReceived += Logger_LogMessageReceived;
 
-            var bm1 = await client.GetBeatmapByHashAsync("86d35e59965dbf2078a0843f87415ebe"); //EXTREME FUCKING SOCA PARTY, Renard, Snaggletooth, Nogard's Extra
+            var ubTestPpCalculation = await client.GetUserBestsByUsernameAsync("Evolia", GameMode.Standard);
+            foreach (var score in ubTestPpCalculation)
+            {
+                var beatmap = await score.GetBeatmapAsync();
+                var pp = await score.GetPPv2Async();
+                Console.WriteLine($"Score: {beatmap.Title} - {beatmap.Artist} [{beatmap.Author}] - {score.Mods.ToModeString(client)} => {pp.Total}pp (Accuracy: {pp.ComputedAccuracy.GetAccuracy() * 100} vs {score.Accuracy}, Speed: {pp.Speed}, Aim: {pp.Aim})");
+            }
+
+            /*var bm1 = await client.GetBeatmapByHashAsync("86d35e59965dbf2078a0843f87415ebe"); //EXTREME FUCKING SOCA PARTY, Renard, Snaggletooth, Nogard's Extra
             var bm2 = await client.GetBeatmapByIdAsync(824242); //EXTREME FUCKING SOCA PARTY, Renard, Snaggletooth, Nogard's Extra
             var bs3 = await client.GetBeatmapsAsync(); //Last 500 beatmaps submitted
             var bs4 = await client.GetBeatmapsAsync(DateTimeOffset.UtcNow - TimeSpan.FromDays(365)); //Bm submitted 1 year ago
@@ -59,19 +61,7 @@ namespace OsuSharp.Example
             var r1 = await client.GetReplayByUsernameAsync(1849148, "twoj stary", GameMode.Standard);
             var r2 = await client.GetReplayByUserIdAsync(1849148, 1516650, GameMode.Standard);
 
-            var mp1 = await client.GetMultiplayerRoomAsync(1936471);
-
-            var user = await client.GetUserByUsernameAsync("Evolia", GameMode.Standard);
-            var tracker = new UserAnalyzer(client);
-            tracker.EntityUpdated += EntityUpdated;
-            tracker.AddEntity(user.UserId, user);
-
-            var id = user.UserId;
-            while (true)
-            {
-                await Task.Delay(10000);
-                await tracker.UpdateEntityAsync(id);
-            }*/
+            var mp1 = await client.GetMultiplayerRoomAsync(1936471);*/
         }
 
         private static Task EntityUpdated(EntityUpdateEventArgs<User> arg)

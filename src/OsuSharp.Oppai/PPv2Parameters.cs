@@ -28,6 +28,8 @@
 
         public int ScoreVersion { get; internal set; }
 
+        public double Accuracy { get; internal set; }
+
         public PPv2Parameters()
         {
             Beatmap = null;
@@ -47,6 +49,7 @@
             Count50 = 0;
             CountMiss = 0;
             ScoreVersion = 1;
+            Accuracy = -1;
         }
     }
 }
