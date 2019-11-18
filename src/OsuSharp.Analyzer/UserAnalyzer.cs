@@ -23,7 +23,7 @@ namespace OsuSharp.Analyzer
                 throw new InvalidOperationException($"The user with key {userId} is not being tracked yet.");
             }
 
-            var newUser = await _client.GetUserByUserIdAsync(userId, user.GameMode);
+            var newUser = await _client.GetUserByUserIdAsync(userId, user.GameMode).ConfigureAwait(false);
 
             var equality = user.UserId == newUser.UserId
                 && user.Username == newUser.Username
