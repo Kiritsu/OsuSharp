@@ -12,16 +12,16 @@ namespace OsuSharp.Example
         {
             //Oppai API
             var pp = await OppaiClient.GetPPAsync(824242);
-            Console.WriteLine($"{pp} performance points");
+            Console.WriteLine($"{pp.Pp} performance points");
 
             pp = await OppaiClient.GetPPAsync(824242, Mode.DoubleTime | Mode.Hidden);
-            Console.WriteLine($"{pp} performance points");
+            Console.WriteLine($"{pp.Pp} performance points");
 
             pp = await OppaiClient.GetPPAsync(824242, 99.0F);
-            Console.WriteLine($"{pp} performance points");
+            Console.WriteLine($"{pp.Pp} performance points");
 
             pp = await OppaiClient.GetPPAsync(824242, Mode.DoubleTime | Mode.Hidden, 99.0F);
-            Console.WriteLine($"{pp} performance points");
+            Console.WriteLine($"{pp.Pp} performance points");
 
             //Osu Client
             var client = new OsuClient(new OsuSharpConfiguration
@@ -35,13 +35,13 @@ namespace OsuSharp.Example
             var bmOppai = await client.GetBeatmapByHashAsync("86d35e59965dbf2078a0843f87415ebe");
 
             pp = await bmOppai.GetPPAsync(Mode.DoubleTime | Mode.Hidden);
-            Console.WriteLine($"{pp} performance points");
+            Console.WriteLine($"{pp.Pp} performance points");
 
             pp = await bmOppai.GetPPAsync(99.0F);
-            Console.WriteLine($"{pp} performance points");
+            Console.WriteLine($"{pp.Pp} performance points");
 
             pp = await bmOppai.GetPPAsync(Mode.DoubleTime | Mode.Hidden, 99.0F);
-            Console.WriteLine($"{pp} performance points");
+            Console.WriteLine($"{pp.Pp} performance points");
 
             var scoreOppai = await client.GetUserBestsByUsernameAsync("Evolia", GameMode.Standard);
             pp = await scoreOppai.First().GetPPAsync();

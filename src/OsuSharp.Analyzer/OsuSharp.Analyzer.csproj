@@ -11,7 +11,7 @@
     <Description>Analyzers for the unofficial wrapper of the osu! API (V1) written in C# and compatible with .NET Standard 2.0</Description>
     <Copyright>Allan Mercou</Copyright>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-    <Version>5.2.0</Version>
+    <Version>5.3.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 

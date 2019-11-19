@@ -8,7 +8,7 @@ namespace OsuSharp.Oppai
         /// <summary>
         ///     Gets the pp for that beatmap.
         /// </summary>
-        public static Task<float> GetPPAsync(this Beatmap beatmap)
+        public static Task<PerformanceData> GetPPAsync(this Beatmap beatmap)
         {
             return OppaiClient.GetPPAsync(beatmap.BeatmapId);
         }
@@ -16,7 +16,7 @@ namespace OsuSharp.Oppai
         /// <summary>
         ///     Gets the pp for that beatmap with the specified modes.
         /// </summary>
-        public static Task<float> GetPPAsync(this Beatmap beatmap, Mode mode)
+        public static Task<PerformanceData> GetPPAsync(this Beatmap beatmap, Mode mode)
         {
             return OppaiClient.GetPPAsync(beatmap.BeatmapId, mode);
         }
@@ -24,7 +24,7 @@ namespace OsuSharp.Oppai
         /// <summary>
         ///     Gets the pp for that beatmap with the specified accuracy.
         /// </summary>
-        public static Task<float> GetPPAsync(this Beatmap beatmap, float accuracy)
+        public static Task<PerformanceData> GetPPAsync(this Beatmap beatmap, float accuracy)
         {
             return OppaiClient.GetPPAsync(beatmap.BeatmapId, accuracy);
         }
@@ -32,7 +32,7 @@ namespace OsuSharp.Oppai
         /// <summary>
         ///     Gets the pp for that beatmap with the specified modes and accuracy.
         /// </summary>
-        public static Task<float> GetPPAsync(this Beatmap beatmap, Mode mode, float accuracy)
+        public static Task<PerformanceData> GetPPAsync(this Beatmap beatmap, Mode mode, float accuracy)
         {
             return OppaiClient.GetPPAsync(beatmap.BeatmapId, mode, accuracy);
         }
@@ -40,7 +40,7 @@ namespace OsuSharp.Oppai
         /// <summary>
         ///     Gets the pps for that beatmap with the specified accuracies.
         /// </summary>
-        public static Task<ReadOnlyDictionary<float, float>> GetPPAsync(this Beatmap beatmap, float[] accuracies)
+        public static Task<ReadOnlyDictionary<float, PerformanceData>> GetPPAsync(this Beatmap beatmap, float[] accuracies)
         {
             return OppaiClient.GetPPAsync(beatmap.BeatmapId, accuracies);
         }
@@ -48,7 +48,7 @@ namespace OsuSharp.Oppai
         /// <summary>
         ///     Gets the pps for that beatmap with the specified modes.
         /// </summary>
-        public static Task<ReadOnlyDictionary<Mode, float>> GetPPAsync(this Beatmap beatmap, Mode[] modes)
+        public static Task<ReadOnlyDictionary<Mode, PerformanceData>> GetPPAsync(this Beatmap beatmap, Mode[] modes)
         {
             return OppaiClient.GetPPAsync(beatmap.BeatmapId, modes);
         }
@@ -56,7 +56,7 @@ namespace OsuSharp.Oppai
         /// <summary>
         ///     Gets the pps for that beatmap with the specified modes.
         /// </summary>
-        public static Task<ReadOnlyDictionary<Mode, float>> GetPPAsync(this Beatmap beatmap, Mode[] modes, 
+        public static Task<ReadOnlyDictionary<Mode, PerformanceData>> GetPPAsync(this Beatmap beatmap, Mode[] modes, 
             float accuracy)
         {
             return OppaiClient.GetPPAsync(beatmap.BeatmapId, modes, accuracy);
@@ -65,7 +65,7 @@ namespace OsuSharp.Oppai
         /// <summary>
         ///     Gets the pps for that beatmap with the specified modes.
         /// </summary>
-        public static Task<ReadOnlyDictionary<float, float>> GetPPAsync(this Beatmap beatmap, Mode modes, 
+        public static Task<ReadOnlyDictionary<float, PerformanceData>> GetPPAsync(this Beatmap beatmap, Mode modes, 
             float[] accuracies)
         {
             return OppaiClient.GetPPAsync(beatmap.BeatmapId, modes, accuracies);
@@ -74,7 +74,7 @@ namespace OsuSharp.Oppai
         /// <summary>
         ///     Gets the pps for that beatmap with the specified modes and accuracies.
         /// </summary>
-        public static Task<ReadOnlyDictionary<Mode, ReadOnlyDictionary<float, float>>> GetPPAsync(
+        public static Task<ReadOnlyDictionary<Mode, ReadOnlyDictionary<float, PerformanceData>>> GetPPAsync(
             this Beatmap beatmap, Mode[] modes, float[] accuracies)
         {
             return OppaiClient.GetPPAsync(beatmap.BeatmapId, modes, accuracies);
@@ -83,7 +83,7 @@ namespace OsuSharp.Oppai
         /// <summary>
         ///     Gets the pp for that score.
         /// </summary>
-        public static Task<float> GetPPAsync(this Score score)
+        public static Task<PerformanceData> GetPPAsync(this Score score)
         {
             return OppaiClient.GetPPAsync(score.BeatmapId, score.Mods, (float)score.Accuracy);
         }
