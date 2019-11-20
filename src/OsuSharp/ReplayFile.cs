@@ -1,9 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
 namespace OsuSharp
 {
+    public struct MoveData
+    {
+        public TimeSpan ElapsedTimeSincePreviousAction { get; }
+        public float CursorX { get; }
+        public float CursorY { get; }
+        public OsuKey Keys { get; }
+
+        public MoveData(long w, float x, float y, int z)
+        {
+            ElapsedTimeSincePreviousAction = TimeSpan.FromMilliseconds(w);
+            CursorX = x;
+            CursorY = y;
+            Keys = (OsuKey)z;
+        }
+    }
+
+    [Flags]
+    public enum OsuKey
+    {
+        M1 = 1,
+        M2 = 2,
+        K1 = 4,
+        K2 = 8,
+        Smoke = 16
+    }
+
     /*
      * Data types from osu's documentation:
      * 
@@ -123,12 +150,22 @@ namespace OsuSharp
         /// <summary>
         ///     Compressed replay data
         /// </summary>
-        public byte[] ReplayData { get; private set; }
+        public byte[] CompressedReplayData { get; private set; }
+
+        /// <summary>
+        ///     Decompressed replay data
+        /// </summary>
+        public string DecompressedReplayData { get; private set; }
+
+        /// <summary>
+        ///     Replay data as move data.
+        /// </summary>
+        public IReadOnlyList<MoveData> ReplayData { get; private set; }
 
         /// <summary>
         ///     That's literally in osu's docs. unknown. welp.
         /// </summary>
-        public long Unknown { get; private set; }
+        public long OnlineScoreId { get; private set; }
 
         /// <summary>
         ///     Loads a Replay file from a stream
@@ -162,9 +199,24 @@ namespace OsuSharp
                 ReplayLength = reader.ReadNextInt()
             };
 
-            replay.ReplayData = reader.ReadNextBytes(replay.ReplayLength);
-            replay.Unknown = reader.ReadNextLong();
-            reader.Readlastdata();
+            replay.CompressedReplayData = reader.ReadNextBytes(replay.ReplayLength);
+            var decompressedData = SevenZipLZMAHelper.Decompress(replay.CompressedReplayData);
+            replay.DecompressedReplayData = Encoding.UTF8.GetString(decompressedData);
+
+            var moveData = new List<MoveData>();
+            foreach (var replayData in replay.DecompressedReplayData.Split(','))
+            {
+                var contents = replayData.Split('|');
+                if (contents.Length < 4)
+                {
+                    continue;
+                }
+
+                moveData.Add(new MoveData(long.Parse(contents[0]), float.Parse(contents[1]), float.Parse(contents[2]), int.Parse(contents[3])));
+            }
+            replay.ReplayData = moveData.AsReadOnly();
+
+            replay.OnlineScoreId = reader.ReadNextLong();
 
             return replay;
         }
@@ -197,22 +249,22 @@ namespace OsuSharp
             writer.WriteNextOsuString(LifebarGraph);
             writer.WriteNextLong(Timestamp);
             writer.WriteNextInt(ReplayLength);
-            writer.WriteNextBytes(ReplayData);
-            writer.WriteNextLong(Unknown);
+            writer.WriteNextBytes(CompressedReplayData);
+            writer.WriteNextLong(OnlineScoreId);
         }
 
         /// <summary>
         ///     Create a replay from api entities.
         ///     You shouldn't mix up replays, users, beatmaps and scores, but.. you could.
         /// </summary>
-        /// <param name="replay">Replay entity</param>
+        /// <param name="entityReplay">Replay entity</param>
         /// <param name="score">Score entity</param>
         /// <param name="beatmap">Beatmap entity</param>
         /// <returns></returns>
-        public static ReplayFile CreateReplayFile(Replay replay, Score score, Beatmap beatmap)
+        public static ReplayFile CreateReplayFile(Replay entityReplay, Score score, Beatmap beatmap)
         {
-            var playbytes = Convert.FromBase64String(replay.Content);
-            return new ReplayFile
+            var playbytes = Convert.FromBase64String(entityReplay.Content);
+            var replay = new ReplayFile
             {
                 Amount300 = (short)score.Count300,
                 Amount100 = (short)score.Count100,
@@ -224,7 +276,7 @@ namespace OsuSharp
                 GameMode = beatmap.GameMode,
                 TotalScore = (int)score.TotalScore,
                 ReplayLength = playbytes.Length,
-                ReplayData = playbytes,
+                CompressedReplayData = playbytes,
                 ReplayHash = "idk where to get replay hash",
                 MaxCombo = (short)score.MaxCombo,
                 LifebarGraph = "",
@@ -233,8 +285,26 @@ namespace OsuSharp
                 Timestamp = score.Date.Value.Ticks,
                 OsuVersion = 0,
                 PlayerName = score.Username,
-                Unknown = score.UserId // whatever it's both a long
+                OnlineScoreId = score.ScoreId // whatever it's both a long
             };
+
+            var decompressedData = SevenZipLZMAHelper.Decompress(replay.CompressedReplayData);
+            replay.DecompressedReplayData = Encoding.UTF8.GetString(decompressedData);
+
+            var moveData = new List<MoveData>();
+            foreach (var replayData in replay.DecompressedReplayData.Split(','))
+            {
+                var contents = replayData.Split('|');
+                if (contents.Length < 4)
+                {
+                    continue;
+                }
+
+                moveData.Add(new MoveData(long.Parse(contents[0]), float.Parse(contents[1]), float.Parse(contents[2]), int.Parse(contents[3])));
+            }
+            replay.ReplayData = moveData.AsReadOnly();
+
+            return replay;
         }
 
         internal ReplayFile()
