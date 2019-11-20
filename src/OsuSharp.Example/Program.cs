@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using OsuSharp.Analyzer;
@@ -10,6 +11,21 @@ namespace OsuSharp.Example
     {
         private static async Task Main()
         {
+            //Osu Client
+            var client = new OsuClient(new OsuSharpConfiguration
+            {
+                ApiKey = ""
+            });
+
+            client.Logger.LogMessageReceived += Logger_LogMessageReceived;
+
+            //Replay
+            var rpl = ReplayFile.FromStream(new MemoryStream(File.ReadAllBytes(@"C:\Users\user\AppData\Local\osu!\Replays\a.osr")));
+            var replay = await client.GetReplayByUsernameAsync(142954, "Bikko", GameMode.Standard);
+            var beatmap = await client.GetBeatmapByIdAsync(142954);
+            var scores = await client.GetScoresByBeatmapIdAndUsernameAsync(142954, "Bikko", GameMode.Standard);
+            var rplFle = ReplayFile.CreateReplayFile(replay, scores.First(), beatmap);
+
             //Oppai API
             var pp = await OppaiClient.GetPPAsync(824242);
             Console.WriteLine($"{pp.Pp} performance points");
@@ -22,14 +38,6 @@ namespace OsuSharp.Example
 
             pp = await OppaiClient.GetPPAsync(824242, Mode.DoubleTime | Mode.Hidden, 99.0F);
             Console.WriteLine($"{pp.Pp} performance points");
-
-            //Osu Client
-            var client = new OsuClient(new OsuSharpConfiguration
-            {
-                ApiKey = "yo token"
-            });
-
-            client.Logger.LogMessageReceived += Logger_LogMessageReceived;
 
             //Oppai API from a score or beatmap:
             var bmOppai = await client.GetBeatmapByHashAsync("86d35e59965dbf2078a0843f87415ebe");

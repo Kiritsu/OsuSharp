@@ -277,7 +277,7 @@ namespace OsuSharp
                 TotalScore = (int)score.TotalScore,
                 ReplayLength = playbytes.Length,
                 CompressedReplayData = playbytes,
-                ReplayHash = "idk where to get replay hash",
+                ReplayHash = "",
                 MaxCombo = (short)score.MaxCombo,
                 LifebarGraph = "",
                 Mods = score.Mods,
