@@ -418,6 +418,29 @@ namespace OsuSharp
         }
 
         /// <summary>
+        ///     Gets a set of beatmaps depending on the beatmapset id.
+        /// </summary>
+        /// <param name="beatmapsetId">Id of the beatmapset.</param>
+        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsetAsync(long beatmapsetId, bool includeConvertedBeatmaps, CancellationToken token = default)
+        {
+            var dict = new Dictionary<string, object>
+            {
+                ["s"] = beatmapsetId,
+                ["a"] = includeConvertedBeatmaps ? 1 : 0
+            };
+
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            foreach (var beatmap in request)
+            {
+                beatmap.Client = this;
+            }
+            return request;
+        }
+
+        /// <summary>
         ///      Gets a set of beatmaps on a specific <see cref="GameMode"/> depending on the beatmapset id.
         /// </summary>
         /// <param name="beatmapsetId">Id of the beatmapset.</param>
@@ -430,6 +453,31 @@ namespace OsuSharp
             {
                 ["m"] = (int)gameMode,
                 ["s"] = beatmapsetId
+            };
+
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            foreach (var beatmap in request)
+            {
+                beatmap.Client = this;
+            }
+            return request;
+        }
+
+        /// <summary>
+        ///      Gets a set of beatmaps on a specific <see cref="GameMode"/> depending on the beatmapset id.
+        /// </summary>
+        /// <param name="beatmapsetId">Id of the beatmapset.</param>
+        /// <param name="gameMode">Game mode of the beatmaps.</param>
+        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
+        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsetAsync(long beatmapsetId, GameMode gameMode, bool includeConvertedBeatmaps, CancellationToken token = default)
+        {
+            var dict = new Dictionary<string, object>
+            {
+                ["m"] = (int)gameMode,
+                ["s"] = beatmapsetId,
+                ["a"] = includeConvertedBeatmaps ? 1 : 0
             };
 
             var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
@@ -466,6 +514,30 @@ namespace OsuSharp
         ///     Gets a beatmap by it's id.
         /// </summary>
         /// <param name="beatmapId">Id of the beatmap.</param>
+        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
+        public async Task<Beatmap> GetBeatmapByIdAsync(long beatmapId, bool includeConvertedBeatmaps, CancellationToken token = default)
+        {
+            var dict = new Dictionary<string, object>
+            {
+                ["b"] = beatmapId,
+                ["a"] = includeConvertedBeatmaps ? 1 : 0
+            };
+
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            if (request.Count > 0)
+            {
+                request[0].Client = this;
+                return request[0];
+            }
+            return null;
+        }
+
+        /// <summary>
+        ///     Gets a beatmap by it's id.
+        /// </summary>
+        /// <param name="beatmapId">Id of the beatmap.</param>
         /// <param name="token">Cancellation token used to cancel the current request.</param>
         /// <returns></returns>
         public async Task<Beatmap> GetBeatmapByIdAsync(long beatmapId, GameMode gameMode, CancellationToken token = default)
@@ -474,6 +546,31 @@ namespace OsuSharp
             {
                 ["m"] = (int)gameMode,
                 ["b"] = beatmapId
+            };
+
+            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
+            if (request.Count > 0)
+            {
+                request[0].Client = this;
+                return request[0];
+            }
+            return null;
+        }
+
+        /// <summary>
+        ///     Gets a beatmap by it's id.
+        /// </summary>
+        /// <param name="beatmapId">Id of the beatmap.</param>
+        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
+        /// <param name="token">Cancellation token used to cancel the current request.</param>
+        /// <returns></returns>
+        public async Task<Beatmap> GetBeatmapByIdAsync(long beatmapId, GameMode gameMode, bool includeConvertedBeatmaps, CancellationToken token = default)
+        {
+            var dict = new Dictionary<string, object>
+            {
+                ["m"] = (int)gameMode,
+                ["b"] = beatmapId,
+                ["a"] = includeConvertedBeatmaps ? 1 : 0
             };
 
             var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
