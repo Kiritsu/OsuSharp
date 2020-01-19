@@ -60,6 +60,14 @@ namespace OsuSharp.Oppai
         private static extern void ezpp_set_autocalc(IntPtr handle, int autocalc);
 
         /// <summary>
+        ///     Sets the combo of the play.
+        /// </summary>
+        /// <param name="handle">Ptr of ezpp.</param>
+        /// <param name="combo">Combo for a more accurate pp calculation.</param>
+        [DllImport(@"oppai.dll")]
+        private static extern void ezpp_set_combo(IntPtr handle, int combo);
+
+        /// <summary>
         ///     Returns the amount of pp with the previously set parameters.
         /// </summary>
         /// <param name="handle">Ptr of ezpp.</param>
@@ -102,6 +110,20 @@ namespace OsuSharp.Oppai
         private static extern float ezpp_stars(IntPtr handle);
 
         /// <summary>
+        ///     Returns the combo of the current beatmap.
+        /// </summary>
+        /// <param name="handle">Ptr of ezpp.</param>
+        [DllImport(@"oppai.dll")]
+        private static extern int ezpp_combo(IntPtr handle);
+
+        /// <summary>
+        ///     Returns the max combo of the current beatmap.
+        /// </summary>
+        /// <param name="handle">Ptr of ezpp.</param>
+        [DllImport(@"oppai.dll")]
+        private static extern int ezpp_max_combo(IntPtr handle);
+
+        /// <summary>
         ///     Returns the version of oppai.
         /// </summary>
         /// <returns></returns>
@@ -117,16 +139,6 @@ namespace OsuSharp.Oppai
         ///     Semaphore to avoid concurrency issues as we depend on what is set on oppai.dll.
         /// </summary>
         private static readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1);
-
-        static OppaiClient()
-        {
-            if (!File.Exists("./oppai.dll"))
-            {
-                throw new NotSupportedException(
-                    "oppai.dll has not been found and assembly OsuSharp.Oppai cannot work without it. " +
-                    "This dll must be next to your main assembly dll/exe.");
-            }
-        }
 
         /// <summary>
         ///     Gets the beatmap data by its id.
@@ -149,9 +161,9 @@ namespace OsuSharp.Oppai
         ///     Gets the amount of pp for the map. No mod and accuracy of 100%.
         /// </summary>
         /// <param name="beatmapId">Id of the beatmap.</param>
-        public static Task<PerformanceData> GetPPAsync(long beatmapId)
+        public static Task<PerformanceData> GetPPAsync(long beatmapId, int? combo = null)
         {
-            return GetPPAsync(beatmapId, Mode.None, 100.0F);
+            return GetPPAsync(beatmapId, Mode.None, 100.0F, combo);
         }
 
         /// <summary>
@@ -159,9 +171,10 @@ namespace OsuSharp.Oppai
         /// </summary>
         /// <param name="beatmapId">If of the beatmap.</param>
         /// <param name="accuracy">Accuracy percents to calculate pps for.</param>
-        public static async Task<PerformanceData> GetPPAsync(long beatmapId, float accuracy)
+        public static async Task<PerformanceData> GetPPAsync(long beatmapId, float accuracy, 
+            int? combo = null)
         {
-            var pps = await GetPPAsync(beatmapId, new float[] { accuracy });
+            var pps = await GetPPAsync(beatmapId, new float[] { accuracy }, combo);
             return pps[accuracy];
         }
 
@@ -170,9 +183,10 @@ namespace OsuSharp.Oppai
         /// </summary>
         /// <param name="beatmapId">If of the beatmap.</param>
         /// <param name="accuracy">Accuracy percents to calculate pps for.</param>
-        public static async Task<PerformanceData> GetPPAsync(long beatmapId, Mode mode)
+        public static async Task<PerformanceData> GetPPAsync(long beatmapId, Mode mode, 
+            int? combo = null)
         {
-            var pps = await GetPPAsync(beatmapId, new Mode[] { mode });
+            var pps = await GetPPAsync(beatmapId, new Mode[] { mode }, combo);
             return pps[mode];
         }
 
@@ -183,9 +197,10 @@ namespace OsuSharp.Oppai
         /// <param name="mode"></param>
         /// <param name="accuracy"></param>
         /// <returns></returns>
-        public static async Task<PerformanceData> GetPPAsync(long beatmapId, Mode mode, float accuracy)
+        public static async Task<PerformanceData> GetPPAsync(long beatmapId, Mode mode, 
+            float accuracy, int? combo = null)
         {
-            var pps = await GetPPAsync(beatmapId, new Mode[] { mode }, new float[] { accuracy });
+            var pps = await GetPPAsync(beatmapId, new Mode[] { mode }, new float[] { accuracy }, combo);
             return pps[mode][accuracy];
         }
 
@@ -194,9 +209,10 @@ namespace OsuSharp.Oppai
         /// </summary>
         /// <param name="beatmapId">If of the beatmap.</param>
         /// <param name="accuracies">Accuracies percents to calculate pps for.</param>
-        public static Task<ReadOnlyDictionary<float, PerformanceData>> GetPPAsync(long beatmapId, float[] accuracies)
+        public static Task<ReadOnlyDictionary<float, PerformanceData>> GetPPAsync(long beatmapId, 
+            float[] accuracies, int? combo = null)
         {
-            return GetPPAsync(beatmapId, 0, accuracies);
+            return GetPPAsync(beatmapId, 0, accuracies, combo);
         }
 
         /// <summary>
@@ -205,9 +221,10 @@ namespace OsuSharp.Oppai
         /// <param name="beatmapId"></param>
         /// <param name="mods"></param>
         /// <returns></returns>
-        public static Task<ReadOnlyDictionary<Mode, PerformanceData>> GetPPAsync(long beatmapId, Mode[] mods)
+        public static Task<ReadOnlyDictionary<Mode, PerformanceData>> GetPPAsync(long beatmapId, 
+            Mode[] mods, int? combo = null)
         {
-            return GetPPAsync(beatmapId, mods, 100.0F);
+            return GetPPAsync(beatmapId, mods, 100.0F, combo);
         }
 
         /// <summary>
@@ -216,10 +233,10 @@ namespace OsuSharp.Oppai
         /// <param name="beatmapId">Id of the beatmap.</param>
         /// <param name="mods">Mods to calculate pps for.</param>
         /// <param name="accuracies">Accuracies to calculate pps for.</param>
-        public static async Task<ReadOnlyDictionary<float, PerformanceData>> GetPPAsync(long beatmapId, Mode mods,
-            float[] accuracies)
+        public static async Task<ReadOnlyDictionary<float, PerformanceData>> GetPPAsync(long beatmapId, 
+            Mode mods,float[] accuracies, int? combo = null)
         {
-            var pps = await GetPPAsync(beatmapId, new Mode[] { mods }, accuracies);
+            var pps = await GetPPAsync(beatmapId, new Mode[] { mods }, accuracies, combo);
             return pps[mods];
         }
 
@@ -230,10 +247,12 @@ namespace OsuSharp.Oppai
         /// <param name="accuracy"></param>
         /// <param name="mods"></param>
         /// <returns></returns>
-        public static async Task<ReadOnlyDictionary<Mode, PerformanceData>> GetPPAsync(long beatmapId, Mode[] mods, float accuracy)
+        public static async Task<ReadOnlyDictionary<Mode, PerformanceData>> GetPPAsync(long beatmapId, 
+            Mode[] mods, float accuracy, int? combo = null)
         {
-            var pps = await GetPPAsync(beatmapId, mods, new float[] { accuracy });
-            return new ReadOnlyDictionary<Mode, PerformanceData>(pps.ToDictionary(x => x.Key, y => y.Value.First().Value));
+            var pps = await GetPPAsync(beatmapId, mods, new float[] { accuracy }, combo);
+            return new ReadOnlyDictionary<Mode, PerformanceData>(
+                pps.ToDictionary(x => x.Key, y => y.Value.First().Value));
         }
 
         /// <summary>
@@ -243,12 +262,13 @@ namespace OsuSharp.Oppai
         /// <param name="mods">Mods to calculate pps for.</param>
         /// <param name="accuracies">Accuracies to calculate pps for.</param>
         public static async Task<ReadOnlyDictionary<Mode, ReadOnlyDictionary<float, PerformanceData>>> GetPPAsync(
-            long beatmapId, Mode[] mods, float[] accuracies)
+            long beatmapId, Mode[] mods, float[] accuracies, int? combo = null)
         {
             await _semaphore.WaitAsync();
 
             var modsAccuracies = new Dictionary<Mode, ReadOnlyDictionary<float, PerformanceData>>();
-            var readonlyModsAccuracies = new ReadOnlyDictionary<Mode, ReadOnlyDictionary<float, PerformanceData>>(modsAccuracies);
+            var readonlyModsAccuracies = 
+                new ReadOnlyDictionary<Mode, ReadOnlyDictionary<float, PerformanceData>>(modsAccuracies);
 
             try
             {
@@ -258,6 +278,12 @@ namespace OsuSharp.Oppai
                 var beatmap = await GetBeatmapDataAsync(beatmapId);
 
                 ezpp_data(ptr, beatmap, beatmap.Length);
+                
+                if (combo.HasValue)
+                {
+                    ezpp_set_combo(ptr, combo.Value);
+                }
+                
                 for (var j = 0; j < mods.Length; ++j)
                 {
                     ezpp_set_mods(ptr, (int)mods[j]);
@@ -276,7 +302,8 @@ namespace OsuSharp.Oppai
                         ezpp_set_accuracy_percent(ptr, accuracy);
 
                         pps[accuracies[i]] = new PerformanceData(ezpp_pp(ptr), ezpp_stars(ptr), 
-                            ezpp_ar(ptr), ezpp_od(ptr), ezpp_cs(ptr), ezpp_hp(ptr), accuracy, mods[j]);
+                            ezpp_ar(ptr), ezpp_od(ptr), ezpp_cs(ptr), ezpp_hp(ptr), accuracy,
+                            mods[j], ezpp_combo(ptr), ezpp_max_combo(ptr));
                     }
 
                     modsAccuracies[mods[j]] = dict;

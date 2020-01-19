@@ -22,8 +22,12 @@ namespace OsuSharp.Oppai
 
         public Mode Mods { get; }
 
+        public int Combo { get; }
+        
+        public int MaxCombo { get; }
+
         internal PerformanceData(float pp, float stars, float ar, float od,
-            float cs, float hp, float accuracy, Mode mods)
+            float cs, float hp, float accuracy, Mode mods, int combo, int maxCombo)
         {
             Pp = pp;
             Stars = stars;
@@ -33,6 +37,8 @@ namespace OsuSharp.Oppai
             Hp = hp;
             Accuracy = accuracy;
             Mods = mods;
+            Combo = combo;
+            MaxCombo = maxCombo;
         }
     }
 }
