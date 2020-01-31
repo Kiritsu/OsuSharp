@@ -747,6 +747,7 @@ namespace OsuSharp
             {
                 score.Client = this;
                 score.GameMode = gameMode;
+                score.BeatmapId = beatmapId;
             }
             return request;
         }
@@ -775,6 +776,7 @@ namespace OsuSharp
             {
                 score.Client = this;
                 score.GameMode = gameMode;
+                score.BeatmapId = beatmapId;
             }
             return request;
         }
@@ -804,6 +806,8 @@ namespace OsuSharp
             {
                 score.Client = this;
                 score.GameMode = gameMode;
+                score.BeatmapId = beatmapId;
+                score.UserId = userId;
             }
             return request;
         }
@@ -835,6 +839,8 @@ namespace OsuSharp
             {
                 score.Client = this;
                 score.GameMode = gameMode;
+                score.BeatmapId = beatmapId;
+                score.UserId = userId;
             }
             return request;
         }
@@ -864,6 +870,8 @@ namespace OsuSharp
             {
                 score.Client = this;
                 score.GameMode = gameMode;
+                score.BeatmapId = beatmapId;
+                score.Username = username;
             }
             return request;
         }
@@ -895,6 +903,8 @@ namespace OsuSharp
             {
                 score.Client = this;
                 score.GameMode = gameMode;
+                score.BeatmapId = beatmapId;
+                score.Username = username;
             }
             return request;
         }
@@ -916,6 +926,7 @@ namespace OsuSharp
             {
                 score.Client = this;
                 score.GameMode = gameMode;
+                score.UserId = userId;
             }
             return request;
         }
@@ -935,6 +946,7 @@ namespace OsuSharp
             {
                 score.Client = this;
                 score.GameMode = gameMode;
+                score.Username = username;
             }
             return request;
         }
@@ -956,6 +968,7 @@ namespace OsuSharp
             {
                 score.Client = this;
                 score.GameMode = gameMode;
+                score.UserId = userId;
             }
             return request;
         }
@@ -975,6 +988,7 @@ namespace OsuSharp
             {
                 score.Client = this;
                 score.GameMode = gameMode;
+                score.Username = username;
             }
             return request;
         }

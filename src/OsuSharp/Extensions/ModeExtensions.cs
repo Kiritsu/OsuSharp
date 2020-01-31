@@ -48,5 +48,37 @@ namespace OsuSharp
 
             return string.Join(instance.OsuSharpConfiguration.ModeSeparator, modes);
         }
+
+        /// <summary>
+        ///     Converts a <see cref="string"/> into a Mode representation.
+        /// </summary>
+        /// <param name="value">Value to parse.</param>
+        /// <param name="mode">Modes out.</param>
+        /// <returns></returns>
+        public static bool TryParse(string value, out Mode mode)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                mode = Mode.None;
+                return false;
+            }
+
+            var modes = ModeStrings
+                .Where(x => value.Contains(x.Value, StringComparison.OrdinalIgnoreCase))
+                .Select(y => y.Key);
+
+            mode = Mode.None;
+            foreach (var m in modes)
+            {
+                if ((mode & m) != 0)
+                {
+                    continue;
+                }
+
+                mode |= m;
+            }
+
+            return true;
+        }
     }
 }

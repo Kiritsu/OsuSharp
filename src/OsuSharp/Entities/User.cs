@@ -131,10 +131,10 @@ namespace OsuSharp
         ///     Gets the time the user played osu!.
         /// </summary>
         [JsonIgnore]
-        public TimeSpan TimePlayed => TimeSpan.FromSeconds(TotalSecondsPlayed);
+        public TimeSpan TimePlayed => TimeSpan.FromSeconds(_totalSecondsPlayed);
 
         [JsonProperty("total_seconds_played")]
-        private readonly int TotalSecondsPlayed;
+        private readonly int _totalSecondsPlayed;
 
         /// <summary>
         ///     Gets the country rank of the user.
@@ -158,5 +158,10 @@ namespace OsuSharp
         ///     Starts spectating the user.
         /// </summary>
         public Uri SpectateUri => new Uri($"osu://spectate/{Username}");
+
+        /// <summary>
+        ///     User's osu profile uri.
+        /// </summary>
+        public Uri ProfileUri => new Uri($"https://osu.ppy.sh/users/{UserId}");
     }
 }

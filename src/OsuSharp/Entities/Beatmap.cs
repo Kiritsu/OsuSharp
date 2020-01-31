@@ -89,6 +89,30 @@ namespace OsuSharp
         public GameMode GameMode { get; internal set; }
 
         /// <summary>
+        ///     Amount of circles.
+        /// </summary>
+        [JsonProperty("count_normal")]
+        public int CircleCount { get; internal set; }
+
+        /// <summary>
+        ///     Amount of sliders.
+        /// </summary>
+        [JsonProperty("count_slider")]
+        public int SliderCount { get; internal set; }
+
+        /// <summary>
+        ///     Amount of spinners.
+        /// </summary>
+        [JsonProperty("count_spinner")]
+        public int SpinnerCount { get; internal set; }
+
+        /// <summary>
+        ///     Date time this map was submited.
+        /// </summary>
+        [JsonProperty("submit_date")]
+        public DateTimeOffset? SubmitDate { get; internal set; }
+
+        /// <summary>
         ///     Date time this map was approved. Null if the map has not been approved.
         /// </summary>
         [JsonProperty("approved_date")]
@@ -128,7 +152,7 @@ namespace OsuSharp
         ///     Bpm of the map.
         /// </summary>
         [JsonProperty("bpm")]
-        public double Bpm { get; internal set; }
+        public double? Bpm { get; internal set; }
 
         /// <summary>
         ///     Source of the map.
@@ -160,8 +184,30 @@ namespace OsuSharp
         /// <summary>
         ///     Amount of favorites.
         /// </summary>
-        [JsonProperty("favorite_count")]
+        [JsonProperty("favourite_count")]
         public int FavoriteCount { get; internal set; }
+
+        /// <summary>
+        ///     Rating of the beatmap.
+        /// </summary>
+        [JsonProperty("rating")]
+        public double Rating { get; internal set; }
+
+        /// <summary>
+        ///     Whether the download is available or not.
+        /// </summary>
+        [JsonProperty("download_unavailable")]
+        private readonly int _downloadUnavailable;
+
+        public bool DownloadUnavailable => _downloadUnavailable == 1;
+
+        /// <summary>
+        ///     Whether the audio is available or not.
+        /// </summary>
+        [JsonProperty("audio_unavailable")]
+        private readonly int _audioUnavailable;
+
+        public bool AudioUnavailable => _audioUnavailable == 1;
 
         /// <summary>
         ///     Amount of plays.
@@ -181,6 +227,15 @@ namespace OsuSharp
         [JsonIgnore]
         public int? FailCount => PlayCount - PassCount;
 
+        [JsonProperty("packs")]
+        private readonly string _packs;
+
+        /// <summary>
+        ///     Beatmap packs the beatmaps is in?
+        /// </summary>
+        [JsonIgnore]
+        public IReadOnlyList<string> Packs => _packs?.Split(',');
+
         /// <summary>
         ///     Maximum combo. Can be null depending on the <see cref="GameMode"/>.
         /// </summary>
@@ -188,10 +243,22 @@ namespace OsuSharp
         public int? MaxCombo { get; internal set; }
 
         /// <summary>
+        ///     Speed difficulty of that beatmap.
+        /// </summary>
+        [JsonProperty("diff_speed")]
+        public double? SpeedDifficulty { get; internal set; }
+
+        /// <summary>
+        ///     Aim difficulty of that beatmap.
+        /// </summary>
+        [JsonProperty("diff_aim")]
+        public double? AimDifficulty { get; internal set; }
+
+        /// <summary>
         ///     Star rating of the beatmap.
         /// </summary>
         [JsonProperty("difficultyrating")]
-        public double DifficultyRating { get; internal set; }
+        public double? StarRating { get; internal set; }
 
         /// <summary>
         ///     Uri redirecting to the Thumbnail of the beatmap.
@@ -216,6 +283,12 @@ namespace OsuSharp
         /// </summary>
         [JsonIgnore]
         public Uri OsuDirectDownloadUri => new Uri($"osu://dl/{BeatmapsetId}");
+
+        /// <summary>
+        ///     Uri redirecting to the website of that beatmap.
+        /// </summary>
+        [JsonIgnore]
+        public Uri BeatmapUri => new Uri($"https://osu.ppy.sh/beatmaps/{BeatmapId}");
 
         /// <summary>
         ///     Gets the entire beatmapset of this beatmap.

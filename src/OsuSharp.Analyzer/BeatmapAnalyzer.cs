@@ -34,7 +34,7 @@ namespace OsuSharp.Analyzer
                 && beatmap.Bpm == newBeatmap.Bpm
                 && beatmap.CircleSize == newBeatmap.CircleSize
                 && beatmap.Difficulty == newBeatmap.Difficulty
-                && beatmap.DifficultyRating == newBeatmap.DifficultyRating
+                && beatmap.StarRating == newBeatmap.StarRating
                 && beatmap.FailCount == newBeatmap.FailCount
                 && beatmap.FavoriteCount == newBeatmap.FavoriteCount
                 && beatmap.GameMode == newBeatmap.GameMode
