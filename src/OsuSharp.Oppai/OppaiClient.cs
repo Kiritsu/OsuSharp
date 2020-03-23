@@ -16,14 +16,14 @@ namespace OsuSharp.Oppai
         /// <summary>
         ///     Creates an instance of oppai.
         /// </summary>
-        [DllImport(@"oppai.dll")]
+        [DllImport(@"oppai")]
         private static extern IntPtr ezpp_new();
 
         /// <summary>
         ///     Frees the instance of ezpp.
         /// </summary>
         /// <param name="handle">Ptr of ezpp.</param>
-        [DllImport(@"oppai.dll")]
+        [DllImport(@"oppai")]
         private static extern void ezpp_free(IntPtr handle);
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace OsuSharp.Oppai
         /// <param name="handle">Ptr of ezpp.</param>
         /// <param name="data">Byte array of beatmap .osu file.</param>
         /// <param name="data_size">Size of the byte array.</param>
-        [DllImport(@"oppai.dll")]
+        [DllImport(@"oppai")]
         private static extern int ezpp_data(IntPtr handle, byte[] data, int data_size);
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace OsuSharp.Oppai
         /// </summary>
         /// <param name="handle">Ptr of ezpp.</param>
         /// <param name="accuracy_percent">Amount of accuracy. Must be between 0 and 1.</param>
-        [DllImport(@"oppai.dll")]
+        [DllImport(@"oppai")]
         private static extern void ezpp_set_accuracy_percent(IntPtr handle, float accuracy_percent);
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace OsuSharp.Oppai
         /// </summary>
         /// <param name="handle">Ptr of ezpp.</param>
         /// <param name="mods">Flag representing every mods set.</param>
-        [DllImport(@"oppai.dll")]
+        [DllImport(@"oppai")]
         private static extern void ezpp_set_mods(IntPtr handle, int mods);
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace OsuSharp.Oppai
         /// </summary>
         /// <param name="handle">Ptr of ezpp.</param>
         /// <param name="autocalc">0 to disable autocalc, 1 to enable autocalc</param>
-        [DllImport(@"oppai.dll")]
+        [DllImport(@"oppai")]
         private static extern void ezpp_set_autocalc(IntPtr handle, int autocalc);
 
         /// <summary>
@@ -64,70 +64,70 @@ namespace OsuSharp.Oppai
         /// </summary>
         /// <param name="handle">Ptr of ezpp.</param>
         /// <param name="combo">Combo for a more accurate pp calculation.</param>
-        [DllImport(@"oppai.dll")]
+        [DllImport(@"oppai")]
         private static extern void ezpp_set_combo(IntPtr handle, int combo);
 
         /// <summary>
         ///     Returns the amount of pp with the previously set parameters.
         /// </summary>
         /// <param name="handle">Ptr of ezpp.</param>
-        [DllImport(@"oppai.dll")]
+        [DllImport(@"oppai")]
         private static extern float ezpp_pp(IntPtr handle);
 
         /// <summary>
         ///     Returns the AR of the current beatmap.
         /// </summary>
         /// <param name="handle">Ptr of ezpp.</param>
-        [DllImport(@"oppai.dll")]
+        [DllImport(@"oppai")]
         private static extern float ezpp_ar(IntPtr handle);
 
         /// <summary>
         ///     Returns the OD of the current beatmap.
         /// </summary>
         /// <param name="handle">Ptr of ezpp.</param>
-        [DllImport(@"oppai.dll")]
+        [DllImport(@"oppai")]
         private static extern float ezpp_od(IntPtr handle);
 
         /// <summary>
         ///     Returns the CS of the current beatmap.
         /// </summary>
         /// <param name="handle">Ptr of ezpp.</param>
-        [DllImport(@"oppai.dll")]
+        [DllImport(@"oppai")]
         private static extern float ezpp_cs(IntPtr handle);
 
         /// <summary>
         ///     Returns the HP of the current beatmap.
         /// </summary>
         /// <param name="handle">Ptr of ezpp.</param>
-        [DllImport(@"oppai.dll")]
+        [DllImport(@"oppai")]
         private static extern float ezpp_hp(IntPtr handle);
 
         /// <summary>
         ///     Returns the stars of the current beatmap.
         /// </summary>
         /// <param name="handle">Ptr of ezpp.</param>
-        [DllImport(@"oppai.dll")]
+        [DllImport(@"oppai")]
         private static extern float ezpp_stars(IntPtr handle);
 
         /// <summary>
         ///     Returns the combo of the current beatmap.
         /// </summary>
         /// <param name="handle">Ptr of ezpp.</param>
-        [DllImport(@"oppai.dll")]
+        [DllImport(@"oppai")]
         private static extern int ezpp_combo(IntPtr handle);
 
         /// <summary>
         ///     Returns the max combo of the current beatmap.
         /// </summary>
         /// <param name="handle">Ptr of ezpp.</param>
-        [DllImport(@"oppai.dll")]
+        [DllImport(@"oppai")]
         private static extern int ezpp_max_combo(IntPtr handle);
 
         /// <summary>
         ///     Returns the version of oppai.
         /// </summary>
         /// <returns></returns>
-        [DllImport(@"oppai.dll", CharSet = CharSet.Unicode)]
+        [DllImport(@"oppai", CharSet = CharSet.Unicode)]
         private static extern string oppai_version_str();
 
         /// <summary>
