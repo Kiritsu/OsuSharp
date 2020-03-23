@@ -120,7 +120,7 @@ namespace OsuSharp
         ///     Performance points given by the map.
         /// </summary>
         [JsonProperty("pp")]
-        public float PerformancePoints { get; internal set; }
+        public float? PerformancePoints { get; internal set; }
 
         /// <summary>
         ///     Indicates whether the replay is available.
