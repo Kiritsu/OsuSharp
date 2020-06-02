@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
     <ProjectUrl>https://github.com/Kiritsu/OsuSharp</ProjectUrl>
     <PackageProjectUrl>https://github.com/Kiritsu/OsuSharp</PackageProjectUrl>
     <PackageLicenseUrl></PackageLicenseUrl>
@@ -11,8 +10,10 @@
     <Description>Analyzers for the unofficial wrapper of the osu! API (V1) written in C# and compatible with .NET Standard 2.0</Description>
     <Copyright>Allan Mercou</Copyright>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-    <Version>5.4.2</Version>
+    <Version>5.4.3</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageVersion>5.4.3</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>

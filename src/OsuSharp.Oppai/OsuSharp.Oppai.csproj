@@ -1,8 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>5.4.2</Version>
+    <Version>5.4.3</Version>
     <Authors>Allan Mercou</Authors>
     <Company>Allan Mercou</Company>
     <Description>Oppai API for the unofficial wrapper of the osu! API (V1) written in C# and compatible with .NET Standard 2.0. This can be used if you don't use the OsuSharp wrapper (but has the dependency for Mode enum bitflags)</Description>
@@ -10,6 +9,8 @@
     <Copyright>Allan Mercou</Copyright>
     <PackageProjectUrl>https://github.com/Kiritsu/OsuSharp</PackageProjectUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageVersion>5.4.3</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>

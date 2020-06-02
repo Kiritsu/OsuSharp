@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -64,7 +65,7 @@ namespace OsuSharp
             }
 
             var modes = ModeStrings
-                .Where(x => value.Contains(x.Value, StringComparison.OrdinalIgnoreCase))
+                .Where(x => value.ToLower().Contains(x.Value.ToLower()))
                 .Select(y => y.Key);
 
             mode = Mode.None;
