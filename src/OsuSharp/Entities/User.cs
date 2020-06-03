@@ -32,91 +32,91 @@ namespace OsuSharp
         ///     Total amount of 50s for this user.
         /// </summary>
         [JsonProperty("count50")]
-        public long Count50 { get; internal set; }
+        public long Count50? { get; internal set; }
 
         /// <summary>
         ///     Total amount of 100s for this user.
         /// </summary>
         [JsonProperty("count100")]
-        public long Count100 { get; internal set; }
+        public long Count100? { get; internal set; }
 
         /// <summary>
         ///     Total amount of 300s for this user.
         /// </summary>
         [JsonProperty("count300")]
-        public long Count300 { get; internal set; }
+        public long Count300? { get; internal set; }
 
         /// <summary>
         ///     Total amount of play count.
         /// </summary>
         [JsonProperty("playcount")]
-        public long PlayCount { get; internal set; }
+        public long PlayCount? { get; internal set; }
 
         /// <summary>
         ///     Total amount of ranked score.
         /// </summary>
         [JsonProperty("ranked_score")]
-        public long RankedScore { get; internal set; }
+        public long RankedScore? { get; internal set; }
 
         /// <summary>
         ///     Total amount of score.
         /// </summary>
         [JsonProperty("total_score")]
-        public long Score { get; internal set; }
+        public long Score? { get; internal set; }
 
         /// <summary>
         ///     Gets the global rank of the user.
         /// </summary>
         [JsonProperty("pp_rank")]
-        public long Rank { get; internal set; }
+        public long Rank? { get; internal set; }
 
         /// <summary>
         ///     Gets the level of the user.
         /// </summary>
         [JsonProperty("level")]
-        public double Level { get; internal set; }
+        public double Level? { get; internal set; }
 
         /// <summary>
         ///     Gets the amount of performance points of the user.
         /// </summary>
         [JsonProperty("pp_raw")]
-        public double PerformancePoints { get; internal set; }
+        public double PerformancePoints? { get; internal set; }
 
         /// <summary>
         ///     Gets the accuracy of the user.
         /// </summary>
         [JsonProperty("accuracy")]
-        public double Accuracy { get; internal set; }
+        public double Accuracy? { get; internal set; }
 
         /// <summary>
         ///     Count of SS ranks.
         /// </summary>
         [JsonProperty("count_rank_ss")]
-        public double CountSS { get; internal set; }
+        public double CountSS? { get; internal set; }
 
         /// <summary>
         ///     Count of SS ranks. (with Flashlight or Hidden mods)
         /// </summary>
         [JsonProperty("count_rank_ssh")]
-        public double CountSSH { get; internal set; }
+        public double CountSSH? { get; internal set; }
 
         /// <summary>
         ///     Count of S ranks.
         /// </summary>
         [JsonProperty("count_rank_s")]
-        public double CountS { get; internal set; }
+        public double CountS? { get; internal set; }
 
         /// <summary>
         ///     Count of S ranks. (with Flashlight or Hidden mods)
         /// </summary>
         [JsonProperty("count_rank_sh")]
-        public double CountSH { get; internal set; }
+        public double CountSH? { get; internal set; }
 
         /// <summary>
         ///     Count of A ranks.
         /// </summary>
         [JsonProperty("count_rank_a")]
-        public double CountA { get; internal set; }
+        public double CountA? { get; internal set; }
 
         /// <summary>
         ///     Gets the country of the user.
@@ -131,16 +131,16 @@ namespace OsuSharp
         ///     Gets the time the user played osu!.
         /// </summary>
         [JsonIgnore]
-        public TimeSpan TimePlayed => TimeSpan.FromSeconds(_totalSecondsPlayed);
+        public TimeSpan TimePlayed => TimeSpan.FromSeconds(_totalSecondsPlayed ?? 0);
 
         [JsonProperty("total_seconds_played")]
-        private readonly int _totalSecondsPlayed;
+        private readonly int _totalSecondsPlayed?;
 
         /// <summary>
         ///     Gets the country rank of the user.
         /// </summary>
         [JsonProperty("pp_country_rank")]
-        public long CountryRank { get; internal set; }
+        public long CountryRank? { get; internal set; }
 
         /// <summary>
         ///     Gets the game mode this user's stats are for.
