@@ -1,31 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <ProjectUrl>https://github.com/Kiritsu/OsuSharp</ProjectUrl>
-    <PackageProjectUrl>https://github.com/Kiritsu/OsuSharp</PackageProjectUrl>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <LangVersion>8.0</LangVersion>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>5.4.3</Version>
-    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-    <Description>Unofficial wrapper for the osu! API (V1) written in C# and compatible with .NET Standard 2.0</Description>
-    <Copyright>Allan Mercou</Copyright>
-    <Authors>Allan Mercou</Authors>
-    <Company>Allan Mercou</Company>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageVersion>5.4.3</PackageVersion>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="SevenZip" Version="19.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\..\LICENSE.md">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    </ItemGroup>
 
 </Project>
