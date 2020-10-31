@@ -2,8 +2,8 @@
 {
     internal static class Endpoints
     {
-        public const string DOMAIN = "https://osu.ppy.sh";
-        public const string OAUTH = "/oauth";
-        public const string TOKEN = "/token";
+        public const string Domain = "https://osu.ppy.sh";
+        public const string Oauth = "/oauth";
+        public const string Token = "/token";
     }
 }

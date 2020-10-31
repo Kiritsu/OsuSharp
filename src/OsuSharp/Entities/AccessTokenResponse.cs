@@ -12,5 +12,8 @@ namespace OsuSharp.Entities
         
         [JsonProperty("access_token")]
         public string AccessToken { get; }
+        
+        [JsonProperty("refresh_token")]
+        public string RefreshToken { get; }
     }
 }
