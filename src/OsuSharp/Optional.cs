@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OsuSharp.Entities
+namespace OsuSharp
 {
     public readonly struct Optional<T> : IEquatable<Optional<T>>, IEquatable<T>
     {

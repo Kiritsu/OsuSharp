@@ -42,7 +42,7 @@ namespace OsuSharp.Entities
         [JsonProperty("username")]
         public string Username { get; internal set; }
 
-        [JsonProperty("account_history", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("account_history")]
         public Optional<IReadOnlyCollection<UserAccountHistory>> AccountHistory { get; internal set; }
         
         [JsonProperty("active_tournament_banner")]
