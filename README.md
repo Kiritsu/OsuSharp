@@ -25,6 +25,10 @@ git clone https://github.com/Kiritsu/OsuSharp.git
 
 If you want to contribute, feel free to use Issues or Pull Requests!
 
+### Todo: 
+- Add missing entities and endpoints
+- Have fun
+
 ## Contact
 
 You can join my personal Discord server: https://discord.gg/UugbeH8
