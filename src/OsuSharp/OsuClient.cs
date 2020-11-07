@@ -12,11 +12,12 @@ using OsuSharp.Exceptions;
 
 namespace OsuSharp
 {
-    public sealed class OsuClient
+    public sealed class OsuClient : IDisposable
     {
         private readonly ConcurrentDictionary<string, RatelimitBucket> _ratelimits;
         private readonly OsuClientConfiguration _configuration;
         private readonly HttpClient _httpClient;
+        private bool _disposed;
 
         /// <summary>
         ///     Gets the current used credentials to communicate with the API.
@@ -44,6 +45,8 @@ namespace OsuSharp
         /// </summary>
         public async ValueTask<OsuToken> GetOrUpdateAccessTokenAsync()
         {
+            ThrowIfDisposed();
+            
             if (!Credentials.HasExpired)
             {
                 return Credentials;
@@ -58,7 +61,7 @@ namespace OsuSharp
             };
 
             Uri.TryCreate($"{Endpoints.Domain}{Endpoints.Oauth}{Endpoints.Token}", UriKind.Absolute, out var uri);
-            var response = await PostAsync<AccessTokenResponse>(parameters, uri).ConfigureAwait(false);
+            var response = await PostAsync<AccessTokenResponse>(uri, parameters).ConfigureAwait(false);
 
             return Credentials = new OsuToken
             {
@@ -93,6 +96,7 @@ namespace OsuSharp
             return bucket;
         }
 
+        // todo: to be reworked when rate limits are here! cf: ##6839
         internal void UpdateBucket(RatelimitBucket bucket, HttpResponseMessage response)
         {
             if (bucket.HasExpired)
@@ -103,10 +107,18 @@ namespace OsuSharp
                 {
                     bucket.Limit = int.Parse(limitHeaders.First());
                 }
+                else
+                {
+                    bucket.Limit = 1200;
+                }
 
                 if (response.Headers.TryGetValues("X-RateLimit-Remaining", out var remainingHeaders))
                 {
                     bucket.Remaining = int.Parse(remainingHeaders.First());
+                }
+                else
+                {
+                    bucket.Remaining = 1200;
                 }
             }
             else
@@ -115,10 +127,31 @@ namespace OsuSharp
             }
         }
 
-        internal async Task<T> PostAsync<T>(IReadOnlyDictionary<string, string> parameters, Uri uri)
+        internal async Task<T> GetAsync<T>(Uri route, IReadOnlyDictionary<string, string> parameters)
         {
-            var bucket = await GetBucketFromUriAsync(uri).ConfigureAwait(false);
-            var response = await _httpClient.PostAsync(uri, new FormUrlEncodedContent(parameters))
+            if (parameters is { Count: > 0 })
+            {
+                route = new Uri(route, $"?{string.Join("&", parameters.Select(x => $"{x.Key}={x.Value}"))}");
+            }
+
+            var bucket = await GetBucketFromUriAsync(route).ConfigureAwait(false);
+            var response = await _httpClient.GetAsync(route).ConfigureAwait(false);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new ApiException(response.ReasonPhrase, response.StatusCode);
+            }
+
+            UpdateBucket(bucket, response);
+
+            var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            return JsonConvert.DeserializeObject<T>(content);
+        }
+
+        internal async Task<T> PostAsync<T>(Uri route, IReadOnlyDictionary<string, string> parameters)
+        {
+            var bucket = await GetBucketFromUriAsync(route).ConfigureAwait(false);
+            var response = await _httpClient.PostAsync(route, new FormUrlEncodedContent(parameters))
                 .ConfigureAwait(false);
 
             if (!response.IsSuccessStatusCode)
@@ -130,6 +163,19 @@ namespace OsuSharp
 
             var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             return JsonConvert.DeserializeObject<T>(content);
+        }
+
+        public void Dispose()
+        {
+            ThrowIfDisposed();
+            _disposed = true;
+            _httpClient?.Dispose();
+        }
+
+        private void ThrowIfDisposed()
+        {
+            if (_disposed)
+                throw new ObjectDisposedException(nameof(OsuClient), "The client is disposed.");
         }
     }
 }
