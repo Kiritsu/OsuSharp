@@ -45,6 +45,41 @@ namespace OsuSharp.Entities
         [JsonProperty("account_history", NullValueHandling = NullValueHandling.Ignore)]
         public Optional<IReadOnlyCollection<UserAccountHistory>> AccountHistory { get; internal set; }
         
+        [JsonProperty("active_tournament_banner")]
+        public Optional<UserProfileBanner> TournamentBanner { get; internal set; }
+        
+        [JsonProperty("badges")]
+        public Optional<IReadOnlyCollection<UserBadge>> Badges { get; internal set; }
+        
+        [JsonProperty("beatmap_playcounts_count")]
+        public Optional<long> BeatmapPlaycountsCount { get; internal set; }
+        
+        // todo: type
+        [JsonProperty("blocks")]
+        public Optional<object> Blocks { get; internal set; }
+        
+        // todo: type
+        [JsonProperty("country")]
+        public Optional<object> Country { get; internal set; }
+        
+        // todo: type
+        [JsonProperty("cover")]
+        public Optional<object> Cover { get; internal set; }
+        
+        // todo: type
+        [JsonProperty("current_mode_rank")]
+        public Optional<object> CurrentModeRank { get; internal set; }
+        
+        [JsonProperty("favourite_beatmapset_count")]
+        public Optional<long> FavouriteBeatmapsetCount { get; internal set; }
+        
+        [JsonProperty("graveyard_beatmapset_count")]
+        public Optional<long> GraveyardBeatmapsetCount { get; internal set; }
+        
+        // todo: type
+        [JsonProperty("friends")]
+        public Optional<object> Friends { get; internal set; }
+
         internal UserCompact()
         {
             
@@ -64,5 +99,32 @@ namespace OsuSharp.Entities
         
         [JsonProperty("length")]
         public int Length { get; internal set; }
+    }
+
+    public sealed class UserProfileBanner
+    {
+        [JsonProperty("id")]
+        public long Id { get; internal set; }
+        
+        [JsonProperty("tournament_id")]
+        public long TournamentId { get; internal set; }
+        
+        [JsonProperty("image")]
+        public string Image { get; internal set; }
+    }
+
+    public sealed class UserBadge
+    {
+        [JsonProperty("awarded_at")]
+        public DateTimeOffset AwardedAt { get; internal set; }
+        
+        [JsonProperty("description")]
+        public string Description { get; internal set; }
+        
+        [JsonProperty("image_url")]
+        public string ImageUrl { get; internal set; }
+        
+        [JsonProperty("url")]
+        public string Url { get; internal set; }
     }
 }
