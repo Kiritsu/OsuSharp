@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -36,7 +36,8 @@ namespace OsuSharp
             internal set
             {
                 _credentials = value;
-                HttpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", _credentials.ToString());
+                HttpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue(_credentials.Type.ToString(), _credentials.AccessToken);
             }
         }
 
@@ -56,9 +57,13 @@ namespace OsuSharp
             Ratelimits = new ConcurrentDictionary<string, RatelimitBucket>();
             Serializer = DefaultJsonSerializer.Instance;
 
-            HttpClient = new HttpClient(new HttpClientHandler
+            HttpClient = new HttpClient(new RedirectHandler
             {
-                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+                InnerHandler = new HttpClientHandler
+                {
+                    AllowAutoRedirect = false,
+                    AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+                }
             });
             HttpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("OsuSharp", "2.0"));
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -101,7 +106,8 @@ namespace OsuSharp
 
         public async Task<UserCompact> GetUserAsync(string username)
         {
-            Uri.TryCreate($"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{username}/osu", UriKind.Absolute, out var uri);
+            Uri.TryCreate($"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{username}/osu", UriKind.Absolute,
+                out var uri);
             var response = await GetAsync<UserCompact>(uri);
             return response;
         }
@@ -196,7 +202,8 @@ namespace OsuSharp
             return await HandleResponseAsync<T>(route, response, bucket).ConfigureAwait(false);
         }
 
-        internal async Task<T> HandleResponseAsync<T>(Uri route, HttpResponseMessage response, RatelimitBucket bucket) where T : class
+        internal async Task<T> HandleResponseAsync<T>(Uri route, HttpResponseMessage response, RatelimitBucket bucket)
+            where T : class
         {
             if (!response.IsSuccessStatusCode)
             {

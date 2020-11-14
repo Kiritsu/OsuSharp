@@ -46,7 +46,7 @@ namespace OsuSharp.Entities
         public Optional<IReadOnlyCollection<UserAccountHistory>> AccountHistory { get; internal set; }
         
         [JsonProperty("active_tournament_banner")]
-        public Optional<UserProfileBanner> TournamentBanner { get; internal set; }
+        public Optional<IReadOnlyCollection<UserProfileBanner>> TournamentBanner { get; internal set; }
         
         [JsonProperty("badges")]
         public Optional<IReadOnlyCollection<UserBadge>> Badges { get; internal set; }

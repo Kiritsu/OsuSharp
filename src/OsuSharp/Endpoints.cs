@@ -1,4 +1,4 @@
-﻿namespace OsuSharp
+namespace OsuSharp
 {
     internal static class Endpoints
     {
