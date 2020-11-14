@@ -5,7 +5,7 @@
         <LangVersion>preview</LangVersion>
         <Nullable>disable</Nullable>
         <Title>OsuSharp</Title>
-        <Authors>Kiritsu</Authors>
+        <Authors>Allan Mercou</Authors>
         <Description>An osu! api v2 library for .NET 5</Description>
         <PackageProjectUrl>https://github.com/Kiritsu/OsuSharp</PackageProjectUrl>
         <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
