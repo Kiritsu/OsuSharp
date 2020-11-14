@@ -6,6 +6,11 @@ namespace OsuSharp.Serialization
     internal sealed class ContractResolver : DefaultContractResolver
     {
         public static readonly ContractResolver Instance = new ContractResolver();
+
+        private ContractResolver()
+        {
+            
+        }
         
         protected override JsonContract CreateContract(Type objectType)
         {

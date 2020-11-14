@@ -36,5 +36,10 @@ namespace OsuSharp.Entities
         public DateTimeOffset CreatedAt = DateTimeOffset.Now;
         
         internal long ExpiresInSeconds { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Type} {AccessToken}";
+        }
     }
 }

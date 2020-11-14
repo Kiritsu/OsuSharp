@@ -9,7 +9,7 @@ namespace OsuSharp.Serialization
         
         private readonly JsonSerializer _serializer;
 
-        public DefaultJsonSerializer()
+        private DefaultJsonSerializer()
         {
             _serializer = new JsonSerializer
             {

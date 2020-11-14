@@ -9,10 +9,16 @@ namespace OsuSharp.Exceptions
         ///     Gets the status code of the api request.
         /// </summary>
         public HttpStatusCode StatusCode { get; }
-        
-        internal ApiException(string reason, HttpStatusCode statusCode) : base(reason)
+
+        /// <summary>
+        ///     Gets the json payload that was returned by the api.
+        /// </summary>
+        public string JsonPayload { get; }
+
+        internal ApiException(string reason, HttpStatusCode statusCode, string jsonPayload) : base(reason)
         {
             StatusCode = statusCode;
+            JsonPayload = jsonPayload;
         }
     }
 }

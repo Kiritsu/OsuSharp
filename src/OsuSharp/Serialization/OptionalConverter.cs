@@ -8,6 +8,11 @@ namespace OsuSharp.Serialization
     {
         public static readonly OptionalConverter Instance = new OptionalConverter();
 
+        private OptionalConverter()
+        {
+            
+        }
+        
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             var type = value.GetType();
