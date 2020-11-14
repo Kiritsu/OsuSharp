@@ -1,0 +1,35 @@
+trigger:
+- feature/api-v2
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: 5.0.100
+    
+- script: dotnet restore
+
+- script: dotnet build -c $(buildConfiguration) -v minimal --no-restore
+
+- script: dotnet test -c $(buildConfiguration) -v normal --no-build
+
+- script: dotnet pack -c Release --version-suffix ci-$(Build.BuildNumber) --output $(Build.ArtifactStagingDirectory) --include-symbols --verbosity minimal --no-build
+
+- task: NuGetCommand@2
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/feature/api-v2'))
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'external'
+    publishFeedCredentials: 'SlimGet'
+    verbosityPush: 'Normal'

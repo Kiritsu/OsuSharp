@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\OsuSharp\OsuSharp.csproj" />
+      <ProjectReference Include="..\..\src\OsuSharp\OsuSharp.csproj" />
     </ItemGroup>
 
 </Project>

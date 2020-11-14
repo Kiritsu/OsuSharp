@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuSharp", "src\OsuSharp\OsuSharp.csproj", "{62303D65-1A48-457D-A62A-5F5B737B5BB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuSharp.Test", "src\OsuSharp.Test\OsuSharp.Test.csproj", "{7134C2D6-30F5-4636-946D-B7311FED2FCE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuSharp.Test", "tests\OsuSharp.Test\OsuSharp.Test.csproj", "{7134C2D6-30F5-4636-946D-B7311FED2FCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

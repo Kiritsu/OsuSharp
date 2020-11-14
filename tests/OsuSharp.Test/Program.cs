@@ -1,4 +1,3 @@
-﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
@@ -16,13 +15,12 @@ namespace OsuSharp.Test
             var client = new OsuClient(new OsuClientConfiguration
             {
                 ClientId = 646,
-                ClientSecret = "seekret",
+                ClientSecret = "sekreet",
                 LoggingLevel = LogLevel.Trace
             });
 
-            await client.GetOrUpdateAccessTokenAsync();
-
-            await Task.Delay(-1);
+            var token = await client.GetOrUpdateAccessTokenAsync();
+            var user = await client.GetUserAsync("Evolia");
         }
     }
 }

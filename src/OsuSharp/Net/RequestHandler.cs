@@ -163,7 +163,7 @@ namespace OsuSharp.Net
             }
             
             _disposed = true;
-            _httpClient?.Dispose();
+            _httpClient.Dispose();
         }
     }
 }
