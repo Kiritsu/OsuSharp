@@ -1,28 +1,19 @@
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 using OsuSharp.Entities;
 using OsuSharp.Enums;
-using OsuSharp.Exceptions;
 using OsuSharp.Logging;
-using OsuSharp.Serialization;
+using OsuSharp.Net;
 
 namespace OsuSharp
 {
     public sealed class OsuClient : IDisposable
     {
         internal readonly OsuClientConfiguration Configuration;
-        internal readonly HttpClient HttpClient;
-        internal readonly ConcurrentDictionary<string, RatelimitBucket> Ratelimits;
-        internal readonly DefaultJsonSerializer Serializer;
+        internal readonly RequestHandler Handler;
 
         private bool _disposed;
         private OsuToken _credentials;
@@ -36,8 +27,7 @@ namespace OsuSharp
             internal set
             {
                 _credentials = value;
-                HttpClient.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue(_credentials.Type.ToString(), _credentials.AccessToken);
+                Handler.UpdateAuthorizationHeader(_credentials);
             }
         }
 
@@ -54,19 +44,7 @@ namespace OsuSharp
         {
             Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             Configuration.Logger ??= new DefaultLogger(Configuration);
-            Ratelimits = new ConcurrentDictionary<string, RatelimitBucket>();
-            Serializer = DefaultJsonSerializer.Instance;
-
-            HttpClient = new HttpClient(new RedirectHandler
-            {
-                InnerHandler = new HttpClientHandler
-                {
-                    AllowAutoRedirect = false,
-                    AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
-                }
-            });
-            HttpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("OsuSharp", "2.0"));
-            HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            Handler = new RequestHandler(this);
         }
 
         /// <summary>
@@ -94,7 +72,7 @@ namespace OsuSharp
             };
 
             Uri.TryCreate($"{Endpoints.Domain}{Endpoints.Oauth}{Endpoints.Token}", UriKind.Absolute, out var uri);
-            var response = await PostAsync<AccessTokenResponse>(uri, parameters).ConfigureAwait(false);
+            var response = await Handler.PostAsync<AccessTokenResponse>(uri, parameters).ConfigureAwait(false);
 
             return Credentials = new OsuToken
             {
@@ -108,117 +86,8 @@ namespace OsuSharp
         {
             Uri.TryCreate($"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{username}/osu", UriKind.Absolute,
                 out var uri);
-            var response = await GetAsync<UserCompact>(uri);
+            var response = await Handler.GetAsync<UserCompact>(uri);
             return response;
-        }
-
-        internal async Task<RatelimitBucket> GetBucketFromUriAsync(Uri uri)
-        {
-            Configuration.Logger.Log(LogLevel.Debug, EventIds.RateLimits,
-                $"Retrieving rate-limit bucket for [{uri.LocalPath}]");
-
-            if (Ratelimits.TryGetValue(uri.LocalPath, out var bucket) && !bucket.HasExpired && bucket.Remaining <= 0)
-            {
-                Configuration.Logger.Log(LogLevel.Warning, EventIds.RateLimits,
-                    $"Pre-emptive rate-limit bucket hit for [{uri.LocalPath}]: [{bucket.Limit - bucket.Remaining}/{bucket.Limit}]");
-
-                if (!Configuration.ThrowOnRateLimits)
-                {
-                    await Task.Delay(bucket.ExpiresIn).ConfigureAwait(false);
-                }
-                else
-                {
-                    throw new PreemptiveRateLimitException
-                    {
-                        ExpiresIn = bucket.ExpiresIn
-                    };
-                }
-            }
-            else
-            {
-                bucket = new RatelimitBucket();
-                Ratelimits.TryAdd(uri.LocalPath, bucket);
-            }
-
-            return bucket;
-        }
-
-        // todo: to be reworked when rate limits are here! cf: ##6839
-        internal void UpdateBucket(Uri uri, RatelimitBucket bucket, HttpResponseMessage response)
-        {
-            bucket.Limit =
-                response.Headers.TryGetValues("X-RateLimit-Limit", out var limitHeaders)
-                    ? int.Parse(limitHeaders.First())
-                    : 1200;
-
-            bucket.Remaining =
-                response.Headers.TryGetValues("X-RateLimit-Remaining", out var remainingHeaders)
-                    ? int.Parse(remainingHeaders.First())
-                    : 1200;
-
-            if (bucket.HasExpired)
-            {
-                bucket.CreatedAt = DateTimeOffset.Now;
-            }
-            else
-            {
-                bucket.Remaining--;
-            }
-
-            Configuration.Logger.Log(LogLevel.Debug, EventIds.RateLimits,
-                $"Rate-limit bucket passed for [{uri.LocalPath}]: [{bucket.Limit - bucket.Remaining}/{bucket.Limit}]");
-        }
-
-        internal async Task<T> GetAsync<T>(Uri route, IReadOnlyDictionary<string, string> parameters = null)
-            where T : class
-        {
-            parameters ??= new Dictionary<string, string>();
-
-            var paramsString = string.Join(" | ", parameters.Select(x => $"{x.Key}:{x.Value}"));
-            Configuration.Logger.Log(LogLevel.Information, EventIds.RestApi,
-                $"Getting [{route.LocalPath}] with parameters [{(string.IsNullOrWhiteSpace(paramsString) ? "no_params" : paramsString)}]");
-
-            if (parameters is { Count: > 0 })
-            {
-                route = new Uri(route, $"?{string.Join("&", parameters.Select(x => $"{x.Key}={x.Value}"))}");
-            }
-
-            var bucket = await GetBucketFromUriAsync(route).ConfigureAwait(false);
-            var response = await HttpClient.GetAsync(route).ConfigureAwait(false);
-
-            return await HandleResponseAsync<T>(route, response, bucket).ConfigureAwait(false);
-        }
-
-        internal async Task<T> PostAsync<T>(Uri route, IReadOnlyDictionary<string, string> parameters) where T : class
-        {
-            var paramsString = string.Join(" | ", parameters.Select(x => $"{x.Key}:{x.Value}"));
-            Configuration.Logger.Log(LogLevel.Information, EventIds.RestApi,
-                $"Posting [{route.LocalPath}] with parameters [{paramsString}]");
-
-            var bucket = await GetBucketFromUriAsync(route).ConfigureAwait(false);
-            var response = await HttpClient.PostAsync(route, new FormUrlEncodedContent(parameters))
-                .ConfigureAwait(false);
-
-            return await HandleResponseAsync<T>(route, response, bucket).ConfigureAwait(false);
-        }
-
-        internal async Task<T> HandleResponseAsync<T>(Uri route, HttpResponseMessage response, RatelimitBucket bucket)
-            where T : class
-        {
-            if (!response.IsSuccessStatusCode)
-            {
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                throw new ApiException(response.ReasonPhrase, response.StatusCode, jsonResponse);
-            }
-
-            var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-            var streamReader = new StreamReader(stream);
-            var content = await streamReader.ReadToEndAsync().ConfigureAwait(false);
-
-            Configuration.Logger.Log(LogLevel.Trace, EventIds.RestApi, $"Response received: {content}");
-
-            UpdateBucket(route, bucket, response);
-            return Serializer.Deserialize<T>(stream);
         }
 
         /// <inheritdoc cref="IDisposable.Dispose"/>
@@ -226,7 +95,7 @@ namespace OsuSharp
         {
             ThrowIfDisposed();
             _disposed = true;
-            HttpClient?.Dispose();
+            Handler.Dispose();
         }
 
         private void ThrowIfDisposed()

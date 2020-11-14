@@ -2,7 +2,7 @@
 using System.Reflection;
 using Newtonsoft.Json;
 
-namespace OsuSharp.Serialization
+namespace OsuSharp.Net.Serialization
 {
     internal sealed class OptionalConverter : JsonConverter
     {

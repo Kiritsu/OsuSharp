@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Newtonsoft.Json;
 
-namespace OsuSharp.Serialization
+namespace OsuSharp.Net.Serialization
 {
     internal sealed class DefaultJsonSerializer 
     {

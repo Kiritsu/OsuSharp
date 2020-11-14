@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json.Serialization;
 
-namespace OsuSharp.Serialization
+namespace OsuSharp.Net.Serialization
 {
     internal sealed class ContractResolver : DefaultContractResolver
     {
