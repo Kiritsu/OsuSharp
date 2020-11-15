@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Net.Http;
 using System.Threading.Tasks;
 using OsuSharp.Entities;
 using OsuSharp.Enums;
@@ -82,12 +81,42 @@ namespace OsuSharp
             };
         }
 
-        public async Task<UserCompact> GetUserAsync(string username)
+        /// <summary>
+        ///     Gets a user from the API.
+        /// </summary>
+        /// <param name="username">Username of the user.</param>
+        /// <param name="gameMode">Gamemode of the user. Defaults gamemode is picked when null.</param>
+        /// <returns>
+        ///     Returns a <see cref="User"/>.
+        /// </returns>
+        public Task<User> GetUserAsync(
+            [NotNull] string username, 
+            [MaybeNull] GameMode? gameMode = null)
         {
-            Uri.TryCreate($"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{username}/osu", UriKind.Absolute,
-                out var uri);
-            var response = await Handler.GetAsync<UserCompact>(uri);
-            return response;
+            Uri.TryCreate(
+                $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{username}/{gameMode.ToString() ?? ""}", 
+                UriKind.Absolute, out var uri);
+            
+            return Handler.GetAsync<User>(uri);
+        }
+        
+        /// <summary>
+        ///     Gets a user from the API.
+        /// </summary>
+        /// <param name="id">Id of the user.</param>
+        /// <param name="gameMode">Gamemode of the user. Defaults gamemode is picked when null.</param>
+        /// <returns>
+        ///     Returns a <see cref="User"/>.
+        /// </returns>
+        public Task<User> GetUserAsync(
+            [NotNull] long id, 
+            [MaybeNull] GameMode? gameMode = null)
+        {
+            Uri.TryCreate(
+                $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{id}/{gameMode.ToString() ?? ""}", 
+                UriKind.Absolute, out var uri);
+            
+            return Handler.GetAsync<User>(uri);
         }
 
         /// <inheritdoc cref="IDisposable.Dispose"/>
