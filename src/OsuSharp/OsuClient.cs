@@ -89,15 +89,18 @@ namespace OsuSharp
         /// <returns>
         ///     Returns a <see cref="User"/>.
         /// </returns>
-        public Task<User> GetUserAsync(
+        public async Task<User> GetUserAsync(
             [NotNull] string username, 
             [MaybeNull] GameMode? gameMode = null)
         {
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync();
+
             Uri.TryCreate(
                 $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{username}/{gameMode.ToString() ?? ""}", 
                 UriKind.Absolute, out var uri);
             
-            return Handler.GetAsync<User>(uri);
+            return await Handler.GetAsync<User>(uri);
         }
         
         /// <summary>
@@ -108,15 +111,18 @@ namespace OsuSharp
         /// <returns>
         ///     Returns a <see cref="User"/>.
         /// </returns>
-        public Task<User> GetUserAsync(
+        public async Task<User> GetUserAsync(
             [NotNull] long id, 
             [MaybeNull] GameMode? gameMode = null)
         {
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync();
+            
             Uri.TryCreate(
                 $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{id}/{gameMode.ToString() ?? ""}", 
                 UriKind.Absolute, out var uri);
             
-            return Handler.GetAsync<User>(uri);
+            return await Handler.GetAsync<User>(uri);
         }
 
         /// <inheritdoc cref="IDisposable.Dispose"/>
