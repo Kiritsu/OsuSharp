@@ -7,5 +7,6 @@ namespace OsuSharp
         public const string Token = "/token";
         public const string Api = "/api/v2";
         public const string Users = "/users";
+        public const string Me = "/me";
     }
 }

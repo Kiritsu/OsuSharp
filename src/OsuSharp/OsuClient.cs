@@ -47,7 +47,8 @@ namespace OsuSharp
         }
 
         /// <summary>
-        ///     Gets or requests an API access token.
+        ///     Gets or requests an API access token. This method will use Client Credential Grant unless
+        ///     A refresh token is present on the current <see cref="OsuToken"/> instance.
         /// </summary>
         /// <returns>
         ///     Returns an <see cref="OsuToken"/>.
@@ -56,7 +57,6 @@ namespace OsuSharp
         {
             ThrowIfDisposed();
 
-            // todo: handle refresh token
             if (Credentials != null && !Credentials.HasExpired)
             {
                 return Credentials;
@@ -65,10 +65,19 @@ namespace OsuSharp
             var parameters = new Dictionary<string, string>
             {
                 ["client_id"] = Configuration.ClientId.ToString(),
-                ["client_secret"] = Configuration.ClientSecret,
-                ["grant_type"] = "client_credentials",
-                ["scope"] = "public"
+                ["client_secret"] = Configuration.ClientSecret
             };
+
+            if (Credentials == null || string.IsNullOrWhiteSpace(Credentials.RefreshToken))
+            {
+                parameters["grant_type"] = "client_credentials";
+                parameters["scope"] = "public";
+            }
+            else
+            {
+                parameters["grant_type"] = "refresh_token";
+                parameters["refresh_token"] = Credentials.RefreshToken;
+            }
 
             Uri.TryCreate($"{Endpoints.Domain}{Endpoints.Oauth}{Endpoints.Token}", UriKind.Absolute, out var uri);
             var response = await Handler.PostAsync<AccessTokenResponse>(uri, parameters).ConfigureAwait(false);
@@ -82,6 +91,38 @@ namespace OsuSharp
         }
 
         /// <summary>
+        ///     Updates the current osu! api credentials by the given access, refresh tokens and the expiry time.
+        /// </summary>
+        /// <param name="accessToken">
+        ///     Access token.
+        /// </param>
+        /// <param name="refreshToken">
+        ///     Refresh token.
+        /// </param>
+        /// <param name="expiresIn">
+        ///     Amount of seconds before the token expires.
+        /// </param>
+        /// <returns>
+        ///     Returns an <see cref="OsuToken"/>.
+        /// </returns>
+        /// <remarks>
+        ///     If you are going to use the authorization code grant,
+        ///     use this method to create your <see cref="OsuToken"/>.
+        /// </remarks>
+        public OsuToken UpdateAccessToken(string accessToken, string refreshToken, long expiresIn)
+        {
+            ThrowIfDisposed();
+
+            return Credentials = new OsuToken
+            {
+                Type = TokenType.Bearer,
+                AccessToken = accessToken,
+                RefreshToken = refreshToken,
+                ExpiresInSeconds = expiresIn
+            };
+        }
+
+        /// <summary>
         ///     Gets a user from the API.
         /// </summary>
         /// <param name="username">Username of the user.</param>
@@ -90,19 +131,19 @@ namespace OsuSharp
         ///     Returns a <see cref="User"/>.
         /// </returns>
         public async Task<User> GetUserAsync(
-            [NotNull] string username, 
+            [NotNull] string username,
             [MaybeNull] GameMode? gameMode = null)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
 
             Uri.TryCreate(
-                $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{username}/{gameMode.ToString() ?? ""}", 
+                $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{username}/{gameMode.ToString() ?? ""}",
                 UriKind.Absolute, out var uri);
-            
+
             return await Handler.GetAsync<User>(uri);
         }
-        
+
         /// <summary>
         ///     Gets a user from the API.
         /// </summary>
@@ -112,16 +153,36 @@ namespace OsuSharp
         ///     Returns a <see cref="User"/>.
         /// </returns>
         public async Task<User> GetUserAsync(
-            [NotNull] long id, 
+            [NotNull] long id,
             [MaybeNull] GameMode? gameMode = null)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
-            
+
             Uri.TryCreate(
-                $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{id}/{gameMode.ToString() ?? ""}", 
+                $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{id}/{gameMode.ToString() ?? ""}",
                 UriKind.Absolute, out var uri);
-            
+
+            return await Handler.GetAsync<User>(uri);
+        }
+
+        /// <summary>
+        ///     Gets the current authenticated user from the API.
+        /// </summary>
+        /// <param name="gameMode">Gamemode of the user. Defaults gamemode is picked when null.</param>
+        /// <returns>
+        ///     Returns a <see cref="User"/>.
+        /// </returns>
+        public async Task<User> GetCurrentUserAsync(
+            [MaybeNull] GameMode? gameMode = null)
+        {
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync();
+
+            Uri.TryCreate(
+                $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Me}/{gameMode.ToString() ?? ""}",
+                UriKind.Absolute, out var uri);
+
             return await Handler.GetAsync<User>(uri);
         }
 
