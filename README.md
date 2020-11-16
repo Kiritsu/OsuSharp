@@ -1,7 +1,7 @@
 # OsuSharp
 
 [![NuGet version](https://badge.fury.io/nu/OsuSharp.svg)](https://badge.fury.io/nu/OsuSharp)
-[![SlimGet](https://img.shields.io/badge/dynamic/json.svg?color=blue&label=slimget&query=%24.items%5B-1%3A%5D.upper&url=https%3A%2F%2Fnuget.emzi0767.com%2Fapi%2Fv3%2Fregistration%2FPlain%2Fosusharp%2Findex.json)](https://nuget.emzi0767.com/gallery/search?q=OsuSharp&pre=true)
+[![SlimGet](https://img.shields.io/badge/dynamic/json.svg?color=blue&label=slimget&query=%24.items%5B-1%3A%5D.upper&url=https%3A%2F%2Fnuget.emzi0767.com%2Fapi%2Fv3%2Fregistration%2FSemVer2%2Fosusharp%2Findex.json)](https://nuget.emzi0767.com/gallery/search?q=OsuSharp&pre=true)
 [![Build Status](https://dev.azure.com/allanmercou/OsuSharp/_apis/build/status/Kiritsu.OsuSharp?branchName=feature%2Fapi-v2)](https://dev.azure.com/allanmercou/OsuSharp/_build/latest?definitionId=11&branchName=feature%2Fapi-v2)
 
 **OsuSharp is a wrapper written in C# for the osu! API.**
