@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using OsuSharp.Entities;
 using OsuSharp.Enums;
+using OsuSharp.Extensions;
 using OsuSharp.Logging;
 using OsuSharp.Net;
 
@@ -154,7 +155,7 @@ namespace OsuSharp
             await GetOrUpdateAccessTokenAsync();
 
             Uri.TryCreate(
-                $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{username}/{gameMode.ToString() ?? ""}",
+                $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{username}/{gameMode.ToApiString()}",
                 UriKind.Absolute, out var uri);
 
             return await Handler.SendAsync<User>(HttpMethod.Get, uri);
@@ -176,7 +177,7 @@ namespace OsuSharp
             await GetOrUpdateAccessTokenAsync();
 
             Uri.TryCreate(
-                $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{id}/{gameMode.ToString() ?? ""}",
+                $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{id}/{gameMode.ToApiString()}",
                 UriKind.Absolute, out var uri);
 
             return await Handler.SendAsync<User>(HttpMethod.Get, uri);
@@ -196,7 +197,7 @@ namespace OsuSharp
             await GetOrUpdateAccessTokenAsync();
 
             Uri.TryCreate(
-                $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Me}/{gameMode.ToString() ?? ""}",
+                $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Me}/{gameMode.ToApiString()}",
                 UriKind.Absolute, out var uri);
 
             return await Handler.SendAsync<User>(HttpMethod.Get, uri);
