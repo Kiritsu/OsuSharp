@@ -21,6 +21,11 @@ namespace OsuSharp.Entities
         public string RefreshToken { get; internal set; }
         
         /// <summary>
+        ///     Gets whether the token is revoked. Cannot be tracked by the API and is manually updated by the library.
+        /// </summary>
+        public bool Revoked { get; internal set; }
+        
+        /// <summary>
         ///     Gets the amount of time until the token has expired.
         /// </summary>
         public TimeSpan ExpiresIn => TimeSpan.FromSeconds(ExpiresInSeconds) - (DateTimeOffset.Now - CreatedAt);
@@ -28,7 +33,7 @@ namespace OsuSharp.Entities
         /// <summary>
         ///     Gets whether the token has expired or not.
         /// </summary>
-        public bool HasExpired => ExpiresIn < TimeSpan.Zero;
+        public bool HasExpired => ExpiresIn < TimeSpan.Zero || Revoked;
 
         /// <summary>
         ///     Gets when this <see cref="OsuToken"/> was created.

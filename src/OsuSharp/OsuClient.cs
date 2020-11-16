@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Net.Http;
 using System.Threading.Tasks;
 using OsuSharp.Entities;
 using OsuSharp.Enums;
@@ -80,7 +81,7 @@ namespace OsuSharp
             }
 
             Uri.TryCreate($"{Endpoints.Domain}{Endpoints.Oauth}{Endpoints.Token}", UriKind.Absolute, out var uri);
-            var response = await Handler.PostAsync<AccessTokenResponse>(uri, parameters).ConfigureAwait(false);
+            var response = await Handler.SendAsync<AccessTokenResponse>(HttpMethod.Post, uri, parameters).ConfigureAwait(false);
 
             return Credentials = new OsuToken
             {
@@ -123,6 +124,21 @@ namespace OsuSharp
         }
 
         /// <summary>
+        ///     Revokes the current access token.
+        /// </summary>
+        public async Task RevokeAccessTokenAsync()
+        {
+            ThrowIfDisposed();
+            
+            Uri.TryCreate(
+                $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Oauth}{Endpoints.Tokens}/{Endpoints.Current}",
+                UriKind.Absolute, out var uri);
+
+            await Handler.SendAsync(HttpMethod.Delete, uri);
+            Credentials.Revoked = true;
+        }
+
+        /// <summary>
         ///     Gets a user from the API.
         /// </summary>
         /// <param name="username">Username of the user.</param>
@@ -141,7 +157,7 @@ namespace OsuSharp
                 $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{username}/{gameMode.ToString() ?? ""}",
                 UriKind.Absolute, out var uri);
 
-            return await Handler.GetAsync<User>(uri);
+            return await Handler.SendAsync<User>(HttpMethod.Get, uri);
         }
 
         /// <summary>
@@ -163,7 +179,7 @@ namespace OsuSharp
                 $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{id}/{gameMode.ToString() ?? ""}",
                 UriKind.Absolute, out var uri);
 
-            return await Handler.GetAsync<User>(uri);
+            return await Handler.SendAsync<User>(HttpMethod.Get, uri);
         }
 
         /// <summary>
@@ -183,7 +199,7 @@ namespace OsuSharp
                 $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Me}/{gameMode.ToString() ?? ""}",
                 UriKind.Absolute, out var uri);
 
-            return await Handler.GetAsync<User>(uri);
+            return await Handler.SendAsync<User>(HttpMethod.Get, uri);
         }
 
         /// <inheritdoc cref="IDisposable.Dispose"/>

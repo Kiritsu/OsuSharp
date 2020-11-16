@@ -77,7 +77,7 @@ namespace OsuSharp.Net
             return bucket;
         }
 
-        // todo: to be reworked when rate limits are here! cf: ##6839
+        // todo: to be reworked when rate limits are here! cf: #ppy/osu-web#6839
         internal void UpdateBucket(Uri uri, RatelimitBucket bucket, HttpResponseMessage response)
         {
             bucket.Limit =
@@ -103,48 +103,61 @@ namespace OsuSharp.Net
                 $"Rate-limit bucket passed for [{uri.LocalPath}]: [{bucket.Limit - bucket.Remaining}/{bucket.Limit}]");
         }
 
-        internal async Task<T> GetAsync<T>(Uri route, IReadOnlyDictionary<string, string> parameters = null)
+        internal async Task SendAsync(HttpMethod method, Uri route, IReadOnlyDictionary<string, string> parameters = null)
+        {
+            var (bucket, requestMessage) = await PrepareRequestAsync(method, route, parameters).ConfigureAwait(false);
+            var response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+            await ValidateResponseAsync(response).ConfigureAwait(false);
+            UpdateBucket(route, bucket, response);
+        }
+        
+        internal async Task<T> SendAsync<T>(HttpMethod method, Uri route, IReadOnlyDictionary<string, string> parameters = null)
             where T : class
         {
-            parameters ??= new Dictionary<string, string>();
+            var (bucket, requestMessage) = await PrepareRequestAsync(method, route, parameters).ConfigureAwait(false);
+            var response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
+            await ValidateResponseAsync(response).ConfigureAwait(false);
+            return await ReadAndDeserializeAsync<T>(route, response, bucket).ConfigureAwait(false);
+        }
 
+        internal async Task<(RatelimitBucket, HttpRequestMessage)> PrepareRequestAsync(HttpMethod method, Uri route, IReadOnlyDictionary<string, string> parameters = null)
+        {
+            parameters ??= new Dictionary<string, string>();
+            
             var paramsString = string.Join(" | ", parameters.Select(x => $"{x.Key}:{x.Value}"));
             _client.Configuration.Logger.Log(LogLevel.Information, EventIds.RestApi,
                 $"Getting [{route.LocalPath}] with parameters [{(string.IsNullOrWhiteSpace(paramsString) ? "no_params" : paramsString)}]");
 
-            if (parameters is { Count: > 0 })
+            var bucket = await GetBucketFromUriAsync(route).ConfigureAwait(false);
+            
+            var requestMessage = new HttpRequestMessage();
+            if (method == HttpMethod.Get && parameters is { Count: > 0 })
             {
                 route = new Uri(route, $"?{string.Join("&", parameters.Select(x => $"{x.Key}={x.Value}"))}");
             }
+            else
+            {
+                requestMessage.Content = new FormUrlEncodedContent(parameters);
+            }
 
-            var bucket = await GetBucketFromUriAsync(route).ConfigureAwait(false);
-            var response = await _httpClient.GetAsync(route).ConfigureAwait(false);
+            requestMessage.Method = method;
+            requestMessage.RequestUri = route;
 
-            return await HandleResponseAsync<T>(route, response, bucket).ConfigureAwait(false);
+            return (bucket, requestMessage);
         }
 
-        internal async Task<T> PostAsync<T>(Uri route, IReadOnlyDictionary<string, string> parameters) where T : class
-        {
-            var paramsString = string.Join(" | ", parameters.Select(x => $"{x.Key}:{x.Value}"));
-            _client.Configuration.Logger.Log(LogLevel.Information, EventIds.RestApi,
-                $"Posting [{route.LocalPath}] with parameters [{paramsString}]");
-
-            var bucket = await GetBucketFromUriAsync(route).ConfigureAwait(false);
-            var response = await _httpClient.PostAsync(route, new FormUrlEncodedContent(parameters))
-                .ConfigureAwait(false);
-
-            return await HandleResponseAsync<T>(route, response, bucket).ConfigureAwait(false);
-        }
-
-        internal async Task<T> HandleResponseAsync<T>(Uri route, HttpResponseMessage response, RatelimitBucket bucket)
-            where T : class
+        internal async Task ValidateResponseAsync(HttpResponseMessage response)
         {
             if (!response.IsSuccessStatusCode)
             {
-                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var jsonResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 throw new ApiException(response.ReasonPhrase, response.StatusCode, jsonResponse);
             }
-
+        }
+        
+        internal async Task<T> ReadAndDeserializeAsync<T>(Uri route, HttpResponseMessage response, RatelimitBucket bucket)
+            where T : class
+        {
             var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
             var streamReader = new StreamReader(stream);
             var content = await streamReader.ReadToEndAsync().ConfigureAwait(false);
