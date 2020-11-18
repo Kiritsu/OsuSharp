@@ -46,6 +46,6 @@ Thanks to the following contributors:
 - [Kieran](https://github.com/k-boyle)
 - [Francesco149](https://github.com/Francesco149) for Oppai.
 
-Thanks to JetBrains for giving and open source license for their products!
+Thanks to JetBrains for giving an open source license for their products!
 
 <a href="https://www.jetbrains.com/?from=jensyl"><img src="https://d3nmt5vlzunoa1.cloudfront.net/dotnet/files/2017/06/logo.png" alt="Jetbrains ReSharper" width="150px"></img></a>
