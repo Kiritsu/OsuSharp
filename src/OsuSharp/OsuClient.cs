@@ -41,7 +41,8 @@ namespace OsuSharp
         /// <exception cref="ArgumentNullException">
         ///     Thrown when <see cref="configuration"/> is null
         /// </exception>
-        public OsuClient([NotNull] OsuClientConfiguration configuration)
+        public OsuClient(
+            [NotNull] OsuClientConfiguration configuration)
         {
             Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             Configuration.Logger ??= new DefaultLogger(Configuration);
@@ -111,7 +112,10 @@ namespace OsuSharp
         /// <remarks>
         ///     If you are going to use the authorization code grant, use this method to create your <see cref="OsuToken"/>.
         /// </remarks>
-        public OsuToken UpdateAccessToken(string accessToken, string refreshToken, long expiresIn)
+        public OsuToken UpdateAccessToken(
+            [NotNull] string accessToken, 
+            [NotNull] string refreshToken, 
+            [NotNull] long expiresIn)
         {
             ThrowIfDisposed();
 
@@ -156,13 +160,53 @@ namespace OsuSharp
         /// </returns>
         public async Task<IReadOnlyList<KudosuHistory>> GetUserKudosuAsync(
             [NotNull] string username,
-            [MaybeNull] Optional<int> limit = default,
-            [MaybeNull] Optional<int> offset = default)
+            [NotNull] Optional<int> limit = default,
+            [NotNull] Optional<int> offset = default)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
 
             Uri.TryCreate($"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{username}{Endpoints.Kudosu}",
+                UriKind.Absolute, out var uri);
+
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            if (limit.HasValue)
+            {
+                parameters["limit"] = limit.Value.ToString();
+            }
+
+            if (offset.HasValue)
+            {
+                parameters["offset"] = offset.Value.ToString();
+            }
+
+            return await _handler.SendAsync<IReadOnlyList<KudosuHistory>>(HttpMethod.Get, uri, parameters);
+        }
+        
+        /// <summary>
+        ///     Gets a user's kudosu history from the API.
+        /// </summary>
+        /// <param name="id">
+        ///     Id of the user.
+        /// </param>
+        /// <param name="limit">
+        ///     Limit number of results.
+        /// </param>
+        /// <param name="offset">
+        ///     Offset of result for pagination.
+        /// </param>
+        /// <returns>
+        ///     Returns a set of KudosuHistory
+        /// </returns>
+        public async Task<IReadOnlyList<KudosuHistory>> GetUserKudosuAsync(
+            [NotNull] long id,
+            [NotNull] Optional<int> limit = default,
+            [NotNull] Optional<int> offset = default)
+        {
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync();
+
+            Uri.TryCreate($"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{id}{Endpoints.Kudosu}",
                 UriKind.Absolute, out var uri);
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();
@@ -193,7 +237,7 @@ namespace OsuSharp
         /// </returns>
         public async Task<User> GetUserAsync(
             [NotNull] string username,
-            [MaybeNull] Optional<GameMode> gameMode = default)
+            [NotNull] Optional<GameMode> gameMode = default)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
@@ -219,7 +263,7 @@ namespace OsuSharp
         /// </returns>
         public async Task<User> GetUserAsync(
             [NotNull] long id,
-            [MaybeNull] Optional<GameMode> gameMode = default)
+            [NotNull] Optional<GameMode> gameMode = default)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
@@ -241,7 +285,7 @@ namespace OsuSharp
         ///     Returns a <see cref="User"/>.
         /// </returns>
         public async Task<User> GetCurrentUserAsync(
-            [MaybeNull] Optional<GameMode> gameMode = default)
+            [NotNull] Optional<GameMode> gameMode = default)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
