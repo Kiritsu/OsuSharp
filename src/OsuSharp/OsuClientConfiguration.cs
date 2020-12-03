@@ -15,11 +15,11 @@ namespace OsuSharp
         ///     Gets or sets the given client secret after registering your application.
         /// </summary>
         public string ClientSecret { get; set; }
-        
+
         /// <summary>
-        ///     Gets or sets whether to wait or throw on rate-limits.
+        ///     Gets or sets whether to wait or throw on rate-limits. Defaults to false.
         /// </summary>
-        public bool ThrowOnRateLimits { get; set; }
+        public bool ThrowOnRateLimits { get; set; } = false;
         
         /// <summary>
         ///     Gets or sets the logger to use. Defaults to <see cref="DefaultLogger"/> when null.

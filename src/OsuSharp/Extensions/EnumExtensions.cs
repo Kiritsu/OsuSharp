@@ -9,11 +9,11 @@ namespace OsuSharp.Extensions
         /// </summary>
         /// <param name="type">GameMode to get the string for.</param>
         /// <returns>A api-valid string representation of this <see cref="BeatmapsetType"/></returns>
-        public static string ToApiString(this BeatmapsetType? type)
+        public static string ToApiString(this Optional<BeatmapsetType> type)
         {
             if (type.HasValue)
             {
-                return type switch
+                return type.Value switch
                 {
                     BeatmapsetType.MostPlayed => "most_played",
                     BeatmapsetType.Favourite => "favourite",
@@ -32,11 +32,11 @@ namespace OsuSharp.Extensions
         /// </summary>
         /// <param name="gameMode">GameMode to get the string for.</param>
         /// <returns>A api-valid string representation of this <see cref="GameMode"/></returns>
-        public static string ToApiString(this GameMode? gameMode)
+        public static string ToApiString(this Optional<GameMode> gameMode)
         {
             if (gameMode.HasValue)
             {
-                return gameMode switch
+                return gameMode.Value switch
                 {
                     GameMode.Osu => "osu",
                     GameMode.Taiko => "taiko",

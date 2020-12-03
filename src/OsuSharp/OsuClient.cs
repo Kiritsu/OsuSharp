@@ -14,8 +14,8 @@ namespace OsuSharp
     public sealed class OsuClient : IDisposable
     {
         internal readonly OsuClientConfiguration Configuration;
-        internal readonly RequestHandler Handler;
 
+        private readonly RequestHandler _handler;
         private bool _disposed;
         private OsuToken _credentials;
 
@@ -28,7 +28,7 @@ namespace OsuSharp
             internal set
             {
                 _credentials = value;
-                Handler.UpdateAuthorizationHeader(_credentials);
+                _handler.UpdateAuthorizationHeader(_credentials);
             }
         }
 
@@ -45,7 +45,7 @@ namespace OsuSharp
         {
             Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             Configuration.Logger ??= new DefaultLogger(Configuration);
-            Handler = new RequestHandler(this);
+            _handler = new RequestHandler(this);
         }
 
         /// <summary>
@@ -82,7 +82,8 @@ namespace OsuSharp
             }
 
             Uri.TryCreate($"{Endpoints.Domain}{Endpoints.Oauth}{Endpoints.Token}", UriKind.Absolute, out var uri);
-            var response = await Handler.SendAsync<AccessTokenResponse>(HttpMethod.Post, uri, parameters).ConfigureAwait(false);
+            var response = await _handler.SendAsync<AccessTokenResponse>(HttpMethod.Post, uri, parameters)
+                .ConfigureAwait(false);
 
             return Credentials = new OsuToken
             {
@@ -108,8 +109,7 @@ namespace OsuSharp
         ///     Returns an <see cref="OsuToken"/>.
         /// </returns>
         /// <remarks>
-        ///     If you are going to use the authorization code grant,
-        ///     use this method to create your <see cref="OsuToken"/>.
+        ///     If you are going to use the authorization code grant, use this method to create your <see cref="OsuToken"/>.
         /// </remarks>
         public OsuToken UpdateAccessToken(string accessToken, string refreshToken, long expiresIn)
         {
@@ -130,26 +130,70 @@ namespace OsuSharp
         public async Task RevokeAccessTokenAsync()
         {
             ThrowIfDisposed();
-            
+
             Uri.TryCreate(
-                $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Oauth}{Endpoints.Tokens}/{Endpoints.Current}",
+                $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Oauth}{Endpoints.Tokens}{Endpoints.Current}",
                 UriKind.Absolute, out var uri);
 
-            await Handler.SendAsync(HttpMethod.Delete, uri);
+            await _handler.SendAsync(HttpMethod.Delete, uri);
             Credentials.Revoked = true;
+        }
+
+        /// <summary>
+        ///     Gets a user's kudosu history from the API.
+        /// </summary>
+        /// <param name="username">
+        ///     Username of the user.
+        /// </param>
+        /// <param name="limit">
+        ///     Limit number of results.
+        /// </param>
+        /// <param name="offset">
+        ///     Offset of result for pagination.
+        /// </param>
+        /// <returns>
+        ///     Returns a set of KudosuHistory
+        /// </returns>
+        public async Task<IReadOnlyList<KudosuHistory>> GetUserKudosuAsync(
+            [NotNull] string username,
+            [MaybeNull] Optional<int> limit = default,
+            [MaybeNull] Optional<int> offset = default)
+        {
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync();
+
+            Uri.TryCreate($"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{username}{Endpoints.Kudosu}",
+                UriKind.Absolute, out var uri);
+
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            if (limit.HasValue)
+            {
+                parameters["limit"] = limit.Value.ToString();
+            }
+
+            if (offset.HasValue)
+            {
+                parameters["offset"] = offset.Value.ToString();
+            }
+
+            return await _handler.SendAsync<IReadOnlyList<KudosuHistory>>(HttpMethod.Get, uri, parameters);
         }
 
         /// <summary>
         ///     Gets a user from the API.
         /// </summary>
-        /// <param name="username">Username of the user.</param>
-        /// <param name="gameMode">Gamemode of the user. Defaults gamemode is picked when null.</param>
+        /// <param name="username">
+        ///     Username of the user.
+        /// </param>
+        /// <param name="gameMode">
+        ///     Gamemode of the user. Defaults gamemode is picked when null.
+        /// </param>
         /// <returns>
         ///     Returns a <see cref="User"/>.
         /// </returns>
         public async Task<User> GetUserAsync(
             [NotNull] string username,
-            [MaybeNull] GameMode? gameMode = null)
+            [MaybeNull] Optional<GameMode> gameMode = default)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
@@ -158,20 +202,24 @@ namespace OsuSharp
                 $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{username}/{gameMode.ToApiString()}",
                 UriKind.Absolute, out var uri);
 
-            return await Handler.SendAsync<User>(HttpMethod.Get, uri);
+            return await _handler.SendAsync<User>(HttpMethod.Get, uri);
         }
 
         /// <summary>
         ///     Gets a user from the API.
         /// </summary>
-        /// <param name="id">Id of the user.</param>
-        /// <param name="gameMode">Gamemode of the user. Defaults gamemode is picked when null.</param>
+        /// <param name="id">
+        ///     Id of the user.
+        /// </param>
+        /// <param name="gameMode">
+        ///     Gamemode of the user. Defaults gamemode is picked when null.
+        /// </param>
         /// <returns>
         ///     Returns a <see cref="User"/>.
         /// </returns>
         public async Task<User> GetUserAsync(
             [NotNull] long id,
-            [MaybeNull] GameMode? gameMode = null)
+            [MaybeNull] Optional<GameMode> gameMode = default)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
@@ -180,18 +228,20 @@ namespace OsuSharp
                 $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{id}/{gameMode.ToApiString()}",
                 UriKind.Absolute, out var uri);
 
-            return await Handler.SendAsync<User>(HttpMethod.Get, uri);
+            return await _handler.SendAsync<User>(HttpMethod.Get, uri);
         }
 
         /// <summary>
         ///     Gets the current authenticated user from the API.
         /// </summary>
-        /// <param name="gameMode">Gamemode of the user. Defaults gamemode is picked when null.</param>
+        /// <param name="gameMode">
+        ///     Gamemode of the user. Defaults gamemode is picked when null.
+        /// </param>
         /// <returns>
         ///     Returns a <see cref="User"/>.
         /// </returns>
         public async Task<User> GetCurrentUserAsync(
-            [MaybeNull] GameMode? gameMode = null)
+            [MaybeNull] Optional<GameMode> gameMode = default)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
@@ -200,7 +250,7 @@ namespace OsuSharp
                 $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Me}/{gameMode.ToApiString()}",
                 UriKind.Absolute, out var uri);
 
-            return await Handler.SendAsync<User>(HttpMethod.Get, uri);
+            return await _handler.SendAsync<User>(HttpMethod.Get, uri);
         }
 
         /// <inheritdoc cref="IDisposable.Dispose"/>
@@ -208,7 +258,7 @@ namespace OsuSharp
         {
             ThrowIfDisposed();
             _disposed = true;
-            Handler.Dispose();
+            _handler.Dispose();
         }
 
         private void ThrowIfDisposed()

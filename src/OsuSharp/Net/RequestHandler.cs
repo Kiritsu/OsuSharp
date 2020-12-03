@@ -45,8 +45,8 @@ namespace OsuSharp.Net
             _httpClient.DefaultRequestHeaders.Authorization = 
                 new AuthenticationHeaderValue(token.Type.ToString(), token.AccessToken);
         }
-        
-        internal async Task<RatelimitBucket> GetBucketFromUriAsync(Uri uri)
+
+        private async Task<RatelimitBucket> GetBucketFromUriAsync(Uri uri)
         {
             _client.Configuration.Logger.Log(LogLevel.Debug, EventIds.RateLimits,
                 $"Retrieving rate-limit bucket for [{uri.LocalPath}]");
@@ -78,7 +78,7 @@ namespace OsuSharp.Net
         }
 
         // todo: to be reworked when rate limits are here! cf: #ppy/osu-web#6839
-        internal void UpdateBucket(Uri uri, RatelimitBucket bucket, HttpResponseMessage response)
+        private void UpdateBucket(Uri uri, RatelimitBucket bucket, HttpResponseMessage response)
         {
             bucket.Limit =
                 response.Headers.TryGetValues("X-RateLimit-Limit", out var limitHeaders)
@@ -120,7 +120,7 @@ namespace OsuSharp.Net
             return await ReadAndDeserializeAsync<T>(route, response, bucket).ConfigureAwait(false);
         }
 
-        internal async Task<(RatelimitBucket, HttpRequestMessage)> PrepareRequestAsync(HttpMethod method, Uri route, IReadOnlyDictionary<string, string> parameters = null)
+        private async Task<(RatelimitBucket, HttpRequestMessage)> PrepareRequestAsync(HttpMethod method, Uri route, IReadOnlyDictionary<string, string> parameters = null)
         {
             parameters ??= new Dictionary<string, string>();
             
@@ -146,7 +146,7 @@ namespace OsuSharp.Net
             return (bucket, requestMessage);
         }
 
-        internal async Task ValidateResponseAsync(HttpResponseMessage response)
+        private async Task ValidateResponseAsync(HttpResponseMessage response)
         {
             if (!response.IsSuccessStatusCode)
             {
@@ -154,8 +154,8 @@ namespace OsuSharp.Net
                 throw new ApiException(response.ReasonPhrase, response.StatusCode, jsonResponse);
             }
         }
-        
-        internal async Task<T> ReadAndDeserializeAsync<T>(Uri route, HttpResponseMessage response, RatelimitBucket bucket)
+
+        private async Task<T> ReadAndDeserializeAsync<T>(Uri route, HttpResponseMessage response, RatelimitBucket bucket)
             where T : class
         {
             var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);

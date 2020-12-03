@@ -384,5 +384,14 @@ namespace OsuSharp
         /// </returns>
         public static bool operator !=(T left, Optional<T> right)
             => !(left == right);
+
+        /// <summary>
+        ///     Implicitly converts a <see cref="T"/> to its <see cref="Optional{T}"/>.
+        /// </summary>
+        /// <param name="value">
+        ///     Value to convert to its <see cref="Optional{T}"/>.
+        /// </param>
+        public static implicit operator Optional<T>(T value) 
+            => FromValue(value);
     }
 }
