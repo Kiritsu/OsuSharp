@@ -82,9 +82,14 @@ namespace OsuSharp
                 parameters["refresh_token"] = Credentials.RefreshToken;
             }
 
-            Uri.TryCreate($"{Endpoints.Domain}{Endpoints.Oauth}{Endpoints.Token}", UriKind.Absolute, out var uri);
-            var response = await _handler.SendAsync<AccessTokenResponse>(HttpMethod.Post, uri, parameters)
-                .ConfigureAwait(false);
+            Uri.TryCreate($"{Endpoints.TokenEndpoint}", UriKind.Absolute, out var uri);
+            var response = await _handler.SendAsync<AccessTokenResponse>(new OsuApiRequest
+                {
+                    Endpoint = Endpoints.TokenEndpoint,
+                    Method = HttpMethod.Post,
+                    Route = uri,
+                    Parameters = parameters
+                }).ConfigureAwait(false);
 
             return Credentials = new OsuToken
             {
@@ -113,8 +118,8 @@ namespace OsuSharp
         ///     If you are going to use the authorization code grant, use this method to create your <see cref="OsuToken"/>.
         /// </remarks>
         public OsuToken UpdateAccessToken(
-            [NotNull] string accessToken, 
-            [NotNull] string refreshToken, 
+            [NotNull] string accessToken,
+            [NotNull] string refreshToken,
             [NotNull] long expiresIn)
         {
             ThrowIfDisposed();
@@ -136,10 +141,16 @@ namespace OsuSharp
             ThrowIfDisposed();
 
             Uri.TryCreate(
-                $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Oauth}{Endpoints.Tokens}{Endpoints.Current}",
+                $"{Endpoints.CurrentTokensEndpoint}",
                 UriKind.Absolute, out var uri);
 
-            await _handler.SendAsync(HttpMethod.Delete, uri);
+            await _handler.SendAsync(new OsuApiRequest
+            {
+                Endpoint = Endpoints.CurrentTokensEndpoint,
+                Method = HttpMethod.Delete,
+                Route = uri
+            });
+
             Credentials.Revoked = true;
         }
 
@@ -166,7 +177,7 @@ namespace OsuSharp
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
 
-            Uri.TryCreate($"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{username}{Endpoints.Kudosu}",
+            Uri.TryCreate($"{Endpoints.UserEndpoint}/{username}{Endpoints.Kudosu}",
                 UriKind.Absolute, out var uri);
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();
@@ -180,13 +191,19 @@ namespace OsuSharp
                 parameters["offset"] = offset.Value.ToString();
             }
 
-            return await _handler.SendAsync<IReadOnlyList<KudosuHistory>>(HttpMethod.Get, uri, parameters);
+            return await _handler.SendAsync<IReadOnlyList<KudosuHistory>>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.UserEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri,
+                Parameters = parameters
+            });
         }
-        
+
         /// <summary>
         ///     Gets a user's kudosu history from the API.
         /// </summary>
-        /// <param name="id">
+        /// <param name="userId">
         ///     Id of the user.
         /// </param>
         /// <param name="limit">
@@ -199,14 +216,14 @@ namespace OsuSharp
         ///     Returns a set of KudosuHistory
         /// </returns>
         public async Task<IReadOnlyList<KudosuHistory>> GetUserKudosuAsync(
-            [NotNull] long id,
+            [NotNull] long userId,
             [NotNull] Optional<int> limit = default,
             [NotNull] Optional<int> offset = default)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
 
-            Uri.TryCreate($"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{id}{Endpoints.Kudosu}",
+            Uri.TryCreate($"{Endpoints.UserEndpoint}/{userId}{Endpoints.Kudosu}",
                 UriKind.Absolute, out var uri);
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();
@@ -220,7 +237,13 @@ namespace OsuSharp
                 parameters["offset"] = offset.Value.ToString();
             }
 
-            return await _handler.SendAsync<IReadOnlyList<KudosuHistory>>(HttpMethod.Get, uri, parameters);
+            return await _handler.SendAsync<IReadOnlyList<KudosuHistory>>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.UserEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri,
+                Parameters = parameters
+            });
         }
 
         /// <summary>
@@ -243,10 +266,15 @@ namespace OsuSharp
             await GetOrUpdateAccessTokenAsync();
 
             Uri.TryCreate(
-                $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{username}/{gameMode.ToApiString()}",
+                $"{Endpoints.UserEndpoint}/{username}/{gameMode.ToApiString()}",
                 UriKind.Absolute, out var uri);
 
-            return await _handler.SendAsync<User>(HttpMethod.Get, uri);
+            return await _handler.SendAsync<User>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.UserEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri
+            });
         }
 
         /// <summary>
@@ -269,10 +297,15 @@ namespace OsuSharp
             await GetOrUpdateAccessTokenAsync();
 
             Uri.TryCreate(
-                $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Users}/{id}/{gameMode.ToApiString()}",
+                $"{Endpoints.UserEndpoint}/{id}/{gameMode.ToApiString()}",
                 UriKind.Absolute, out var uri);
 
-            return await _handler.SendAsync<User>(HttpMethod.Get, uri);
+            return await _handler.SendAsync<User>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.UserEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri
+            });
         }
 
         /// <summary>
@@ -291,10 +324,15 @@ namespace OsuSharp
             await GetOrUpdateAccessTokenAsync();
 
             Uri.TryCreate(
-                $"{Endpoints.Domain}{Endpoints.Api}{Endpoints.Me}/{gameMode.ToApiString()}",
+                $"{Endpoints.CurrentEndpoint}/{gameMode.ToApiString()}",
                 UriKind.Absolute, out var uri);
 
-            return await _handler.SendAsync<User>(HttpMethod.Get, uri);
+            return await _handler.SendAsync<User>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.CurrentEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri
+            });
         }
 
         /// <inheritdoc cref="IDisposable.Dispose"/>

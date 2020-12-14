@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using OsuSharp.Entities;
 using OsuSharp.Exceptions;
+using OsuSharp.Extensions;
 using OsuSharp.Logging;
 using OsuSharp.Net.Serialization;
 
@@ -46,15 +47,15 @@ namespace OsuSharp.Net
                 new AuthenticationHeaderValue(token.Type.ToString(), token.AccessToken);
         }
 
-        private async Task<RatelimitBucket> GetBucketFromUriAsync(Uri uri)
+        private async Task<RatelimitBucket> GetBucketFromEndpointAsync(string endpoint)
         {
             _client.Configuration.Logger.Log(LogLevel.Debug, EventIds.RateLimits,
-                $"Retrieving rate-limit bucket for [{uri.LocalPath}]");
+                $"Retrieving rate-limit bucket for [{endpoint}]");
 
-            if (_ratelimits.TryGetValue(uri.LocalPath, out var bucket) && !bucket.HasExpired && bucket.Remaining <= 0)
+            if (_ratelimits.TryGetValue(endpoint, out var bucket) && !bucket.HasExpired && bucket.Remaining <= 0)
             {
                 _client.Configuration.Logger.Log(LogLevel.Warning, EventIds.RateLimits,
-                    $"Pre-emptive rate-limit bucket hit for [{uri.LocalPath}]: [{bucket.Limit - bucket.Remaining}/{bucket.Limit}]");
+                    $"Pre-emptive rate-limit bucket hit for [{endpoint}]: [{bucket.Limit - bucket.Remaining}/{bucket.Limit}]");
 
                 if (!_client.Configuration.ThrowOnRateLimits)
                 {
@@ -71,14 +72,14 @@ namespace OsuSharp.Net
             else
             {
                 bucket = new RatelimitBucket();
-                _ratelimits.TryAdd(uri.LocalPath, bucket);
+                _ratelimits.TryAdd(endpoint, bucket);
             }
 
             return bucket;
         }
 
         // todo: to be reworked when rate limits are here! cf: #ppy/osu-web#6839
-        private void UpdateBucket(Uri uri, RatelimitBucket bucket, HttpResponseMessage response)
+        private void UpdateBucket(string endpoint, RatelimitBucket bucket, HttpResponseMessage response)
         {
             bucket.Limit =
                 response.Headers.TryGetValues("X-RateLimit-Limit", out var limitHeaders)
@@ -88,60 +89,56 @@ namespace OsuSharp.Net
             bucket.Remaining =
                 response.Headers.TryGetValues("X-RateLimit-Remaining", out var remainingHeaders)
                     ? int.Parse(remainingHeaders.First())
-                    : 1200;
+                    : bucket.Remaining - 1;
 
             if (bucket.HasExpired)
             {
                 bucket.CreatedAt = DateTimeOffset.Now;
             }
-            else
-            {
-                bucket.Remaining--;
-            }
 
             _client.Configuration.Logger.Log(LogLevel.Debug, EventIds.RateLimits,
-                $"Rate-limit bucket passed for [{uri.LocalPath}]: [{bucket.Limit - bucket.Remaining}/{bucket.Limit}]");
+                $"Rate-limit bucket passed for [{endpoint}]: [{bucket.Limit - bucket.Remaining}/{bucket.Limit}]");
         }
 
-        internal async Task SendAsync(HttpMethod method, Uri route, IReadOnlyDictionary<string, string> parameters = null)
+        internal async Task SendAsync(OsuApiRequest request)
         {
-            var (bucket, requestMessage) = await PrepareRequestAsync(method, route, parameters).ConfigureAwait(false);
+            var (bucket, requestMessage) = await PrepareRequestAsync(request).ConfigureAwait(false);
             var response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
             await ValidateResponseAsync(response).ConfigureAwait(false);
-            UpdateBucket(route, bucket, response);
+            UpdateBucket(request.Endpoint, bucket, response);
         }
         
-        internal async Task<T> SendAsync<T>(HttpMethod method, Uri route, IReadOnlyDictionary<string, string> parameters = null)
+        internal async Task<T> SendAsync<T>(OsuApiRequest request)
             where T : class
         {
-            var (bucket, requestMessage) = await PrepareRequestAsync(method, route, parameters).ConfigureAwait(false);
+            var (bucket, requestMessage) = await PrepareRequestAsync(request).ConfigureAwait(false);
             var response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
             await ValidateResponseAsync(response).ConfigureAwait(false);
-            return await ReadAndDeserializeAsync<T>(route, response, bucket).ConfigureAwait(false);
+            return await ReadAndDeserializeAsync<T>(request, response, bucket).ConfigureAwait(false);
         }
 
-        private async Task<(RatelimitBucket, HttpRequestMessage)> PrepareRequestAsync(HttpMethod method, Uri route, IReadOnlyDictionary<string, string> parameters = null)
+        private async Task<(RatelimitBucket, HttpRequestMessage)> PrepareRequestAsync(OsuApiRequest request)
         {
-            parameters ??= new Dictionary<string, string>();
+            request.Parameters ??= new Dictionary<string, string>();
             
-            var paramsString = string.Join(" | ", parameters.Select(x => $"{x.Key}:{x.Value}"));
+            var paramsString = string.Join(" | ", request.Parameters.Select(x => $"{x.Key}:{x.Value}"));
             _client.Configuration.Logger.Log(LogLevel.Information, EventIds.RestApi,
-                $"Getting [{route.LocalPath}] with parameters [{(string.IsNullOrWhiteSpace(paramsString) ? "no_params" : paramsString)}]");
+                $"Getting [{request.Route.LocalPath}] with parameters [{(string.IsNullOrWhiteSpace(paramsString) ? "no_params" : paramsString)}]");
 
-            var bucket = await GetBucketFromUriAsync(route).ConfigureAwait(false);
+            var bucket = await GetBucketFromEndpointAsync(request.Endpoint).ConfigureAwait(false);
             
             var requestMessage = new HttpRequestMessage();
-            if (method == HttpMethod.Get && parameters is { Count: > 0 })
+            if (request.Method == HttpMethod.Get && request.Parameters is { Count: > 0 })
             {
-                route = new Uri(route, $"?{string.Join("&", parameters.Select(x => $"{x.Key}={x.Value}"))}");
+                request.Route = new Uri(request.Route, request.Parameters.AsQueryString());
             }
             else
             {
-                requestMessage.Content = new FormUrlEncodedContent(parameters);
+                requestMessage.Content = new FormUrlEncodedContent(request.Parameters);
             }
 
-            requestMessage.Method = method;
-            requestMessage.RequestUri = route;
+            requestMessage.Method = request.Method;
+            requestMessage.RequestUri = request.Route;
 
             return (bucket, requestMessage);
         }
@@ -155,7 +152,7 @@ namespace OsuSharp.Net
             }
         }
 
-        private async Task<T> ReadAndDeserializeAsync<T>(Uri route, HttpResponseMessage response, RatelimitBucket bucket)
+        private async Task<T> ReadAndDeserializeAsync<T>(OsuApiRequest request, HttpResponseMessage response, RatelimitBucket bucket)
             where T : class
         {
             var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
@@ -164,7 +161,7 @@ namespace OsuSharp.Net
 
             _client.Configuration.Logger.Log(LogLevel.Trace, EventIds.RestApi, $"Response received: {content}");
 
-            UpdateBucket(route, bucket, response);
+            UpdateBucket(request.Endpoint, bucket, response);
             return _serializer.Deserialize<T>(stream);
         }
 
