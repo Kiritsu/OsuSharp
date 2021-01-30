@@ -37,7 +37,10 @@ namespace OsuSharp.Net
                     AllowAutoRedirect = false,
                     AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
                 }
-            });
+            })
+            {
+                BaseAddress = new Uri("https://osu.ppy.sh")
+            };
             _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("OsuSharp", "2.0"));
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
@@ -146,7 +149,7 @@ namespace OsuSharp.Net
             var paramsString = request.Parameters.ToLogString();
             _client.Configuration.Logger.Log(LogLevel.Information, EventIds.RestApi,
                 "Getting [{LocalPath}] with parameters [{Params}]",
-                request.Route.LocalPath, paramsString);
+                request.Route.ToString(), paramsString);
 
             var bucket = await GetBucketFromEndpointAsync(request.Endpoint).ConfigureAwait(false);
 

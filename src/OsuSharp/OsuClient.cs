@@ -89,7 +89,7 @@ namespace OsuSharp
                 parameters["refresh_token"] = Credentials.RefreshToken;
             }
 
-            Uri.TryCreate($"{Endpoints.TokenEndpoint}", UriKind.Absolute, out var uri);
+            Uri.TryCreate($"{Endpoints.TokenEndpoint}", UriKind.Relative, out var uri);
             var response = await _handler.SendAsync<AccessTokenResponse>(new OsuApiRequest
             {
                 Endpoint = Endpoints.TokenEndpoint,
@@ -149,7 +149,7 @@ namespace OsuSharp
 
             Uri.TryCreate(
                 $"{Endpoints.CurrentTokensEndpoint}",
-                UriKind.Absolute, out var uri);
+                UriKind.Relative, out var uri);
 
             await _handler.SendAsync(new OsuApiRequest
             {
@@ -188,7 +188,7 @@ namespace OsuSharp
             await GetOrUpdateAccessTokenAsync();
 
             Uri.TryCreate($"{Endpoints.UserEndpoint}/{username}{Endpoints.Kudosu}",
-                UriKind.Absolute, out var uri);
+                UriKind.Relative, out var uri);
 
             Dictionary<string, string> parameters = new();
             if (limit.HasValue)
@@ -234,7 +234,7 @@ namespace OsuSharp
             await GetOrUpdateAccessTokenAsync();
 
             Uri.TryCreate($"{Endpoints.UserEndpoint}/{userId}{Endpoints.Kudosu}",
-                UriKind.Absolute, out var uri);
+                UriKind.Relative, out var uri);
 
             Dictionary<string, string> parameters = new();
             if (limit.HasValue)
@@ -277,7 +277,7 @@ namespace OsuSharp
 
             Uri.TryCreate(
                 $"{Endpoints.UserEndpoint}/{username}/{gameMode.ToApiString()}",
-                UriKind.Absolute, out var uri);
+                UriKind.Relative, out var uri);
 
             return await _handler.SendAsync<User>(new OsuApiRequest
             {
@@ -308,7 +308,7 @@ namespace OsuSharp
 
             Uri.TryCreate(
                 $"{Endpoints.UserEndpoint}/{id}/{gameMode.ToApiString()}",
-                UriKind.Absolute, out var uri);
+                UriKind.Relative, out var uri);
 
             return await _handler.SendAsync<User>(new OsuApiRequest
             {
@@ -335,7 +335,7 @@ namespace OsuSharp
 
             Uri.TryCreate(
                 $"{Endpoints.CurrentEndpoint}/{gameMode.ToApiString()}",
-                UriKind.Absolute, out var uri);
+                UriKind.Relative, out var uri);
 
             return await _handler.SendAsync<User>(new OsuApiRequest
             {

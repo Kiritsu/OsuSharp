@@ -62,7 +62,7 @@ namespace OsuSharp.Logging
         {
             lock (Lock)
             {
-                return logLevel >= _config.LoggingLevel;
+                return logLevel >= _config.LogLevel;
             }
         }
 

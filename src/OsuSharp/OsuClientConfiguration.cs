@@ -29,7 +29,7 @@ namespace OsuSharp
         /// <summary>
         ///     Gets or sets the minimum logging level for the <see cref="ILogger{OsuClient}" />.
         /// </summary>
-        public LogLevel LoggingLevel { get; set; } = LogLevel.Debug;
+        public LogLevel LogLevel { get; set; } = LogLevel.Debug;
 
         /// <summary>
         ///     Gets or sets the logger <see cref="DateTimeOffset" /> format.

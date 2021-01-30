@@ -16,8 +16,8 @@ namespace OsuSharp.Test
             var client = new OsuClient(new OsuClientConfiguration
             {
                 ClientId = 646,
-                ClientSecret = "dG1XaduFuZsktaZrTt58dN3iFvNT6WsOFv6LVMZc",
-                LoggingLevel = LogLevel.Trace
+                ClientSecret = "lel",
+                LogLevel = LogLevel.Trace
             });
 
             var user = await client.GetUserAsync("Evolia");
