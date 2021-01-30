@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace OsuSharp.Exceptions
 {
@@ -7,7 +7,7 @@ namespace OsuSharp.Exceptions
         /// <summary>
         ///     Gets the time before the ratelimit bucket has expired.
         /// </summary>
-        public TimeSpan ExpiresIn { get; internal set; }
+        public TimeSpan ExpiresIn { get; init; }
 
         internal PreemptiveRateLimitException() : base("Preemptive ratelimits reached. Retry later.")
         {

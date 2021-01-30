@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 using Microsoft.Extensions.Logging;
 
 namespace OsuSharp.Logging
 {
     public sealed class DefaultLogger : ILogger<OsuClient>
     {
-        private static readonly object Lock = new object();
-        
+        private static readonly object Lock = new();
+
         private readonly OsuClientConfiguration _config;
 
         public DefaultLogger(OsuClientConfiguration config)

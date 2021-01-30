@@ -4,7 +4,7 @@ namespace OsuSharp.Logging
 {
     public class EventIds
     {
-        public static EventId RestApi = new EventId(1, "RestApi");
-        public static EventId RateLimits = new EventId(2, "RateLimits");
+        public static EventId RestApi = new(1, "RestApi");
+        public static EventId RateLimits = new(2, "RateLimits");
     }
 }

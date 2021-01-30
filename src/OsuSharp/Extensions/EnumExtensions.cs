@@ -5,10 +5,10 @@ namespace OsuSharp.Extensions
     public static class EnumExtensions
     {
         /// <summary>
-        ///     Returns a string that fits osu! API requirements for that <see cref="BeatmapsetType"/>.
+        ///     Returns a string that fits osu! API requirements for that <see cref="BeatmapsetType" />.
         /// </summary>
         /// <param name="type">GameMode to get the string for.</param>
-        /// <returns>A api-valid string representation of this <see cref="BeatmapsetType"/></returns>
+        /// <returns>A api-valid string representation of this <see cref="BeatmapsetType" /></returns>
         public static string ToApiString(this Optional<BeatmapsetType> type)
         {
             if (type.HasValue)
@@ -23,15 +23,15 @@ namespace OsuSharp.Extensions
                     _ => ""
                 };
             }
-            
+
             return "";
         }
-            
+
         /// <summary>
-        ///     Returns a string that fits osu! API requirements for that <see cref="GameMode"/>.
+        ///     Returns a string that fits osu! API requirements for that <see cref="GameMode" />.
         /// </summary>
         /// <param name="gameMode">GameMode to get the string for.</param>
-        /// <returns>A api-valid string representation of this <see cref="GameMode"/></returns>
+        /// <returns>A api-valid string representation of this <see cref="GameMode" /></returns>
         public static string ToApiString(this Optional<GameMode> gameMode)
         {
             if (gameMode.HasValue)

@@ -14,10 +14,9 @@ namespace OsuSharp
     public sealed class OsuClient : IDisposable
     {
         internal readonly OsuClientConfiguration Configuration;
-
         private readonly RequestHandler _handler;
-        private bool _disposed;
         private OsuToken _credentials;
+        private bool _disposed;
 
         /// <summary>
         ///     Gets the current used credentials to communicate with the API.
@@ -27,11 +26,11 @@ namespace OsuSharp
             get => _credentials;
             internal set
             {
-                _credentials = value;
+                _credentials = value ?? throw new ArgumentNullException(nameof(Credentials), "Credentials cannot become null.");
                 _handler.UpdateAuthorizationHeader(_credentials);
             }
         }
-
+        
         /// <summary>
         ///     Initializes a new OsuClient with the given configuration.
         /// </summary>
@@ -39,7 +38,7 @@ namespace OsuSharp
         ///     Configuration of the client.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        ///     Thrown when <see cref="configuration"/> is null
+        ///     Thrown when <see cref="configuration" /> is null
         /// </exception>
         public OsuClient(
             [NotNull] OsuClientConfiguration configuration)
@@ -49,12 +48,20 @@ namespace OsuSharp
             _handler = new RequestHandler(this);
         }
 
+        /// <inheritdoc cref="IDisposable.Dispose" />
+        public void Dispose()
+        {
+            ThrowIfDisposed();
+            _disposed = true;
+            _handler.Dispose();
+        }
+
         /// <summary>
         ///     Gets or requests an API access token. This method will use Client Credential Grant unless
-        ///     A refresh token is present on the current <see cref="OsuToken"/> instance.
+        ///     A refresh token is present on the current <see cref="OsuToken" /> instance.
         /// </summary>
         /// <returns>
-        ///     Returns an <see cref="OsuToken"/>.
+        ///     Returns an <see cref="OsuToken" />.
         /// </returns>
         public async ValueTask<OsuToken> GetOrUpdateAccessTokenAsync()
         {
@@ -84,12 +91,12 @@ namespace OsuSharp
 
             Uri.TryCreate($"{Endpoints.TokenEndpoint}", UriKind.Absolute, out var uri);
             var response = await _handler.SendAsync<AccessTokenResponse>(new OsuApiRequest
-                {
-                    Endpoint = Endpoints.TokenEndpoint,
-                    Method = HttpMethod.Post,
-                    Route = uri,
-                    Parameters = parameters
-                }).ConfigureAwait(false);
+            {
+                Endpoint = Endpoints.TokenEndpoint,
+                Method = HttpMethod.Post,
+                Route = uri,
+                Parameters = parameters
+            }).ConfigureAwait(false);
 
             return Credentials = new OsuToken
             {
@@ -112,10 +119,10 @@ namespace OsuSharp
         ///     Amount of seconds before the token expires.
         /// </param>
         /// <returns>
-        ///     Returns an <see cref="OsuToken"/>.
+        ///     Returns an <see cref="OsuToken" />.
         /// </returns>
         /// <remarks>
-        ///     If you are going to use the authorization code grant, use this method to create your <see cref="OsuToken"/>.
+        ///     If you are going to use the authorization code grant, use this method to create your <see cref="OsuToken" />.
         /// </remarks>
         public OsuToken UpdateAccessToken(
             [NotNull] string accessToken,
@@ -151,7 +158,10 @@ namespace OsuSharp
                 Route = uri
             });
 
-            Credentials.Revoked = true;
+            if (Credentials is not null)
+            {
+                Credentials.Revoked = true;
+            }
         }
 
         /// <summary>
@@ -180,7 +190,7 @@ namespace OsuSharp
             Uri.TryCreate($"{Endpoints.UserEndpoint}/{username}{Endpoints.Kudosu}",
                 UriKind.Absolute, out var uri);
 
-            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            Dictionary<string, string> parameters = new();
             if (limit.HasValue)
             {
                 parameters["limit"] = limit.Value.ToString();
@@ -226,7 +236,7 @@ namespace OsuSharp
             Uri.TryCreate($"{Endpoints.UserEndpoint}/{userId}{Endpoints.Kudosu}",
                 UriKind.Absolute, out var uri);
 
-            Dictionary<string, string> parameters = new Dictionary<string, string>();
+            Dictionary<string, string> parameters = new();
             if (limit.HasValue)
             {
                 parameters["limit"] = limit.Value.ToString();
@@ -256,7 +266,7 @@ namespace OsuSharp
         ///     Gamemode of the user. Defaults gamemode is picked when null.
         /// </param>
         /// <returns>
-        ///     Returns a <see cref="User"/>.
+        ///     Returns a <see cref="User" />.
         /// </returns>
         public async Task<User> GetUserAsync(
             [NotNull] string username,
@@ -287,7 +297,7 @@ namespace OsuSharp
         ///     Gamemode of the user. Defaults gamemode is picked when null.
         /// </param>
         /// <returns>
-        ///     Returns a <see cref="User"/>.
+        ///     Returns a <see cref="User" />.
         /// </returns>
         public async Task<User> GetUserAsync(
             [NotNull] long id,
@@ -315,7 +325,7 @@ namespace OsuSharp
         ///     Gamemode of the user. Defaults gamemode is picked when null.
         /// </param>
         /// <returns>
-        ///     Returns a <see cref="User"/>.
+        ///     Returns a <see cref="User" />.
         /// </returns>
         public async Task<User> GetCurrentUserAsync(
             [NotNull] Optional<GameMode> gameMode = default)
@@ -333,14 +343,6 @@ namespace OsuSharp
                 Method = HttpMethod.Get,
                 Route = uri
             });
-        }
-
-        /// <inheritdoc cref="IDisposable.Dispose"/>
-        public void Dispose()
-        {
-            ThrowIfDisposed();
-            _disposed = true;
-            _handler.Dispose();
         }
 
         private void ThrowIfDisposed()

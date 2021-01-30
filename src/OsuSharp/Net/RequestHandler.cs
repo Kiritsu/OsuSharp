@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
@@ -24,7 +24,8 @@ namespace OsuSharp.Net
         private readonly DefaultJsonSerializer _serializer;
         private bool _disposed;
 
-        internal RequestHandler(OsuClient client)
+        internal RequestHandler(
+            OsuClient client)
         {
             _client = client;
             _ratelimits = new ConcurrentDictionary<string, RatelimitBucket>();
@@ -41,21 +42,35 @@ namespace OsuSharp.Net
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        internal void UpdateAuthorizationHeader(OsuToken token)
+        public void Dispose()
         {
-            _httpClient.DefaultRequestHeaders.Authorization = 
+            if (_disposed)
+            {
+                return;
+            }
+
+            _disposed = true;
+            _httpClient.Dispose();
+        }
+
+        internal void UpdateAuthorizationHeader(
+            OsuToken token)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue(token.Type.ToString(), token.AccessToken);
         }
 
-        private async Task<RatelimitBucket> GetBucketFromEndpointAsync(string endpoint)
+        private async Task<RatelimitBucket> GetBucketFromEndpointAsync(
+            string endpoint)
         {
             _client.Configuration.Logger.Log(LogLevel.Debug, EventIds.RateLimits,
-                $"Retrieving rate-limit bucket for [{endpoint}]");
+                "Retrieving rate-limit bucket for [{Endpoint}]", endpoint);
 
             if (_ratelimits.TryGetValue(endpoint, out var bucket) && !bucket.HasExpired && bucket.Remaining <= 0)
             {
                 _client.Configuration.Logger.Log(LogLevel.Warning, EventIds.RateLimits,
-                    $"Pre-emptive rate-limit bucket hit for [{endpoint}]: [{bucket.Limit - bucket.Remaining}/{bucket.Limit}]");
+                    "Pre-emptive rate-limit bucket hit for [{Endpoint}]: [{Amount}/{Limit}]",
+                    endpoint, bucket.Limit - bucket.Remaining, bucket.Limit);
 
                 if (!_client.Configuration.ThrowOnRateLimits)
                 {
@@ -79,7 +94,10 @@ namespace OsuSharp.Net
         }
 
         // todo: to be reworked when rate limits are here! cf: #ppy/osu-web#6839
-        private void UpdateBucket(string endpoint, RatelimitBucket bucket, HttpResponseMessage response)
+        private void UpdateBucket(
+            string endpoint,
+            RatelimitBucket bucket,
+            HttpResponseMessage response)
         {
             bucket.Limit =
                 response.Headers.TryGetValues("X-RateLimit-Limit", out var limitHeaders)
@@ -97,18 +115,21 @@ namespace OsuSharp.Net
             }
 
             _client.Configuration.Logger.Log(LogLevel.Debug, EventIds.RateLimits,
-                $"Rate-limit bucket passed for [{endpoint}]: [{bucket.Limit - bucket.Remaining}/{bucket.Limit}]");
+                "Rate-limit bucket passed for [{Endpoint}]: [{Amount}/{Limit}]",
+                endpoint, bucket.Limit - bucket.Remaining, bucket.Limit);
         }
 
-        internal async Task SendAsync(OsuApiRequest request)
+        internal async Task SendAsync(
+            OsuApiRequest request)
         {
             var (bucket, requestMessage) = await PrepareRequestAsync(request).ConfigureAwait(false);
             var response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
             await ValidateResponseAsync(response).ConfigureAwait(false);
             UpdateBucket(request.Endpoint, bucket, response);
         }
-        
-        internal async Task<T> SendAsync<T>(OsuApiRequest request)
+
+        internal async Task<T> SendAsync<T>(
+            OsuApiRequest request)
             where T : class
         {
             var (bucket, requestMessage) = await PrepareRequestAsync(request).ConfigureAwait(false);
@@ -117,18 +138,20 @@ namespace OsuSharp.Net
             return await ReadAndDeserializeAsync<T>(request, response, bucket).ConfigureAwait(false);
         }
 
-        private async Task<(RatelimitBucket, HttpRequestMessage)> PrepareRequestAsync(OsuApiRequest request)
+        private async Task<(RatelimitBucket, HttpRequestMessage)> PrepareRequestAsync(
+            OsuApiRequest request)
         {
             request.Parameters ??= new Dictionary<string, string>();
-            
-            var paramsString = string.Join(" | ", request.Parameters.Select(x => $"{x.Key}:{x.Value}"));
+
+            var paramsString = request.Parameters.ToLogString();
             _client.Configuration.Logger.Log(LogLevel.Information, EventIds.RestApi,
-                $"Getting [{request.Route.LocalPath}] with parameters [{(string.IsNullOrWhiteSpace(paramsString) ? "no_params" : paramsString)}]");
+                "Getting [{LocalPath}] with parameters [{Params}]",
+                request.Route.LocalPath, paramsString);
 
             var bucket = await GetBucketFromEndpointAsync(request.Endpoint).ConfigureAwait(false);
-            
+
             var requestMessage = new HttpRequestMessage();
-            if (request.Method == HttpMethod.Get && request.Parameters is { Count: > 0 })
+            if (request.Method == HttpMethod.Get && request.Parameters is {Count: > 0})
             {
                 request.Route = new Uri(request.Route, request.Parameters.AsQueryString());
             }
@@ -143,7 +166,8 @@ namespace OsuSharp.Net
             return (bucket, requestMessage);
         }
 
-        private async Task ValidateResponseAsync(HttpResponseMessage response)
+        private static async Task ValidateResponseAsync(
+            HttpResponseMessage response)
         {
             if (!response.IsSuccessStatusCode)
             {
@@ -152,28 +176,20 @@ namespace OsuSharp.Net
             }
         }
 
-        private async Task<T> ReadAndDeserializeAsync<T>(OsuApiRequest request, HttpResponseMessage response, RatelimitBucket bucket)
+        private async Task<T> ReadAndDeserializeAsync<T>(
+            OsuApiRequest request,
+            HttpResponseMessage response,
+            RatelimitBucket bucket)
             where T : class
         {
             var stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
             var streamReader = new StreamReader(stream);
             var content = await streamReader.ReadToEndAsync().ConfigureAwait(false);
 
-            _client.Configuration.Logger.Log(LogLevel.Trace, EventIds.RestApi, $"Response received: {content}");
+            _client.Configuration.Logger.Log(LogLevel.Trace, EventIds.RestApi, "Response received: {Content}", content);
 
             UpdateBucket(request.Endpoint, bucket, response);
             return _serializer.Deserialize<T>(stream);
-        }
-
-        public void Dispose()
-        {
-            if (_disposed)
-            {
-                return;
-            }
-            
-            _disposed = true;
-            _httpClient.Dispose();
         }
     }
 }

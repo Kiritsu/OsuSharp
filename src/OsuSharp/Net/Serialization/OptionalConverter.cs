@@ -6,28 +6,24 @@ namespace OsuSharp.Net.Serialization
 {
     internal sealed class OptionalConverter : JsonConverter
     {
-        public static readonly OptionalConverter Instance = new OptionalConverter();
+        public static readonly OptionalConverter Instance = new();
 
         private OptionalConverter()
         {
-            
         }
-        
+
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             var type = value.GetType();
             var hasValue = type.GetProperty("HasValue", BindingFlags.Public)!.GetValue(value);
             if (!(bool) hasValue!)
-            {
                 writer.WriteNull();
-            }
             else
-            {
-                serializer.Serialize(writer, type.GetField("_value",BindingFlags.NonPublic)!.GetValue(value));
-            }
+                serializer.Serialize(writer, type.GetField("_value", BindingFlags.NonPublic)!.GetValue(value));
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
+            JsonSerializer serializer)
         {
             return objectType.GetConstructors()[0]
                 .Invoke(new[] {serializer.Deserialize(reader, objectType.GenericTypeArguments[0])});

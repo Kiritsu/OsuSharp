@@ -3,10 +3,10 @@ using Newtonsoft.Json;
 
 namespace OsuSharp.Net.Serialization
 {
-    internal sealed class DefaultJsonSerializer 
+    internal sealed class DefaultJsonSerializer
     {
-        public static readonly DefaultJsonSerializer Instance = new DefaultJsonSerializer();
-        
+        public static readonly DefaultJsonSerializer Instance = new();
+
         private readonly JsonSerializer _serializer;
 
         private DefaultJsonSerializer()

@@ -1,14 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace OsuSharp
 {
     public readonly struct Optional<T> : IEquatable<Optional<T>>, IEquatable<T>
     {
-        private static readonly Optional<T> Default = new Optional<T>();
-        
+        private static readonly Optional<T> Default = new();
+
         private readonly T _value;
-        
+
         /// <summary>
         ///     Gets whether this struct has a value.
         /// </summary>
@@ -28,15 +28,15 @@ namespace OsuSharp
                 {
                     return _value;
                 }
-                
+
                 throw new InvalidOperationException("The current object has no value.");
             }
         }
 
         /// <summary>
-        ///     Creates a new <see cref="Optional{T}"/> with the given value.
+        ///     Creates a new <see cref="Optional{T}" /> with the given value.
         /// </summary>
-        /// <param name="value">Value held by the <see cref="Optional{T}"/></param>
+        /// <param name="value">Value held by the <see cref="Optional{T}" /></param>
         public Optional(T value)
         {
             _value = value;
@@ -44,24 +44,24 @@ namespace OsuSharp
         }
 
         /// <summary>
-        ///     Gets the value or return the default value of <see cref="T"/>.
+        ///     Gets the value or return the default value of <see cref="T" />.
         /// </summary>
         /// <returns>
-        ///     Returns the value or return the default value of <see cref="T"/>.
+        ///     Returns the value or return the default value of <see cref="T" />.
         /// </returns>
         public T OrDefault()
         {
             return _value;
         }
-        
+
         /// <summary>
-        ///     Gets the value or return the given value of <see cref="T"/>.
+        ///     Gets the value or return the given value of <see cref="T" />.
         /// </summary>
         /// <param name="other">
-        ///     Value of <see cref="T"/> when this <see cref="Optional{T}"/> doesn't hold any value.
+        ///     Value of <see cref="T" /> when this <see cref="Optional{T}" /> doesn't hold any value.
         /// </param>
         /// <returns>
-        ///     Returns the value or return the given value of <see cref="T"/>.
+        ///     Returns the value or return the given value of <see cref="T" />.
         /// </returns>
         public T OrElse(T other)
         {
@@ -69,13 +69,13 @@ namespace OsuSharp
         }
 
         /// <summary>
-        ///     Gets the value or return the given value of <see cref="T"/>.
+        ///     Gets the value or return the given value of <see cref="T" />.
         /// </summary>
         /// <param name="exception">
-        ///     Exception to throw when this <see cref="Optional{T}"/> doesn't hold any value. 
+        ///     Exception to throw when this <see cref="Optional{T}" /> doesn't hold any value.
         /// </param>
         /// <returns>
-        ///     Returns the value or return the given value of <see cref="T"/>.
+        ///     Returns the value or return the given value of <see cref="T" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         ///     Exception thrown when the exception is null.
@@ -86,15 +86,15 @@ namespace OsuSharp
             {
                 throw new ArgumentNullException(nameof(exception));
             }
-            
+
             return HasValue ? _value : throw exception();
         }
 
         /// <summary>
-        ///     Executes the <see cref="function"/> if a value is held by this <see cref="Optional{T}"/>.
+        ///     Executes the <see cref="function" /> if a value is held by this <see cref="Optional{T}" />.
         /// </summary>
         /// <param name="function">
-        ///     Function to execute when this <see cref="Optional{T}"/> holds a value. 
+        ///     Function to execute when this <see cref="Optional{T}" /> holds a value.
         /// </param>
         /// <exception cref="ArgumentNullException">
         ///     Exception thrown when the function is null.
@@ -110,18 +110,18 @@ namespace OsuSharp
             {
                 return;
             }
-            
+
             function(_value);
         }
 
         /// <summary>
-        ///     Gets the value or return the value of <see cref="T"/> from the supplier.
+        ///     Gets the value or return the value of <see cref="T" /> from the supplier.
         /// </summary>
         /// <param name="supplier">
-        ///     Supplier of <see cref="T"/> when this <see cref="Optional{T}"/> doesn't hold any value.
+        ///     Supplier of <see cref="T" /> when this <see cref="Optional{T}" /> doesn't hold any value.
         /// </param>
         /// <returns>
-        ///     Returns the value or return the value of <see cref="T"/> from the supplier.
+        ///     Returns the value or return the value of <see cref="T" /> from the supplier.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         ///     Exception thrown when the supplier is null.
@@ -132,18 +132,18 @@ namespace OsuSharp
             {
                 throw new ArgumentNullException(nameof(supplier));
             }
-            
+
             return HasValue ? _value : supplier();
         }
 
         /// <summary>
-        ///     Gets the value if the predicate matches or returns the default value of this <see cref="Optional{T}"/>. 
+        ///     Gets the value if the predicate matches or returns the default value of this <see cref="Optional{T}" />.
         /// </summary>
         /// <param name="predicate">
-        ///     Condition to return the value held by the <see cref="Optional{T}"/>.
+        ///     Condition to return the value held by the <see cref="Optional{T}" />.
         /// </param>
         /// <returns>
-        ///     Returns the value if the predicate matches or returns the default value of this <see cref="Optional{T}"/>.
+        ///     Returns the value if the predicate matches or returns the default value of this <see cref="Optional{T}" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         ///     Exception thrown when the predicate is null.
@@ -154,21 +154,22 @@ namespace OsuSharp
             {
                 throw new ArgumentNullException(nameof(predicate));
             }
-            
+
             return HasValue && predicate(_value) ? this : Default;
         }
 
         /// <summary>
-        ///     Maps the value if present and returns an <see cref="Optional{TValue}"/> from the <see cref="Optional{T}"/>.
+        ///     Maps the value if present and returns an <see cref="Optional{TValue}" /> from the <see cref="Optional{T}" />.
         /// </summary>
         /// <param name="mapper">
-        ///     Function that maps the <see cref="T"/> to a <see cref="TValue"/>.
+        ///     Function that maps the <see cref="T" /> to a <see cref="TValue" />.
         /// </param>
         /// <typeparam name="TValue">
-        ///     Type to map the current <see cref="Optional{T}"/> to.
+        ///     Type to map the current <see cref="Optional{T}" /> to.
         /// </typeparam>
         /// <returns>
-        ///     Returns the mapped the value if present and returns an <see cref="Optional{TValue}"/> from the <see cref="Optional{T}"/>.
+        ///     Returns the mapped the value if present and returns an <see cref="Optional{TValue}" /> from the
+        ///     <see cref="Optional{T}" />.
         /// </returns>
         /// <exception cref="ArgumentNullException"></exception>
         public Optional<TValue> Map<TValue>(Func<T, TValue> mapper)
@@ -187,13 +188,13 @@ namespace OsuSharp
         }
 
         /// <summary>
-        ///     Gets whether this <see cref="Optional{T}"/> is equal to the given <see cref="Optional{T}"/>.
+        ///     Gets whether this <see cref="Optional{T}" /> is equal to the given <see cref="Optional{T}" />.
         /// </summary>
         /// <param name="other">
-        ///     Other <see cref="Optional{T}"/> to be compared with the current <see cref="Optional{T}"/>.
+        ///     Other <see cref="Optional{T}" /> to be compared with the current <see cref="Optional{T}" />.
         /// </param>
         /// <returns>
-        ///     Returns whether this <see cref="Optional{T}"/> is equal to the given <see cref="Optional{T}"/>.
+        ///     Returns whether this <see cref="Optional{T}" /> is equal to the given <see cref="Optional{T}" />.
         /// </returns>
         public bool Equals(Optional<T> other)
         {
@@ -206,18 +207,18 @@ namespace OsuSharp
             {
                 return false;
             }
-            
+
             return EqualityComparer<T>.Default.Equals(_value, other._value);
         }
-        
+
         /// <summary>
-        ///     Gets whether this <see cref="T"/> is equal to the given <see cref="T"/>.
+        ///     Gets whether this <see cref="T" /> is equal to the given <see cref="T" />.
         /// </summary>
         /// <param name="other">
-        ///     Other <see cref="T"/> to be compared with the current <see cref="T"/>.
+        ///     Other <see cref="T" /> to be compared with the current <see cref="T" />.
         /// </param>
         /// <returns>
-        ///     Returns whether this <see cref="T"/> is equal to the given <see cref="T"/>.
+        ///     Returns whether this <see cref="T" /> is equal to the given <see cref="T" />.
         /// </returns>
         public bool Equals(T other)
         {
@@ -225,13 +226,13 @@ namespace OsuSharp
         }
 
         /// <summary>
-        ///     Gets whether this <see cref="Optional{T}"/> is equal to the given <see cref="object"/>.
+        ///     Gets whether this <see cref="Optional{T}" /> is equal to the given <see cref="object" />.
         /// </summary>
         /// <param name="obj">
-        ///     Other <see cref="object"/> to be compared with the current <see cref="Optional{T}"/>.
+        ///     Other <see cref="object" /> to be compared with the current <see cref="Optional{T}" />.
         /// </param>
         /// <returns>
-        ///     Returns whether this <see cref="Optional{T}"/> is equal to the given <see cref="object"/>.
+        ///     Returns whether this <see cref="Optional{T}" /> is equal to the given <see cref="object" />.
         /// </returns>
         public override bool Equals(object obj)
         {
@@ -249,10 +250,10 @@ namespace OsuSharp
         }
 
         /// <summary>
-        ///     Gets the hashcode for this <see cref="Optional{T}"/>.
+        ///     Gets the hashcode for this <see cref="Optional{T}" />.
         /// </summary>
         /// <returns>
-        ///     Returns the hashcode for this <see cref="Optional{T}"/>.
+        ///     Returns the hashcode for this <see cref="Optional{T}" />.
         /// </returns>
         public override int GetHashCode()
         {
@@ -260,21 +261,21 @@ namespace OsuSharp
         }
 
         /// <summary>
-        ///     Gets the <see cref="string"/> representing this <see cref="Optional{T}"/>.
+        ///     Gets the <see cref="string" /> representing this <see cref="Optional{T}" />.
         /// </summary>
         /// <returns>
-        ///     Returns the <see cref="string"/> representing this <see cref="Optional{T}"/>.
+        ///     Returns the <see cref="string" /> representing this <see cref="Optional{T}" />.
         /// </returns>
         public override string ToString()
         {
             return HasValue ? Value.ToString() : null;
         }
-        
+
         /// <summary>
-        ///     Gets an <see cref="Optional{T}"/> with no value.
+        ///     Gets an <see cref="Optional{T}" /> with no value.
         /// </summary>
         /// <returns>
-        ///     Returns an <see cref="Optional{T}"/> with no value.
+        ///     Returns an <see cref="Optional{T}" /> with no value.
         /// </returns>
         public static Optional<T> FromEmpty()
         {
@@ -282,116 +283,130 @@ namespace OsuSharp
         }
 
         /// <summary>
-        ///     Gets an <see cref="Optional{T}"/> from the given value.
+        ///     Gets an <see cref="Optional{T}" /> from the given value.
         /// </summary>
         /// <param name="value">
-        ///     Value to be held by the <see cref="Optional{T}"/>.
+        ///     Value to be held by the <see cref="Optional{T}" />.
         /// </param>
         /// <returns>
-        ///     Returns an <see cref="Optional{T}"/> from the given value.
+        ///     Returns an <see cref="Optional{T}" /> from the given value.
         /// </returns>
         public static Optional<T> FromValue(T value)
         {
-            return new Optional<T>(value);
+            return new(value);
         }
-        
+
         /// <summary>
-        ///     Gets whether the left <see cref="T"/> is equal to the right <see cref="T"/>.
+        ///     Gets whether the left <see cref="T" /> is equal to the right <see cref="T" />.
         /// </summary>
         /// <param name="left">
-        ///     Left operand <see cref="T"/> to be compared with the right operand <see cref="T"/>.
+        ///     Left operand <see cref="T" /> to be compared with the right operand <see cref="T" />.
         /// </param>
         /// <param name="right">
-        ///     Right operand <see cref="T"/> to be compared with the left operand <see cref="T"/>.
+        ///     Right operand <see cref="T" /> to be compared with the left operand <see cref="T" />.
         /// </param>
         /// <returns>
-        ///     Returns whether the left <see cref="T"/> is equal to the right <see cref="T"/>.
+        ///     Returns whether the left <see cref="T" /> is equal to the right <see cref="T" />.
         /// </returns>
         public static bool operator ==(Optional<T> left, Optional<T> right)
-            => left.Equals(right);
+        {
+            return left.Equals(right);
+        }
 
         /// <summary>
-        ///     Gets whether the left <see cref="T"/> is not equal to the right <see cref="T"/>.
+        ///     Gets whether the left <see cref="T" /> is not equal to the right <see cref="T" />.
         /// </summary>
         /// <param name="left">
-        ///     Left operand <see cref="T"/> to be compared with the right operand <see cref="T"/>.
+        ///     Left operand <see cref="T" /> to be compared with the right operand <see cref="T" />.
         /// </param>
         /// <param name="right">
-        ///     Right operand <see cref="T"/> to be compared with the left operand <see cref="T"/>.
+        ///     Right operand <see cref="T" /> to be compared with the left operand <see cref="T" />.
         /// </param>
         /// <returns>
-        ///     Returns whether the left <see cref="T"/> is not equal to the right <see cref="T"/>.
+        ///     Returns whether the left <see cref="T" /> is not equal to the right <see cref="T" />.
         /// </returns>
-        public static bool operator !=(Optional<T> left, Optional<T> right) 
-            => !(left == right);
+        public static bool operator !=(Optional<T> left, Optional<T> right)
+        {
+            return !(left == right);
+        }
 
         /// <summary>
-        ///     Gets whether the left <see cref="Optional{T}"/> is equal to the right <see cref="T"/>.
+        ///     Gets whether the left <see cref="Optional{T}" /> is equal to the right <see cref="T" />.
         /// </summary>
         /// <param name="left">
-        ///     Left operand <see cref="Optional{T}"/> to be compared with the right operand <see cref="T"/>.
+        ///     Left operand <see cref="Optional{T}" /> to be compared with the right operand <see cref="T" />.
         /// </param>
         /// <param name="right">
-        ///     Right operand <see cref="Optional{T}"/> to be compared with the left operand <see cref="T"/>.
+        ///     Right operand <see cref="Optional{T}" /> to be compared with the left operand <see cref="T" />.
         /// </param>
         /// <returns>
-        ///     Returns whether the left <see cref="Optional{T}"/> is equal to the right <see cref="T"/>.
-        /// </returns>        
+        ///     Returns whether the left <see cref="Optional{T}" /> is equal to the right <see cref="T" />.
+        /// </returns>
         public static bool operator ==(Optional<T> left, T right)
-            => left.Equals(right);
+        {
+            return left.Equals(right);
+        }
 
         /// <summary>
-        ///     Gets whether the left <see cref="Optional{T}"/> is not equal to the right <see cref="T"/>.
+        ///     Gets whether the left <see cref="Optional{T}" /> is not equal to the right <see cref="T" />.
         /// </summary>
         /// <param name="left">
-        ///     Left operand <see cref="Optional{T}"/> to be compared with the right operand <see cref="T"/>.
+        ///     Left operand <see cref="Optional{T}" /> to be compared with the right operand <see cref="T" />.
         /// </param>
         /// <param name="right">
-        ///     Right operand <see cref="Optional{T}"/> to be compared with the left operand <see cref="T"/>.
+        ///     Right operand <see cref="Optional{T}" /> to be compared with the left operand <see cref="T" />.
         /// </param>
         /// <returns>
-        ///     Returns whether the left <see cref="Optional{T}"/> is not equal to the right <see cref="T"/>.
+        ///     Returns whether the left <see cref="Optional{T}" /> is not equal to the right <see cref="T" />.
         /// </returns>
         public static bool operator !=(Optional<T> left, T right)
-            => !(left == right);
+        {
+            return !(left == right);
+        }
 
         /// <summary>
-        ///     Gets whether the left <see cref="T"/> is equal to the right <see cref="Optional{T}"/>.
+        ///     Gets whether the left <see cref="T" /> is equal to the right <see cref="Optional{T}" />.
         /// </summary>
         /// <param name="left">
-        ///     Left operand <see cref="T"/> to be compared with the right operand <see cref="Optional{T}"/>.
+        ///     Left operand <see cref="T" /> to be compared with the right operand <see cref="Optional{T}" />.
         /// </param>
         /// <param name="right">
-        ///     Right operand <see cref="T"/> to be compared with the left operand <see cref="Optional{T}"/>.
+        ///     Right operand <see cref="T" /> to be compared with the left operand <see cref="Optional{T}" />.
         /// </param>
         /// <returns>
-        ///     Returns whether the left <see cref="T"/> is equal to the right <see cref="Optional{T}"/>.
+        ///     Returns whether the left <see cref="T" /> is equal to the right <see cref="Optional{T}" />.
         /// </returns>
         public static bool operator ==(T left, Optional<T> right)
-            => right.Equals(left);
+        {
+            return right.Equals(left);
+        }
 
         /// <summary>
-        ///     Gets whether the left <see cref="T"/> is not equal to the right <see cref="Optional{T}"/>.
+        ///     Gets whether the left <see cref="T" /> is not equal to the right <see cref="Optional{T}" />.
         /// </summary>
         /// <param name="left">
-        ///     Left operand <see cref="T"/> to be compared with the right operand <see cref="Optional{T}"/>.
+        ///     Left operand <see cref="T" /> to be compared with the right operand <see cref="Optional{T}" />.
         /// </param>
         /// <param name="right">
-        ///     Right operand <see cref="T"/> to be compared with the left operand <see cref="Optional{T}"/>.
+        ///     Right operand <see cref="T" /> to be compared with the left operand <see cref="Optional{T}" />.
         /// </param>
         /// <returns>
-        ///     Returns whether the left <see cref="T"/> is not equal to the right <see cref="Optional{T}"/>.
+        ///     Returns whether the left <see cref="T" /> is not equal to the right <see cref="Optional{T}" />.
         /// </returns>
         public static bool operator !=(T left, Optional<T> right)
-            => !(left == right);
+        {
+            return !(left == right);
+        }
 
         /// <summary>
-        ///     Implicitly converts a <see cref="T"/> to its <see cref="Optional{T}"/>.
+        ///     Implicitly converts a <see cref="T" /> to its <see cref="Optional{T}" />.
         /// </summary>
         /// <param name="value">
-        ///     Value to convert to its <see cref="Optional{T}"/>.
+        ///     Value to convert to its <see cref="Optional{T}" />.
         /// </param>
-        public static implicit operator Optional<T>(T value) 
-            => FromValue(value);
+        public static implicit operator Optional<T>(T value)
+        {
+            return FromValue(value);
+        }
     }
 }
