@@ -11,9 +11,12 @@ namespace OsuSharp
         public const string Users = "/users";
         public const string Me = "/me";
         public const string Kudosu = "/kudosu";
+        public const string Recent = "/recent_activity";
 
         public const string CurrentEndpoint = Api + Me;
         public const string UserEndpoint = Api + Users;
+        public const string UserKudosuEndpoint = Api + Users + "/{0}" + Kudosu;
+        public const string UserRecentEndpoint = Api + Users + "/{0}" + Recent;
         public const string CurrentTokensEndpoint = Oauth + Tokens + Current;
         public const string TokenEndpoint = Oauth + Token;
     }

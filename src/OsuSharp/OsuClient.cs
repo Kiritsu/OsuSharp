@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Threading.Tasks;
 using OsuSharp.Entities;
+using OsuSharp.Entities.Event;
 using OsuSharp.Enums;
 using OsuSharp.Extensions;
 using OsuSharp.Logging;
@@ -127,7 +128,7 @@ namespace OsuSharp
         public OsuToken UpdateAccessToken(
             [NotNull] string accessToken,
             [NotNull] string refreshToken,
-            [NotNull] long expiresIn)
+            long expiresIn)
         {
             ThrowIfDisposed();
 
@@ -156,7 +157,7 @@ namespace OsuSharp
                 Endpoint = Endpoints.CurrentTokensEndpoint,
                 Method = HttpMethod.Delete,
                 Route = uri
-            });
+            }).ConfigureAwait(false);
 
             if (Credentials is not null)
             {
@@ -181,13 +182,14 @@ namespace OsuSharp
         /// </returns>
         public async Task<IReadOnlyList<KudosuHistory>> GetUserKudosuAsync(
             [NotNull] string username,
-            [NotNull] Optional<int> limit = default,
-            [NotNull] Optional<int> offset = default)
+            Optional<int> limit = default,
+            Optional<int> offset = default)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
 
-            Uri.TryCreate($"{Endpoints.UserEndpoint}/{username}{Endpoints.Kudosu}",
+            Uri.TryCreate(
+                string.Format(Endpoints.UserKudosuEndpoint, username),
                 UriKind.Relative, out var uri);
 
             Dictionary<string, string> parameters = new();
@@ -207,7 +209,7 @@ namespace OsuSharp
                 Method = HttpMethod.Get,
                 Route = uri,
                 Parameters = parameters
-            });
+            }).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -226,14 +228,15 @@ namespace OsuSharp
         ///     Returns a set of KudosuHistory
         /// </returns>
         public async Task<IReadOnlyList<KudosuHistory>> GetUserKudosuAsync(
-            [NotNull] long userId,
-            [NotNull] Optional<int> limit = default,
-            [NotNull] Optional<int> offset = default)
+            long userId,
+            Optional<int> limit = default,
+            Optional<int> offset = default)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
 
-            Uri.TryCreate($"{Endpoints.UserEndpoint}/{userId}{Endpoints.Kudosu}",
+            Uri.TryCreate(
+                string.Format(Endpoints.UserKudosuEndpoint, userId),
                 UriKind.Relative, out var uri);
 
             Dictionary<string, string> parameters = new();
@@ -253,7 +256,7 @@ namespace OsuSharp
                 Method = HttpMethod.Get,
                 Route = uri,
                 Parameters = parameters
-            });
+            }).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -270,7 +273,7 @@ namespace OsuSharp
         /// </returns>
         public async Task<User> GetUserAsync(
             [NotNull] string username,
-            [NotNull] Optional<GameMode> gameMode = default)
+            Optional<GameMode> gameMode = default)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
@@ -284,7 +287,7 @@ namespace OsuSharp
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri
-            });
+            }).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -300,8 +303,8 @@ namespace OsuSharp
         ///     Returns a <see cref="User" />.
         /// </returns>
         public async Task<User> GetUserAsync(
-            [NotNull] long id,
-            [NotNull] Optional<GameMode> gameMode = default)
+            long id,
+            Optional<GameMode> gameMode = default)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
@@ -315,7 +318,54 @@ namespace OsuSharp
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri
-            });
+            }).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        ///     Gets a user's recent activity history from the API.
+        /// </summary>
+        /// <param name="id">
+        ///     Id of the user.
+        /// </param>
+        /// <param name="limit">
+        ///     Limit number of results.
+        /// </param>
+        /// <param name="offset">
+        ///     Offset of result for pagination.
+        /// </param>
+        /// <returns>
+        ///     Returns a set of Events
+        /// </returns>
+        public async Task<IReadOnlyList<Event>> GetUserRecentAsync(
+            long id,
+            Optional<int> limit = default,
+            Optional<int> offset = default)
+        {
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync();
+            
+            Uri.TryCreate(
+                string.Format(Endpoints.UserRecentEndpoint, id),
+                UriKind.Relative, out var uri);
+            
+            Dictionary<string, string> parameters = new();
+            if (limit.HasValue)
+            {
+                parameters["limit"] = limit.Value.ToString();
+            }
+
+            if (offset.HasValue)
+            {
+                parameters["offset"] = offset.Value.ToString();
+            }
+
+            return await _handler.SendAsync<IReadOnlyList<Event>>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.UserEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri,
+                Parameters = parameters
+            }).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -328,7 +378,7 @@ namespace OsuSharp
         ///     Returns a <see cref="User" />.
         /// </returns>
         public async Task<User> GetCurrentUserAsync(
-            [NotNull] Optional<GameMode> gameMode = default)
+            Optional<GameMode> gameMode = default)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
@@ -342,7 +392,7 @@ namespace OsuSharp
                 Endpoint = Endpoints.CurrentEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri
-            });
+            }).ConfigureAwait(false);
         }
 
         private void ThrowIfDisposed()

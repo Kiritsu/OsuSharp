@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json.Serialization;
+using OsuSharp.Entities.Event;
 
 namespace OsuSharp.Net.Serialization
 {
@@ -18,6 +19,9 @@ namespace OsuSharp.Net.Serialization
             if (objectType.IsGenericType && objectType.GetGenericTypeDefinition() == typeof(Optional<>))
                 contract.Converter = OptionalConverter.Instance;
 
+            if (objectType == typeof(Event))
+                contract.Converter = EventConverter.Instance;
+            
             return contract;
         }
     }
