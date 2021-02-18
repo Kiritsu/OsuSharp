@@ -333,7 +333,7 @@ namespace OsuSharp
         ///     Offset of result for pagination.
         /// </param>
         /// <returns>
-        ///     Returns a set of Events
+        ///     Returns a set of <see cref="Event" />s.
         /// </returns>
         public async Task<IReadOnlyList<Event>> GetUserRecentAsync(
             long id,
@@ -359,6 +359,57 @@ namespace OsuSharp
             }
 
             return await _handler.SendAsync<IReadOnlyList<Event>>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.UserEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri,
+                Parameters = parameters
+            }).ConfigureAwait(false);
+        }
+        
+        /// <summary>
+        ///     Gets a user's beatmapsets from the API.
+        /// </summary>
+        /// <param name="id">
+        ///     Id of the user.
+        /// </param>
+        /// <param name="type">
+        ///     Type of the beatmapsets to look-up.
+        /// </param>
+        /// <param name="limit">
+        ///     Limit number of results.
+        /// </param>
+        /// <param name="offset">
+        ///     Offset of result for pagination.
+        /// </param>
+        /// <returns>
+        ///     Returns a set of <see cref="Beatmapset" />s.
+        /// </returns>
+        public async Task<IReadOnlyList<Beatmapset>> GetUserBeatmapsetsAsync(
+            long id,
+            BeatmapsetType type,
+            Optional<int> limit = default,
+            Optional<int> offset = default)
+        {
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync();
+            
+            Uri.TryCreate(
+                string.Format(Endpoints.UserBeatmapsetsEndpoint, id, type),
+                UriKind.Relative, out var uri);
+            
+            Dictionary<string, string> parameters = new();
+            if (limit.HasValue)
+            {
+                parameters["limit"] = limit.Value.ToString();
+            }
+
+            if (offset.HasValue)
+            {
+                parameters["offset"] = offset.Value.ToString();
+            }
+
+            return await _handler.SendAsync<IReadOnlyList<Beatmapset>>(new OsuApiRequest
             {
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
