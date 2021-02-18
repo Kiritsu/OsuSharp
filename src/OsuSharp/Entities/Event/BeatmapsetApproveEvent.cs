@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using OsuSharp.Enums;
 
-namespace OsuSharp.Entities.Event
+namespace OsuSharp.Entities
 {
     public sealed class BeatmapsetApproveEvent : Event
     {

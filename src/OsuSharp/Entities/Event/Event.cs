@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using OsuSharp.Enums;
 
-namespace OsuSharp.Entities.Event
+namespace OsuSharp.Entities
 {
     public abstract class Event
     {

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace OsuSharp.Entities.Event
+namespace OsuSharp.Entities
 {
     public sealed class BeatmapsetUpdateEvent : Event
     {

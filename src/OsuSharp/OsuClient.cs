@@ -4,7 +4,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Threading.Tasks;
 using OsuSharp.Entities;
-using OsuSharp.Entities.Event;
 using OsuSharp.Enums;
 using OsuSharp.Extensions;
 using OsuSharp.Logging;
