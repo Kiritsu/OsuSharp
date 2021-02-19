@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
+using OsuSharp.Enums;
 using OsuSharp.Logging;
 
 namespace OsuSharp
@@ -42,5 +43,11 @@ namespace OsuSharp
         ///     This applies for the default logger only. Defaults to <see cref="Exception" /> ToString.
         /// </summary>
         public Func<Exception, string> LoggerExceptionFormat { get; set; } = e => e.ToString();
+
+        /// <summary>
+        ///     Gets or sets the separator used to convert <see cref="Mods"/> into their string representation.
+        ///     Defaults to space. 
+        /// </summary>
+        public string ModFormatSeparator { get; set; } = " ";
     }
 }

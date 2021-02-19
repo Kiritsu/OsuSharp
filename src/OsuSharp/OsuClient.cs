@@ -292,7 +292,7 @@ namespace OsuSharp
         /// <summary>
         ///     Gets a user from the API.
         /// </summary>
-        /// <param name="id">
+        /// <param name="userId">
         ///     Id of the user.
         /// </param>
         /// <param name="gameMode">
@@ -302,14 +302,14 @@ namespace OsuSharp
         ///     Returns a <see cref="User" />.
         /// </returns>
         public async Task<User> GetUserAsync(
-            long id,
+            long userId,
             Optional<GameMode> gameMode = default)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
 
             Uri.TryCreate(
-                $"{Endpoints.UserEndpoint}/{id}/{gameMode.ToApiString()}",
+                $"{Endpoints.UserEndpoint}/{userId}/{gameMode.ToApiString()}",
                 UriKind.Relative, out var uri);
 
             return await _handler.SendAsync<User>(new OsuApiRequest
@@ -323,7 +323,7 @@ namespace OsuSharp
         /// <summary>
         ///     Gets a user's recent activity history from the API.
         /// </summary>
-        /// <param name="id">
+        /// <param name="userId">
         ///     Id of the user.
         /// </param>
         /// <param name="limit">
@@ -336,7 +336,7 @@ namespace OsuSharp
         ///     Returns a set of <see cref="Event" />s.
         /// </returns>
         public async Task<IReadOnlyList<Event>> GetUserRecentAsync(
-            long id,
+            long userId,
             Optional<int> limit = default,
             Optional<int> offset = default)
         {
@@ -344,7 +344,7 @@ namespace OsuSharp
             await GetOrUpdateAccessTokenAsync();
             
             Uri.TryCreate(
-                string.Format(Endpoints.UserRecentEndpoint, id),
+                string.Format(Endpoints.UserRecentEndpoint, userId),
                 UriKind.Relative, out var uri);
             
             Dictionary<string, string> parameters = new();
@@ -370,7 +370,7 @@ namespace OsuSharp
         /// <summary>
         ///     Gets a user's beatmapsets from the API.
         /// </summary>
-        /// <param name="id">
+        /// <param name="userId">
         ///     Id of the user.
         /// </param>
         /// <param name="type">
@@ -386,7 +386,7 @@ namespace OsuSharp
         ///     Returns a set of <see cref="Beatmapset" />s.
         /// </returns>
         public async Task<IReadOnlyList<Beatmapset>> GetUserBeatmapsetsAsync(
-            long id,
+            long userId,
             BeatmapsetType type,
             Optional<int> limit = default,
             Optional<int> offset = default)
@@ -395,7 +395,7 @@ namespace OsuSharp
             await GetOrUpdateAccessTokenAsync();
             
             Uri.TryCreate(
-                string.Format(Endpoints.UserBeatmapsetsEndpoint, id, type),
+                string.Format(Endpoints.UserBeatmapsetsEndpoint, userId, type.ToApiString()),
                 UriKind.Relative, out var uri);
             
             Dictionary<string, string> parameters = new();
@@ -410,6 +410,75 @@ namespace OsuSharp
             }
 
             return await _handler.SendAsync<IReadOnlyList<Beatmapset>>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.UserEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri,
+                Parameters = parameters
+            }).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        ///     Gets a user's scores from the API.
+        /// </summary>
+        /// <param name="userId">
+        ///     Id of the user.
+        /// </param>
+        /// <param name="type">
+        ///     Type of the scores to look-up.
+        /// </param>
+        /// <param name="includeFails">
+        ///     Whether to include failed scores.
+        /// </param>
+        /// <param name="gameMode">
+        ///     Game mode to lookup scores for.
+        /// </param>
+        /// <param name="limit">
+        ///     Limit number of results.
+        /// </param>
+        /// <param name="offset">
+        ///     Offset of result for pagination.
+        /// </param>
+        /// <returns>
+        ///     Returns a set of <see cref="Score" />s.
+        /// </returns>
+        public async Task<IReadOnlyList<Score>> GetUserScoresAsync(
+            long userId,
+            ScoreType type,
+            Optional<bool> includeFails = default,
+            Optional<GameMode> gameMode = default,
+            Optional<int> limit = default,
+            Optional<int> offset = default)
+        {
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync();
+            
+            Uri.TryCreate(
+                string.Format(Endpoints.UserScoresEndpoint, userId, type.ToApiString()),
+                UriKind.Relative, out var uri);
+            
+            Dictionary<string, string> parameters = new();
+            if (includeFails.HasValue)
+            {
+                parameters["include_fails"] = includeFails.Value ? "1" : "0";
+            }
+
+            if (gameMode.HasValue)
+            {
+                parameters["mode"] = gameMode.Value.ToApiString();
+            }
+            
+            if (limit.HasValue)
+            {
+                parameters["limit"] = limit.Value.ToString();
+            }
+
+            if (offset.HasValue)
+            {
+                parameters["offset"] = offset.Value.ToString();
+            }
+
+            return await _handler.SendAsync<IReadOnlyList<Score>>(new OsuApiRequest
             {
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,

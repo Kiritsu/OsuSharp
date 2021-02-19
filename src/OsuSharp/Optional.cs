@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace OsuSharp
 {
+    [DebuggerDisplay("HasValue: {HasValue} |> {_value}")]
     public readonly struct Optional<T> : IEquatable<Optional<T>>, IEquatable<T>
     {
         private static readonly Optional<T> Default = new();

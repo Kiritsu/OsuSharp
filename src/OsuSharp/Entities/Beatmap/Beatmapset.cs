@@ -25,10 +25,10 @@ namespace OsuSharp.Entities
         public bool DiscussionLocked { get; internal set; }
         
         [JsonProperty("hype.current")]
-        public int CurrentHype { get; internal set; }
+        public int? CurrentHype { get; internal set; }
         
         [JsonProperty("hype.required")]
-        public int RequiredHype { get; internal set; }
+        public int? RequiredHype { get; internal set; }
         
         [JsonProperty("is_scoreable")]
         public bool IsScoreable { get; internal set; }

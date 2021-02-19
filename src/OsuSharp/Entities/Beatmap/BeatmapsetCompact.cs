@@ -11,7 +11,7 @@ namespace OsuSharp.Entities
         [JsonProperty("artist_unicode")]
         public string ArtistUnicode { get; internal set; }
         
-        [JsonProperty("convers")]
+        [JsonProperty("covers")]
         public Covers Covers { get; internal set; }
         
         [JsonProperty("creator")]
@@ -45,7 +45,10 @@ namespace OsuSharp.Entities
         public long UserId { get; internal set; }
         
         [JsonProperty("video")]
-        public string Video { get; internal set; }
+        public bool HasVideo { get; internal set; }
+        
+        [JsonProperty("nsfw")]
+        public bool Nsfw { get; internal set; }
 
         [JsonProperty("beatmaps")]
         public Optional<IReadOnlyList<Beatmap>> Beatmaps { get; internal set; }

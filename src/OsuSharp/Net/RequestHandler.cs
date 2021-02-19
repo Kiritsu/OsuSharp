@@ -156,7 +156,8 @@ namespace OsuSharp.Net
             var requestMessage = new HttpRequestMessage();
             if (request.Method == HttpMethod.Get && request.Parameters is {Count: > 0})
             {
-                request.Route = new Uri(request.Route, request.Parameters.AsQueryString());
+                var url = request.Route + request.Parameters.AsQueryString();
+                request.Route = new Uri(url, UriKind.Relative);
             }
             else
             {

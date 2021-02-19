@@ -25,6 +25,12 @@ namespace OsuSharp.Net.Serialization
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
             JsonSerializer serializer)
         {
+            var field = objectType.GetField("Default", BindingFlags.Static | BindingFlags.NonPublic);
+            if (reader.Value is null)
+            {
+                return field!.GetValue(null);
+            }
+            
             return objectType.GetConstructors()[0]
                 .Invoke(new[] {serializer.Deserialize(reader, objectType.GenericTypeArguments[0])});
         }
