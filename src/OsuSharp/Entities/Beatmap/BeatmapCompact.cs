@@ -28,16 +28,16 @@ namespace OsuSharp.Entities
         public string Version { get; internal set; }
         
         [JsonProperty("beatmapset")]
-        public Optional<BeatmapsetCompact> Beatmapset { get; internal set; }
+        public BeatmapsetCompact Beatmapset { get; internal set; }
         
         [JsonProperty("checksum")]
-        public Optional<string> Checksum { get; internal set; }
+        public string Checksum { get; internal set; }
         
         [JsonProperty("failtimes")]
-        public Optional<FailTimes> FailTimes { get; internal set; }
+        public FailTimes FailTimes { get; internal set; }
         
         [JsonProperty("max_combo")]
-        public Optional<int> MaxCombo { get; internal set; }
+        public int? MaxCombo { get; internal set; }
         
         internal BeatmapCompact()
         {

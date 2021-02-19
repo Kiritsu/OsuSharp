@@ -22,10 +22,10 @@ namespace OsuSharp.Entities
         public DateTimeOffset CreatedAt { get; internal set; }
 
         [JsonProperty("giver")]
-        public Optional<KudosuGiver> Giver { get; internal set; }
+        public KudosuGiver Giver { get; internal set; }
 
         [JsonProperty("post")]
-        public Optional<KudosuPost> Post { get; internal set; }
+        public KudosuPost Post { get; internal set; }
 
         internal KudosuHistory()
         {

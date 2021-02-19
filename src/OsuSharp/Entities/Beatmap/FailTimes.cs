@@ -6,10 +6,10 @@ namespace OsuSharp.Entities
     public sealed class FailTimes
     {
         [JsonProperty("exit")]
-        public Optional<IReadOnlyList<int>> Exit { get; internal set; }
+        public IReadOnlyList<int> Exit { get; internal set; }
         
         [JsonProperty("fail")]
-        public Optional<IReadOnlyList<int>> Fail { get; internal set; }
+        public IReadOnlyList<int> Fail { get; internal set; }
 
         internal FailTimes()
         {

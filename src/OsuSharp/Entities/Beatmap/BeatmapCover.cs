@@ -2,7 +2,7 @@
 
 namespace OsuSharp.Entities
 {
-    public sealed class Covers
+    public sealed class BeatmapCover
     {
         [JsonProperty("cover")]
         public string Cover { get; internal set; }
@@ -28,7 +28,7 @@ namespace OsuSharp.Entities
         [JsonProperty("slimcover@2x")]
         public string SlimCover2x { get; internal set; }
 
-        internal Covers()
+        internal BeatmapCover()
         {
             
         }

@@ -16,9 +16,6 @@ namespace OsuSharp.Net.Serialization
         {
             var contract = base.CreateContract(objectType);
 
-            if (objectType.IsGenericType && objectType.GetGenericTypeDefinition() == typeof(Optional<>))
-                contract.Converter = OptionalConverter.Instance;
-
             if (objectType == typeof(Event))
                 contract.Converter = EventConverter.Instance;
             

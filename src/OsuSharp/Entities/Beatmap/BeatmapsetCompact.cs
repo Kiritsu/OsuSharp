@@ -12,7 +12,7 @@ namespace OsuSharp.Entities
         public string ArtistUnicode { get; internal set; }
         
         [JsonProperty("covers")]
-        public Covers Covers { get; internal set; }
+        public BeatmapCover Covers { get; internal set; }
         
         [JsonProperty("creator")]
         public string Creator { get; internal set; }
@@ -51,55 +51,55 @@ namespace OsuSharp.Entities
         public bool Nsfw { get; internal set; }
 
         [JsonProperty("beatmaps")]
-        public Optional<IReadOnlyList<Beatmap>> Beatmaps { get; internal set; }
+        public IReadOnlyList<Beatmap> Beatmaps { get; internal set; }
         
         // todo: type
         [JsonProperty("converts")]
-        public Optional<object> Converts { get; internal set; }
+        public object Converts { get; internal set; }
         
         // todo: type
         [JsonProperty("current_user_attributes")]
-        public Optional<object> CurrentUserAttributes { get; internal set; }
+        public object CurrentUserAttributes { get; internal set; }
         
         [JsonProperty("description")]
-        public Optional<string> Description { get; internal set; }
+        public string Description { get; internal set; }
         
         // todo: type
         [JsonProperty("discussions")]
-        public Optional<object> Discussions { get; internal set; }
+        public object Discussions { get; internal set; }
         
         // todo: type
         [JsonProperty("events")]
-        public Optional<object> Events { get; internal set; }
+        public object Events { get; internal set; }
         
         [JsonProperty("genre")]
-        public Optional<string> Genre { get; internal set; }
+        public string Genre { get; internal set; }
         
         [JsonProperty("has_favourited")]
-        public Optional<bool> HasFavourited { get; internal set; }
+        public bool? HasFavourited { get; internal set; }
 
         [JsonProperty("language")]
-        public Optional<string> Language { get; internal set; }
+        public string Language { get; internal set; }
         
         // todo: type
         [JsonProperty("nominations")]
-        public Optional<object> Nominations { get; internal set; }
+        public object Nominations { get; internal set; }
         
         // todo: type
         [JsonProperty("rating")]
-        public Optional<object> Rating { get; internal set; }
+        public object Rating { get; internal set; }
         
         // todo: type
         [JsonProperty("recent_favourites")]
-        public Optional<object> RecentFavourites { get; internal set; }
+        public object RecentFavourites { get; internal set; }
         
         // todo: type
         [JsonProperty("related_users")]
-        public Optional<object> RelatedUsers { get; internal set; }
+        public object RelatedUsers { get; internal set; }
         
         // todo: type
         [JsonProperty("user")]
-        public Optional<object> User { get; internal set; }
+        public object User { get; internal set; }
         
         internal BeatmapsetCompact()
         {

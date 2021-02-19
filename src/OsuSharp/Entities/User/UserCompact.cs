@@ -43,118 +43,118 @@ namespace OsuSharp.Entities
         public string Username { get; internal set; }
 
         [JsonProperty("account_history")]
-        public Optional<IReadOnlyCollection<UserAccountHistory>> AccountHistory { get; internal set; }
+        public IReadOnlyCollection<UserAccountHistory> AccountHistory { get; internal set; }
         
         [JsonProperty("active_tournament_banner")]
-        public Optional<IReadOnlyCollection<UserProfileBanner>> TournamentBanner { get; internal set; }
+        public IReadOnlyCollection<UserProfileBanner> TournamentBanner { get; internal set; }
         
         [JsonProperty("badges")]
-        public Optional<IReadOnlyCollection<UserBadge>> Badges { get; internal set; }
+        public IReadOnlyCollection<UserBadge> Badges { get; internal set; }
         
         [JsonProperty("beatmap_playcounts_count")]
-        public Optional<long> BeatmapPlaycountsCount { get; internal set; }
+        public long? BeatmapPlaycountsCount { get; internal set; }
         
         // todo: type
         [JsonProperty("blocks")]
-        public Optional<object> Blocks { get; internal set; }
+        public object Blocks { get; internal set; }
         
         [JsonProperty("country")]
-        public Optional<UserCountry> Country { get; internal set; }
+        public UserCountry Country { get; internal set; }
         
         [JsonProperty("cover")]
-        public Optional<UserCover> Cover { get; internal set; }
+        public UserCover Cover { get; internal set; }
         
         // todo: type
         [JsonProperty("current_mode_rank")]
-        public Optional<object> CurrentModeRank { get; internal set; }
+        public object CurrentModeRank { get; internal set; }
         
         [JsonProperty("favourite_beatmapset_count")]
-        public Optional<long> FavouriteBeatmapsetCount { get; internal set; }
+        public long? FavouriteBeatmapsetCount { get; internal set; }
         
         [JsonProperty("graveyard_beatmapset_count")]
-        public Optional<long> GraveyardBeatmapsetCount { get; internal set; }
+        public long? GraveyardBeatmapsetCount { get; internal set; }
         
         [JsonProperty("follower_count")]
-        public Optional<long> FollowerCount { get; internal set; }
+        public long? FollowerCount { get; internal set; }
         
         // todo: type
         [JsonProperty("friends")]
-        public Optional<object> Friends { get; internal set; }
+        public object Friends { get; internal set; }
         
         [JsonProperty("groups")]
-        public Optional<IReadOnlyCollection<UserGroup>> Groups { get; internal set; }
+        public IReadOnlyCollection<UserGroup> Groups { get; internal set; }
 
         [JsonProperty("is_admin")]
-        public Optional<bool> IsAdmin { get; internal set; }
+        public bool? IsAdmin { get; internal set; }
         
         [JsonProperty("is_bng")]
-        public Optional<bool> IsBng { get; internal set; }
+        public bool? IsBng { get; internal set; }
         
         [JsonProperty("is_full_bn")]
-        public Optional<bool> IsFullBng { get; internal set; }
+        public bool? IsFullBng { get; internal set; }
         
         [JsonProperty("is_gmt")]
-        public Optional<bool> IsGmt { get; internal set; }
+        public bool? IsGmt { get; internal set; }
         
         [JsonProperty("is_limited_bn")]
-        public Optional<bool> IsLimitedBn { get; internal set; }
+        public bool? IsLimitedBn { get; internal set; }
         
         [JsonProperty("is_moderator")]
-        public Optional<bool> IsModerator { get; internal set; }
+        public bool? IsModerator { get; internal set; }
         
         [JsonProperty("is_nat")]
-        public Optional<bool> IsNat { get; internal set; }
+        public bool? IsNat { get; internal set; }
         
         [JsonProperty("is_restricted")]
-        public Optional<bool> IsRestricted { get; internal set; }
+        public bool? IsRestricted { get; internal set; }
         
         [JsonProperty("is_silenced")]
-        public Optional<bool> IsSilenced { get; internal set; }
+        public bool? IsSilenced { get; internal set; }
         
         [JsonProperty("loved_beatmapset_count")]
-        public Optional<long> LovedBeatmapsetCount { get; internal set; }
+        public long? LovedBeatmapsetCount { get; internal set; }
         
         [JsonProperty("monthly_playcounts")]
-        public Optional<IReadOnlyCollection<UserMonthlyPlayCount>> MonthlyPlaycounts { get; internal set; }
+        public IReadOnlyCollection<UserMonthlyPlayCount> MonthlyPlaycounts { get; internal set; }
         
         [JsonProperty("page")]
-        public Optional<UserPage> Page { get; set; }
+        public UserPage Page { get; set; }
         
         [JsonProperty("previous_usernames")]
-        public Optional<IReadOnlyCollection<string>> PreviousUsernames { get; internal set; }
+        public IReadOnlyCollection<string> PreviousUsernames { get; internal set; }
         
         [JsonProperty("ranked_and_approved_beatmapset_count")]
-        public Optional<long> RankedAndApprovedBeatmapsetCount { get; internal set; }
+        public long? RankedAndApprovedBeatmapsetCount { get; internal set; }
         
         [JsonProperty("replays_watched_count")]
-        public Optional<IReadOnlyCollection<UserMonthlyPlayCount>> ReplayWatchedCounts { get; internal set; }
+        public IReadOnlyCollection<UserMonthlyPlayCount> ReplayWatchedCounts { get; internal set; }
         
         [JsonProperty("scores_best_count")]
-        public Optional<long> ScoresBestCount { get; internal set; }
+        public long? ScoresBestCount { get; internal set; }
 
         [JsonProperty("scores_first_count")]
-        public Optional<long> ScoresFirstCount { get; internal set; }
+        public long? ScoresFirstCount { get; internal set; }
 
         [JsonProperty("scores_recent_count")]
-        public Optional<long> ScoresRecentCount { get; internal set; }
+        public long? ScoresRecentCount { get; internal set; }
         
         [JsonProperty("statistics")]
-        public Optional<UserStatistics> Statistics { get; internal set; }
+        public UserStatistics Statistics { get; internal set; }
         
         [JsonProperty("support_level")]
-        public Optional<long> SupportLevel { get; internal set; }
+        public long? SupportLevel { get; internal set; }
         
         [JsonProperty("unranked_beatmapset_count")]
-        public Optional<long> UnrankedBeatmapsetCount { get; internal set; }
+        public long? UnrankedBeatmapsetCount { get; internal set; }
         
         [JsonProperty("unread_pm_count")]
-        public Optional<long> UnreadPmCount { get; internal set; }
+        public long? UnreadPmCount { get; internal set; }
         
         [JsonProperty("user_achievements")]
-        public Optional<IReadOnlyCollection<UserAchievement>> UserAchievements { get; internal set; }
+        public IReadOnlyCollection<UserAchievement> UserAchievements { get; internal set; }
 
         [JsonProperty("rank_history")]
-        public Optional<UserRankHistory> RankHistory { get; internal set; }
+        public UserRankHistory RankHistory { get; internal set; }
 
         internal UserCompact()
         {

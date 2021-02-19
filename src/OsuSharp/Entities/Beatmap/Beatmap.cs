@@ -34,7 +34,7 @@ namespace OsuSharp.Entities
         public double CircleSize { get; internal set; }
         
         [JsonProperty("deleted_at")]
-        public Optional<DateTimeOffset> DeletedAt { get; internal set; }
+        public DateTimeOffset? DeletedAt { get; internal set; }
         
         [JsonProperty("drain")]
         public double Drain { get; internal set; }

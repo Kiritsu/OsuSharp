@@ -181,8 +181,8 @@ namespace OsuSharp
         /// </returns>
         public async Task<IReadOnlyList<KudosuHistory>> GetUserKudosuAsync(
             [NotNull] string username,
-            Optional<int> limit = default,
-            Optional<int> offset = default)
+            int? limit = null,
+            int? offset = null)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
@@ -228,8 +228,8 @@ namespace OsuSharp
         /// </returns>
         public async Task<IReadOnlyList<KudosuHistory>> GetUserKudosuAsync(
             long userId,
-            Optional<int> limit = default,
-            Optional<int> offset = default)
+            int? limit = null,
+            int? offset = null)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
@@ -272,7 +272,7 @@ namespace OsuSharp
         /// </returns>
         public async Task<User> GetUserAsync(
             [NotNull] string username,
-            Optional<GameMode> gameMode = default)
+            GameMode? gameMode = null)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
@@ -303,7 +303,7 @@ namespace OsuSharp
         /// </returns>
         public async Task<User> GetUserAsync(
             long userId,
-            Optional<GameMode> gameMode = default)
+            GameMode? gameMode = null)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
@@ -337,8 +337,8 @@ namespace OsuSharp
         /// </returns>
         public async Task<IReadOnlyList<Event>> GetUserRecentAsync(
             long userId,
-            Optional<int> limit = default,
-            Optional<int> offset = default)
+            int? limit = null,
+            int? offset = null)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
@@ -388,8 +388,8 @@ namespace OsuSharp
         public async Task<IReadOnlyList<Beatmapset>> GetUserBeatmapsetsAsync(
             long userId,
             BeatmapsetType type,
-            Optional<int> limit = default,
-            Optional<int> offset = default)
+            int? limit = null,
+            int? offset = null)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
@@ -445,10 +445,10 @@ namespace OsuSharp
         public async Task<IReadOnlyList<Score>> GetUserScoresAsync(
             long userId,
             ScoreType type,
-            Optional<bool> includeFails = default,
-            Optional<GameMode> gameMode = default,
-            Optional<int> limit = default,
-            Optional<int> offset = default)
+            bool includeFails = false,
+            GameMode? gameMode = null,
+            int? limit = null,
+            int? offset = null)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();
@@ -458,9 +458,9 @@ namespace OsuSharp
                 UriKind.Relative, out var uri);
             
             Dictionary<string, string> parameters = new();
-            if (includeFails.HasValue)
+            if (includeFails)
             {
-                parameters["include_fails"] = includeFails.Value ? "1" : "0";
+                parameters["include_fails"] = "1";
             }
 
             if (gameMode.HasValue)
@@ -497,7 +497,7 @@ namespace OsuSharp
         ///     Returns a <see cref="User" />.
         /// </returns>
         public async Task<User> GetCurrentUserAsync(
-            Optional<GameMode> gameMode = default)
+            GameMode? gameMode = null)
         {
             ThrowIfDisposed();
             await GetOrUpdateAccessTokenAsync();

@@ -25,7 +25,7 @@ namespace OsuSharp.Extensions
         /// </summary>
         /// <param name="type">GameMode to get the string for.</param>
         /// <returns>A api-valid string representation of this <see cref="BeatmapsetType" /></returns>
-        public static string ToApiString(this Optional<ScoreType> type)
+        public static string ToApiString(this ScoreType? type)
         {
             return type.HasValue ? ToApiString(type.Value) : "";
         }
@@ -53,7 +53,7 @@ namespace OsuSharp.Extensions
         /// </summary>
         /// <param name="type">GameMode to get the string for.</param>
         /// <returns>A api-valid string representation of this <see cref="BeatmapsetType" /></returns>
-        public static string ToApiString(this Optional<BeatmapsetType> type)
+        public static string ToApiString(this BeatmapsetType? type)
         {
             return type.HasValue ? ToApiString(type.Value) : "";
         }
@@ -80,7 +80,7 @@ namespace OsuSharp.Extensions
         /// </summary>
         /// <param name="gameMode">GameMode to get the string for.</param>
         /// <returns>A api-valid string representation of this <see cref="GameMode" /></returns>
-        public static string ToApiString(this Optional<GameMode> gameMode)
+        public static string ToApiString(this GameMode? gameMode)
         {
             return gameMode.HasValue ? ToApiString(gameMode.Value) : "";
         }

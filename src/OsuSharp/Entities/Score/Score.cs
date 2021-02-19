@@ -31,23 +31,8 @@ namespace OsuSharp.Entities
         [JsonProperty("perfect")]
         public bool Perfect { get; internal set; }
         
-        [JsonProperty("statistics.count_50")]
-        public int Count50 { get; internal set; }
-        
-        [JsonProperty("statistics.count_100")]
-        public int Count100 { get; internal set; }
-        
-        [JsonProperty("statistics.count_300")]
-        public int Count300 { get; internal set; }
-        
-        [JsonProperty("statistics.count_geki")]
-        public int CountGeki { get; internal set; }
-        
-        [JsonProperty("statistics.count_katu")]
-        public int CountKatu { get; internal set; }
-        
-        [JsonProperty("statistics.count_miss")]
-        public int CountMiss { get; internal set; }
+        [JsonProperty("statistics")]
+        public Statistics Statistics { get; internal set; }
         
         [JsonProperty("pp")]
         public int? PerformancePoints { get; internal set; }
@@ -62,29 +47,29 @@ namespace OsuSharp.Entities
         public GameMode Mode { get; internal set; }
         
         [JsonProperty("replay")]
-        public bool HasReplay { get; internal set; }
+        public bool? HasReplay { get; internal set; }
         
         [JsonProperty("beatmap")]
-        public Optional<Beatmap> Beatmap { get; internal set; }
+        public Beatmap Beatmap { get; internal set; }
         
         [JsonProperty("beatmapset")]
-        public Optional<Beatmapset> Beatmapset { get; internal set; }
+        public Beatmapset Beatmapset { get; internal set; }
         
         [JsonProperty("rank_country")]
-        public Optional<long> CountryRank { get; internal set; }
+        public long? CountryRank { get; internal set; }
         
         [JsonProperty("rank_global")]
-        public Optional<long> GlobalRank { get; internal set; }
+        public long? GlobalRank { get; internal set; }
         
         [JsonProperty("weight")]
-        public Optional<double> Weight { get; internal set; }
+        public double? Weight { get; internal set; }
         
         [JsonProperty("user")]
-        public Optional<User> User { get; internal set; }
+        public User User { get; internal set; }
         
         // todo: object
         [JsonProperty("match")]
-        public Optional<object> Match { get; internal set; }
+        public object Match { get; internal set; }
 
         internal Score()
         {
