@@ -79,7 +79,10 @@ namespace OsuSharp
         {
             ThrowIfDisposed();
 
-            if (Credentials is {HasExpired: false}) return Credentials;
+            if (Credentials is {HasExpired: false})
+            {
+                return Credentials;
+            }
 
             var parameters = new Dictionary<string, string>
             {
@@ -170,7 +173,10 @@ namespace OsuSharp
                 Token = Credentials
             }).ConfigureAwait(false);
 
-            if (Credentials is not null) Credentials.Revoked = true;
+            if (Credentials is not null)
+            {
+                Credentials.Revoked = true;
+            }
         }
 
         /// <summary>
@@ -201,9 +207,15 @@ namespace OsuSharp
                 UriKind.Relative, out var uri);
 
             Dictionary<string, string> parameters = new();
-            if (limit.HasValue) parameters["limit"] = limit.Value.ToString();
+            if (limit.HasValue)
+            {
+                parameters["limit"] = limit.Value.ToString();
+            }
 
-            if (offset.HasValue) parameters["offset"] = offset.Value.ToString();
+            if (offset.HasValue)
+            {
+                parameters["offset"] = offset.Value.ToString();
+            }
 
             return await _handler.SendAsync<List<KudosuHistory>, List<KudosuHistoryJsonModel>>(new OsuApiRequest
             {
@@ -243,9 +255,15 @@ namespace OsuSharp
                 UriKind.Relative, out var uri);
 
             Dictionary<string, string> parameters = new();
-            if (limit.HasValue) parameters["limit"] = limit.Value.ToString();
+            if (limit.HasValue)
+            {
+                parameters["limit"] = limit.Value.ToString();
+            }
 
-            if (offset.HasValue) parameters["offset"] = offset.Value.ToString();
+            if (offset.HasValue)
+            {
+                parameters["offset"] = offset.Value.ToString();
+            }
 
             return await _handler.SendAsync<List<KudosuHistory>, List<KudosuHistory>>(new OsuApiRequest
             {
@@ -349,9 +367,15 @@ namespace OsuSharp
                 UriKind.Relative, out var uri);
 
             Dictionary<string, string> parameters = new();
-            if (limit.HasValue) parameters["limit"] = limit.Value.ToString();
+            if (limit.HasValue)
+            {
+                parameters["limit"] = limit.Value.ToString();
+            }
 
-            if (offset.HasValue) parameters["offset"] = offset.Value.ToString();
+            if (offset.HasValue)
+            {
+                parameters["offset"] = offset.Value.ToString();
+            }
 
             return await _handler.SendAsync<List<Event>, List<EventJsonModel>>(new OsuApiRequest
             {
@@ -395,9 +419,15 @@ namespace OsuSharp
                 UriKind.Relative, out var uri);
 
             Dictionary<string, string> parameters = new();
-            if (limit.HasValue) parameters["limit"] = limit.Value.ToString();
+            if (limit.HasValue)
+            {
+                parameters["limit"] = limit.Value.ToString();
+            }
 
-            if (offset.HasValue) parameters["offset"] = offset.Value.ToString();
+            if (offset.HasValue)
+            {
+                parameters["offset"] = offset.Value.ToString();
+            }
 
             return await _handler.SendAsync<List<Beatmapset>, List<BeatmapsetJsonModel>>(new OsuApiRequest
             {
@@ -449,13 +479,25 @@ namespace OsuSharp
                 UriKind.Relative, out var uri);
 
             Dictionary<string, string> parameters = new();
-            if (includeFails) parameters["include_fails"] = "1";
+            if (includeFails)
+            {
+                parameters["include_fails"] = "1";
+            }
 
-            if (gameMode.HasValue) parameters["mode"] = gameMode.Value.ToApiString();
+            if (gameMode.HasValue)
+            {
+                parameters["mode"] = gameMode.Value.ToApiString();
+            }
 
-            if (limit.HasValue) parameters["limit"] = limit.Value.ToString();
+            if (limit.HasValue)
+            {
+                parameters["limit"] = limit.Value.ToString();
+            }
 
-            if (offset.HasValue) parameters["offset"] = offset.Value.ToString();
+            if (offset.HasValue)
+            {
+                parameters["offset"] = offset.Value.ToString();
+            }
 
             return await _handler.SendAsync<List<Score>, List<ScoreJsonModel>>(new OsuApiRequest
             {
@@ -498,7 +540,9 @@ namespace OsuSharp
         private void ThrowIfDisposed()
         {
             if (_disposed)
+            {
                 throw new ObjectDisposedException(nameof(OsuClient), "The client is disposed.");
+            }
         }
     }
 }
