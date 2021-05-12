@@ -7,6 +7,11 @@ using OsuSharp.Interfaces;
 
 namespace OsuSharp.Extensions
 {
+    /* 
+     * Highly inspired from
+     * DSharpPlus/Enums/Permission.cs: https://github.com/DSharpPlus/DSharpPlus/blob/master/DSharpPlus/Enums/Permission.cs
+     * DSharpPlus/Utilities.cs: https://github.com/DSharpPlus/DSharpPlus/blob/master/DSharpPlus/Utilities.cs#L244-L256
+     */
     public static class ModsExtensions
     {
         private static Dictionary<Mods, string> ModeStrings { get; }
