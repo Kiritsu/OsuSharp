@@ -6,7 +6,7 @@
 
 **OsuSharp is a wrapper written in C# for the osu! API.**
 
-- Compatible with .NET Core 3.1
+- Compatible with .NET Core 5
 
 ## Installation
 
@@ -48,4 +48,4 @@ Thanks to the following contributors:
 
 Thanks to JetBrains for giving an open source license for their products!
 
-<a href="https://www.jetbrains.com/?from=jensyl"><img src="https://d3nmt5vlzunoa1.cloudfront.net/dotnet/files/2017/06/logo.png" alt="Jetbrains ReSharper" width="150px"></img></a>
+<a href="https://www.jetbrains.com/?from=jensyl"><img src="imgs/jetbrains.svg" alt="JetBrains IDEs" width="150px"></img></a>
