@@ -2,7 +2,7 @@ using System;
 
 namespace OsuSharp.Domain
 {
-    public sealed class KudosuHistory 
+    public sealed class KudosuHistory
     {
         public long Id { get; internal set; }
 

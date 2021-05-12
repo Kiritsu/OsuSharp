@@ -20,10 +20,9 @@ namespace OsuSharp.JsonModels
 
         [JsonProperty("a")]
         public long A { get; internal set; }
-        
+
         internal UserGradeCountsJsonModel()
         {
-            
         }
     }
 }

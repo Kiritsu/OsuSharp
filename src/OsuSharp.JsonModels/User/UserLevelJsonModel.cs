@@ -9,10 +9,9 @@ namespace OsuSharp.JsonModels
 
         [JsonProperty("progress")]
         public long Progress { get; internal set; }
-        
+
         internal UserLevelJsonModel()
         {
-            
         }
     }
 }

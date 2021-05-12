@@ -16,7 +16,6 @@ namespace OsuSharp.JsonModels
 
         internal UserCoverJsonModel()
         {
-            
         }
     }
 }

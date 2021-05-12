@@ -10,10 +10,9 @@ namespace OsuSharp.JsonModels
 
         [JsonProperty("count")]
         public long Count { get; internal set; }
-        
+
         internal UserMonthlyPlayCountJsonModel()
         {
-            
         }
     }
 }

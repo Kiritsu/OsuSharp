@@ -11,7 +11,6 @@ namespace OsuSharp.Exceptions
 
         internal PreemptiveRateLimitException() : base("Preemptive rate-limits reached. Retry later.")
         {
-            
         }
     }
 }

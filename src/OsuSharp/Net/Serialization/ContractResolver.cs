@@ -17,8 +17,10 @@ namespace OsuSharp.Net.Serialization
             var contract = base.CreateContract(objectType);
 
             if (objectType == typeof(Event))
+            {
                 contract.Converter = EventConverter.Instance;
-            
+            }
+
             return contract;
         }
     }

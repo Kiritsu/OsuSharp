@@ -9,7 +9,6 @@ namespace OsuSharp.JsonModels
 
         internal UserSupportGiftEventJsonModel()
         {
-            
         }
     }
 }

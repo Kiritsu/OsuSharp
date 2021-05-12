@@ -11,10 +11,9 @@ namespace OsuSharp.JsonModels
 
         [JsonProperty("data")]
         public IReadOnlyCollection<long> Ranks { get; internal set; }
-        
+
         internal UserRankHistoryJsonModel()
         {
-            
         }
     }
 }

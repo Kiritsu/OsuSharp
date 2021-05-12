@@ -9,7 +9,7 @@ namespace OsuSharp.Extensions
     public static class ServicesExtensions
     {
         public static IServiceCollection AddOsuSharp(
-            this IServiceCollection services, 
+            this IServiceCollection services,
             Action<OsuSharpConfiguration> configurationAction)
         {
             var config = new OsuSharpConfiguration();
@@ -19,12 +19,12 @@ namespace OsuSharp.Extensions
             {
                 throw new ArgumentNullException(nameof(config.Configuration));
             }
-            
+
             config.JsonSerializer ??= DefaultJsonSerializer.Instance;
 
             services.AddSingleton(config.Configuration);
             services.AddSingleton(config.JsonSerializer);
-            
+
             if (config.RequestHandler is not null)
             {
                 services.AddSingleton(config.RequestHandler);
@@ -33,7 +33,7 @@ namespace OsuSharp.Extensions
             {
                 services.AddSingleton<IRequestHandler, DefaultRequestHandler>();
             }
-            
+
             return services.AddSingleton<IOsuClient, OsuClient>();
         }
     }

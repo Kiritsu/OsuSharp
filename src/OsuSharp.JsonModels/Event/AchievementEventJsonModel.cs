@@ -12,7 +12,6 @@ namespace OsuSharp.JsonModels
 
         internal AchievementEventJsonModel()
         {
-            
         }
     }
 }

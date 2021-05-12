@@ -31,7 +31,7 @@ namespace OsuSharp.Extensions
                     .GetCustomAttribute<ModsStringAttribute>()!.String;
             }
         }
-        
+
         /// <summary>
         ///     Converts a <see cref="Mods"/> into a string separated with the modes separator from the <see cref="OsuClientConfiguration"/>.
         /// </summary>
@@ -51,7 +51,7 @@ namespace OsuSharp.Extensions
 
             return string.Join(instance.Configuration.ModFormatSeparator, modes);
         }
-        
+
         /// <summary>
         ///     Converts a <see cref="string"/> into a Mode representation.
         /// </summary>

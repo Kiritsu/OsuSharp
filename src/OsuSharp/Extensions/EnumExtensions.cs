@@ -29,7 +29,7 @@ namespace OsuSharp.Extensions
         {
             return type.HasValue ? ToApiString(type.Value) : "";
         }
-        
+
         /// <summary>
         ///     Returns a string that fits osu! API requirements for that <see cref="BeatmapsetType" />.
         /// </summary>

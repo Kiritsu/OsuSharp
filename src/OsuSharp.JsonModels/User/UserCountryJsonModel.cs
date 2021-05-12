@@ -13,11 +13,11 @@ namespace OsuSharp.JsonModels
 
         [JsonIgnore]
         public RegionInfo RegionInfo => _regionInfo ??= new RegionInfo(Name);
+
         private RegionInfo _regionInfo;
 
         internal UserCountryJsonModel()
         {
-            
         }
     }
 }

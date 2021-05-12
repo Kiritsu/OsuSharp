@@ -8,7 +8,7 @@ namespace OsuSharp.Net.Serialization
     internal class EventConverter : JsonConverter<Event>
     {
         public static readonly EventConverter Instance = new();
-        
+
         public override void WriteJson(JsonWriter writer, Event value, JsonSerializer serializer)
         {
             serializer.Serialize(writer, value);
@@ -28,7 +28,7 @@ namespace OsuSharp.Net.Serialization
             {
                 throw new InvalidOperationException("Unknown event.");
             }
-            
+
             return type switch
             {
                 EventType.Achievement => jo.ToObject<AchievementEvent>(),

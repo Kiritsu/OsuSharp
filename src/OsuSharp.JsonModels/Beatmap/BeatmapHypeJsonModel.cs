@@ -6,13 +6,12 @@ namespace OsuSharp.JsonModels
     {
         [JsonProperty("current")]
         public int CurrentHype { get; internal set; }
-        
+
         [JsonProperty("required")]
         public int RequiredHype { get; internal set; }
 
         internal BeatmapHypeJsonModel()
         {
-            
         }
     }
 }

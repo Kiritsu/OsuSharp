@@ -6,13 +6,12 @@ namespace OsuSharp.JsonModels
     {
         [JsonProperty("title")]
         public string Title { get; internal set; }
-        
+
         [JsonProperty("url")]
         public string Url { get; internal set; }
-        
+
         internal EventBeatmapsetJsonModel()
         {
-            
         }
     }
 }

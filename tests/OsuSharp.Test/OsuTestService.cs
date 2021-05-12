@@ -17,7 +17,7 @@ namespace OsuSharp.Test
             _logger = logger;
             _client = client;
         }
-        
+
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var user = await _client.GetUserAsync("Evolia", GameMode.Taiko);

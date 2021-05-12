@@ -25,10 +25,10 @@ namespace OsuSharp.Net
         private readonly ILogger<DefaultRequestHandler> _logger;
         private readonly OsuClientConfiguration _configuration;
         private readonly IJsonSerializer _serializer;
-        
+
         private readonly HttpClient _httpClient;
         private readonly ConcurrentDictionary<string, RatelimitBucket> _ratelimits;
-        
+
         private bool _disposed;
 
         public DefaultRequestHandler(
@@ -39,7 +39,7 @@ namespace OsuSharp.Net
             _logger = logger;
             _configuration = configuration;
             _serializer = serializer ?? DefaultJsonSerializer.Instance;
-            
+
             _ratelimits = new ConcurrentDictionary<string, RatelimitBucket>();
             _httpClient = new HttpClient(new RedirectHandler
             {
@@ -52,7 +52,7 @@ namespace OsuSharp.Net
             {
                 BaseAddress = new Uri("https://osu.ppy.sh")
             };
-            
+
             _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("OsuSharp", "2.0"));
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
@@ -76,7 +76,7 @@ namespace OsuSharp.Net
                 _httpClient.DefaultRequestHeaders.Authorization =
                     new AuthenticationHeaderValue(request.Token.Type.ToString(), request.Token.AccessToken);
             }
-            
+
             var (bucket, requestMessage) = await PrepareRequestAsync(request).ConfigureAwait(false);
             var response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
             await ValidateResponseAsync(response).ConfigureAwait(false);
@@ -100,7 +100,7 @@ namespace OsuSharp.Net
             var jsonModel = await ReadAndDeserializeAsync<TModel>(request, response, bucket).ConfigureAwait(false);
             return jsonModel.Adapt<T>();
         }
-        
+
         private async Task<RatelimitBucket> GetBucketFromEndpointAsync(
             string endpoint)
         {
@@ -212,7 +212,7 @@ namespace OsuSharp.Net
 
             UpdateBucket(request.Endpoint, bucket, response);
             var model = _serializer.Deserialize<T>(content);
-            
+
             if (model is IEnumerable enumerable)
             {
                 foreach (var subModel in enumerable)
@@ -232,7 +232,8 @@ namespace OsuSharp.Net
         {
             if (model is JsonModel {ExtensionData: {Count: > 0}} jsonModel && jsonModel.GetType() != typeof(JsonModel))
             {
-                _logger.Log(LogLevel.Debug, EventIds.Deserialization, "Found {Count} extra fields for model {Model}:\n{Data}",
+                _logger.Log(LogLevel.Debug, EventIds.Deserialization,
+                    "Found {Count} extra fields for model {Model}:\n{Data}",
                     jsonModel.ExtensionData.Count, typeof(T).Name, string.Join('\n', jsonModel.ExtensionData));
             }
         }

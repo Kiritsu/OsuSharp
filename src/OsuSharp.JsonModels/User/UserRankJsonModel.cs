@@ -9,10 +9,9 @@ namespace OsuSharp.JsonModels
 
         [JsonProperty("country")]
         public long Country { get; internal set; }
-        
+
         internal UserRankJsonModel()
         {
-            
         }
     }
 }

@@ -45,10 +45,9 @@ namespace OsuSharp.JsonModels
 
         [JsonProperty("rank")]
         public UserRankJsonModel UserRankJsonModel { get; internal set; }
-        
+
         internal UserStatisticsJsonModel()
         {
-            
         }
     }
 }

@@ -30,7 +30,6 @@ namespace OsuSharp.JsonModels
 
         internal KudosuHistoryJsonModel()
         {
-
         }
     }
 }

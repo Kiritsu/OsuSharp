@@ -7,13 +7,12 @@ namespace OsuSharp.JsonModels
     {
         [JsonProperty("exit")]
         public IReadOnlyList<int> Exit { get; internal set; }
-        
+
         [JsonProperty("fail")]
         public IReadOnlyList<int> Fail { get; internal set; }
 
         internal FailTimesJsonModel()
         {
-            
         }
     }
 }

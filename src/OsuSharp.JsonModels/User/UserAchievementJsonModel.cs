@@ -10,10 +10,9 @@ namespace OsuSharp.JsonModels
 
         [JsonProperty("achievement_id")]
         public long AchievementId { get; internal set; }
-        
+
         internal UserAchievementJsonModel()
         {
-            
         }
     }
 }

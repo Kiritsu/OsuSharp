@@ -6,10 +6,9 @@ namespace OsuSharp.JsonModels
     {
         [JsonProperty("previous_username")]
         public string PreviousUsername { get; internal set; }
-        
+
         internal EventUsernameChangeJsonModel()
         {
-            
         }
     }
 }

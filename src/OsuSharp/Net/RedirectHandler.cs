@@ -8,7 +8,7 @@ namespace OsuSharp.Net
     internal class RedirectHandler : DelegatingHandler
     {
         protected override async Task<HttpResponseMessage> SendAsync(
-            HttpRequestMessage request, 
+            HttpRequestMessage request,
             CancellationToken cancellationToken)
         {
             var response = await base.SendAsync(request, cancellationToken);
@@ -16,7 +16,7 @@ namespace OsuSharp.Net
             {
                 return response;
             }
-            
+
             var newRoute = response.Headers.Location;
             if (newRoute == null)
             {

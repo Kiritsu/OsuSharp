@@ -9,10 +9,9 @@ namespace OsuSharp.JsonModels
 
         [JsonProperty("raw")]
         public string Raw { get; internal set; }
-        
+
         internal UserPageJsonModel()
         {
-            
         }
     }
 }

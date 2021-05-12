@@ -6,13 +6,12 @@ namespace OsuSharp.JsonModels
     {
         [JsonProperty("count")]
         public int Count { get; internal set; }
-        
+
         [JsonProperty("beatmap")]
         public EventBeatmapJsonModel BeatmapJson { get; internal set; }
 
         internal BeatmapPlaycountEventJsonModel()
         {
-            
         }
     }
 }
