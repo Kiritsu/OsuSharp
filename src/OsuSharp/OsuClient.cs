@@ -3,20 +3,22 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Threading.Tasks;
-using OsuSharp.Entities;
-using OsuSharp.Enums;
+using OsuSharp.Domain;
 using OsuSharp.Extensions;
-using OsuSharp.Logging;
+using OsuSharp.Interfaces;
+using OsuSharp.JsonModels;
+using OsuSharp.Models;
 using OsuSharp.Net;
 
 namespace OsuSharp
 {
-    public sealed class OsuClient : IDisposable
+    public sealed class OsuClient : IOsuClient
     {
-        internal readonly OsuClientConfiguration Configuration;
-        private readonly RequestHandler _handler;
+        private readonly IRequestHandler _handler;
         private OsuToken _credentials;
         private bool _disposed;
+        
+        public OsuClientConfiguration Configuration { get; }
 
         /// <summary>
         ///     Gets the current used credentials to communicate with the API.
@@ -27,25 +29,28 @@ namespace OsuSharp
             internal set
             {
                 _credentials = value ?? throw new ArgumentNullException(nameof(Credentials), "Credentials cannot become null.");
-                _handler.UpdateAuthorizationHeader(_credentials);
+                _handler.UpdateAuthorization(_credentials);
             }
         }
-        
+
         /// <summary>
         ///     Initializes a new OsuClient with the given configuration.
         /// </summary>
         /// <param name="configuration">
         ///     Configuration of the client.
         /// </param>
+        /// <param name="handler">
+        ///     Request handler of the client.
+        /// </param>
         /// <exception cref="ArgumentNullException">
         ///     Thrown when <see cref="configuration" /> is null
         /// </exception>
         public OsuClient(
-            [NotNull] OsuClientConfiguration configuration)
+            [NotNull] OsuClientConfiguration configuration, 
+            [NotNull] IRequestHandler handler)
         {
             Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            Configuration.Logger ??= new DefaultLogger(Configuration);
-            _handler = new RequestHandler(this);
+            _handler = handler ?? throw new ArgumentNullException(nameof(handler));
         }
 
         /// <inheritdoc cref="IDisposable.Dispose" />
@@ -67,7 +72,7 @@ namespace OsuSharp
         {
             ThrowIfDisposed();
 
-            if (Credentials != null && !Credentials.HasExpired)
+            if (Credentials is {HasExpired: false})
             {
                 return Credentials;
             }
@@ -90,7 +95,7 @@ namespace OsuSharp
             }
 
             Uri.TryCreate($"{Endpoints.TokenEndpoint}", UriKind.Relative, out var uri);
-            var response = await _handler.SendAsync<AccessTokenResponse>(new OsuApiRequest
+            var response = await _handler.SendAsync<AccessTokenResponse, AccessTokenResponseJsonModel>(new OsuApiRequest
             {
                 Endpoint = Endpoints.TokenEndpoint,
                 Method = HttpMethod.Post,
@@ -202,7 +207,7 @@ namespace OsuSharp
                 parameters["offset"] = offset.Value.ToString();
             }
 
-            return await _handler.SendAsync<IReadOnlyList<KudosuHistory>>(new OsuApiRequest
+            return await _handler.SendAsync<List<KudosuHistory>, List<KudosuHistoryJsonModel>>(new OsuApiRequest
             {
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
@@ -249,7 +254,7 @@ namespace OsuSharp
                 parameters["offset"] = offset.Value.ToString();
             }
 
-            return await _handler.SendAsync<IReadOnlyList<KudosuHistory>>(new OsuApiRequest
+            return await _handler.SendAsync<List<KudosuHistory>, List<KudosuHistory>>(new OsuApiRequest
             {
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
@@ -281,7 +286,7 @@ namespace OsuSharp
                 $"{Endpoints.UserEndpoint}/{username}/{gameMode.ToApiString()}",
                 UriKind.Relative, out var uri);
 
-            return await _handler.SendAsync<User>(new OsuApiRequest
+            return await _handler.SendAsync<User, UserJsonModel>(new OsuApiRequest
             {
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
@@ -312,7 +317,7 @@ namespace OsuSharp
                 $"{Endpoints.UserEndpoint}/{userId}/{gameMode.ToApiString()}",
                 UriKind.Relative, out var uri);
 
-            return await _handler.SendAsync<User>(new OsuApiRequest
+            return await _handler.SendAsync<User, UserJsonModel>(new OsuApiRequest
             {
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
@@ -358,7 +363,7 @@ namespace OsuSharp
                 parameters["offset"] = offset.Value.ToString();
             }
 
-            return await _handler.SendAsync<IReadOnlyList<Event>>(new OsuApiRequest
+            return await _handler.SendAsync<List<Event>, List<EventJsonModel>>(new OsuApiRequest
             {
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
@@ -409,7 +414,7 @@ namespace OsuSharp
                 parameters["offset"] = offset.Value.ToString();
             }
 
-            return await _handler.SendAsync<IReadOnlyList<Beatmapset>>(new OsuApiRequest
+            return await _handler.SendAsync<List<Beatmapset>, List<BeatmapsetJsonModel>>(new OsuApiRequest
             {
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
@@ -478,7 +483,7 @@ namespace OsuSharp
                 parameters["offset"] = offset.Value.ToString();
             }
 
-            return await _handler.SendAsync<IReadOnlyList<Score>>(new OsuApiRequest
+            return await _handler.SendAsync<List<Score>, List<ScoreJsonModel>>(new OsuApiRequest
             {
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
@@ -506,7 +511,7 @@ namespace OsuSharp
                 $"{Endpoints.CurrentEndpoint}/{gameMode.ToApiString()}",
                 UriKind.Relative, out var uri);
 
-            return await _handler.SendAsync<User>(new OsuApiRequest
+            return await _handler.SendAsync<User, UserJsonModel>(new OsuApiRequest
             {
                 Endpoint = Endpoints.CurrentEndpoint,
                 Method = HttpMethod.Get,

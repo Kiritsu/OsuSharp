@@ -1,8 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using OsuSharp.Entities;
-using OsuSharp.Enums;
+using OsuSharp.Domain;
 
 namespace OsuSharp.Net.Serialization
 {

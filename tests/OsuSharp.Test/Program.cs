@@ -1,27 +1,36 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.EventLog;
+using OsuSharp.Domain;
+using OsuSharp.Extensions;
+using Serilog;
 
 namespace OsuSharp.Test
 {
     public class Program
     {
-        public static void Main()
+        public static void Main(string[] args)
         {
-            MainAsync().GetAwaiter().GetResult();
+            CreateHostBuilder(args).Build().Run();
         }
 
-        public static async Task MainAsync()
-        {
-            var client = new OsuClient(new OsuClientConfiguration
-            {
-                ClientId = 646,
-                ClientSecret = "lel",
-                LogLevel = LogLevel.Trace
-            });
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .UseSerilog((_, configuration) => configuration.WriteTo.Console())
+                .ConfigureLogging(x => x.AddFilter<EventLogLoggerProvider>(level => level >= LogLevel.Trace))
+                .ConfigureServices(x =>
+                {
+                    x.AddOsuSharp(config =>
+                        config.Configuration = new OsuClientConfiguration
+                        {
+                            ClientSecret = "lul",
+                            ClientId = 646
+                        });
 
-            var user = await client.GetUserAsync("Evolia");
-            Console.WriteLine(user.Username + " has default game mode " + user.GameMode);
-        }
+                    x.AddHostedService<OsuTestService>();
+                });
     }
 }

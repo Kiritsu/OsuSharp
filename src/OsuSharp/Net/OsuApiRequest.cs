@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using OsuSharp.Interfaces;
 
 namespace OsuSharp.Net
 {
-    internal sealed class OsuApiRequest
+    internal sealed class OsuApiRequest : IOsuApiRequest
     {
         public HttpMethod Method { get; set; }
 

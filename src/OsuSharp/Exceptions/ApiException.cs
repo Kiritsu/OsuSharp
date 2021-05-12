@@ -3,7 +3,7 @@ using System.Net;
 
 namespace OsuSharp.Exceptions
 {
-    public class ApiException : Exception
+    public sealed class ApiException : Exception
     {
         /// <summary>
         ///     Gets the status code of the api request.

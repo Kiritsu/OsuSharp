@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuSharp", "src\OsuSharp\Os
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuSharp.Test", "tests\OsuSharp.Test\OsuSharp.Test.csproj", "{7134C2D6-30F5-4636-946D-B7311FED2FCE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuSharp.JsonModels", "src\OsuSharp.JsonModels\OsuSharp.JsonModels.csproj", "{5D8F2A61-F4F1-40EF-8BF0-8F7B2E519B34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuSharp.Domain", "src\OsuSharp.Domain\OsuSharp.Domain.csproj", "{DBC87459-A01A-4E93-BD62-FBE0CA52FDFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{7134C2D6-30F5-4636-946D-B7311FED2FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7134C2D6-30F5-4636-946D-B7311FED2FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7134C2D6-30F5-4636-946D-B7311FED2FCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D8F2A61-F4F1-40EF-8BF0-8F7B2E519B34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D8F2A61-F4F1-40EF-8BF0-8F7B2E519B34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D8F2A61-F4F1-40EF-8BF0-8F7B2E519B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D8F2A61-F4F1-40EF-8BF0-8F7B2E519B34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBC87459-A01A-4E93-BD62-FBE0CA52FDFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBC87459-A01A-4E93-BD62-FBE0CA52FDFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBC87459-A01A-4E93-BD62-FBE0CA52FDFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBC87459-A01A-4E93-BD62-FBE0CA52FDFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

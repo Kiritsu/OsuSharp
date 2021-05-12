@@ -1,4 +1,4 @@
-﻿using OsuSharp.Enums;
+﻿using OsuSharp.Domain;
 
 namespace OsuSharp.Extensions
 {
