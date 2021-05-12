@@ -9,8 +9,8 @@ namespace OsuSharp.Extensions
 {
     /* 
      * Highly inspired from
-     * DSharpPlus/Enums/Permission.cs: https://github.com/DSharpPlus/DSharpPlus/blob/master/DSharpPlus/Enums/Permission.cs
-     * DSharpPlus/Utilities.cs: https://github.com/DSharpPlus/DSharpPlus/blob/master/DSharpPlus/Utilities.cs#L244-L256
+     * DSharpPlus/Enums/Permission.cs: https://github.com/DSharpPlus/DSharpPlus/blob/1018351390a3a360f0a48430ab65771cfddd81c7/DSharpPlus/Enums/Permission.cs
+     * DSharpPlus/Utilities.cs: https://github.com/DSharpPlus/DSharpPlus/blob/1018351390a3a360f0a48430ab65771cfddd81c7/DSharpPlus/Utilities.cs#L54-L66
      */
     public static class ModsExtensions
     {
