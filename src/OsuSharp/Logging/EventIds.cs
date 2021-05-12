@@ -2,7 +2,7 @@
 
 namespace OsuSharp.Logging
 {
-    public class EventIds
+    internal class EventIds
     {
         public static readonly EventId RestApi = new(1, "RestApi");
         public static readonly EventId RateLimits = new(2, "RateLimits");

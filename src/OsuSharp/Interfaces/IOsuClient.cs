@@ -7,6 +7,9 @@ using OsuSharp.Models;
 
 namespace OsuSharp.Interfaces
 {
+    /// <summary>
+    /// Interfaces the osu client for communicating with the osu! api.
+    /// </summary>
     public interface IOsuClient : IDisposable
     {
         /// <summary>

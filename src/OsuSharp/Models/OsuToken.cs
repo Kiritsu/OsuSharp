@@ -3,6 +3,9 @@ using OsuSharp.Domain;
 
 namespace OsuSharp.Models
 {
+    /// <summary>
+    /// Represents a osu token.
+    /// </summary>
     public sealed class OsuToken
     {
         /// <summary>
@@ -42,6 +45,7 @@ namespace OsuSharp.Models
         /// </summary>
         public bool HasExpired => ExpiresIn < TimeSpan.Zero || Revoked;
 
+        /// <inheritdoc/>
         public override string ToString()
         {
             return $"{Type} {AccessToken}";

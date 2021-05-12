@@ -9,7 +9,7 @@ namespace OsuSharp.Exceptions
         /// </summary>
         public TimeSpan ExpiresIn { get; init; }
 
-        internal PreemptiveRateLimitException() : base("Preemptive ratelimits reached. Retry later.")
+        internal PreemptiveRateLimitException() : base("Preemptive rate-limits reached. Retry later.")
         {
             
         }

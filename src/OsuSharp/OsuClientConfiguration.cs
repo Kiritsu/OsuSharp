@@ -1,8 +1,10 @@
-﻿using System;
-using OsuSharp.Domain;
+﻿using OsuSharp.Domain;
 
 namespace OsuSharp
 {
+    /// <summary>
+    /// Represents the configuration of a OsuClient.
+    /// </summary>
     public sealed class OsuClientConfiguration
     {
         /// <summary>

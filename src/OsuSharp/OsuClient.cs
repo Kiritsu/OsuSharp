@@ -12,38 +12,43 @@ using OsuSharp.Net;
 
 namespace OsuSharp
 {
+    /// <summary>
+    /// Represents an implementation of an OsuClient for communicating with the osu! api v2.
+    /// </summary>
     public sealed class OsuClient : IOsuClient
     {
         private readonly IRequestHandler _handler;
         private OsuToken _credentials;
         private bool _disposed;
         
+        /// <summary>
+        /// Gets the configuration of the client.
+        /// </summary>
         public OsuClientConfiguration Configuration { get; }
 
         /// <summary>
-        ///     Gets the current used credentials to communicate with the API.
+        /// Gets the current used credentials to communicate with the API.
         /// </summary>
         public OsuToken Credentials
         {
             get => _credentials;
-            internal set
-            {
-                _credentials = value ?? throw new ArgumentNullException(nameof(Credentials), "Credentials cannot become null.");
-                _handler.UpdateAuthorization(_credentials);
-            }
+            internal set => _credentials = value ?? throw new ArgumentNullException(nameof(Credentials), "Credentials cannot become null.");
         }
 
         /// <summary>
-        ///     Initializes a new OsuClient with the given configuration.
+        /// Initializes a new OsuClient with the given configuration.
         /// </summary>
         /// <param name="configuration">
-        ///     Configuration of the client.
+        /// Configuration of the client.
         /// </param>
         /// <param name="handler">
-        ///     Request handler of the client.
+        /// Request handler of the client.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        ///     Thrown when <see cref="configuration" /> is null
+        /// Thrown when <see cref="configuration" /> is null.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when <see cref="handler"/> is null.
         /// </exception>
         public OsuClient(
             [NotNull] OsuClientConfiguration configuration, 
@@ -62,11 +67,11 @@ namespace OsuSharp
         }
 
         /// <summary>
-        ///     Gets or requests an API access token. This method will use Client Credential Grant unless
-        ///     A refresh token is present on the current <see cref="OsuToken" /> instance.
+        /// Gets or requests an API access token. This method will use Client Credential Grant unless
+        /// A refresh token is present on the current <see cref="OsuToken" /> instance.
         /// </summary>
         /// <returns>
-        ///     Returns an <see cref="OsuToken" />.
+        /// Returns an <see cref="OsuToken" />.
         /// </returns>
         public async ValueTask<OsuToken> GetOrUpdateAccessTokenAsync()
         {
@@ -100,34 +105,36 @@ namespace OsuSharp
                 Endpoint = Endpoints.TokenEndpoint,
                 Method = HttpMethod.Post,
                 Route = uri,
-                Parameters = parameters
+                Parameters = parameters,
+                Token = Credentials
             }).ConfigureAwait(false);
 
             return Credentials = new OsuToken
             {
                 Type = Enum.Parse<TokenType>(response.TokenType),
                 AccessToken = response.AccessToken,
-                ExpiresInSeconds = response.ExpiresIn
+                ExpiresInSeconds = response.ExpiresIn,
+                RefreshToken = response.RefreshToken
             };
         }
 
         /// <summary>
-        ///     Updates the current osu! api credentials by the given access, refresh tokens and the expiry time.
+        /// Updates the current osu! api credentials by the given access, refresh tokens and the expiry time.
         /// </summary>
         /// <param name="accessToken">
-        ///     Access token.
+        /// Access token.
         /// </param>
         /// <param name="refreshToken">
-        ///     Refresh token.
+        /// Refresh token.
         /// </param>
         /// <param name="expiresIn">
-        ///     Amount of seconds before the token expires.
+        /// Amount of seconds before the token expires.
         /// </param>
         /// <returns>
-        ///     Returns an <see cref="OsuToken" />.
+        /// Returns an <see cref="OsuToken" />.
         /// </returns>
         /// <remarks>
-        ///     If you are going to use the authorization code grant, use this method to create your <see cref="OsuToken" />.
+        /// If you are going to use the authorization code grant, use this method to create your <see cref="OsuToken" />.
         /// </remarks>
         public OsuToken UpdateAccessToken(
             [NotNull] string accessToken,
@@ -146,7 +153,7 @@ namespace OsuSharp
         }
 
         /// <summary>
-        ///     Revokes the current access token.
+        /// Revokes the current access token.
         /// </summary>
         public async Task RevokeAccessTokenAsync()
         {
@@ -160,7 +167,8 @@ namespace OsuSharp
             {
                 Endpoint = Endpoints.CurrentTokensEndpoint,
                 Method = HttpMethod.Delete,
-                Route = uri
+                Route = uri,
+                Token = Credentials
             }).ConfigureAwait(false);
 
             if (Credentials is not null)
@@ -170,19 +178,19 @@ namespace OsuSharp
         }
 
         /// <summary>
-        ///     Gets a user's kudosu history from the API.
+        /// Gets a user's kudosu history from the API.
         /// </summary>
         /// <param name="username">
-        ///     Username of the user.
+        /// Username of the user.
         /// </param>
         /// <param name="limit">
-        ///     Limit number of results.
+        /// Limit number of results.
         /// </param>
         /// <param name="offset">
-        ///     Offset of result for pagination.
+        /// Offset of result for pagination.
         /// </param>
         /// <returns>
-        ///     Returns a set of KudosuHistory
+        /// Returns a set of KudosuHistory
         /// </returns>
         public async Task<IReadOnlyList<KudosuHistory>> GetUserKudosuAsync(
             [NotNull] string username,
@@ -212,24 +220,25 @@ namespace OsuSharp
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
-                Parameters = parameters
+                Parameters = parameters,
+                Token = Credentials
             }).ConfigureAwait(false);
         }
 
         /// <summary>
-        ///     Gets a user's kudosu history from the API.
+        /// Gets a user's kudosu history from the API.
         /// </summary>
         /// <param name="userId">
-        ///     Id of the user.
+        /// Id of the user.
         /// </param>
         /// <param name="limit">
-        ///     Limit number of results.
+        /// Limit number of results.
         /// </param>
         /// <param name="offset">
-        ///     Offset of result for pagination.
+        /// Offset of result for pagination.
         /// </param>
         /// <returns>
-        ///     Returns a set of KudosuHistory
+        /// Returns a set of KudosuHistory
         /// </returns>
         public async Task<IReadOnlyList<KudosuHistory>> GetUserKudosuAsync(
             long userId,
@@ -259,21 +268,22 @@ namespace OsuSharp
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
-                Parameters = parameters
+                Parameters = parameters,
+                Token = Credentials
             }).ConfigureAwait(false);
         }
 
         /// <summary>
-        ///     Gets a user from the API.
+        /// Gets a user from the API.
         /// </summary>
         /// <param name="username">
-        ///     Username of the user.
+        /// Username of the user.
         /// </param>
         /// <param name="gameMode">
-        ///     Gamemode of the user. Defaults gamemode is picked when null.
+        /// Gamemode of the user. Defaults gamemode is picked when null.
         /// </param>
         /// <returns>
-        ///     Returns a <see cref="User" />.
+        /// Returns a <see cref="User" />.
         /// </returns>
         public async Task<User> GetUserAsync(
             [NotNull] string username,
@@ -290,21 +300,22 @@ namespace OsuSharp
             {
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
-                Route = uri
+                Route = uri,
+                Token = Credentials
             }).ConfigureAwait(false);
         }
 
         /// <summary>
-        ///     Gets a user from the API.
+        /// Gets a user from the API.
         /// </summary>
         /// <param name="userId">
-        ///     Id of the user.
+        /// Id of the user.
         /// </param>
         /// <param name="gameMode">
-        ///     Gamemode of the user. Defaults gamemode is picked when null.
+        /// Gamemode of the user. Defaults gamemode is picked when null.
         /// </param>
         /// <returns>
-        ///     Returns a <see cref="User" />.
+        /// Returns a <see cref="User" />.
         /// </returns>
         public async Task<User> GetUserAsync(
             long userId,
@@ -321,24 +332,25 @@ namespace OsuSharp
             {
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
-                Route = uri
+                Route = uri,
+                Token = Credentials
             }).ConfigureAwait(false);
         }
 
         /// <summary>
-        ///     Gets a user's recent activity history from the API.
+        /// Gets a user's recent activity history from the API.
         /// </summary>
         /// <param name="userId">
-        ///     Id of the user.
+        /// Id of the user.
         /// </param>
         /// <param name="limit">
-        ///     Limit number of results.
+        /// Limit number of results.
         /// </param>
         /// <param name="offset">
-        ///     Offset of result for pagination.
+        /// Offset of result for pagination.
         /// </param>
         /// <returns>
-        ///     Returns a set of <see cref="Event" />s.
+        /// Returns a set of <see cref="Event" />s.
         /// </returns>
         public async Task<IReadOnlyList<Event>> GetUserRecentAsync(
             long userId,
@@ -368,27 +380,28 @@ namespace OsuSharp
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
-                Parameters = parameters
+                Parameters = parameters,
+                Token = Credentials
             }).ConfigureAwait(false);
         }
         
         /// <summary>
-        ///     Gets a user's beatmapsets from the API.
+        /// Gets a user's beatmapsets from the API.
         /// </summary>
         /// <param name="userId">
-        ///     Id of the user.
+        /// Id of the user.
         /// </param>
         /// <param name="type">
-        ///     Type of the beatmapsets to look-up.
+        /// Type of the beatmapsets to look-up.
         /// </param>
         /// <param name="limit">
-        ///     Limit number of results.
+        /// Limit number of results.
         /// </param>
         /// <param name="offset">
-        ///     Offset of result for pagination.
+        /// Offset of result for pagination.
         /// </param>
         /// <returns>
-        ///     Returns a set of <see cref="Beatmapset" />s.
+        /// Returns a set of <see cref="Beatmapset" />s.
         /// </returns>
         public async Task<IReadOnlyList<Beatmapset>> GetUserBeatmapsetsAsync(
             long userId,
@@ -419,33 +432,34 @@ namespace OsuSharp
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
-                Parameters = parameters
+                Parameters = parameters,
+                Token = Credentials
             }).ConfigureAwait(false);
         }
 
         /// <summary>
-        ///     Gets a user's scores from the API.
+        /// Gets a user's scores from the API.
         /// </summary>
         /// <param name="userId">
-        ///     Id of the user.
+        /// Id of the user.
         /// </param>
         /// <param name="type">
-        ///     Type of the scores to look-up.
+        /// Type of the scores to look-up.
         /// </param>
         /// <param name="includeFails">
-        ///     Whether to include failed scores.
+        /// Whether to include failed scores.
         /// </param>
         /// <param name="gameMode">
-        ///     Game mode to lookup scores for.
+        /// Game mode to lookup scores for.
         /// </param>
         /// <param name="limit">
-        ///     Limit number of results.
+        /// Limit number of results.
         /// </param>
         /// <param name="offset">
-        ///     Offset of result for pagination.
+        /// Offset of result for pagination.
         /// </param>
         /// <returns>
-        ///     Returns a set of <see cref="Score" />s.
+        /// Returns a set of <see cref="Score" />s.
         /// </returns>
         public async Task<IReadOnlyList<Score>> GetUserScoresAsync(
             long userId,
@@ -488,18 +502,19 @@ namespace OsuSharp
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
-                Parameters = parameters
+                Parameters = parameters,
+                Token = Credentials
             }).ConfigureAwait(false);
         }
 
         /// <summary>
-        ///     Gets the current authenticated user from the API.
+        /// Gets the current authenticated user from the API.
         /// </summary>
         /// <param name="gameMode">
-        ///     Gamemode of the user. Defaults gamemode is picked when null.
+        /// Gamemode of the user. Defaults gamemode is picked when null.
         /// </param>
         /// <returns>
-        ///     Returns a <see cref="User" />.
+        /// Returns a <see cref="User" />.
         /// </returns>
         public async Task<User> GetCurrentUserAsync(
             GameMode? gameMode = null)
@@ -515,7 +530,8 @@ namespace OsuSharp
             {
                 Endpoint = Endpoints.CurrentEndpoint,
                 Method = HttpMethod.Get,
-                Route = uri
+                Route = uri,
+                Token = Credentials
             }).ConfigureAwait(false);
         }
 

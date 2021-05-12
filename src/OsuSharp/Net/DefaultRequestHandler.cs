@@ -68,16 +68,15 @@ namespace OsuSharp.Net
             _httpClient.Dispose();
         }
 
-        public void UpdateAuthorization(
-            OsuToken token)
-        {
-            _httpClient.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue(token.Type.ToString(), token.AccessToken);
-        }
-        
         public async Task SendAsync(
             IOsuApiRequest request)
         {
+            if (request.Token is not null)
+            {
+                _httpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue(request.Token.Type.ToString(), request.Token.AccessToken);
+            }
+            
             var (bucket, requestMessage) = await PrepareRequestAsync(request).ConfigureAwait(false);
             var response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
             await ValidateResponseAsync(response).ConfigureAwait(false);
@@ -89,6 +88,12 @@ namespace OsuSharp.Net
             where T : class
             where TModel : class
         {
+            if (request.Token is not null)
+            {
+                _httpClient.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue(request.Token.Type.ToString(), request.Token.AccessToken);
+            }
+
             var (bucket, requestMessage) = await PrepareRequestAsync(request).ConfigureAwait(false);
             var response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
             await ValidateResponseAsync(response).ConfigureAwait(false);

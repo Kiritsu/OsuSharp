@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace OsuSharp.Net
 {
-    public class RedirectHandler : DelegatingHandler
+    internal class RedirectHandler : DelegatingHandler
     {
         protected override async Task<HttpResponseMessage> SendAsync(
             HttpRequestMessage request, 
