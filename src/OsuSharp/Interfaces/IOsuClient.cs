@@ -15,7 +15,7 @@ namespace OsuSharp.Interfaces
         /// <summary>
         ///     Gets the configuration of the client.
         /// </summary>
-        OsuClientConfiguration Configuration { get; }
+        IOsuClientConfiguration Configuration { get; }
 
         /// <summary>
         ///     Gets or requests an API access token. This method will use Client Credential Grant unless
@@ -24,7 +24,7 @@ namespace OsuSharp.Interfaces
         /// <returns>
         ///     Returns an <see cref="OsuToken" />.
         /// </returns>
-        ValueTask<OsuToken> GetOrUpdateAccessTokenAsync();
+        ValueTask<IOsuToken> GetOrUpdateAccessTokenAsync();
 
         /// <summary>
         ///     Updates the current osu! api credentials by the given access, refresh tokens and the expiry time.
@@ -44,11 +44,9 @@ namespace OsuSharp.Interfaces
         /// <remarks>
         ///     If you are going to use the authorization code grant, use this method to create your <see cref="OsuToken" />.
         /// </remarks>
-        OsuToken UpdateAccessToken(
-            [NotNull]
-            string accessToken,
-            [NotNull]
-            string refreshToken,
+        IOsuToken UpdateAccessToken(
+            [NotNull] string accessToken,
+            [NotNull] string refreshToken,
             long expiresIn);
 
         /// <summary>
@@ -72,8 +70,7 @@ namespace OsuSharp.Interfaces
         ///     Returns a set of KudosuHistory
         /// </returns>
         Task<IReadOnlyList<KudosuHistory>> GetUserKudosuAsync(
-            [NotNull]
-            string username,
+            [NotNull] string username,
             int? limit = null,
             int? offset = null);
 
@@ -110,8 +107,7 @@ namespace OsuSharp.Interfaces
         ///     Returns a <see cref="User" />.
         /// </returns>
         Task<User> GetUserAsync(
-            [NotNull]
-            string username,
+            [NotNull] string username,
             GameMode? gameMode = null);
 
         /// <summary>

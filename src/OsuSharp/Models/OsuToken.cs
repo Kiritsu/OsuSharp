@@ -1,12 +1,13 @@
 ﻿using System;
 using OsuSharp.Domain;
+using OsuSharp.Interfaces;
 
 namespace OsuSharp.Models
 {
     /// <summary>
     /// Represents a osu token.
     /// </summary>
-    public sealed class OsuToken
+    internal sealed class OsuToken : IOsuToken
     {
         /// <summary>
         ///     Gets when this <see cref="OsuToken" /> was created.
@@ -16,17 +17,17 @@ namespace OsuSharp.Models
         /// <summary>
         ///     Gets the type of the token.
         /// </summary>
-        public TokenType Type { get; internal init; }
+        public TokenType Type { get; internal set; }
 
         /// <summary>
         ///     Gets the access token.
         /// </summary>
-        public string AccessToken { get; internal init; }
+        public string AccessToken { get; internal set; }
 
         /// <summary>
         ///     Gets the refresh token.
         /// </summary>
-        public string RefreshToken { get; internal init; }
+        public string RefreshToken { get; internal set; }
 
         /// <summary>
         ///     Gets whether the token is revoked. Cannot be tracked by the API and is manually updated by the library.
@@ -34,11 +35,14 @@ namespace OsuSharp.Models
         public bool Revoked { get; internal set; }
 
         /// <summary>
-        ///     Gets the amount of time until the token has expired.
+        ///     Gets the amount of time until the token expires.
         /// </summary>
         public TimeSpan ExpiresIn => TimeSpan.FromSeconds(ExpiresInSeconds) - (DateTimeOffset.Now - CreatedAt);
 
-        internal long ExpiresInSeconds { get; set; }
+        /// <summary>
+        ///     Gets the amount of time in seconds of the validity of the token.
+        /// </summary>
+        public long ExpiresInSeconds { get; internal set; }
 
         /// <summary>
         ///     Gets whether the token has expired or not.

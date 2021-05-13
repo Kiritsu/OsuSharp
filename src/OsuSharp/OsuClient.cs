@@ -18,24 +18,13 @@ namespace OsuSharp
     public sealed class OsuClient : IOsuClient
     {
         private readonly IRequestHandler _handler;
-        private OsuToken _credentials;
         private bool _disposed;
+        private OsuToken _credentials;
 
         /// <summary>
         /// Gets the configuration of the client.
         /// </summary>
-        public OsuClientConfiguration Configuration { get; }
-
-        /// <summary>
-        /// Gets the current used credentials to communicate with the API.
-        /// </summary>
-        public OsuToken Credentials
-        {
-            get => _credentials;
-            internal set => _credentials = value ??
-                                           throw new ArgumentNullException(nameof(Credentials),
-                                               "Credentials cannot become null.");
-        }
+        public IOsuClientConfiguration Configuration { get; }
 
         /// <summary>
         /// Initializes a new OsuClient with the given configuration.
@@ -75,13 +64,13 @@ namespace OsuSharp
         /// <returns>
         /// Returns an <see cref="OsuToken" />.
         /// </returns>
-        public async ValueTask<OsuToken> GetOrUpdateAccessTokenAsync()
+        public async ValueTask<IOsuToken> GetOrUpdateAccessTokenAsync()
         {
             ThrowIfDisposed();
 
-            if (Credentials is {HasExpired: false})
+            if (_credentials is {HasExpired: false})
             {
-                return Credentials;
+                return _credentials;
             }
 
             var parameters = new Dictionary<string, string>
@@ -90,7 +79,7 @@ namespace OsuSharp
                 ["client_secret"] = Configuration.ClientSecret
             };
 
-            if (Credentials == null || string.IsNullOrWhiteSpace(Credentials.RefreshToken))
+            if (_credentials == null || string.IsNullOrWhiteSpace(_credentials.RefreshToken))
             {
                 parameters["grant_type"] = "client_credentials";
                 parameters["scope"] = "public";
@@ -98,7 +87,7 @@ namespace OsuSharp
             else
             {
                 parameters["grant_type"] = "refresh_token";
-                parameters["refresh_token"] = Credentials.RefreshToken;
+                parameters["refresh_token"] = _credentials.RefreshToken;
             }
 
             Uri.TryCreate($"{Endpoints.TokenEndpoint}", UriKind.Relative, out var uri);
@@ -108,10 +97,10 @@ namespace OsuSharp
                 Method = HttpMethod.Post,
                 Route = uri,
                 Parameters = parameters,
-                Token = Credentials
+                Token = _credentials
             }).ConfigureAwait(false);
 
-            return Credentials = new OsuToken
+            return _credentials = new OsuToken
             {
                 Type = Enum.Parse<TokenType>(response.TokenType),
                 AccessToken = response.AccessToken,
@@ -138,14 +127,14 @@ namespace OsuSharp
         /// <remarks>
         /// If you are going to use the authorization code grant, use this method to create your <see cref="OsuToken" />.
         /// </remarks>
-        public OsuToken UpdateAccessToken(
+        public IOsuToken UpdateAccessToken(
             [NotNull] string accessToken,
             [NotNull] string refreshToken,
             long expiresIn)
         {
             ThrowIfDisposed();
 
-            return Credentials = new OsuToken
+            return _credentials = new OsuToken
             {
                 Type = TokenType.Bearer,
                 AccessToken = accessToken,
@@ -170,12 +159,12 @@ namespace OsuSharp
                 Endpoint = Endpoints.CurrentTokensEndpoint,
                 Method = HttpMethod.Delete,
                 Route = uri,
-                Token = Credentials
+                Token = _credentials
             }).ConfigureAwait(false);
 
-            if (Credentials is not null)
+            if (_credentials is not null)
             {
-                Credentials.Revoked = true;
+                _credentials.Revoked = true;
             }
         }
 
@@ -223,7 +212,7 @@ namespace OsuSharp
                 Method = HttpMethod.Get,
                 Route = uri,
                 Parameters = parameters,
-                Token = Credentials
+                Token = _credentials
             }).ConfigureAwait(false);
         }
 
@@ -271,7 +260,7 @@ namespace OsuSharp
                 Method = HttpMethod.Get,
                 Route = uri,
                 Parameters = parameters,
-                Token = Credentials
+                Token = _credentials
             }).ConfigureAwait(false);
         }
 
@@ -303,7 +292,7 @@ namespace OsuSharp
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
-                Token = Credentials
+                Token = _credentials
             }).ConfigureAwait(false);
         }
 
@@ -335,7 +324,7 @@ namespace OsuSharp
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
-                Token = Credentials
+                Token = _credentials
             }).ConfigureAwait(false);
         }
 
@@ -383,7 +372,7 @@ namespace OsuSharp
                 Method = HttpMethod.Get,
                 Route = uri,
                 Parameters = parameters,
-                Token = Credentials
+                Token = _credentials
             }).ConfigureAwait(false);
         }
 
@@ -435,7 +424,7 @@ namespace OsuSharp
                 Method = HttpMethod.Get,
                 Route = uri,
                 Parameters = parameters,
-                Token = Credentials
+                Token = _credentials
             }).ConfigureAwait(false);
         }
 
@@ -505,7 +494,7 @@ namespace OsuSharp
                 Method = HttpMethod.Get,
                 Route = uri,
                 Parameters = parameters,
-                Token = Credentials
+                Token = _credentials
             }).ConfigureAwait(false);
         }
 
@@ -533,7 +522,7 @@ namespace OsuSharp
                 Endpoint = Endpoints.CurrentEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
-                Token = Credentials
+                Token = _credentials
             }).ConfigureAwait(false);
         }
 

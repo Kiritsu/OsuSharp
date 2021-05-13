@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using OsuSharp.Models;
 
 namespace OsuSharp.Interfaces
 {
@@ -13,7 +12,7 @@ namespace OsuSharp.Interfaces
         /// <summary>
         /// Gets or sets the token used to make the request.
         /// </summary>
-        OsuToken Token { get; set; }
+        IOsuToken Token { get; set; }
 
         /// <summary>
         /// Gets or sets the kind of http method to make.
