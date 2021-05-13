@@ -26,5 +26,10 @@ namespace OsuSharp.Domain
         public FailTimes FailTimes { get; internal set; }
 
         public int? MaxCombo { get; internal set; }
+        
+        internal BeatmapCompact()
+        {
+            
+        }
     }
 }

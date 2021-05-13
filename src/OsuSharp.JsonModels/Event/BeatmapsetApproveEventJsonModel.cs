@@ -3,19 +3,15 @@ using OsuSharp.Domain;
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class BeatmapsetApproveEventJsonModel : EventJsonModel
+    public class BeatmapsetApproveEventJsonModel : EventJsonModel
     {
         [JsonProperty("approval")]
-        public RankStatus Approval { get; internal set; }
+        public RankStatus Approval { get; set; }
 
         [JsonProperty("beatmapset")]
-        public EventBeatmapsetJsonModel BeatmapsetJson { get; internal set; }
+        public EventBeatmapsetModelJsonModel BeatmapsetJson { get; set; }
 
         [JsonProperty("user")]
-        public EventUserJsonModel UserJson { get; internal set; }
-
-        internal BeatmapsetApproveEventJsonModel()
-        {
-        }
+        public EventUserModelJsonModel UserJson { get; set; }
     }
 }

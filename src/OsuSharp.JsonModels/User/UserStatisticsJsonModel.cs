@@ -2,52 +2,48 @@
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class UserStatisticsJsonModel
+    public class UserStatisticsJsonModel : JsonModel
     {
         [JsonProperty("level")]
-        public UserLevelJsonModel UserLevelJsonModel { get; internal set; }
+        public UserLevelJsonModel UserLevelJsonModel { get; set; }
 
         [JsonProperty("pp")]
-        public double Pp { get; internal set; }
+        public double Pp { get; set; }
 
         [JsonProperty("pp_rank")]
-        public long GlobalRank { get; internal set; }
+        public long GlobalRank { get; set; }
 
         [JsonProperty("ranked_score")]
-        public long RankedScore { get; internal set; }
+        public long RankedScore { get; set; }
 
         [JsonProperty("hit_accuracy")]
-        public double HitAccuracy { get; internal set; }
+        public double HitAccuracy { get; set; }
 
         [JsonProperty("play_count")]
-        public long PlayCount { get; internal set; }
+        public long PlayCount { get; set; }
 
         [JsonProperty("play_time")]
-        public long PlayTime { get; internal set; }
+        public long PlayTime { get; set; }
 
         [JsonProperty("total_score")]
-        public long TotalScore { get; internal set; }
+        public long TotalScore { get; set; }
 
         [JsonProperty("total_hits")]
-        public long TotalHits { get; internal set; }
+        public long TotalHits { get; set; }
 
         [JsonProperty("maximum_combo")]
-        public long MaximumCombo { get; internal set; }
+        public long MaximumCombo { get; set; }
 
         [JsonProperty("replays_watched_by_others")]
-        public long ReplaysWatchedByOthers { get; internal set; }
+        public long ReplaysWatchedByOthers { get; set; }
 
         [JsonProperty("is_ranked")]
-        public bool IsRanked { get; internal set; }
+        public bool IsRanked { get; set; }
 
         [JsonProperty("grade_counts")]
-        public UserGradeCountsJsonModel UserGradeCountsJsonModel { get; internal set; }
+        public UserGradeCountsJsonModel UserGradeCountsJsonModel { get; set; }
 
         [JsonProperty("rank")]
-        public UserRankJsonModel UserRankJsonModel { get; internal set; }
-
-        internal UserStatisticsJsonModel()
-        {
-        }
+        public UserRankJsonModel UserRankJsonModel { get; set; }
     }
 }

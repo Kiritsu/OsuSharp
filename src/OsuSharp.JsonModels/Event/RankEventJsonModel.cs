@@ -3,25 +3,21 @@ using OsuSharp.Domain;
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class RankEventJsonModel : EventJsonModel
+    public class RankEventJsonModel : EventJsonModel
     {
         [JsonProperty("scoreRank")]
-        public string ScoreRank { get; internal set; }
+        public string ScoreRank { get; set; }
 
         [JsonProperty("rank")]
-        public long Rank { get; internal set; }
+        public long Rank { get; set; }
 
         [JsonProperty("mode")]
-        public GameMode GameMode { get; internal set; }
+        public GameMode GameMode { get; set; }
 
         [JsonProperty("beatmap")]
-        public EventBeatmapJsonModel BeatmapJson { get; internal set; }
+        public EventBeatmapJsonModel BeatmapJson { get; set; }
 
         [JsonProperty("user")]
-        public EventUserJsonModel UserJson { get; internal set; }
-
-        internal RankEventJsonModel()
-        {
-        }
+        public EventUserModelJsonModel UserJson { get; set; }
     }
 }

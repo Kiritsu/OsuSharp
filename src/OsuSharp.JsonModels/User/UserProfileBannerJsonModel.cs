@@ -2,19 +2,15 @@
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class UserProfileBannerJsonModel
+    public class UserProfileBannerJsonModel : JsonModel
     {
         [JsonProperty("id")]
-        public long Id { get; internal set; }
+        public long Id { get; set; }
 
         [JsonProperty("tournament_id")]
-        public long TournamentId { get; internal set; }
+        public long TournamentId { get; set; }
 
         [JsonProperty("image")]
-        public string Image { get; internal set; }
-
-        internal UserProfileBannerJsonModel()
-        {
-        }
+        public string Image { get; set; }
     }
 }

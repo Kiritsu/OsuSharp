@@ -5,5 +5,10 @@ namespace OsuSharp.Domain
         public string Url { get; internal set; }
 
         public string Title { get; internal set; }
+
+        internal KudosuPost()
+        {
+            
+        }
     }
 }

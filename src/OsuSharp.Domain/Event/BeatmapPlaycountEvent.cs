@@ -5,5 +5,10 @@ namespace OsuSharp.Domain
         public int Count { get; internal set; }
 
         public EventBeatmapModel Beatmap { get; internal set; }
+
+        internal BeatmapPlaycountEvent()
+        {
+            
+        }
     }
 }

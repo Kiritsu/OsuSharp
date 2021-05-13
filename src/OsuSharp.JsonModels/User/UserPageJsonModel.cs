@@ -2,16 +2,12 @@
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class UserPageJsonModel
+    public class UserPageJsonModel : JsonModel
     {
         [JsonProperty("html")]
-        public string Html { get; internal set; }
+        public string Html { get; set; }
 
         [JsonProperty("raw")]
-        public string Raw { get; internal set; }
-
-        internal UserPageJsonModel()
-        {
-        }
+        public string Raw { get; set; }
     }
 }

@@ -4,64 +4,60 @@ using OsuSharp.Domain;
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class BeatmapJsonModel : BeatmapCompactJsonModel
+    public class BeatmapJsonModel : BeatmapCompactJsonModel
     {
         [JsonProperty("accuracy")]
-        public double Accuracy { get; internal set; }
+        public double Accuracy { get; set; }
 
         [JsonProperty("ar")]
-        public double ApproachRate { get; internal set; }
+        public double ApproachRate { get; set; }
 
         [JsonProperty("beatmapset_id")]
-        public long BeatmapsetId { get; internal set; }
+        public long BeatmapsetId { get; set; }
 
         [JsonProperty("bpm")]
-        public double Bpm { get; internal set; }
+        public double Bpm { get; set; }
 
         [JsonProperty("convert")]
-        public bool Converted { get; internal set; }
+        public bool Converted { get; set; }
 
         [JsonProperty("count_circles")]
-        public int CircleCount { get; internal set; }
+        public int CircleCount { get; set; }
 
         [JsonProperty("count_sliders")]
-        public int SliderCount { get; internal set; }
+        public int SliderCount { get; set; }
 
         [JsonProperty("count_spinners")]
-        public int SpinnerCount { get; internal set; }
+        public int SpinnerCount { get; set; }
 
         [JsonProperty("cs")]
-        public double CircleSize { get; internal set; }
+        public double CircleSize { get; set; }
 
         [JsonProperty("deleted_at")]
-        public DateTimeOffset? DeletedAt { get; internal set; }
+        public DateTimeOffset? DeletedAt { get; set; }
 
         [JsonProperty("drain")]
-        public double Drain { get; internal set; }
+        public double Drain { get; set; }
 
         [JsonProperty("hit_length")]
-        public int HitLength { get; internal set; }
+        public int HitLength { get; set; }
 
         [JsonProperty("is_scoreable")]
-        public bool IsScoreable { get; internal set; }
+        public bool IsScoreable { get; set; }
 
         [JsonProperty("last_updated")]
-        public DateTimeOffset LastUpdated { get; internal set; }
+        public DateTimeOffset LastUpdated { get; set; }
 
         [JsonProperty("passcount")]
-        public int PassCount { get; internal set; }
+        public int PassCount { get; set; }
 
         [JsonProperty("playcount")]
-        public int PlayCount { get; internal set; }
+        public int PlayCount { get; set; }
 
         [JsonProperty("ranked")]
-        public RankStatus Ranked { get; internal set; }
+        public RankStatus Ranked { get; set; }
 
         [JsonProperty("url")]
-        public string Url { get; internal set; }
-
-        internal BeatmapJsonModel()
-        {
-        }
+        public string Url { get; set; }
     }
 }

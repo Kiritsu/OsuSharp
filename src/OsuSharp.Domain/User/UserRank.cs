@@ -5,5 +5,10 @@ namespace OsuSharp.Domain
         public long Global { get; internal set; }
 
         public long Country { get; internal set; }
+
+        internal UserRank()
+        {
+            
+        }
     }
 }

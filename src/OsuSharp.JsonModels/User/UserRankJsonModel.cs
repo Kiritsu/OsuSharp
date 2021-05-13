@@ -2,16 +2,12 @@
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class UserRankJsonModel
+    public class UserRankJsonModel : JsonModel
     {
         [JsonProperty("global")]
-        public long Global { get; internal set; }
+        public long Global { get; set; }
 
         [JsonProperty("country")]
-        public long Country { get; internal set; }
-
-        internal UserRankJsonModel()
-        {
-        }
+        public long Country { get; set; }
     }
 }

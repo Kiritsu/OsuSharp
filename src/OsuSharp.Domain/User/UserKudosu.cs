@@ -5,5 +5,10 @@ namespace OsuSharp.Domain
         public long Total { get; internal set; }
 
         public long Available { get; internal set; }
+
+        internal UserKudosu()
+        {
+            
+        }
     }
 }

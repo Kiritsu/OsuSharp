@@ -2,13 +2,9 @@
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class UserSupportFirstEventJsonModel : EventJsonModel
+    public class UserSupportFirstEventJsonModel : EventJsonModel
     {
         [JsonProperty("user")]
-        public EventUserJsonModel UserJson { get; internal set; }
-
-        internal UserSupportFirstEventJsonModel()
-        {
-        }
+        public EventUserModelJsonModel UserJson { get; set; }
     }
 }

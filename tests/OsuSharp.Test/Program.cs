@@ -23,7 +23,7 @@ namespace OsuSharp.Test
                     x.AddOsuSharp(config =>
                         config.Configuration = new OsuClientConfiguration
                         {
-                            ClientSecret = "kkVHoYmeiBEyDM5nN8IAU2YhP5y2Mjx5SWmjtLjW",
+                            ClientSecret = "4dXzkUIxByiutR9klBbn7TDwRULlmN7XNQHNaBir",
                             ClientId = 646
                         });
 

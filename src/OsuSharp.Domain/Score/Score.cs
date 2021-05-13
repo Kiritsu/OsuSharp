@@ -47,5 +47,10 @@ namespace OsuSharp.Domain
 
         // todo: object
         public object Match { get; internal set; }
+
+        internal Score()
+        {
+            
+        }
     }
 }

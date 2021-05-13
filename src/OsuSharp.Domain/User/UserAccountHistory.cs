@@ -11,5 +11,10 @@ namespace OsuSharp.Domain
         public DateTimeOffset TimeStamp { get; internal set; }
 
         public int Length { get; internal set; }
+
+        internal UserAccountHistory()
+        {
+            
+        }
     }
 }

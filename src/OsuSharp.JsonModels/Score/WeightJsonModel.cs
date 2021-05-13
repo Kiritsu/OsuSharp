@@ -2,16 +2,12 @@
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class WeightJsonModel
+    public class WeightJsonModel : JsonModel
     {
         [JsonProperty("percentage")]
-        public double Percentage { get; internal set; }
+        public double Percentage { get; set; }
 
         [JsonProperty("pp")]
-        public double PerformancePoints { get; internal set; }
-
-        internal WeightJsonModel()
-        {
-        }
+        public double PerformancePoints { get; set; }
     }
 }

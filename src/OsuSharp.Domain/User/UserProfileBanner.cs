@@ -7,5 +7,10 @@ namespace OsuSharp.Domain
         public long TournamentId { get; internal set; }
 
         public string Image { get; internal set; }
+
+        internal UserProfileBanner()
+        {
+            
+        }
     }
 }

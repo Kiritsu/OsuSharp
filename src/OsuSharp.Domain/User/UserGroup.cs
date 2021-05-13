@@ -19,5 +19,10 @@ namespace OsuSharp.Domain
         public string Colour { get; internal set; }
 
         public IReadOnlyCollection<GameMode> PlayModes { get; internal set; }
+
+        internal UserGroup()
+        {
+            
+        }
     }
 }

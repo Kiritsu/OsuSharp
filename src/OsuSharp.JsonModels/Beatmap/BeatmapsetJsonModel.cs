@@ -4,55 +4,51 @@ using OsuSharp.Domain;
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class BeatmapsetJsonModel : BeatmapsetCompactJsonModel
+    public class BeatmapsetJsonModel : BeatmapsetCompactJsonModel
     {
         [JsonProperty("availability")]
-        public BeatmapAvailabilityJsonModel AvailabilityJsonModel { get; internal set; }
+        public BeatmapAvailabilityJsonModel AvailabilityJsonModel { get; set; }
 
         [JsonProperty("bpm")]
-        public double Bpm { get; internal set; }
+        public double Bpm { get; set; }
 
         [JsonProperty("can_be_hyped")]
-        public bool CanBeHyped { get; internal set; }
+        public bool CanBeHyped { get; set; }
 
         [JsonProperty("discussion_enabled")]
-        public bool DiscussionEnabled { get; internal set; }
+        public bool DiscussionEnabled { get; set; }
 
         [JsonProperty("discussion_locked")]
-        public bool DiscussionLocked { get; internal set; }
+        public bool DiscussionLocked { get; set; }
 
         [JsonProperty("hype")]
-        public BeatmapHypeJsonModel HypeJsonModel { get; internal set; }
+        public BeatmapHypeJsonModel HypeJsonModel { get; set; }
 
         [JsonProperty("is_scoreable")]
-        public bool IsScoreable { get; internal set; }
+        public bool IsScoreable { get; set; }
 
         [JsonProperty("last_updated")]
-        public DateTimeOffset LastUpdated { get; internal set; }
+        public DateTimeOffset LastUpdated { get; set; }
 
         [JsonProperty("legacy_thread_url")]
-        public string LegacyThreadUrl { get; internal set; }
+        public string LegacyThreadUrl { get; set; }
 
         [JsonProperty("nomination")]
-        public BeatmapNominationJsonModel NominationJsonModel { get; internal set; }
+        public BeatmapNominationJsonModel NominationJsonModel { get; set; }
 
         [JsonProperty("ranked")]
-        public RankStatus Ranked { get; internal set; }
+        public RankStatus Ranked { get; set; }
 
         [JsonProperty("ranked_date")]
-        public DateTimeOffset? RankedDate { get; internal set; }
+        public DateTimeOffset? RankedDate { get; set; }
 
         [JsonProperty("storyboard")]
-        public bool HasStoryboard { get; internal set; }
+        public bool HasStoryboard { get; set; }
 
         [JsonProperty("submitted_date")]
-        public DateTimeOffset? SubmittedAt { get; internal set; }
+        public DateTimeOffset? SubmittedAt { get; set; }
 
         [JsonProperty("tags")]
-        public string Tags { get; internal set; }
-
-        internal BeatmapsetJsonModel()
-        {
-        }
+        public string Tags { get; set; }
     }
 }

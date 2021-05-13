@@ -2,16 +2,12 @@
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class AchievementEventJsonModel : EventJsonModel
+    public class AchievementEventJsonModel : EventJsonModel
     {
         [JsonProperty("achievement")]
-        public object Achievement { get; internal set; }
+        public object Achievement { get; set; }
 
         [JsonProperty("user")]
-        public EventUserJsonModel UserJson { get; internal set; }
-
-        internal AchievementEventJsonModel()
-        {
-        }
+        public EventUserModelJsonModel UserJson { get; set; }
     }
 }

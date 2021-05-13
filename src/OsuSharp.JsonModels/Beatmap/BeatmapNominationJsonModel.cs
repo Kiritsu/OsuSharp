@@ -2,16 +2,12 @@
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class BeatmapNominationJsonModel
+    public class BeatmapNominationJsonModel : JsonModel
     {
         [JsonProperty("current")]
-        public int Current { get; internal set; }
+        public int Current { get; set; }
 
         [JsonProperty("required")]
-        public int Required { get; internal set; }
-
-        internal BeatmapNominationJsonModel()
-        {
-        }
+        public int Required { get; set; }
     }
 }

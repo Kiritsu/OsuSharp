@@ -9,5 +9,10 @@ namespace OsuSharp.Domain
         public Uri Url { get; internal set; }
 
         public string Id { get; internal set; }
+
+        internal UserCover()
+        {
+            
+        }
     }
 }

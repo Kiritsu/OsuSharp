@@ -3,22 +3,18 @@ using Newtonsoft.Json;
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class UserAccountHistoryJsonModel
+    public class UserAccountHistoryJsonModel : JsonModel
     {
         [JsonProperty("id")]
-        public long Id { get; internal set; }
+        public long Id { get; set; }
 
         [JsonProperty("type")]
-        public string Type { get; internal set; }
+        public string Type { get; set; }
 
         [JsonProperty("timestamp")]
-        public DateTimeOffset TimeStamp { get; internal set; }
+        public DateTimeOffset TimeStamp { get; set; }
 
         [JsonProperty("length")]
-        public int Length { get; internal set; }
-
-        internal UserAccountHistoryJsonModel()
-        {
-        }
+        public int Length { get; set; }
     }
 }

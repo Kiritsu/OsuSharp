@@ -4,34 +4,30 @@ using OsuSharp.Domain;
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class UserGroupJsonModel
+    public class UserGroupJsonModel : JsonModel
     {
         [JsonProperty("id")]
-        public long Id { get; internal set; }
+        public long Id { get; set; }
 
         [JsonProperty("identifier")]
-        public string Identifier { get; internal set; }
+        public string Identifier { get; set; }
 
         [JsonProperty("is_probationary")]
-        public bool IsProbationary { get; internal set; }
+        public bool IsProbationary { get; set; }
 
         [JsonProperty("name")]
-        public string Name { get; internal set; }
+        public string Name { get; set; }
 
         [JsonProperty("short_name")]
-        public string ShortName { get; internal set; }
+        public string ShortName { get; set; }
 
         [JsonProperty("description")]
-        public string Description { get; internal set; }
+        public string Description { get; set; }
 
         [JsonProperty("colour")]
-        public string Colour { get; internal set; }
+        public string Colour { get; set; }
 
         [JsonProperty("play_modes")]
-        public IReadOnlyCollection<GameMode> PlayModes { get; internal set; }
-
-        internal UserGroupJsonModel()
-        {
-        }
+        public IReadOnlyCollection<GameMode> PlayModes { get; set; }
     }
 }

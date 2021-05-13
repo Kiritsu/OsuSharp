@@ -5,5 +5,10 @@ namespace OsuSharp.Domain
         public object Achievement { get; internal set; }
 
         public EventUserModel User { get; internal set; }
+
+        internal AchievementEvent()
+        {
+            
+        }
     }
 }

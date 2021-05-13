@@ -29,5 +29,10 @@ namespace OsuSharp.Domain
         public UserGradeCounts UserGradeCounts { get; internal set; }
 
         public UserRank UserRank { get; internal set; }
+
+        internal UserStatistics()
+        {
+            
+        }
     }
 }

@@ -5,5 +5,10 @@ namespace OsuSharp.Domain
         public int CurrentHype { get; internal set; }
 
         public int RequiredHype { get; internal set; }
+        
+        internal BeatmapHype()
+        {
+            
+        }
     }
 }

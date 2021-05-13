@@ -4,16 +4,12 @@ using OsuSharp.Domain;
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class UserRankHistoryJsonModel
+    public class UserRankHistoryJsonModel : JsonModel
     {
         [JsonProperty("mode")]
-        public GameMode GameMode { get; internal set; }
+        public GameMode GameMode { get; set; }
 
         [JsonProperty("data")]
-        public IReadOnlyCollection<long> Ranks { get; internal set; }
-
-        internal UserRankHistoryJsonModel()
-        {
-        }
+        public IReadOnlyCollection<long> Ranks { get; set; }
     }
 }

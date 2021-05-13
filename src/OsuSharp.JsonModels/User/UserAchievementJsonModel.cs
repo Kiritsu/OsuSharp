@@ -3,16 +3,12 @@ using Newtonsoft.Json;
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class UserAchievementJsonModel
+    public class UserAchievementJsonModel : JsonModel
     {
         [JsonProperty("achieved_at")]
-        public DateTimeOffset AchievedAt { get; internal set; }
+        public DateTimeOffset AchievedAt { get; set; }
 
         [JsonProperty("achievement_id")]
-        public long AchievementId { get; internal set; }
-
-        internal UserAchievementJsonModel()
-        {
-        }
+        public long AchievementId { get; set; }
     }
 }

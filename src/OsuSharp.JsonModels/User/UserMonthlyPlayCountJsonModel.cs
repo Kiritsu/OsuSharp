@@ -3,16 +3,12 @@ using Newtonsoft.Json;
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class UserMonthlyPlayCountJsonModel
+    public class UserMonthlyPlayCountJsonModel : JsonModel
     {
         [JsonProperty("start_date")]
-        public DateTimeOffset StartDate { get; internal set; }
+        public DateTimeOffset StartDate { get; set; }
 
         [JsonProperty("count")]
-        public long Count { get; internal set; }
-
-        internal UserMonthlyPlayCountJsonModel()
-        {
-        }
+        public long Count { get; set; }
     }
 }

@@ -3,19 +3,15 @@ using Newtonsoft.Json;
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class UserCoverJsonModel
+    public class UserCoverJsonModel : JsonModel
     {
         [JsonProperty("custom_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string CustomUrl { get; internal set; }
+        public string CustomUrl { get; set; }
 
         [JsonProperty("url")]
-        public Uri Url { get; internal set; }
+        public Uri Url { get; set; }
 
         [JsonProperty("id")]
-        public string Id { get; internal set; }
-
-        internal UserCoverJsonModel()
-        {
-        }
+        public string Id { get; set; }
     }
 }

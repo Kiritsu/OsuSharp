@@ -2,18 +2,18 @@
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class AccessTokenResponseJsonModel : JsonModel
+    public class AccessTokenResponseJsonModel : JsonModel
     {
         [JsonProperty("token_type")]
-        public string TokenType { get; internal set; }
+        public string TokenType { get; set; }
 
         [JsonProperty("expires_in")]
-        public long ExpiresIn { get; internal set; }
+        public long ExpiresIn { get; set; }
 
         [JsonProperty("access_token")]
-        public string AccessToken { get; internal set; }
+        public string AccessToken { get; set; }
 
         [JsonProperty("refresh_token")]
-        public string RefreshToken { get; internal set; }
+        public string RefreshToken { get; set; }
     }
 }

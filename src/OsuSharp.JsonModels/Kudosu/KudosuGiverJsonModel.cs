@@ -2,16 +2,12 @@
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class KudosuGiverJsonModel
+    public class KudosuGiverJsonModel : JsonModel
     {
         [JsonProperty("url")]
-        public string Url { get; internal set; }
+        public string Url { get; set; }
 
         [JsonProperty("username")]
-        public string Username { get; internal set; }
-
-        internal KudosuGiverJsonModel()
-        {
-        }
+        public string Username { get; set; }
     }
 }

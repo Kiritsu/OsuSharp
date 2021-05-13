@@ -39,5 +39,10 @@ namespace OsuSharp.Domain
         public RankStatus Ranked { get; internal set; }
 
         public string Url { get; internal set; }
+
+        internal Beatmap()
+        {
+            
+        }
     }
 }

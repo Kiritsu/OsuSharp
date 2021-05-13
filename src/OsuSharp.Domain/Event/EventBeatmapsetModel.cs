@@ -5,5 +5,10 @@ namespace OsuSharp.Domain
         public string Title { get; internal set; }
 
         public string Url { get; internal set; }
+
+        internal EventBeatmapsetModel()
+        {
+            
+        }
     }
 }

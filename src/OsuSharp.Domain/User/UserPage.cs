@@ -5,5 +5,10 @@ namespace OsuSharp.Domain
         public string Html { get; internal set; }
 
         public string Raw { get; internal set; }
+
+        internal UserPage()
+        {
+            
+        }
     }
 }

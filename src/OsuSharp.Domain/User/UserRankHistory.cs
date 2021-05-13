@@ -7,5 +7,10 @@ namespace OsuSharp.Domain
         public GameMode GameMode { get; internal set; }
 
         public IReadOnlyCollection<long> Ranks { get; internal set; }
+
+        internal UserRankHistory()
+        {
+            
+        }
     }
 }

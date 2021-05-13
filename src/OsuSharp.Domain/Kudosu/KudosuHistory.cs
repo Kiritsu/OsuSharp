@@ -18,5 +18,10 @@ namespace OsuSharp.Domain
         public KudosuGiver Giver { get; internal set; }
 
         public KudosuPost Post { get; internal set; }
+
+        internal KudosuHistory()
+        {
+            
+        }
     }
 }

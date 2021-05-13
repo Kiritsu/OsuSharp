@@ -5,5 +5,10 @@ namespace OsuSharp.Domain
         public string Username { get; internal set; }
 
         public string Url { get; internal set; }
+
+        internal EventUserModel()
+        {
+            
+        }
     }
 }

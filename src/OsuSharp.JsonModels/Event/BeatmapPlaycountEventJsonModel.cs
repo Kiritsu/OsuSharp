@@ -2,16 +2,12 @@
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class BeatmapPlaycountEventJsonModel : EventJsonModel
+    public class BeatmapPlaycountEventJsonModel : EventJsonModel
     {
         [JsonProperty("count")]
-        public int Count { get; internal set; }
+        public int Count { get; set; }
 
         [JsonProperty("beatmap")]
-        public EventBeatmapJsonModel BeatmapJson { get; internal set; }
-
-        internal BeatmapPlaycountEventJsonModel()
-        {
-        }
+        public EventBeatmapJsonModel BeatmapJson { get; set; }
     }
 }

@@ -5,5 +5,10 @@ namespace OsuSharp.Domain
         public int Current { get; internal set; }
 
         public int Required { get; internal set; }
+        
+        internal BeatmapNomination()
+        {
+            
+        }
     }
 }

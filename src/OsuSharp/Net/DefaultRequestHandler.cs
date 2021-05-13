@@ -6,10 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Mapster;
 using Microsoft.Extensions.Logging;
+using OsuSharp.Domain;
 using OsuSharp.Exceptions;
 using OsuSharp.Extensions;
 using OsuSharp.JsonModels;
@@ -100,7 +102,40 @@ namespace OsuSharp.Net
             var jsonModel = await ReadAndDeserializeAsync<TModel>(request, response, bucket).ConfigureAwait(false);
             return jsonModel.Adapt<T>();
         }
+        
+        private static readonly Assembly DomainAssembly = Assembly.GetAssembly(typeof(User));
+        private static readonly Dictionary<Type, Type> MappedTypes = 
+            Assembly.GetAssembly(typeof(JsonModel))!
+                .GetTypes()
+                .Where(x => x.IsAssignableTo(typeof(JsonModel)) && x != typeof(JsonModel) && !x.IsAbstract)
+                .Select(x => new {JsonModel = x, Model = DomainAssembly.ExportedTypes.FirstOrDefault(y => y.Name == x.Name[..^9])})
+                .ToDictionary(x => x.JsonModel, x => x.Model!);
 
+        static DefaultRequestHandler()
+        {
+            foreach (var type in MappedTypes)
+            {
+                var ctor = type.Value
+                    .GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, 
+                        null, CallingConventions.Any, Array.Empty<Type>(), null);
+
+                var adapterConfigType = typeof(TypeAdapterConfig<,>)
+                    .MakeGenericType(type.Key, type.Value);
+
+                var method = adapterConfigType
+                    .GetMethod("NewConfig", BindingFlags.Static | BindingFlags.Public);
+
+                var result = method!.Invoke(null, null);
+                var resultObjectType = result!
+                    .GetType();
+                
+                method = resultObjectType
+                    .GetMethod("MapToConstructor", BindingFlags.Public | BindingFlags.Instance);
+
+                method!.Invoke(result, new object[]{ctor});
+            }
+        }
+        
         private async Task<RatelimitBucket> GetBucketFromEndpointAsync(
             string endpoint)
         {

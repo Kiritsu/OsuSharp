@@ -9,5 +9,10 @@ namespace OsuSharp.Domain
         public long Id { get; internal set; }
 
         public EventType Type { get; internal set; }
+
+        internal Event()
+        {
+            
+        }
     }
 }

@@ -11,5 +11,10 @@ namespace OsuSharp.Domain
         public EventBeatmapModel Beatmap { get; internal set; }
 
         public EventUserModel User { get; internal set; }
+
+        internal RankEvent()
+        {
+            
+        }
     }
 }

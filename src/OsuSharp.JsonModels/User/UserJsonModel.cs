@@ -5,61 +5,57 @@ using OsuSharp.Domain;
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class UserJsonModel : UserCompactJsonModel
+    public class UserJsonModel : UserCompactJsonModel
     {
         [JsonProperty("cover_url")]
-        public string CoverUrl { get; internal set; }
+        public string CoverUrl { get; set; }
 
         [JsonProperty("discord", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Discord { get; internal set; }
+        public string Discord { get; set; }
 
         [JsonProperty("has_supported")]
-        public bool HasSupported { get; internal set; }
+        public bool HasSupported { get; set; }
 
         [JsonProperty("interests", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Interests { get; internal set; }
+        public string Interests { get; set; }
 
         [JsonProperty("join_date")]
-        public DateTimeOffset JoinDate { get; internal set; }
+        public DateTimeOffset JoinDate { get; set; }
 
         [JsonProperty("kudosu")]
-        public UserKudosuJsonModel KudosuJsonModel { get; internal set; }
+        public UserKudosuJsonModel KudosuJsonModel { get; set; }
 
         [JsonProperty("location", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Location { get; internal set; }
+        public string Location { get; set; }
 
         [JsonProperty("max_blocks")]
-        public long MaxBlocks { get; internal set; }
+        public long MaxBlocks { get; set; }
 
         [JsonProperty("max_friends")]
-        public long MaxFriends { get; internal set; }
+        public long MaxFriends { get; set; }
 
         [JsonProperty("occupation", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Occupation { get; internal set; }
+        public string Occupation { get; set; }
 
         [JsonProperty("playmode")]
-        public GameMode GameMode { get; internal set; }
+        public GameMode GameMode { get; set; }
 
         [JsonProperty("playstyle")]
-        public IReadOnlyCollection<string> Playstyle { get; internal set; }
+        public IReadOnlyCollection<string> Playstyle { get; set; }
 
         [JsonProperty("post_count")]
-        public long PostCount { get; internal set; }
+        public long PostCount { get; set; }
 
         [JsonProperty("skype", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Skype { get; internal set; }
+        public string Skype { get; set; }
 
         [JsonProperty("title", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Title { get; internal set; }
+        public string Title { get; set; }
 
         [JsonProperty("twitter", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Twitter { get; internal set; }
+        public string Twitter { get; set; }
 
         [JsonProperty("website", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Website { get; internal set; }
-
-        internal UserJsonModel()
-        {
-        }
+        public string Website { get; set; }
     }
 }

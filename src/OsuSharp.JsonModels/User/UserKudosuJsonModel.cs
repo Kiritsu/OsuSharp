@@ -2,16 +2,12 @@
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class UserKudosuJsonModel
+    public class UserKudosuJsonModel : JsonModel
     {
         [JsonProperty("total")]
-        public long Total { get; internal set; }
+        public long Total { get; set; }
 
         [JsonProperty("available")]
-        public long Available { get; internal set; }
-
-        internal UserKudosuJsonModel()
-        {
-        }
+        public long Available { get; set; }
     }
 }

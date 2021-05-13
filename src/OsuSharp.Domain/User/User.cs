@@ -38,5 +38,10 @@ namespace OsuSharp.Domain
         public string Twitter { get; internal set; }
 
         public string Website { get; internal set; }
+
+        internal User()
+        {
+            
+        }
     }
 }

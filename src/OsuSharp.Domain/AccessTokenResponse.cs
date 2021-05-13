@@ -9,5 +9,10 @@ namespace OsuSharp.Domain
         public string AccessToken { get; internal set; }
 
         public string RefreshToken { get; internal set; }
+
+        internal AccessTokenResponse()
+        {
+            
+        }
     }
 }

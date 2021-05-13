@@ -17,5 +17,10 @@ namespace OsuSharp.Domain
         public string SlimCover { get; internal set; }
 
         public string SlimCover2x { get; internal set; }
+        
+        internal BeatmapCover()
+        {
+            
+        }
     }
 }

@@ -10,5 +10,10 @@ namespace OsuSharp.Domain
 
         public RegionInfo RegionInfo => _regionInfo ??= new RegionInfo(Name);
         private RegionInfo _regionInfo;
+
+        internal UserCountry()
+        {
+            
+        }
     }
 }

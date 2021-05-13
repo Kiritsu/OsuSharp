@@ -5,5 +5,10 @@ namespace OsuSharp.Domain
         public long Current { get; internal set; }
 
         public long Progress { get; internal set; }
+
+        internal UserLevel()
+        {
+            
+        }
     }
 }

@@ -2,16 +2,12 @@
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class UserLevelJsonModel
+    public class UserLevelJsonModel : JsonModel
     {
         [JsonProperty("current")]
-        public long Current { get; internal set; }
+        public long Current { get; set; }
 
         [JsonProperty("progress")]
-        public long Progress { get; internal set; }
-
-        internal UserLevelJsonModel()
-        {
-        }
+        public long Progress { get; set; }
     }
 }

@@ -7,16 +7,16 @@ namespace OsuSharp.JsonModels
     public class BeatmapCompactJsonModel : JsonModel
     {
         [JsonProperty("difficulty_rating")]
-        public double DifficultyRating { get; internal set; }
+        public double DifficultyRating { get; set; }
 
         [JsonProperty("id")]
-        public long Id { get; internal set; }
+        public long Id { get; set; }
 
         [JsonProperty("mode")]
-        public GameMode Mode { get; internal set; }
+        public GameMode Mode { get; set; }
 
         [JsonProperty("status")]
-        public RankStatus Status { get; internal set; }
+        public RankStatus Status { get; set; }
 
         public TimeSpan Length => _length ??= TimeSpan.FromSeconds(_totalLength);
 
@@ -26,22 +26,18 @@ namespace OsuSharp.JsonModels
         private TimeSpan? _length;
 
         [JsonProperty("version")]
-        public string Version { get; internal set; }
+        public string Version { get; set; }
 
         [JsonProperty("beatmapset")]
-        public BeatmapsetCompactJsonModel Beatmapset { get; internal set; }
+        public BeatmapsetCompactJsonModel Beatmapset { get; set; }
 
         [JsonProperty("checksum")]
-        public string Checksum { get; internal set; }
+        public string Checksum { get; set; }
 
         [JsonProperty("failtimes")]
-        public FailTimesJsonModel FailTimesJsonModel { get; internal set; }
+        public FailTimesJsonModel FailTimesJsonModel { get; set; }
 
         [JsonProperty("max_combo")]
-        public int? MaxCombo { get; internal set; }
-
-        internal BeatmapCompactJsonModel()
-        {
-        }
+        public int? MaxCombo { get; set; }
     }
 }

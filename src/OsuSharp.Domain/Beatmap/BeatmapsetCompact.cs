@@ -70,5 +70,10 @@ namespace OsuSharp.Domain
 
         // todo: type
         public object User { get; internal set; }
+        
+        internal BeatmapsetCompact()
+        {
+            
+        }
     }
 }

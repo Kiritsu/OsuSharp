@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -20,8 +21,15 @@ namespace OsuSharp.Test
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var user = await _client.GetUserAsync("Evolia", GameMode.Taiko);
-            _logger.LogInformation("Id of Evolia: {Id}", user.Id);
+            try
+            {
+                var user = await _client.GetUserAsync("Evolia", GameMode.Taiko);
+                _logger.LogInformation("Id of Evolia: {Id}", user.Id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occured");
+            }
         }
     }
 }

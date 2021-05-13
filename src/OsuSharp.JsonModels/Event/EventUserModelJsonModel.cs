@@ -2,10 +2,10 @@
 
 namespace OsuSharp.JsonModels
 {
-    public class EventBeatmapJsonModel
+    public class EventUserModelJsonModel : JsonModel
     {
-        [JsonProperty("title")]
-        public string Title { get; set; }
+        [JsonProperty("username")]
+        public string Username { get; set; }
 
         [JsonProperty("url")]
         public string Url { get; set; }

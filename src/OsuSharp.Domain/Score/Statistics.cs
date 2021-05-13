@@ -13,5 +13,10 @@ namespace OsuSharp.Domain
         public int CountKatu { get; internal set; }
 
         public int CountMiss { get; internal set; }
+
+        internal Statistics()
+        {
+            
+        }
     }
 }

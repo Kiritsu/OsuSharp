@@ -3,16 +3,12 @@ using Newtonsoft.Json;
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class FailTimesJsonModel
+    public class FailTimesJsonModel : JsonModel
     {
         [JsonProperty("exit")]
-        public IReadOnlyList<int> Exit { get; internal set; }
+        public IReadOnlyList<int> Exit { get; set; }
 
         [JsonProperty("fail")]
-        public IReadOnlyList<int> Fail { get; internal set; }
-
-        internal FailTimesJsonModel()
-        {
-        }
+        public IReadOnlyList<int> Fail { get; set; }
     }
 }

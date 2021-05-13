@@ -7,5 +7,10 @@ namespace OsuSharp.Domain
         public IReadOnlyList<int> Exit { get; internal set; }
 
         public IReadOnlyList<int> Fail { get; internal set; }
+        
+        internal FailTimes()
+        {
+            
+        }
     }
 }

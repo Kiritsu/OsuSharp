@@ -2,16 +2,12 @@
 
 namespace OsuSharp.JsonModels
 {
-    public sealed class BeatmapsetUploadEventJsonModel : EventJsonModel
+    public class BeatmapsetUploadEventJsonModel : EventJsonModel
     {
         [JsonProperty("beatmapset")]
-        public EventBeatmapsetJsonModel BeatmapsetJson { get; internal set; }
+        public EventBeatmapsetModelJsonModel BeatmapsetJson { get; set; }
 
         [JsonProperty("user")]
-        public EventUserJsonModel UserJson { get; internal set; }
-
-        internal BeatmapsetUploadEventJsonModel()
-        {
-        }
+        public EventUserModelJsonModel UserJson { get; set; }
     }
 }

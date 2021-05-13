@@ -14,5 +14,10 @@ namespace OsuSharp.Domain
         public long SH { get; internal set; }
 
         public long A { get; internal set; }
+
+        internal UserGradeCounts()
+        {
+            
+        }
     }
 }

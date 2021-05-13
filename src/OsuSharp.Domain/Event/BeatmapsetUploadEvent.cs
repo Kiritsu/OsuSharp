@@ -5,5 +5,10 @@ namespace OsuSharp.Domain
         public EventBeatmapsetModel Beatmapset { get; internal set; }
 
         public EventUserModel User { get; internal set; }
+
+        internal BeatmapsetUploadEvent()
+        {
+            
+        }
     }
 }

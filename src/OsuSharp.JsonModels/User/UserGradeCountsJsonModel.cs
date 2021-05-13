@@ -4,25 +4,21 @@ using Newtonsoft.Json;
 namespace OsuSharp.JsonModels
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public sealed class UserGradeCountsJsonModel
+    public class UserGradeCountsJsonModel : JsonModel
     {
         [JsonProperty("ss")]
-        public long SS { get; internal set; }
+        public long SS { get; set; }
 
         [JsonProperty("ssh")]
-        public long SSH { get; internal set; }
+        public long SSH { get; set; }
 
         [JsonProperty("s")]
-        public long S { get; internal set; }
+        public long S { get; set; }
 
         [JsonProperty("sh")]
-        public long SH { get; internal set; }
+        public long SH { get; set; }
 
         [JsonProperty("a")]
-        public long A { get; internal set; }
-
-        internal UserGradeCountsJsonModel()
-        {
-        }
+        public long A { get; set; }
     }
 }

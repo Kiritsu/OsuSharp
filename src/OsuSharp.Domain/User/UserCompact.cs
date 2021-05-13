@@ -105,5 +105,10 @@ namespace OsuSharp.Domain
         public IReadOnlyCollection<UserAchievement> UserAchievements { get; internal set; }
 
         public UserRankHistory RankHistory { get; internal set; }
+
+        internal UserCompact()
+        {
+            
+        }
     }
 }
