@@ -12,7 +12,7 @@ namespace OsuSharp.JsonModels
         public string ArtistUnicode { get; set; }
 
         [JsonProperty("covers")]
-        public BeatmapCoverJsonModel CoversJsonModel { get; set; }
+        public BeatmapCoverJsonModel Covers { get; set; }
 
         [JsonProperty("creator")]
         public string Creator { get; set; }

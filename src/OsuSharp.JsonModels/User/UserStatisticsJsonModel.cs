@@ -5,7 +5,7 @@ namespace OsuSharp.JsonModels
     public class UserStatisticsJsonModel : JsonModel
     {
         [JsonProperty("level")]
-        public UserLevelJsonModel UserLevelJsonModel { get; set; }
+        public UserLevelJsonModel UserLevel { get; set; }
 
         [JsonProperty("pp")]
         public double Pp { get; set; }
@@ -41,9 +41,9 @@ namespace OsuSharp.JsonModels
         public bool IsRanked { get; set; }
 
         [JsonProperty("grade_counts")]
-        public UserGradeCountsJsonModel UserGradeCountsJsonModel { get; set; }
+        public UserGradeCountsJsonModel UserGradeCounts { get; set; }
 
         [JsonProperty("rank")]
-        public UserRankJsonModel UserRankJsonModel { get; set; }
+        public UserRankJsonModel UserRank { get; set; }
     }
 }

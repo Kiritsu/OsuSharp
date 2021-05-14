@@ -8,7 +8,7 @@ namespace OsuSharp.Net.Serialization
 {
     internal sealed class DefaultJsonSerializer : IJsonSerializer
     {
-        public static readonly DefaultJsonSerializer Instance = new();
+        public static readonly IJsonSerializer Instance = new DefaultJsonSerializer();
 
         private readonly JsonSerializer _serializer;
 

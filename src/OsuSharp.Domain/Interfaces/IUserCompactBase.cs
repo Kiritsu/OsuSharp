@@ -41,7 +41,7 @@ namespace OsuSharp.Interfaces
         bool? IsSilenced { get; }
         long? LovedBeatmapsetCount { get; }
         IReadOnlyCollection<IUserMonthlyPlayCount> MonthlyPlaycounts { get; }
-        IUserPage Page { get; set; }
+        IUserPage Page { get; }
         IReadOnlyCollection<string> PreviousUsernames { get; }
         long? RankedAndApprovedBeatmapsetCount { get; }
         IReadOnlyCollection<IUserMonthlyPlayCount> ReplayWatchedCounts { get; }

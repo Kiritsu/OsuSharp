@@ -1,11 +1,14 @@
+using System;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OsuSharp.Extensions;
+using OsuSharp.Models;
 using Serilog;
 
 namespace OsuSharp.Test
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
@@ -15,18 +18,19 @@ namespace OsuSharp.Test
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             return Host.CreateDefaultBuilder(args)
-                .UseSerilog((_, configuration) => configuration.WriteTo.Console().MinimumLevel.Debug())
-                .ConfigureServices(x =>
+                .ConfigureAppConfiguration(x =>
                 {
-                    x.AddOsuSharp(config =>
-                        config.Configuration = new OsuClientConfiguration
-                        {
-                            ClientSecret = "",
-                            ClientId = 646
-                        });
-
-                    x.AddHostedService<OsuTestService>();
-                });
+                    var path = Environment.GetEnvironmentVariable("OSUSHARP_OPTIONS_PATH") ?? "options.json";
+                    x.AddJsonFile(path);
+                })
+                .UseSerilog((_, configuration) => configuration.WriteTo.Console().MinimumLevel.Debug())
+                .ConfigureOsuSharp((ctx, options) =>
+                {
+                    var clientConfiguration = new OsuClientConfiguration();
+                    ctx.Configuration.GetSection("OsuSharpOptions").Bind(clientConfiguration);
+                    options.Configuration = clientConfiguration;
+                })
+                .ConfigureServices((_, services) => services.AddHostedService<OsuTestService>());
         }
     }
 }

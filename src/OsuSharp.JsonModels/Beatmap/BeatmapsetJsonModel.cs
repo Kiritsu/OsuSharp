@@ -1,13 +1,12 @@
 ﻿using System;
 using Newtonsoft.Json;
-using OsuSharp.Domain;
 
 namespace OsuSharp.JsonModels
 {
     public class BeatmapsetJsonModel : BeatmapsetCompactJsonModel
     {
         [JsonProperty("availability")]
-        public BeatmapAvailabilityJsonModel AvailabilityJsonModel { get; set; }
+        public BeatmapAvailabilityJsonModel Availability { get; set; }
 
         [JsonProperty("bpm")]
         public double Bpm { get; set; }
@@ -22,7 +21,7 @@ namespace OsuSharp.JsonModels
         public bool DiscussionLocked { get; set; }
 
         [JsonProperty("hype")]
-        public BeatmapHypeJsonModel HypeJsonModel { get; set; }
+        public BeatmapHypeJsonModel Hype { get; set; }
 
         [JsonProperty("is_scoreable")]
         public bool IsScoreable { get; set; }
@@ -34,10 +33,10 @@ namespace OsuSharp.JsonModels
         public string LegacyThreadUrl { get; set; }
 
         [JsonProperty("nomination")]
-        public BeatmapNominationJsonModel NominationJsonModel { get; set; }
+        public BeatmapNominationJsonModel Nomination { get; set; }
 
         [JsonProperty("ranked")]
-        public RankStatus Ranked { get; set; }
+        public string Ranked { get; set; }
 
         [JsonProperty("ranked_date")]
         public DateTimeOffset? RankedDate { get; set; }

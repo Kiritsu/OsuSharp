@@ -42,7 +42,7 @@ namespace OsuSharp
         /// Thrown when <see cref="handler"/> is null.
         /// </exception>
         public OsuClient(
-            [NotNull] OsuClientConfiguration configuration,
+            [NotNull] IOsuClientConfiguration configuration,
             [NotNull] IRequestHandler handler)
         {
             Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));

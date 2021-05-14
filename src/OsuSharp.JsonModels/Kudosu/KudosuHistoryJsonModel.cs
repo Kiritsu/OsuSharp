@@ -1,6 +1,5 @@
 ﻿using System;
 using Newtonsoft.Json;
-using OsuSharp.Domain;
 
 namespace OsuSharp.JsonModels
 {
@@ -10,7 +9,7 @@ namespace OsuSharp.JsonModels
         public long Id { get; set; }
 
         [JsonProperty("action")]
-        public KudosuAction Action { get; set; }
+        public string Action { get; set; }
 
         [JsonProperty("amount")]
         public long Amount { get; set; }
@@ -23,9 +22,9 @@ namespace OsuSharp.JsonModels
         public DateTimeOffset CreatedAt { get; set; }
 
         [JsonProperty("giver")]
-        public KudosuGiverJsonModel GiverJsonModel { get; set; }
+        public KudosuGiverJsonModel Giver { get; set; }
 
         [JsonProperty("post")]
-        public KudosuPostJsonModel PostJsonModel { get; set; }
+        public KudosuPostJsonModel Post { get; set; }
     }
 }

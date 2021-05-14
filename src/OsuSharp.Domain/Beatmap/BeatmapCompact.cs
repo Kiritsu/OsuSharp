@@ -14,9 +14,8 @@ namespace OsuSharp.Domain
         public RankStatus Status { get; internal set; }
 
         public TimeSpan Length => _length ??= TimeSpan.FromSeconds(_totalLength);
-
-        private long _totalLength;
         private TimeSpan? _length;
+        private long _totalLength;
 
         public string Version { get; internal set; }
 

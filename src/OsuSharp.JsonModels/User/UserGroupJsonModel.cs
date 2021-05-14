@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using OsuSharp.Domain;
 
 namespace OsuSharp.JsonModels
 {
@@ -28,6 +27,6 @@ namespace OsuSharp.JsonModels
         public string Colour { get; set; }
 
         [JsonProperty("play_modes")]
-        public IReadOnlyCollection<GameMode> PlayModes { get; set; }
+        public IReadOnlyCollection<string> PlayModes { get; set; }
     }
 }

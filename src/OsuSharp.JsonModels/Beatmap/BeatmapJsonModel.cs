@@ -1,6 +1,5 @@
 ﻿using System;
 using Newtonsoft.Json;
-using OsuSharp.Domain;
 
 namespace OsuSharp.JsonModels
 {
@@ -55,7 +54,7 @@ namespace OsuSharp.JsonModels
         public int PlayCount { get; set; }
 
         [JsonProperty("ranked")]
-        public RankStatus Ranked { get; set; }
+        public string Ranked { get; set; }
 
         [JsonProperty("url")]
         public string Url { get; set; }

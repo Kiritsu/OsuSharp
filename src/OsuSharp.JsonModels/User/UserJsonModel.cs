@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using OsuSharp.Domain;
 
 namespace OsuSharp.JsonModels
 {
@@ -23,7 +22,7 @@ namespace OsuSharp.JsonModels
         public DateTimeOffset JoinDate { get; set; }
 
         [JsonProperty("kudosu")]
-        public UserKudosuJsonModel KudosuJsonModel { get; set; }
+        public UserKudosuJsonModel Kudosu { get; set; }
 
         [JsonProperty("location", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Location { get; set; }
@@ -38,7 +37,7 @@ namespace OsuSharp.JsonModels
         public string Occupation { get; set; }
 
         [JsonProperty("playmode")]
-        public GameMode GameMode { get; set; }
+        public string GameMode { get; set; }
 
         [JsonProperty("playstyle")]
         public IReadOnlyCollection<string> Playstyle { get; set; }

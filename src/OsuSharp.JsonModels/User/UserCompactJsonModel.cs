@@ -59,10 +59,10 @@ namespace OsuSharp.JsonModels
         public object Blocks { get; set; }
 
         [JsonProperty("country")]
-        public UserCountryJsonModel CountryJsonModel { get; set; }
+        public UserCountryJsonModel Country { get; set; }
 
         [JsonProperty("cover")]
-        public UserCoverJsonModel CoverJsonModel { get; set; }
+        public UserCoverJsonModel Cover { get; set; }
 
         // todo: type
         [JsonProperty("current_mode_rank")]
@@ -118,7 +118,7 @@ namespace OsuSharp.JsonModels
         public IReadOnlyCollection<UserMonthlyPlayCountJsonModel> MonthlyPlaycounts { get; set; }
 
         [JsonProperty("page")]
-        public UserPageJsonModel PageJsonModel { get; set; }
+        public UserPageJsonModel Page { get; set; }
 
         [JsonProperty("previous_usernames")]
         public IReadOnlyCollection<string> PreviousUsernames { get; set; }
@@ -139,7 +139,7 @@ namespace OsuSharp.JsonModels
         public long? ScoresRecentCount { get; set; }
 
         [JsonProperty("statistics")]
-        public UserStatisticsJsonModel StatisticsJsonModel { get; set; }
+        public UserStatisticsJsonModel Statistics { get; set; }
 
         [JsonProperty("support_level")]
         public long? SupportLevel { get; set; }
@@ -154,6 +154,6 @@ namespace OsuSharp.JsonModels
         public IReadOnlyCollection<UserAchievementJsonModel> UserAchievements { get; set; }
 
         [JsonProperty("rank_history")]
-        public UserRankHistoryJsonModel RankHistoryJsonModel { get; set; }
+        public UserRankHistoryJsonModel RankHistory { get; set; }
     }
 }

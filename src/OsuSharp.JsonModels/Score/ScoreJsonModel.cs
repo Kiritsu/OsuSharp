@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using OsuSharp.Domain;
 
 namespace OsuSharp.JsonModels
 {
@@ -32,7 +31,7 @@ namespace OsuSharp.JsonModels
         public bool Perfect { get; set; }
 
         [JsonProperty("statistics")]
-        public StatisticsJsonModel StatisticsJsonModel { get; set; }
+        public StatisticsJsonModel Statistics { get; set; }
 
         [JsonProperty("pp")]
         public double? PerformancePoints { get; set; }
@@ -44,16 +43,16 @@ namespace OsuSharp.JsonModels
         public DateTimeOffset CreatedAt { get; set; }
 
         [JsonProperty("mode")]
-        public GameMode Mode { get; set; }
+        public string Mode { get; set; }
 
         [JsonProperty("replay")]
         public bool? HasReplay { get; set; }
 
         [JsonProperty("beatmap")]
-        public BeatmapJsonModel BeatmapJsonModel { get; set; }
+        public BeatmapJsonModel Beatmap { get; set; }
 
         [JsonProperty("beatmapset")]
-        public BeatmapsetJsonModel BeatmapsetJsonModel { get; set; }
+        public BeatmapsetJsonModel Beatmapset { get; set; }
 
         [JsonProperty("rank_country")]
         public long? CountryRank { get; set; }
@@ -62,10 +61,10 @@ namespace OsuSharp.JsonModels
         public long? GlobalRank { get; set; }
 
         [JsonProperty("weight")]
-        public WeightJsonModel WeightJsonModel { get; set; }
+        public WeightJsonModel Weight { get; set; }
 
         [JsonProperty("user")]
-        public UserJsonModel UserJsonModel { get; set; }
+        public UserJsonModel User { get; set; }
 
         // todo: object
         [JsonProperty("match")]
