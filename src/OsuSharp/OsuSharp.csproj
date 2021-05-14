@@ -1,31 +1,28 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <ProjectUrl>https://github.com/Kiritsu/OsuSharp</ProjectUrl>
-    <PackageProjectUrl>https://github.com/Kiritsu/OsuSharp</PackageProjectUrl>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <LangVersion>8.0</LangVersion>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>5.4.3</Version>
-    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
-    <Description>Unofficial wrapper for the osu! API (V1) written in C# and compatible with .NET Standard 2.0</Description>
-    <Copyright>Allan Mercou</Copyright>
-    <Authors>Allan Mercou</Authors>
-    <Company>Allan Mercou</Company>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageVersion>5.4.3</PackageVersion>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <LangVersion>preview</LangVersion>
+        <Nullable>disable</Nullable>
+        <Title>OsuSharp</Title>
+        <Authors>Allan Mercou</Authors>
+        <Description>An osu! api v2 library for .NET 5</Description>
+        <PackageProjectUrl>https://github.com/Kiritsu/OsuSharp</PackageProjectUrl>
+        <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/Kiritsu/OsuSharp</RepositoryUrl>
+        <PackageTags>OsuSharp osu! osu</PackageTags>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="SevenZip" Version="19.0.0" />
-  </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Mapster" Version="7.2.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.9" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.9" />
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    </ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\..\LICENSE.md">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\OsuSharp.Domain\OsuSharp.Domain.csproj" />
+      <ProjectReference Include="..\OsuSharp.JsonModels\OsuSharp.JsonModels.csproj" />
+    </ItemGroup>
 
 </Project>

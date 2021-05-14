@@ -1,16 +1,12 @@
 # OsuSharp
 
 [![NuGet version](https://badge.fury.io/nu/OsuSharp.svg)](https://badge.fury.io/nu/OsuSharp)
-[![Build Status](https://dev.azure.com/allanmercou/OsuSharp/_apis/build/status/Kiritsu.OsuSharp?branchName=master)](https://dev.azure.com/allanmercou/OsuSharp/_build/latest?definitionId=6&branchName=master)
+[![SlimGet](https://img.shields.io/badge/dynamic/json.svg?color=blue&label=slimget&query=%24.items%5B-1%3A%5D.upper&url=https%3A%2F%2Fnuget.emzi0767.com%2Fapi%2Fv3%2Fregistration%2FSemVer2%2Fosusharp%2Findex.json)](https://nuget.emzi0767.com/gallery/search?q=OsuSharp&pre=true)
+[![Build Status](https://dev.azure.com/allanmercou/OsuSharp/_apis/build/status/Kiritsu.OsuSharp?branchName=feature%2Fapi-v2)](https://dev.azure.com/allanmercou/OsuSharp/_build/latest?definitionId=11&branchName=feature%2Fapi-v2)
 
 **OsuSharp is a wrapper written in C# for the osu! API.**
 
-- Compatible with .NET Standard (2.0)
-- Supports asynchronous API requests (through the TAP model)
-
-## Requirements:
-
-- Newtonsoft.Json (>= 10.0.3)
+- Compatible with .NET Core 5
 
 ## Installation
 
@@ -26,15 +22,13 @@ Or compile from source:
 git clone https://github.com/Kiritsu/OsuSharp.git
 ```
 
-## OsuSharp.Oppai
-
-For this assembly, you will need oppai.dll which you can found here: https://github.com/Francesco149/oppai-ng/releases
-
-You must put oppai.dll in the same folder as your main executable/dll.
-
 ## Contributing
 
 If you want to contribute, feel free to use Issues or Pull Requests!
+
+### Todo: 
+- Add missing entities and endpoints
+- Have fun
 
 ## Contact
 
@@ -51,3 +45,7 @@ Thanks to the following contributors:
 - [Quahu](https://github.com/Quahu)
 - [Kieran](https://github.com/k-boyle)
 - [Francesco149](https://github.com/Francesco149) for Oppai.
+
+Thanks to JetBrains for giving an open source license for their products!
+
+<a href="https://www.jetbrains.com/?from=jensyl"><img src="imgs/jetbrains.svg" alt="JetBrains IDEs" width="150px"></img></a>

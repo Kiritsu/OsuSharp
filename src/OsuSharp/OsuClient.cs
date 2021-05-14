@@ -1,1113 +1,537 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using OsuSharp.Domain;
+using OsuSharp.Extensions;
+using OsuSharp.Interfaces;
+using OsuSharp.JsonModels;
+using OsuSharp.Models;
+using OsuSharp.Net;
 
 namespace OsuSharp
 {
-    public sealed class OsuClient
+    /// <summary>
+    /// Represents an implementation of an OsuClient for communicating with the osu! api v2.
+    /// </summary>
+    public sealed class OsuClient : IOsuClient
     {
-        #region Endpoints
-        private const string Root = "https://osu.ppy.sh/api";
-        private const string Beatmaps = "/get_beatmaps";
-        private const string Scores = "/get_scores";
-        private const string User = "/get_user";
-        private const string UserBest = "/get_user_best";
-        private const string UserRecent = "/get_user_recent";
-        private const string Match = "/get_match";
-        private const string Replay = "/get_replay";
-        #endregion
-
-        internal OsuSharpConfiguration OsuSharpConfiguration { get; }
-
-        private RateLimiter RateLimiter { get; }
-
-        private RateLimiter ReplayRateLimiter { get; }
+        private readonly IRequestHandler _handler;
+        private bool _disposed;
+        private OsuToken _credentials;
 
         /// <summary>
-        ///     Represents the logger used to send log messages to the client.
+        /// Gets the configuration of the client.
         /// </summary>
-        public OsuSharpLogger Logger { get; }
+        public IOsuClientConfiguration Configuration { get; }
 
-        #region Constructors
         /// <summary>
-        ///     Initializes a new instance of <see cref="OsuClient"/> with the given configuration and the default configuration for the rate limiter.
+        /// Initializes a new OsuClient with the given configuration.
         /// </summary>
-        /// <param name="osuSharpConfiguration">Configuration to use for this instance.</param>
-        public OsuClient(OsuSharpConfiguration osuSharpConfiguration) : this(osuSharpConfiguration, new RateLimiterConfiguration())
+        /// <param name="configuration">
+        /// Configuration of the client.
+        /// </param>
+        /// <param name="handler">
+        /// Request handler of the client.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when <see cref="configuration" /> is null.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when <see cref="handler"/> is null.
+        /// </exception>
+        public OsuClient(
+            [NotNull] OsuClientConfiguration configuration,
+            [NotNull] IRequestHandler handler)
         {
-
+            Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _handler = handler ?? throw new ArgumentNullException(nameof(handler));
         }
 
-        /// <summary>
-        ///     Initializes a new instance of <see cref="OsuClient"/> with the given configuration and the one for the rate limiter.
-        /// </summary>
-        /// <param name="osuSharpConfiguration">Configuration to use for this instance.</param>
-        /// <param name="rateLimiterConfiguration">Rate limiting configuration.</param>
-        public OsuClient(OsuSharpConfiguration osuSharpConfiguration, RateLimiterConfiguration rateLimiterConfiguration)
+        /// <inheritdoc cref="IDisposable.Dispose" />
+        public void Dispose()
         {
-            OsuSharpConfiguration = osuSharpConfiguration;
-            RateLimiter = new RateLimiter(rateLimiterConfiguration);
-            ReplayRateLimiter = new RateLimiter(new RateLimiterConfiguration
-            {
-                MaxRequest = 10,
-                ThrowOnRatelimitHit = rateLimiterConfiguration.ThrowOnRatelimitHit
-            });
-
-            if (string.IsNullOrWhiteSpace(OsuSharpConfiguration.ApiKey))
-            {
-                throw new OsuSharpException("The given api key is not valid.", HttpStatusCode.Unauthorized);
-            }
-
-            if (OsuSharpConfiguration.HttpClient is null)
-            {
-                OsuSharpConfiguration.HttpClient = new HttpClient();
-            }
-
-            Logger = new OsuSharpLogger();
-        }
-        #endregion
-
-        #region Beatmap
-
-        /// <summary>
-        ///     Gets lasts published beatmaps.
-        /// </summary>
-        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns><see cref="IReadOnlyList{Beatmap}"/></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsAsync(int limit = 500, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["limit"] = limit
-            };
-
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            foreach (var beatmap in request)
-            {
-                beatmap.Client = this;
-            }
-            return request;
+            ThrowIfDisposed();
+            _disposed = true;
+            _handler.Dispose();
         }
 
         /// <summary>
-        ///     Gets lasts published beatmaps since a specific <see cref="DateTimeOffset"/>.
+        /// Gets or requests an API access token. This method will use Client Credential Grant unless
+        /// A refresh token is present on the current <see cref="OsuToken" /> instance.
         /// </summary>
-        /// <param name="since">Start <see cref="DateTimeOffset"> reference.</param>
-        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsAsync(DateTimeOffset since, int limit = 500, CancellationToken token = default)
+        /// <returns>
+        /// Returns an <see cref="OsuToken" />.
+        /// </returns>
+        public async ValueTask<IOsuToken> GetOrUpdateAccessTokenAsync()
         {
-            var dict = new Dictionary<string, object>
+            ThrowIfDisposed();
+
+            if (_credentials is {HasExpired: false})
             {
-                ["limit"] = limit,
-                ["since"] = since.ToString("yyyy-MM-dd HH:mm:ss")
+                return _credentials;
+            }
+
+            var parameters = new Dictionary<string, string>
+            {
+                ["client_id"] = Configuration.ClientId.ToString(),
+                ["client_secret"] = Configuration.ClientSecret
             };
 
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            foreach (var beatmap in request)
+            if (_credentials == null || string.IsNullOrWhiteSpace(_credentials.RefreshToken))
             {
-                beatmap.Client = this;
+                parameters["grant_type"] = "client_credentials";
+                parameters["scope"] = "public";
             }
-            return request;
+            else
+            {
+                parameters["grant_type"] = "refresh_token";
+                parameters["refresh_token"] = _credentials.RefreshToken;
+            }
+
+            Uri.TryCreate($"{Endpoints.TokenEndpoint}", UriKind.Relative, out var uri);
+            var response = await _handler.SendAsync<AccessTokenResponse, AccessTokenResponseJsonModel>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.TokenEndpoint,
+                Method = HttpMethod.Post,
+                Route = uri,
+                Parameters = parameters,
+                Token = _credentials
+            }).ConfigureAwait(false);
+
+            return _credentials = new OsuToken
+            {
+                Type = Enum.Parse<TokenType>(response.TokenType),
+                AccessToken = response.AccessToken,
+                ExpiresInSeconds = response.ExpiresIn,
+                RefreshToken = response.RefreshToken
+            };
         }
 
         /// <summary>
-        ///     Gets lasts published beatmaps on a specific <see cref="GameMode"/>.
+        /// Updates the current osu! api credentials by the given access, refresh tokens and the expiry time.
         /// </summary>
-        /// <param name="gameMode">Game mode of the beatmaps.</param>
-        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
-        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns><see cref="IReadOnlyList{Beatmap}"/></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsAsync(GameMode gameMode, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        /// <param name="accessToken">
+        /// Access token.
+        /// </param>
+        /// <param name="refreshToken">
+        /// Refresh token.
+        /// </param>
+        /// <param name="expiresIn">
+        /// Amount of seconds before the token expires.
+        /// </param>
+        /// <returns>
+        /// Returns an <see cref="OsuToken" />.
+        /// </returns>
+        /// <remarks>
+        /// If you are going to use the authorization code grant, use this method to create your <see cref="OsuToken" />.
+        /// </remarks>
+        public IOsuToken UpdateAccessToken(
+            [NotNull] string accessToken,
+            [NotNull] string refreshToken,
+            long expiresIn)
         {
-            var dict = new Dictionary<string, object>
-            {
-                ["limit"] = limit,
-                ["a"] = includeConvertedBeatmaps ? 1 : 0,
-                ["m"] = (int)gameMode
-            };
+            ThrowIfDisposed();
 
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            foreach (var beatmap in request)
+            return _credentials = new OsuToken
             {
-                beatmap.Client = this;
-            }
-            return request;
+                Type = TokenType.Bearer,
+                AccessToken = accessToken,
+                RefreshToken = refreshToken,
+                ExpiresInSeconds = expiresIn
+            };
         }
 
         /// <summary>
-        ///     Gets lasts published beatmaps since a specific <see cref="DateTimeOffset"/> on a specific <see cref="GameMode"/>.
+        /// Revokes the current access token.
         /// </summary>
-        /// <param name="since">Start <see cref="DateTimeOffset"> reference.</param>
-        /// <param name="gameMode">Game mode of the beatmaps.</param>
-        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
-        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsAsync(DateTimeOffset since, GameMode gameMode, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        public async Task RevokeAccessTokenAsync()
         {
-            var dict = new Dictionary<string, object>
-            {
-                ["limit"] = limit,
-                ["since"] = since.ToString("yyyy-MM-dd HH:mm:ss"),
-                ["a"] = includeConvertedBeatmaps ? 1 : 0,
-                ["m"] = (int)gameMode
-            };
+            ThrowIfDisposed();
 
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            foreach (var beatmap in request)
+            Uri.TryCreate(
+                $"{Endpoints.CurrentTokensEndpoint}",
+                UriKind.Relative, out var uri);
+
+            await _handler.SendAsync(new OsuApiRequest
             {
-                beatmap.Client = this;
+                Endpoint = Endpoints.CurrentTokensEndpoint,
+                Method = HttpMethod.Delete,
+                Route = uri,
+                Token = _credentials
+            }).ConfigureAwait(false);
+
+            if (_credentials is not null)
+            {
+                _credentials.Revoked = true;
             }
-            return request;
         }
 
         /// <summary>
-        ///     Gets lasts beatmaps published by the given author id since a specific <see cref="DateTimeOffset"/>.
+        /// Gets a user's kudosu history from the API.
         /// </summary>
-        /// <param name="authorId">Id of the author.</param>
-        /// <param name="since">Start <see cref="DateTimeOffset"> reference.</param>
-        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
-        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorIdAsync(long authorId, DateTimeOffset since, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        /// <param name="username">
+        /// Username of the user.
+        /// </param>
+        /// <param name="limit">
+        /// Limit number of results.
+        /// </param>
+        /// <param name="offset">
+        /// Offset of result for pagination.
+        /// </param>
+        /// <returns>
+        /// Returns a set of KudosuHistory
+        /// </returns>
+        public async Task<IReadOnlyList<IKudosuHistory>> GetUserKudosuAsync(
+            [NotNull] string username,
+            int? limit = null,
+            int? offset = null)
         {
-            var dict = new Dictionary<string, object>
-            {
-                ["limit"] = limit,
-                ["since"] = since.ToString("yyyy-MM-dd HH:mm:ss"),
-                ["a"] = includeConvertedBeatmaps ? 1 : 0,
-                ["type"] = "id",
-                ["u"] = authorId
-            };
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync();
 
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            foreach (var beatmap in request)
+            Uri.TryCreate(
+                string.Format(Endpoints.UserKudosuEndpoint, username),
+                UriKind.Relative, out var uri);
+
+            Dictionary<string, string> parameters = new();
+            if (limit.HasValue)
             {
-                beatmap.Client = this;
+                parameters["limit"] = limit.Value.ToString();
             }
-            return request;
+
+            if (offset.HasValue)
+            {
+                parameters["offset"] = offset.Value.ToString();
+            }
+
+            return await _handler.SendAsync<List<KudosuHistory>, List<KudosuHistoryJsonModel>>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.UserEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri,
+                Parameters = parameters,
+                Token = _credentials
+            }).ConfigureAwait(false);
         }
 
         /// <summary>
-        ///     Gets lasts beatmaps published by the given author id since a specific <see cref="DateTimeOffset"/> on a specific <see cref="GameMode"/>.
+        /// Gets a user's kudosu history from the API.
         /// </summary>
-        /// <param name="authorId">Id of the author.</param>
-        /// <param name="since">Start <see cref="DateTimeOffset"> reference.</param>
-        /// <param name="gameMode">Game mode of the beatmaps.</param>
-        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
-        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorIdAsync(long authorId, DateTimeOffset since, GameMode gameMode, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        /// <param name="userId">
+        /// Id of the user.
+        /// </param>
+        /// <param name="limit">
+        /// Limit number of results.
+        /// </param>
+        /// <param name="offset">
+        /// Offset of result for pagination.
+        /// </param>
+        /// <returns>
+        /// Returns a set of KudosuHistory
+        /// </returns>
+        public async Task<IReadOnlyList<IKudosuHistory>> GetUserKudosuAsync(
+            long userId,
+            int? limit = null,
+            int? offset = null)
         {
-            var dict = new Dictionary<string, object>
-            {
-                ["limit"] = limit,
-                ["since"] = since.ToString("yyyy-MM-dd HH:mm:ss"),
-                ["a"] = includeConvertedBeatmaps ? 1 : 0,
-                ["type"] = "id",
-                ["u"] = authorId,
-                ["m"] = (int)gameMode
-            };
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync();
 
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            foreach (var beatmap in request)
+            Uri.TryCreate(
+                string.Format(Endpoints.UserKudosuEndpoint, userId),
+                UriKind.Relative, out var uri);
+
+            Dictionary<string, string> parameters = new();
+            if (limit.HasValue)
             {
-                beatmap.Client = this;
+                parameters["limit"] = limit.Value.ToString();
             }
-            return request;
+
+            if (offset.HasValue)
+            {
+                parameters["offset"] = offset.Value.ToString();
+            }
+
+            return await _handler.SendAsync<List<KudosuHistory>, List<KudosuHistory>>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.UserEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri,
+                Parameters = parameters,
+                Token = _credentials
+            }).ConfigureAwait(false);
         }
 
         /// <summary>
-        ///     Gets lasts beatmaps published by the given author id.
+        /// Gets a user from the API.
         /// </summary>
-        /// <param name="authorId">Id of the author.</param>
-        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
-        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorIdAsync(long authorId, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        /// <param name="username">
+        /// Username of the user.
+        /// </param>
+        /// <param name="gameMode">
+        /// Gamemode of the user. Defaults gamemode is picked when null.
+        /// </param>
+        /// <returns>
+        /// Returns a <see cref="User" />.
+        /// </returns>
+        public async Task<IUser> GetUserAsync(
+            [NotNull] string username,
+            GameMode? gameMode = null)
         {
-            var dict = new Dictionary<string, object>
-            {
-                ["limit"] = limit,
-                ["a"] = includeConvertedBeatmaps ? 1 : 0,
-                ["type"] = "id",
-                ["u"] = authorId
-            };
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync();
 
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            foreach (var beatmap in request)
+            Uri.TryCreate(
+                $"{Endpoints.UserEndpoint}/{username}/{gameMode.ToApiString()}",
+                UriKind.Relative, out var uri);
+
+            return await _handler.SendAsync<User, UserJsonModel>(new OsuApiRequest
             {
-                beatmap.Client = this;
-            }
-            return request;
+                Endpoint = Endpoints.UserEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri,
+                Token = _credentials
+            }).ConfigureAwait(false);
         }
 
         /// <summary>
-        ///     Gets lasts beatmaps published by the given author id on a specific <see cref="GameMode"/>.
+        /// Gets a user from the API.
         /// </summary>
-        /// <param name="authorId">Id of the author.</param>
-        /// <param name="gameMode">Game mode of the beatmaps.</param>
-        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
-        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorIdAsync(long authorId, GameMode gameMode, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        /// <param name="userId">
+        /// Id of the user.
+        /// </param>
+        /// <param name="gameMode">
+        /// Gamemode of the user. Defaults gamemode is picked when null.
+        /// </param>
+        /// <returns>
+        /// Returns a <see cref="User" />.
+        /// </returns>
+        public async Task<IUser> GetUserAsync(
+            long userId,
+            GameMode? gameMode = null)
         {
-            var dict = new Dictionary<string, object>
-            {
-                ["limit"] = limit,
-                ["a"] = includeConvertedBeatmaps ? 1 : 0,
-                ["type"] = "id",
-                ["u"] = authorId,
-                ["m"] = (int)gameMode
-            };
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync();
 
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            foreach (var beatmap in request)
+            Uri.TryCreate(
+                $"{Endpoints.UserEndpoint}/{userId}/{gameMode.ToApiString()}",
+                UriKind.Relative, out var uri);
+
+            return await _handler.SendAsync<User, UserJsonModel>(new OsuApiRequest
             {
-                beatmap.Client = this;
-            }
-            return request;
+                Endpoint = Endpoints.UserEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri,
+                Token = _credentials
+            }).ConfigureAwait(false);
         }
 
         /// <summary>
-        ///     Gets lasts beatmaps published by the given author username since a specific <see cref="DateTimeOffset"/>.
+        /// Gets a user's recent activity history from the API.
         /// </summary>
-        /// <param name="username">Username of the author.</param>
-        /// <param name="since">Start <see cref="DateTimeOffset"> reference.</param>
-        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
-        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorUsernameAsync(string username, DateTimeOffset since, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        /// <param name="userId">
+        /// Id of the user.
+        /// </param>
+        /// <param name="limit">
+        /// Limit number of results.
+        /// </param>
+        /// <param name="offset">
+        /// Offset of result for pagination.
+        /// </param>
+        /// <returns>
+        /// Returns a set of <see cref="Event" />s.
+        /// </returns>
+        public async Task<IReadOnlyList<IEvent>> GetUserRecentAsync(
+            long userId,
+            int? limit = null,
+            int? offset = null)
         {
-            var dict = new Dictionary<string, object>
-            {
-                ["limit"] = limit,
-                ["since"] = since.ToString("yyyy-MM-dd HH:mm:ss"),
-                ["a"] = includeConvertedBeatmaps ? 1 : 0,
-                ["type"] = "string",
-                ["u"] = username
-            };
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync();
 
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            foreach (var beatmap in request)
+            Uri.TryCreate(
+                string.Format(Endpoints.UserRecentEndpoint, userId),
+                UriKind.Relative, out var uri);
+
+            Dictionary<string, string> parameters = new();
+            if (limit.HasValue)
             {
-                beatmap.Client = this;
+                parameters["limit"] = limit.Value.ToString();
             }
-            return request;
+
+            if (offset.HasValue)
+            {
+                parameters["offset"] = offset.Value.ToString();
+            }
+
+            return await _handler.SendAsync<List<Event>, List<EventJsonModel>>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.UserEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri,
+                Parameters = parameters,
+                Token = _credentials
+            }).ConfigureAwait(false);
         }
 
         /// <summary>
-        ///     Gets lasts beatmaps published by the given author username since a specific <see cref="DateTimeOffset"/> on a specific <see cref="GameMode"/>.
+        /// Gets a user's beatmapsets from the API.
         /// </summary>
-        /// <param name="username">Username of the author.</param>
-        /// <param name="since">Start <see cref="DateTimeOffset"> reference.</param>
-        /// <param name="gameMode">Game mode of the beatmaps.</param>
-        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
-        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorUsernameAsync(string username, DateTimeOffset since, GameMode gameMode, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        /// <param name="userId">
+        /// Id of the user.
+        /// </param>
+        /// <param name="type">
+        /// Type of the beatmapsets to look-up.
+        /// </param>
+        /// <param name="limit">
+        /// Limit number of results.
+        /// </param>
+        /// <param name="offset">
+        /// Offset of result for pagination.
+        /// </param>
+        /// <returns>
+        /// Returns a set of <see cref="Beatmapset" />s.
+        /// </returns>
+        public async Task<IReadOnlyList<IBeatmapset>> GetUserBeatmapsetsAsync(
+            long userId,
+            BeatmapsetType type,
+            int? limit = null,
+            int? offset = null)
         {
-            var dict = new Dictionary<string, object>
-            {
-                ["limit"] = limit,
-                ["since"] = since.ToString("yyyy-MM-dd HH:mm:ss"),
-                ["a"] = includeConvertedBeatmaps ? 1 : 0,
-                ["type"] = "string",
-                ["u"] = username,
-                ["m"] = (int)gameMode
-            };
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync();
 
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            foreach (var beatmap in request)
+            Uri.TryCreate(
+                string.Format(Endpoints.UserBeatmapsetsEndpoint, userId, type.ToApiString()),
+                UriKind.Relative, out var uri);
+
+            Dictionary<string, string> parameters = new();
+            if (limit.HasValue)
             {
-                beatmap.Client = this;
+                parameters["limit"] = limit.Value.ToString();
             }
-            return request;
+
+            if (offset.HasValue)
+            {
+                parameters["offset"] = offset.Value.ToString();
+            }
+
+            return await _handler.SendAsync<List<Beatmapset>, List<BeatmapsetJsonModel>>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.UserEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri,
+                Parameters = parameters,
+                Token = _credentials
+            }).ConfigureAwait(false);
         }
 
         /// <summary>
-        ///     Gets lasts beatmaps published by the given author username.
+        /// Gets a user's scores from the API.
         /// </summary>
-        /// <param name="username">Username of the author.</param>
-        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
-        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorUsernameAsync(string username, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        /// <param name="userId">
+        /// Id of the user.
+        /// </param>
+        /// <param name="type">
+        /// Type of the scores to look-up.
+        /// </param>
+        /// <param name="includeFails">
+        /// Whether to include failed scores.
+        /// </param>
+        /// <param name="gameMode">
+        /// Game mode to lookup scores for.
+        /// </param>
+        /// <param name="limit">
+        /// Limit number of results.
+        /// </param>
+        /// <param name="offset">
+        /// Offset of result for pagination.
+        /// </param>
+        /// <returns>
+        /// Returns a set of <see cref="Score" />s.
+        /// </returns>
+        public async Task<IReadOnlyList<IScore>> GetUserScoresAsync(
+            long userId,
+            ScoreType type,
+            bool includeFails = false,
+            GameMode? gameMode = null,
+            int? limit = null,
+            int? offset = null)
         {
-            var dict = new Dictionary<string, object>
-            {
-                ["limit"] = limit,
-                ["a"] = includeConvertedBeatmaps ? 1 : 0,
-                ["type"] = "string",
-                ["u"] = username
-            };
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync();
 
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            foreach (var beatmap in request)
+            Uri.TryCreate(
+                string.Format(Endpoints.UserScoresEndpoint, userId, type.ToApiString()),
+                UriKind.Relative, out var uri);
+
+            Dictionary<string, string> parameters = new();
+            if (includeFails)
             {
-                beatmap.Client = this;
+                parameters["include_fails"] = "1";
             }
-            return request;
+
+            if (gameMode.HasValue)
+            {
+                parameters["mode"] = gameMode.Value.ToApiString();
+            }
+
+            if (limit.HasValue)
+            {
+                parameters["limit"] = limit.Value.ToString();
+            }
+
+            if (offset.HasValue)
+            {
+                parameters["offset"] = offset.Value.ToString();
+            }
+
+            return await _handler.SendAsync<List<Score>, List<ScoreJsonModel>>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.UserEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri,
+                Parameters = parameters,
+                Token = _credentials
+            }).ConfigureAwait(false);
         }
 
         /// <summary>
-        ///     Gets lasts beatmaps published by the given author username on a specific <see cref="GameMode"/>.
+        /// Gets the current authenticated user from the API.
         /// </summary>
-        /// <param name="username">Username of the author.</param>
-        /// <param name="gameMode">Game mode of the beatmaps.</param>
-        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
-        /// <param name="limit">Limit amount of beatmaps. Default and maximum to 500.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsByAuthorUsernameAsync(string username, GameMode gameMode, bool includeConvertedBeatmaps = true, int limit = 500, CancellationToken token = default)
+        /// <param name="gameMode">
+        /// Gamemode of the user. Defaults gamemode is picked when null.
+        /// </param>
+        /// <returns>
+        /// Returns a <see cref="User" />.
+        /// </returns>
+        public async Task<IUser> GetCurrentUserAsync(
+            GameMode? gameMode = null)
         {
-            var dict = new Dictionary<string, object>
-            {
-                ["limit"] = limit,
-                ["a"] = includeConvertedBeatmaps ? 1 : 0,
-                ["type"] = "string",
-                ["u"] = username,
-                ["m"] = (int)gameMode
-            };
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync();
 
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            foreach (var beatmap in request)
+            Uri.TryCreate(
+                $"{Endpoints.CurrentEndpoint}/{gameMode.ToApiString()}",
+                UriKind.Relative, out var uri);
+
+            return await _handler.SendAsync<User, UserJsonModel>(new OsuApiRequest
             {
-                beatmap.Client = this;
-            }
-            return request;
+                Endpoint = Endpoints.CurrentEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri,
+                Token = _credentials
+            }).ConfigureAwait(false);
         }
 
-        /// <summary>
-        ///     Gets a set of beatmaps depending on the beatmapset id.
-        /// </summary>
-        /// <param name="beatmapsetId">Id of the beatmapset.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsetAsync(long beatmapsetId, CancellationToken token = default)
+        private void ThrowIfDisposed()
         {
-            var dict = new Dictionary<string, object>
+            if (_disposed)
             {
-                ["s"] = beatmapsetId
-            };
-
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            foreach (var beatmap in request)
-            {
-                beatmap.Client = this;
+                throw new ObjectDisposedException(nameof(OsuClient), "The client is disposed.");
             }
-            return request;
-        }
-
-        /// <summary>
-        ///     Gets a set of beatmaps depending on the beatmapset id.
-        /// </summary>
-        /// <param name="beatmapsetId">Id of the beatmapset.</param>
-        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsetAsync(long beatmapsetId, bool includeConvertedBeatmaps, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["s"] = beatmapsetId,
-                ["a"] = includeConvertedBeatmaps ? 1 : 0
-            };
-
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            foreach (var beatmap in request)
-            {
-                beatmap.Client = this;
-            }
-            return request;
-        }
-
-        /// <summary>
-        ///      Gets a set of beatmaps on a specific <see cref="GameMode"/> depending on the beatmapset id.
-        /// </summary>
-        /// <param name="beatmapsetId">Id of the beatmapset.</param>
-        /// <param name="gameMode">Game mode of the beatmaps.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsetAsync(long beatmapsetId, GameMode gameMode, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["m"] = (int)gameMode,
-                ["s"] = beatmapsetId
-            };
-
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            foreach (var beatmap in request)
-            {
-                beatmap.Client = this;
-            }
-            return request;
-        }
-
-        /// <summary>
-        ///      Gets a set of beatmaps on a specific <see cref="GameMode"/> depending on the beatmapset id.
-        /// </summary>
-        /// <param name="beatmapsetId">Id of the beatmapset.</param>
-        /// <param name="gameMode">Game mode of the beatmaps.</param>
-        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<Beatmap>> GetBeatmapsetAsync(long beatmapsetId, GameMode gameMode, bool includeConvertedBeatmaps, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["m"] = (int)gameMode,
-                ["s"] = beatmapsetId,
-                ["a"] = includeConvertedBeatmaps ? 1 : 0
-            };
-
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            foreach (var beatmap in request)
-            {
-                beatmap.Client = this;
-            }
-            return request;
-        }
-
-        /// <summary>
-        ///     Gets a beatmap by it's id.
-        /// </summary>
-        /// <param name="beatmapId">Id of the beatmap.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<Beatmap> GetBeatmapByIdAsync(long beatmapId, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["b"] = beatmapId
-            };
-
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            if (request.Count > 0)
-            {
-                request[0].Client = this;
-                return request[0];
-            }
-            return null;
-        }
-
-        /// <summary>
-        ///     Gets a beatmap by it's id.
-        /// </summary>
-        /// <param name="beatmapId">Id of the beatmap.</param>
-        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<Beatmap> GetBeatmapByIdAsync(long beatmapId, bool includeConvertedBeatmaps, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["b"] = beatmapId,
-                ["a"] = includeConvertedBeatmaps ? 1 : 0
-            };
-
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            if (request.Count > 0)
-            {
-                request[0].Client = this;
-                return request[0];
-            }
-            return null;
-        }
-
-        /// <summary>
-        ///     Gets a beatmap by it's id.
-        /// </summary>
-        /// <param name="beatmapId">Id of the beatmap.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<Beatmap> GetBeatmapByIdAsync(long beatmapId, GameMode gameMode, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["m"] = (int)gameMode,
-                ["b"] = beatmapId
-            };
-
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            if (request.Count > 0)
-            {
-                request[0].Client = this;
-                return request[0];
-            }
-            return null;
-        }
-
-        /// <summary>
-        ///     Gets a beatmap by it's id.
-        /// </summary>
-        /// <param name="beatmapId">Id of the beatmap.</param>
-        /// <param name="includeConvertedBeatmaps">Indicates if we must include the converted beatmaps.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<Beatmap> GetBeatmapByIdAsync(long beatmapId, GameMode gameMode, bool includeConvertedBeatmaps, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["m"] = (int)gameMode,
-                ["b"] = beatmapId,
-                ["a"] = includeConvertedBeatmaps ? 1 : 0
-            };
-
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            if (request.Count > 0)
-            {
-                request[0].Client = this;
-                return request[0];
-            }
-            return null;
-        }
-
-        /// <summary>
-        ///     Gets a beatmap corresponding to the given replay hash.
-        /// </summary>
-        /// <param name="hash">Hash of a replay.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<Beatmap> GetBeatmapByHashAsync(string hash, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["h"] = hash
-            };
-
-            var request = await RequestAsync<IReadOnlyList<Beatmap>>(Beatmaps, dict, token).ConfigureAwait(false);
-            if (request.Count > 0)
-            {
-                request[0].Client = this;
-                return request[0];
-            }
-            return null;
-        }
-
-        #endregion
-
-        #region User
-        /// <summary>
-        ///     Get a user by its id.
-        /// </summary>
-        /// <param name="userId">Id of the user.</param>
-        /// <param name="gameMode">Game mode to return metadata from.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<User> GetUserByUserIdAsync(long userId, GameMode gameMode, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["u"] = userId,
-                ["m"] = (int)gameMode,
-                ["type"] = "id",
-                ["event_days"] = 1
-            };
-
-            var request = await RequestAsync<IReadOnlyList<User>>(User, dict, token).ConfigureAwait(false);
-            if (request.Count > 0)
-            {
-                request[0].Client = this;
-                request[0].GameMode = gameMode;
-                return request[0];
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        ///     Get a user by its id.
-        /// </summary>
-        /// <param name="userId">Id of the user.</param>
-        /// <param name="gameMode">Game mode to return metadata from.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <param name="eventDays">Gets the max amount of day between now and last event date. [1;31]</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<User> GetUserByUserIdAsync(long userId, GameMode gameMode, int eventDays, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["u"] = userId,
-                ["m"] = (int)gameMode,
-                ["type"] = "id",
-                ["event_days"] = eventDays
-            };
-
-            var request = await RequestAsync<IReadOnlyList<User>>(User, dict, token).ConfigureAwait(false);
-            if (request.Count > 0)
-            {
-                request[0].Client = this;
-                request[0].GameMode = gameMode;
-                return request[0];
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        ///     Get a user by its id.
-        /// </summary>
-        /// <param name="username">Username of the user.</param>
-        /// <param name="gameMode">Game mode to return metadata from.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<User> GetUserByUsernameAsync(string username, GameMode gameMode, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["u"] = username,
-                ["m"] = (int)gameMode,
-                ["type"] = "string",
-                ["event_days"] = 1
-            };
-
-            var request = await RequestAsync<IReadOnlyList<User>>(User, dict, token).ConfigureAwait(false);
-            if (request.Count > 0)
-            {
-                request[0].Client = this;
-                request[0].GameMode = gameMode;
-                return request[0];
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        ///     Get a user by its id.
-        /// </summary>
-        /// <param name="username">Username of the user.</param>
-        /// <param name="gameMode">Game mode to return metadata from.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <param name="eventDays">Gets the max amount of day between now and last event date. [1;31]</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<User> GetUserByUsernameAsync(string username, GameMode gameMode, int eventDays, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["u"] = username,
-                ["m"] = (int)gameMode,
-                ["type"] = "string",
-                ["event_days"] = eventDays
-            };
-
-            var request = await RequestAsync<IReadOnlyList<User>>(User, dict, token).ConfigureAwait(false);
-            if (request.Count > 0)
-            {
-                request[0].Client = this;
-                request[0].GameMode = gameMode;
-                return request[0];
-            }
-
-            return null;
-        }
-        #endregion
-
-        #region Score
-        /// <summary>
-        ///     Gets a set of scores by a beatmap id.
-        /// </summary>
-        /// <param name="beatmapId">Id of the beatmap.</param>
-        /// <param name="gameMode">Game mode to fetch the scores from.</param>
-        /// <param name="limit">Limit [1; 100] of scores to return.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapId(long beatmapId, GameMode gameMode, int limit = 100, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["b"] = beatmapId,
-                ["m"] = (int)gameMode,
-                ["limit"] = limit
-            };
-
-            var request = await RequestAsync<IReadOnlyList<Score>>(Scores, dict, token).ConfigureAwait(false);
-            foreach (var score in request)
-            {
-                score.Client = this;
-                score.GameMode = gameMode;
-                score.BeatmapId = beatmapId;
-            }
-            return request;
-        }
-
-        /// <summary>
-        ///     Gets a set of scores by a beatmap id.
-        /// </summary>
-        /// <param name="beatmapId">Id of the beatmap.</param>
-        /// <param name="gameMode">Game mode to fetch the scores from.</param>
-        /// <param name="enabledMods">Mods to fetch the scores from.</param>
-        /// <param name="limit">Limit [1; 100] of scores to return.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapId(long beatmapId, GameMode gameMode, Mode enabledMods, int limit = 100, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["b"] = beatmapId,
-                ["m"] = (int)gameMode,
-                ["mods"] = (int)enabledMods,
-                ["limit"] = limit
-            };
-
-            var request = await RequestAsync<IReadOnlyList<Score>>(Scores, dict, token).ConfigureAwait(false);
-            foreach (var score in request)
-            {
-                score.Client = this;
-                score.GameMode = gameMode;
-                score.BeatmapId = beatmapId;
-            }
-            return request;
-        }
-
-        /// <summary>
-        ///     Gets a set of scores by a beatmap id.
-        /// </summary>
-        /// <param name="beatmapId">Id of the beatmap.</param>
-        /// <param name="userId">Id of the user</param>
-        /// <param name="gameMode">Game mode to fetch the scores from.</param>
-        /// <param name="limit">Limit [1; 100] of scores to return.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUserIdAsync(long beatmapId, long userId, GameMode gameMode, int limit = 100, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["b"] = beatmapId,
-                ["u"] = userId,
-                ["m"] = (int)gameMode,
-                ["type"] = "id",
-                ["limit"] = limit
-            };
-
-            var request = await RequestAsync<IReadOnlyList<Score>>(Scores, dict, token).ConfigureAwait(false);
-            foreach (var score in request)
-            {
-                score.Client = this;
-                score.GameMode = gameMode;
-                score.BeatmapId = beatmapId;
-                score.UserId = userId;
-            }
-            return request;
-        }
-
-        /// <summary>
-        ///     Gets a set of scores by a beatmap id.
-        /// </summary>
-        /// <param name="beatmapId">Id of the beatmap.</param>
-        /// <param name="userId">Id of the user</param>
-        /// <param name="gameMode">Game mode to fetch the scores from.</param>
-        /// <param name="enabledMods">Mods to fetch the scores from.</param>
-        /// <param name="limit">Limit [1; 100] of scores to return.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUserIdAsync(long beatmapId, long userId, GameMode gameMode, Mode enabledMods, int limit = 100, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["b"] = beatmapId,
-                ["u"] = userId,
-                ["m"] = (int)gameMode,
-                ["mods"] = (int)enabledMods,
-                ["type"] = "id",
-                ["limit"] = limit
-            };
-
-            var request = await RequestAsync<IReadOnlyList<Score>>(Scores, dict, token).ConfigureAwait(false);
-            foreach (var score in request)
-            {
-                score.Client = this;
-                score.GameMode = gameMode;
-                score.BeatmapId = beatmapId;
-                score.UserId = userId;
-            }
-            return request;
-        }
-
-        /// <summary>
-        ///     Gets a set of scores by a beatmap id.
-        /// </summary>
-        /// <param name="beatmapId">Id of the beatmap.</param>
-        /// <param name="username">Username of the user</param>
-        /// <param name="gameMode">Game mode to fetch the scores from.</param>
-        /// <param name="limit">Limit [1; 100] of scores to return.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUsernameAsync(long beatmapId, string username, GameMode gameMode, int limit = 100, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["b"] = beatmapId,
-                ["u"] = username,
-                ["m"] = (int)gameMode,
-                ["type"] = "string",
-                ["limit"] = limit
-            };
-
-            var request = await RequestAsync<IReadOnlyList<Score>>(Scores, dict, token).ConfigureAwait(false);
-            foreach (var score in request)
-            {
-                score.Client = this;
-                score.GameMode = gameMode;
-                score.BeatmapId = beatmapId;
-                score.Username = username;
-            }
-            return request;
-        }
-
-        /// <summary>
-        ///     Gets a set of scores by a beatmap id.
-        /// </summary>
-        /// <param name="beatmapId">Id of the beatmap.</param>
-        /// <param name="username">Username of the user</param>
-        /// <param name="gameMode">Game mode to fetch the scores from.</param>
-        /// <param name="enabledMods">Mods to fetch the scores from.</param>
-        /// <param name="limit">Limit [1; 100] of scores to return.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<IReadOnlyList<Score>> GetScoresByBeatmapIdAndUsernameAsync(long beatmapId, string username, GameMode gameMode, Mode enabledMods, int limit = 100, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["b"] = beatmapId,
-                ["u"] = username,
-                ["m"] = (int)gameMode,
-                ["mods"] = (int)enabledMods,
-                ["type"] = "string",
-                ["limit"] = limit
-            };
-
-            var request = await RequestAsync<IReadOnlyList<Score>>(Scores, dict, token).ConfigureAwait(false);
-            foreach (var score in request)
-            {
-                score.Client = this;
-                score.GameMode = gameMode;
-                score.BeatmapId = beatmapId;
-                score.Username = username;
-            }
-            return request;
-        }
-        #endregion
-
-        #region ScoreUserBest
-        public async Task<IReadOnlyList<Score>> GetUserBestsByUserIdAsync(long userId, GameMode gameMode, int limit = 100, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["u"] = userId,
-                ["m"] = (int)gameMode,
-                ["limit"] = limit,
-                ["type"] = "id"
-            };
-
-            var request = await RequestAsync<IReadOnlyList<Score>>(UserBest, dict, token).ConfigureAwait(false);
-            foreach (var score in request)
-            {
-                score.Client = this;
-                score.GameMode = gameMode;
-                score.UserId = userId;
-            }
-            return request;
-        }
-
-        public async Task<IReadOnlyList<Score>> GetUserBestsByUsernameAsync(string username, GameMode gameMode, int limit = 100, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["u"] = username,
-                ["m"] = (int)gameMode,
-                ["limit"] = limit,
-                ["type"] = "string"
-            };
-
-            var request = await RequestAsync<IReadOnlyList<Score>>(UserBest, dict, token).ConfigureAwait(false);
-            foreach (var score in request)
-            {
-                score.Client = this;
-                score.GameMode = gameMode;
-                score.Username = username;
-            }
-            return request;
-        }
-        #endregion
-
-        #region ScoreUserRecent
-        public async Task<IReadOnlyList<Score>> GetUserRecentsByUserIdAsync(long userId, GameMode gameMode, int limit = 100, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["u"] = userId,
-                ["m"] = (int)gameMode,
-                ["limit"] = limit,
-                ["type"] = "id"
-            };
-
-            var request = await RequestAsync<IReadOnlyList<Score>>(UserRecent, dict, token).ConfigureAwait(false);
-            foreach (var score in request)
-            {
-                score.Client = this;
-                score.GameMode = gameMode;
-                score.UserId = userId;
-            }
-            return request;
-        }
-
-        public async Task<IReadOnlyList<Score>> GetUserRecentsByUsernameAsync(string username, GameMode gameMode, int limit = 100, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["u"] = username,
-                ["m"] = (int)gameMode,
-                ["limit"] = limit,
-                ["type"] = "string"
-            };
-
-            var request = await RequestAsync<IReadOnlyList<Score>>(UserRecent, dict, token).ConfigureAwait(false);
-            foreach (var score in request)
-            {
-                score.Client = this;
-                score.GameMode = gameMode;
-                score.Username = username;
-            }
-            return request;
-        }
-        #endregion
-
-        #region Multiplayer
-        /// <summary>
-        ///     Get a multiplayer room informations.
-        /// </summary>
-        /// <param name="matchId">Id of the multiplayer room.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<MultiplayerRoom> GetMultiplayerRoomAsync(long matchId, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["mp"] = matchId
-            };
-
-            try
-            {
-                var request = await RequestAsync<MultiplayerRoom>(Match, dict, token).ConfigureAwait(false);
-                request.Client = this;
-                return request;
-            }
-            catch (JsonSerializationException)
-            {
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-        #endregion
-
-        #region Replay
-
-        /// <summary>
-        ///     Gets a replay.
-        /// </summary>
-        /// <param name="beatmapId">Id of the beatmap.</param>
-        /// <param name="userId">User id that played that beatmap.</param>
-        /// <param name="gameMode">Game mode the play has been played in.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<Replay> GetReplayByUserIdAsync(long beatmapId, long userId, GameMode gameMode, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["b"] = beatmapId,
-                ["u"] = userId,
-                ["m"] = (int)gameMode,
-                ["type"] = "id"
-            };
-
-            var request = await RequestAsync<Replay>(Replay, ReplayRateLimiter, dict, token).ConfigureAwait(false);
-            request.Client = this;
-            return request;
-        }
-
-        /// <summary>
-        ///     Gets a replay.
-        /// </summary>
-        /// <param name="beatmapId">Id of the beatmap.</param>
-        /// <param name="username">Username of the player.</param>
-        /// <param name="gameMode">Game mode the play has been played in.</param>
-        /// <param name="token">Cancellation token used to cancel the current request.</param>
-        /// <returns></returns>
-        public async Task<Replay> GetReplayByUsernameAsync(long beatmapId, string username, GameMode gameMode, CancellationToken token = default)
-        {
-            var dict = new Dictionary<string, object>
-            {
-                ["b"] = beatmapId,
-                ["u"] = username,
-                ["m"] = (int)gameMode,
-                ["type"] = "string"
-            };
-
-            var request = await RequestAsync<Replay>(Replay, ReplayRateLimiter, dict, token).ConfigureAwait(false);
-            request.Client = this;
-            return request;
-        }
-
-        #endregion
-
-        private Task<T> RequestAsync<T>(string endpoint, IReadOnlyDictionary<string, object> parameters = null, CancellationToken token = default)
-        {
-            return RequestAsync<T>(endpoint, RateLimiter, parameters, token);
-        }
-
-        private async Task<T> RequestAsync<T>(string endpoint, RateLimiter rateLimiter, IReadOnlyDictionary<string, object> parameters = null, CancellationToken token = default)
-        {
-            await rateLimiter.HandleAsync(token).ConfigureAwait(false);
-            rateLimiter.IncrementRequestCount();
-
-            var url = $"{Root}{endpoint}?k={OsuSharpConfiguration.ApiKey}";
-
-            if (parameters != null && parameters.Count > 0)
-            {
-                var builder = new StringBuilder();
-                foreach (var kvp in parameters)
-                {
-                    builder.Append($"&{kvp.Key}={kvp.Value}");
-                }
-
-                url += builder.ToString();
-            }
-
-            var response = await OsuSharpConfiguration.HttpClient.GetAsync(url, token).ConfigureAwait(false);
-            var message = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                Logger.LogMessage($"Endpoint {endpoint} used: [{rateLimiter.RequestCount}/{rateLimiter.Configuration.MaxRequest}]: {string.Join(", ", parameters.Select(x => x.Key + ":" + x.Value))}");
-                return JsonConvert.DeserializeObject<T>(message);
-            }
-
-            throw new OsuSharpException(JObject.Parse(message)["error"].Value<string>(), response.StatusCode);
         }
     }
 }
