@@ -1,12 +1,11 @@
 ﻿using Newtonsoft.Json;
-using OsuSharp.Domain;
 
 namespace OsuSharp.JsonModels
 {
     public class BeatmapsetApproveEventJsonModel : EventJsonModel
     {
         [JsonProperty("approval")]
-        public RankStatus Approval { get; set; }
+        public string Approval { get; set; }
 
         [JsonProperty("beatmapset")]
         public EventBeatmapsetModelJsonModel BeatmapsetJson { get; set; }

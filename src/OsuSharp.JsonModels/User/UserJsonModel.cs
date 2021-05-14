@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using OsuSharp.Domain;
 
 namespace OsuSharp.JsonModels
 {
@@ -38,7 +37,7 @@ namespace OsuSharp.JsonModels
         public string Occupation { get; set; }
 
         [JsonProperty("playmode")]
-        public GameMode GameMode { get; set; }
+        public string GameMode { get; set; }
 
         [JsonProperty("playstyle")]
         public IReadOnlyCollection<string> Playstyle { get; set; }

@@ -1,6 +1,5 @@
 ﻿using System;
 using Newtonsoft.Json;
-using OsuSharp.Domain;
 
 namespace OsuSharp.JsonModels
 {
@@ -37,7 +36,7 @@ namespace OsuSharp.JsonModels
         public BeatmapNominationJsonModel NominationJsonModel { get; set; }
 
         [JsonProperty("ranked")]
-        public RankStatus Ranked { get; set; }
+        public string Ranked { get; set; }
 
         [JsonProperty("ranked_date")]
         public DateTimeOffset? RankedDate { get; set; }

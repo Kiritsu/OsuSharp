@@ -1,6 +1,5 @@
 ﻿using System;
 using Newtonsoft.Json;
-using OsuSharp.Domain;
 
 namespace OsuSharp.JsonModels
 {
@@ -13,6 +12,6 @@ namespace OsuSharp.JsonModels
         public long Id { get; set; }
 
         [JsonProperty("type")]
-        public EventType Type { get; set; }
+        public string Type { get; set; }
     }
 }

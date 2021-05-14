@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using OsuSharp.Domain;
 
 namespace OsuSharp.JsonModels
 {
@@ -44,7 +43,7 @@ namespace OsuSharp.JsonModels
         public DateTimeOffset CreatedAt { get; set; }
 
         [JsonProperty("mode")]
-        public GameMode Mode { get; set; }
+        public string Mode { get; set; }
 
         [JsonProperty("replay")]
         public bool? HasReplay { get; set; }

@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using OsuSharp.Domain;
 
 namespace OsuSharp.JsonModels
 {
@@ -12,7 +11,7 @@ namespace OsuSharp.JsonModels
         public long Rank { get; set; }
 
         [JsonProperty("mode")]
-        public GameMode GameMode { get; set; }
+        public string GameMode { get; set; }
 
         [JsonProperty("beatmap")]
         public EventBeatmapJsonModel BeatmapJson { get; set; }
