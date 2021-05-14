@@ -33,6 +33,39 @@ namespace OsuSharp.Net
 
         private bool _disposed;
 
+        private static readonly Assembly DomainAssembly = Assembly.GetAssembly(typeof(User));
+        private static readonly Dictionary<Type, Type> MappedTypes = 
+            Assembly.GetAssembly(typeof(JsonModel))!
+                .GetTypes()
+                .Where(x => x.IsAssignableTo(typeof(JsonModel)) && x != typeof(JsonModel) && !x.IsAbstract)
+                .Select(x => new {JsonModel = x, Model = DomainAssembly.ExportedTypes.FirstOrDefault(y => y.Name == x.Name[..^9])})
+                .ToDictionary(x => x.JsonModel, x => x.Model!);
+
+        static DefaultRequestHandler()
+        {
+            foreach (var (jsonModel, model) in MappedTypes)
+            {
+                var ctor = model
+                    .GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, 
+                        null, CallingConventions.Any, Array.Empty<Type>(), null);
+
+                var adapterConfigType = typeof(TypeAdapterConfig<,>)
+                    .MakeGenericType(jsonModel, model);
+
+                var method = adapterConfigType
+                    .GetMethod("NewConfig", BindingFlags.Static | BindingFlags.Public);
+
+                var result = method!.Invoke(null, null);
+                var resultObjectType = result!
+                    .GetType();
+                
+                method = resultObjectType
+                    .GetMethod("MapToConstructor", BindingFlags.Public | BindingFlags.Instance);
+
+                method!.Invoke(result, new object[]{ctor});
+            }
+        }
+
         public DefaultRequestHandler(
             ILogger<DefaultRequestHandler> logger,
             OsuClientConfiguration configuration,
@@ -109,40 +142,7 @@ namespace OsuSharp.Net
             var jsonModel = await SendAsync<TModel>(request);
             return jsonModel.Adapt<T>();
         }
-        
-        private static readonly Assembly DomainAssembly = Assembly.GetAssembly(typeof(User));
-        private static readonly Dictionary<Type, Type> MappedTypes = 
-            Assembly.GetAssembly(typeof(JsonModel))!
-                .GetTypes()
-                .Where(x => x.IsAssignableTo(typeof(JsonModel)) && x != typeof(JsonModel) && !x.IsAbstract)
-                .Select(x => new {JsonModel = x, Model = DomainAssembly.ExportedTypes.FirstOrDefault(y => y.Name == x.Name[..^9])})
-                .ToDictionary(x => x.JsonModel, x => x.Model!);
 
-        static DefaultRequestHandler()
-        {
-            foreach (var type in MappedTypes)
-            {
-                var ctor = type.Value
-                    .GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, 
-                        null, CallingConventions.Any, Array.Empty<Type>(), null);
-
-                var adapterConfigType = typeof(TypeAdapterConfig<,>)
-                    .MakeGenericType(type.Key, type.Value);
-
-                var method = adapterConfigType
-                    .GetMethod("NewConfig", BindingFlags.Static | BindingFlags.Public);
-
-                var result = method!.Invoke(null, null);
-                var resultObjectType = result!
-                    .GetType();
-                
-                method = resultObjectType
-                    .GetMethod("MapToConstructor", BindingFlags.Public | BindingFlags.Instance);
-
-                method!.Invoke(result, new object[]{ctor});
-            }
-        }
-        
         private async Task<RatelimitBucket> GetBucketFromEndpointAsync(
             string endpoint)
         {
