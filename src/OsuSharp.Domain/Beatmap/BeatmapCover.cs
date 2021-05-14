@@ -1,6 +1,8 @@
+using OsuSharp.Interfaces;
+
 namespace OsuSharp.Domain
 {
-    public sealed class BeatmapCover
+    public sealed class BeatmapCover : IBeatmapCover
     {
         public string Cover { get; internal set; }
 

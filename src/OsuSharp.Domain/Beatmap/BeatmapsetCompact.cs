@@ -1,14 +1,15 @@
 using System.Collections.Generic;
+using OsuSharp.Interfaces;
 
 namespace OsuSharp.Domain
 {
-    public class BeatmapsetCompact
+    public class BeatmapsetCompact : IBeatmapsetCompact
     {
         public string Artist { get; internal set; }
 
         public string ArtistUnicode { get; internal set; }
 
-        public BeatmapCover Covers { get; internal set; }
+        public IBeatmapCover Covers { get; internal set; }
 
         public string Creator { get; internal set; }
 
@@ -34,7 +35,7 @@ namespace OsuSharp.Domain
 
         public bool Nsfw { get; internal set; }
 
-        public IReadOnlyList<Beatmap> Beatmaps { get; internal set; }
+        public IReadOnlyList<IBeatmap> Beatmaps { get; internal set; }
 
         // todo: type
         public object Converts { get; internal set; }

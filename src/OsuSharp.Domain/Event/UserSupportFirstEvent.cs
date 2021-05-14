@@ -1,8 +1,10 @@
+using OsuSharp.Interfaces;
+
 namespace OsuSharp.Domain
 {
-    public sealed class UserSupportFirstEvent : Event
+    public sealed class UserSupportFirstEvent : Event, IUserSupportFirstEvent
     {
-        public EventUserModel User { get; internal set; }
+        public IEventUserModel User { get; internal set; }
 
         internal UserSupportFirstEvent()
         {

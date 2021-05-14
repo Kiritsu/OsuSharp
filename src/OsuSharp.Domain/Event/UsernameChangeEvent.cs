@@ -1,8 +1,10 @@
+using OsuSharp.Interfaces;
+
 namespace OsuSharp.Domain
 {
-    public sealed class UsernameChangeEvent : Event
+    public sealed class UsernameChangeEvent : Event, IUsernameChangeEvent
     {
-        public EventUsernameChangeModel User { get; internal set; }
+        public IEventUsernameChangeModel User { get; internal set; }
 
         internal UsernameChangeEvent()
         {

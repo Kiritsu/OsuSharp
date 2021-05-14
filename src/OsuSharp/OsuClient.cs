@@ -183,7 +183,7 @@ namespace OsuSharp
         /// <returns>
         /// Returns a set of KudosuHistory
         /// </returns>
-        public async Task<IReadOnlyList<KudosuHistory>> GetUserKudosuAsync(
+        public async Task<IReadOnlyList<IKudosuHistory>> GetUserKudosuAsync(
             [NotNull] string username,
             int? limit = null,
             int? offset = null)
@@ -231,7 +231,7 @@ namespace OsuSharp
         /// <returns>
         /// Returns a set of KudosuHistory
         /// </returns>
-        public async Task<IReadOnlyList<KudosuHistory>> GetUserKudosuAsync(
+        public async Task<IReadOnlyList<IKudosuHistory>> GetUserKudosuAsync(
             long userId,
             int? limit = null,
             int? offset = null)
@@ -276,7 +276,7 @@ namespace OsuSharp
         /// <returns>
         /// Returns a <see cref="User" />.
         /// </returns>
-        public async Task<User> GetUserAsync(
+        public async Task<IUser> GetUserAsync(
             [NotNull] string username,
             GameMode? gameMode = null)
         {
@@ -308,7 +308,7 @@ namespace OsuSharp
         /// <returns>
         /// Returns a <see cref="User" />.
         /// </returns>
-        public async Task<User> GetUserAsync(
+        public async Task<IUser> GetUserAsync(
             long userId,
             GameMode? gameMode = null)
         {
@@ -343,7 +343,7 @@ namespace OsuSharp
         /// <returns>
         /// Returns a set of <see cref="Event" />s.
         /// </returns>
-        public async Task<IReadOnlyList<Event>> GetUserRecentAsync(
+        public async Task<IReadOnlyList<IEvent>> GetUserRecentAsync(
             long userId,
             int? limit = null,
             int? offset = null)
@@ -394,7 +394,7 @@ namespace OsuSharp
         /// <returns>
         /// Returns a set of <see cref="Beatmapset" />s.
         /// </returns>
-        public async Task<IReadOnlyList<Beatmapset>> GetUserBeatmapsetsAsync(
+        public async Task<IReadOnlyList<IBeatmapset>> GetUserBeatmapsetsAsync(
             long userId,
             BeatmapsetType type,
             int? limit = null,
@@ -452,7 +452,7 @@ namespace OsuSharp
         /// <returns>
         /// Returns a set of <see cref="Score" />s.
         /// </returns>
-        public async Task<IReadOnlyList<Score>> GetUserScoresAsync(
+        public async Task<IReadOnlyList<IScore>> GetUserScoresAsync(
             long userId,
             ScoreType type,
             bool includeFails = false,
@@ -507,7 +507,7 @@ namespace OsuSharp
         /// <returns>
         /// Returns a <see cref="User" />.
         /// </returns>
-        public async Task<User> GetCurrentUserAsync(
+        public async Task<IUser> GetCurrentUserAsync(
             GameMode? gameMode = null)
         {
             ThrowIfDisposed();

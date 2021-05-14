@@ -85,10 +85,9 @@ namespace OsuSharp.Net
             UpdateBucket(request.Endpoint, bucket, response);
         }
 
-        public async Task<T> SendAsync<T, TModel>(
+        public async Task<T> SendAsync<T>(
             IOsuApiRequest request)
             where T : class
-            where TModel : class
         {
             if (request.Token is not null)
             {
@@ -99,7 +98,15 @@ namespace OsuSharp.Net
             var (bucket, requestMessage) = await PrepareRequestAsync(request).ConfigureAwait(false);
             var response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
             await ValidateResponseAsync(response).ConfigureAwait(false);
-            var jsonModel = await ReadAndDeserializeAsync<TModel>(request, response, bucket).ConfigureAwait(false);
+            return await ReadAndDeserializeAsync<T>(request, response, bucket).ConfigureAwait(false);
+        }
+        
+        public async Task<T> SendAsync<T, TModel>(
+            IOsuApiRequest request)
+            where T : class
+            where TModel : class
+        {
+            var jsonModel = await SendAsync<TModel>(request);
             return jsonModel.Adapt<T>();
         }
         

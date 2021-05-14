@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using OsuSharp.Interfaces;
 
 namespace OsuSharp.Domain
 {
-    public sealed class UserGroup
+    public sealed class UserGroup : IUserGroup
     {
         public long Id { get; internal set; }
 

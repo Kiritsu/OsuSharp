@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using OsuSharp.Interfaces;
 
 namespace OsuSharp.Domain
 {
-    public sealed class FailTimes
+    public sealed class FailTimes : IFailTimes
     {
         public IReadOnlyList<int> Exit { get; internal set; }
 

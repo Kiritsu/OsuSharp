@@ -1,6 +1,8 @@
+using OsuSharp.Interfaces;
+
 namespace OsuSharp.Domain
 {
-    public class EventUserModel
+    public class EventUserModel : IEventUserModel
     {
         public string Username { get; internal set; }
 

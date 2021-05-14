@@ -1,8 +1,9 @@
 using System;
+using OsuSharp.Interfaces;
 
 namespace OsuSharp.Domain
 {
-    public sealed class UserBadge
+    public sealed class UserBadge : IUserBadge
     {
         public DateTimeOffset AwardedAt { get; internal set; }
 

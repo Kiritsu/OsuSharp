@@ -1,8 +1,10 @@
+using OsuSharp.Interfaces;
+
 namespace OsuSharp.Domain
 {
-    public sealed class BeatmapsetDeleteEvent : Event
+    public sealed class BeatmapsetDeleteEvent : Event, IBeatmapsetDeleteEvent
     {
-        public EventBeatmapsetModel Beatmapset { get; internal set; }
+        public IEventBeatmapsetModel Beatmapset { get; internal set; }
 
         internal BeatmapsetDeleteEvent()
         {

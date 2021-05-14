@@ -1,6 +1,8 @@
+using OsuSharp.Interfaces;
+
 namespace OsuSharp.Domain
 {
-    public sealed class EventBeatmapsetModel
+    public sealed class EventBeatmapsetModel : IEventBeatmapsetModel
     {
         public string Title { get; internal set; }
 

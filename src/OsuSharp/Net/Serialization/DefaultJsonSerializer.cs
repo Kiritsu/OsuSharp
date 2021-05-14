@@ -34,7 +34,7 @@ namespace OsuSharp.Net.Serialization
             }
         }
 
-        public MemoryStream Serialize<T>(T value) where T : class
+        public Stream Serialize<T>(T value) where T : class
         {
             try
             {

@@ -1,6 +1,8 @@
+using OsuSharp.Interfaces;
+
 namespace OsuSharp.Domain
 {
-    public sealed class Statistics
+    public sealed class Statistics : IStatistics
     {
         public int Count50 { get; internal set; }
 

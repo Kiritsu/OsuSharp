@@ -1,10 +1,11 @@
 using System;
+using OsuSharp.Interfaces;
 
 namespace OsuSharp.Domain
 {
-    public sealed class Beatmapset : BeatmapsetCompact
+    public sealed class Beatmapset : BeatmapsetCompact, IBeatmapset
     {
-        public BeatmapAvailability Availability { get; internal set; }
+        public IBeatmapAvailability Availability { get; internal set; }
 
         public double Bpm { get; internal set; }
 
@@ -14,7 +15,7 @@ namespace OsuSharp.Domain
 
         public bool DiscussionLocked { get; internal set; }
 
-        public BeatmapHype Hype { get; internal set; }
+        public IBeatmapHype Hype { get; internal set; }
 
         public bool IsScoreable { get; internal set; }
 
@@ -22,7 +23,7 @@ namespace OsuSharp.Domain
 
         public string LegacyThreadUrl { get; internal set; }
 
-        public BeatmapNomination Nomination { get; internal set; }
+        public IBeatmapNomination Nomination { get; internal set; }
 
         public RankStatus Ranked { get; internal set; }
 

@@ -69,7 +69,7 @@ namespace OsuSharp.Interfaces
         /// <returns>
         ///     Returns a set of KudosuHistory
         /// </returns>
-        Task<IReadOnlyList<KudosuHistory>> GetUserKudosuAsync(
+        Task<IReadOnlyList<IKudosuHistory>> GetUserKudosuAsync(
             [NotNull] string username,
             int? limit = null,
             int? offset = null);
@@ -89,7 +89,7 @@ namespace OsuSharp.Interfaces
         /// <returns>
         ///     Returns a set of KudosuHistory
         /// </returns>
-        Task<IReadOnlyList<KudosuHistory>> GetUserKudosuAsync(
+        Task<IReadOnlyList<IKudosuHistory>> GetUserKudosuAsync(
             long userId,
             int? limit = null,
             int? offset = null);
@@ -106,7 +106,7 @@ namespace OsuSharp.Interfaces
         /// <returns>
         ///     Returns a <see cref="User" />.
         /// </returns>
-        Task<User> GetUserAsync(
+        Task<IUser> GetUserAsync(
             [NotNull] string username,
             GameMode? gameMode = null);
 
@@ -122,7 +122,7 @@ namespace OsuSharp.Interfaces
         /// <returns>
         ///     Returns a <see cref="User" />.
         /// </returns>
-        Task<User> GetUserAsync(
+        Task<IUser> GetUserAsync(
             long userId,
             GameMode? gameMode = null);
 
@@ -141,7 +141,7 @@ namespace OsuSharp.Interfaces
         /// <returns>
         ///     Returns a set of <see cref="Event" />s.
         /// </returns>
-        Task<IReadOnlyList<Event>> GetUserRecentAsync(
+        Task<IReadOnlyList<IEvent>> GetUserRecentAsync(
             long userId,
             int? limit = null,
             int? offset = null);
@@ -164,7 +164,7 @@ namespace OsuSharp.Interfaces
         /// <returns>
         ///     Returns a set of <see cref="Beatmapset" />s.
         /// </returns>
-        Task<IReadOnlyList<Beatmapset>> GetUserBeatmapsetsAsync(
+        Task<IReadOnlyList<IBeatmapset>> GetUserBeatmapsetsAsync(
             long userId,
             BeatmapsetType type,
             int? limit = null,
@@ -194,7 +194,7 @@ namespace OsuSharp.Interfaces
         /// <returns>
         ///     Returns a set of <see cref="Score" />s.
         /// </returns>
-        Task<IReadOnlyList<Score>> GetUserScoresAsync(
+        Task<IReadOnlyList<IScore>> GetUserScoresAsync(
             long userId,
             ScoreType type,
             bool includeFails = false,
@@ -211,7 +211,7 @@ namespace OsuSharp.Interfaces
         /// <returns>
         ///     Returns a <see cref="User" />.
         /// </returns>
-        Task<User> GetCurrentUserAsync(
+        Task<IUser> GetCurrentUserAsync(
             GameMode? gameMode = null);
     }
 }

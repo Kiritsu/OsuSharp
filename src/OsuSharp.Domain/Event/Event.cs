@@ -1,8 +1,9 @@
 using System;
+using OsuSharp.Interfaces;
 
 namespace OsuSharp.Domain
 {
-    public abstract class Event
+    public abstract class Event : IEvent
     {
         public DateTimeOffset CreatedAt { get; internal set; }
 

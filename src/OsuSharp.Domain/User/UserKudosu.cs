@@ -1,6 +1,8 @@
+using OsuSharp.Interfaces;
+
 namespace OsuSharp.Domain
 {
-    public sealed class UserKudosu
+    public sealed class UserKudosu : IUserKudosu
     {
         public long Total { get; internal set; }
 

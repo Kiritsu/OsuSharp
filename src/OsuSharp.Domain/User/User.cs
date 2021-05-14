@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using OsuSharp.Interfaces;
 
 namespace OsuSharp.Domain
 {
-    public sealed class User : UserCompact
+    public sealed class User : UserCompact, IUser
     {
         public string CoverUrl { get; internal set; }
 
@@ -15,7 +16,7 @@ namespace OsuSharp.Domain
 
         public DateTimeOffset JoinDate { get; internal set; }
 
-        public UserKudosu Kudosu { get; internal set; }
+        public IUserKudosu Kudosu { get; internal set; }
 
         public string Location { get; internal set; }
 

@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using OsuSharp.Interfaces;
 
 namespace OsuSharp.Domain
 {
-    public class Score
+    public class Score : IScore
     {
         public long Id { get; internal set; }
 
@@ -21,7 +22,7 @@ namespace OsuSharp.Domain
 
         public bool Perfect { get; internal set; }
 
-        public Statistics Statistics { get; internal set; }
+        public IStatistics Statistics { get; internal set; }
 
         public double? PerformancePoints { get; internal set; }
 
@@ -33,17 +34,17 @@ namespace OsuSharp.Domain
 
         public bool? HasReplay { get; internal set; }
 
-        public Beatmap Beatmap { get; internal set; }
+        public IBeatmap Beatmap { get; internal set; }
 
-        public Beatmapset Beatmapset { get; internal set; }
+        public IBeatmapset Beatmapset { get; internal set; }
 
         public long? CountryRank { get; internal set; }
 
         public long? GlobalRank { get; internal set; }
 
-        public Weight Weight { get; internal set; }
+        public IWeight Weight { get; internal set; }
 
-        public User User { get; internal set; }
+        public IUser User { get; internal set; }
 
         // todo: object
         public object Match { get; internal set; }

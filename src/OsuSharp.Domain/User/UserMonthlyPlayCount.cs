@@ -1,8 +1,9 @@
 using System;
+using OsuSharp.Interfaces;
 
 namespace OsuSharp.Domain
 {
-    public sealed class UserMonthlyPlayCount
+    public sealed class UserMonthlyPlayCount : IUserMonthlyPlayCount
     {
         public DateTimeOffset StartDate { get; internal set; }
 

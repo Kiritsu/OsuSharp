@@ -1,6 +1,8 @@
+using OsuSharp.Interfaces;
+
 namespace OsuSharp.Domain
 {
-    public sealed class KudosuPost
+    public sealed class KudosuPost : IKudosuPost
     {
         public string Url { get; internal set; }
 

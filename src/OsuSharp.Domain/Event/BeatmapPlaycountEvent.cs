@@ -1,10 +1,12 @@
+using OsuSharp.Interfaces;
+
 namespace OsuSharp.Domain
 {
-    public sealed class BeatmapPlaycountEvent : Event
+    public sealed class BeatmapPlaycountEvent : Event, IBeatmapPlaycountEvent
     {
         public int Count { get; internal set; }
 
-        public EventBeatmapModel Beatmap { get; internal set; }
+        public IEventBeatmapModel Beatmap { get; internal set; }
 
         internal BeatmapPlaycountEvent()
         {

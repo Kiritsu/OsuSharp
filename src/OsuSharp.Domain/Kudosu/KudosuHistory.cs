@@ -1,8 +1,9 @@
 using System;
+using OsuSharp.Interfaces;
 
 namespace OsuSharp.Domain
 {
-    public sealed class KudosuHistory
+    public sealed class KudosuHistory : IKudosuHistory
     {
         public long Id { get; internal set; }
 
@@ -15,9 +16,9 @@ namespace OsuSharp.Domain
 
         public DateTimeOffset CreatedAt { get; internal set; }
 
-        public KudosuGiver Giver { get; internal set; }
+        public IKudosuGiver Giver { get; internal set; }
 
-        public KudosuPost Post { get; internal set; }
+        public IKudosuPost Post { get; internal set; }
 
         internal KudosuHistory()
         {

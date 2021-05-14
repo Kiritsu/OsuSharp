@@ -1,6 +1,8 @@
+using OsuSharp.Interfaces;
+
 namespace OsuSharp.Domain
 {
-    public sealed class BeatmapHype
+    public sealed class BeatmapHype : IBeatmapHype
     {
         public int CurrentHype { get; internal set; }
 

@@ -1,8 +1,9 @@
 using System;
+using OsuSharp.Interfaces;
 
 namespace OsuSharp.Domain
 {
-    public sealed class Beatmap : BeatmapCompact
+    public sealed class Beatmap : BeatmapCompact, IBeatmap
     {
         public double Accuracy { get; internal set; }
 

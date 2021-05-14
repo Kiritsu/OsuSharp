@@ -1,8 +1,9 @@
 using System;
+using OsuSharp.Interfaces;
 
 namespace OsuSharp.Domain
 {
-    public sealed class UserCover
+    public sealed class UserCover : IUserCover
     {
         public string CustomUrl { get; internal set; }
 

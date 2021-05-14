@@ -1,6 +1,8 @@
+using OsuSharp.Interfaces;
+
 namespace OsuSharp.Domain
 {
-    public sealed class UserLevel
+    public sealed class UserLevel : IUserLevel
     {
         public long Current { get; internal set; }
 

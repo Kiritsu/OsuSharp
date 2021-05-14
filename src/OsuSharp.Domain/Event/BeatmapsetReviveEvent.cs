@@ -1,10 +1,12 @@
+using OsuSharp.Interfaces;
+
 namespace OsuSharp.Domain
 {
-    public sealed class BeatmapsetReviveEvent : Event
+    public sealed class BeatmapsetReviveEvent : Event, IBeatmapsetReviveEvent
     {
-        public EventBeatmapsetModel Beatmapset { get; internal set; }
+        public IEventBeatmapsetModel Beatmapset { get; internal set; }
 
-        public EventUserModel User { get; internal set; }
+        public IEventUserModel User { get; internal set; }
 
         internal BeatmapsetReviveEvent()
         {

@@ -1,6 +1,8 @@
+using OsuSharp.Interfaces;
+
 namespace OsuSharp.Domain
 {
-    public sealed class BeatmapAvailability
+    public sealed class BeatmapAvailability : IBeatmapAvailability
     {
         public bool DownloadDisabled { get; internal set; }
 

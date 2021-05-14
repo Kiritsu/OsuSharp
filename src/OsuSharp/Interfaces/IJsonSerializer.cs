@@ -19,6 +19,6 @@ namespace OsuSharp.Interfaces
         /// </summary>
         /// <param name="value">Model to serialize to JSON.</param>
         /// <typeparam name="T">Type of the model.</typeparam>
-        MemoryStream Serialize<T>(T value) where T : class;
+        Stream Serialize<T>(T value) where T : class;
     }
 }

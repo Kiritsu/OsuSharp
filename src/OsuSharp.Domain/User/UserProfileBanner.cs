@@ -1,6 +1,8 @@
+using OsuSharp.Interfaces;
+
 namespace OsuSharp.Domain
 {
-    public sealed class UserProfileBanner
+    public sealed class UserProfileBanner : IUserProfileBanner
     {
         public long Id { get; internal set; }
 

@@ -1,6 +1,8 @@
+using OsuSharp.Interfaces;
+
 namespace OsuSharp.Domain
 {
-    public sealed class Weight
+    public sealed class Weight : IWeight
     {
         public double Percentage { get; internal set; }
 

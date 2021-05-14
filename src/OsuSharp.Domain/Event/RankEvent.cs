@@ -1,6 +1,8 @@
+using OsuSharp.Interfaces;
+
 namespace OsuSharp.Domain
 {
-    public sealed class RankEvent : Event
+    public sealed class RankEvent : Event, IRankEvent
     {
         public string ScoreRank { get; internal set; }
 
@@ -8,9 +10,9 @@ namespace OsuSharp.Domain
 
         public GameMode GameMode { get; internal set; }
 
-        public EventBeatmapModel Beatmap { get; internal set; }
+        public IEventBeatmapModel Beatmap { get; internal set; }
 
-        public EventUserModel User { get; internal set; }
+        public IEventUserModel User { get; internal set; }
 
         internal RankEvent()
         {

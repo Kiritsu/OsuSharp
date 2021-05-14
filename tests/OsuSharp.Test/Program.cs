@@ -1,7 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.EventLog;
 using OsuSharp.Extensions;
 using Serilog;
 
@@ -23,7 +21,7 @@ namespace OsuSharp.Test
                     x.AddOsuSharp(config =>
                         config.Configuration = new OsuClientConfiguration
                         {
-                            ClientSecret = "4dXzkUIxByiutR9klBbn7TDwRULlmN7XNQHNaBir",
+                            ClientSecret = "",
                             ClientId = 646
                         });
 

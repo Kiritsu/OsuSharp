@@ -1,6 +1,8 @@
+using OsuSharp.Interfaces;
+
 namespace OsuSharp.Domain
 {
-    public sealed class AccessTokenResponse
+    public sealed class AccessTokenResponse : IAccessTokenResponse
     {
         public string TokenType { get; internal set; }
 

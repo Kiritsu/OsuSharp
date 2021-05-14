@@ -1,8 +1,9 @@
 using System;
+using OsuSharp.Interfaces;
 
 namespace OsuSharp.Domain
 {
-    public class BeatmapCompact
+    public class BeatmapCompact : IBeatmapCompact
     {
         public double DifficultyRating { get; internal set; }
 
@@ -19,11 +20,11 @@ namespace OsuSharp.Domain
 
         public string Version { get; internal set; }
 
-        public BeatmapsetCompact Beatmapset { get; internal set; }
+        public IBeatmapsetCompact Beatmapset { get; internal set; }
 
         public string Checksum { get; internal set; }
 
-        public FailTimes FailTimes { get; internal set; }
+        public IFailTimes FailTimes { get; internal set; }
 
         public int? MaxCombo { get; internal set; }
         

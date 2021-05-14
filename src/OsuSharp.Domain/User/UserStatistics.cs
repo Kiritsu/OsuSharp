@@ -1,8 +1,10 @@
+using OsuSharp.Interfaces;
+
 namespace OsuSharp.Domain
 {
-    public sealed class UserStatistics
+    public sealed class UserStatistics : IUserStatistics
     {
-        public UserLevel UserLevel { get; internal set; }
+        public IUserLevel UserLevel { get; internal set; }
 
         public double Pp { get; internal set; }
 
@@ -26,9 +28,9 @@ namespace OsuSharp.Domain
 
         public bool IsRanked { get; internal set; }
 
-        public UserGradeCounts UserGradeCounts { get; internal set; }
+        public IUserGradeCounts UserGradeCounts { get; internal set; }
 
-        public UserRank UserRank { get; internal set; }
+        public IUserRank UserRank { get; internal set; }
 
         internal UserStatistics()
         {

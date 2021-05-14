@@ -1,8 +1,9 @@
 using System.Globalization;
+using OsuSharp.Interfaces;
 
 namespace OsuSharp.Domain
 {
-    public sealed class UserCountry
+    public sealed class UserCountry : IUserCountry
     {
         public string Code { get; internal set; }
 
