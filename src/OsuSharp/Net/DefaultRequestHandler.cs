@@ -270,13 +270,22 @@ namespace OsuSharp.Net
             return model;
         }
 
-        private void LogMissingFields<T>(T model)
+        private void LogMissingFields<T>(T model, string name = "")
         {
             if (model is JsonModel {ExtensionData: {Count: > 0}} jsonModel && jsonModel.GetType() != typeof(JsonModel))
             {
                 _logger.Log(LogLevel.Debug, EventIds.Deserialization,
-                    "Found {Count} extra fields for model {Model}:\n{Data}",
-                    jsonModel.ExtensionData.Count, typeof(T).Name, string.Join('\n', jsonModel.ExtensionData));
+                    "Found {Count} extra fields for model {Model} - {Name}:\n{Data}",
+                    jsonModel.ExtensionData.Count, typeof(T).Name, name, string.Join("\n", jsonModel.ExtensionData));
+
+                foreach (var property in model.GetType().GetProperties())
+                {
+                    var value = property.GetValue(model);
+                    if (property.GetValue(model) is JsonModel {ExtensionData: {Count: >0}} && jsonModel.GetType() != typeof(JsonModel))
+                    {
+                        LogMissingFields(value, property.Name);
+                    }
+                }
             }
         }
     }
