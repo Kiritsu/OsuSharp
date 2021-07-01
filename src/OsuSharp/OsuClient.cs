@@ -35,6 +35,11 @@ namespace OsuSharp
         /// </summary>
         public OsuSharpLogger Logger { get; }
 
+        private readonly JsonSerializerSettings _jsonSettings = new JsonSerializerSettings
+        {
+            NullValueHandling = NullValueHandling.Ignore
+        };
+
         #region Constructors
         /// <summary>
         ///     Initializes a new instance of <see cref="OsuClient"/> with the given configuration and the default configuration for the rate limiter.
@@ -1104,7 +1109,7 @@ namespace OsuSharp
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 Logger.LogMessage($"Endpoint {endpoint} used: [{rateLimiter.RequestCount}/{rateLimiter.Configuration.MaxRequest}]: {string.Join(", ", parameters.Select(x => x.Key + ":" + x.Value))}");
-                return JsonConvert.DeserializeObject<T>(message);
+                return JsonConvert.DeserializeObject<T>(message, _jsonSettings);
             }
 
             throw new OsuSharpException(JObject.Parse(message)["error"].Value<string>(), response.StatusCode);
