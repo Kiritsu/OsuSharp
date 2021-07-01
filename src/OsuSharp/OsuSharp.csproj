@@ -6,7 +6,7 @@
     <PackageLicenseUrl></PackageLicenseUrl>
     <LangVersion>8.0</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>5.4.3</Version>
+    <Version>5.4.4</Version>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <Description>Unofficial wrapper for the osu! API (V1) written in C# and compatible with .NET Standard 2.0</Description>
     <Copyright>Allan Mercou</Copyright>
@@ -14,6 +14,7 @@
     <Company>Allan Mercou</Company>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageVersion>5.4.3</PackageVersion>
+    <AssemblyVersion>5.4.4.0</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
