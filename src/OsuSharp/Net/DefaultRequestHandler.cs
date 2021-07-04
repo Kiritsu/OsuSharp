@@ -160,8 +160,8 @@ namespace OsuSharp.Net
             }
 
             _logger.Log(LogLevel.Debug,
-                "Rate-limit bucket passed for [{Endpoint}]: [{Amount}/{Limit}]",
-                endpoint, bucket.Limit - bucket.Remaining, bucket.Limit);
+                "Rate-limit bucket passed for [{Endpoint}]: [{Amount}/{Limit}] (Expires In {Timespan})",
+                endpoint, bucket.Limit - bucket.Remaining, bucket.Limit, bucket.ExpiresIn.ToString("g"));
         }
 
         private async Task<(RatelimitBucket, HttpRequestMessage)> PrepareRequestAsync(
@@ -236,7 +236,7 @@ namespace OsuSharp.Net
         {
             if (model is JsonModel { ExtensionData: { Count: > 0 } } jsonModel && jsonModel.GetType() != typeof(JsonModel))
             {
-                _logger.Log(LogLevel.Debug,
+                _logger.Log(LogLevel.Trace,
                     "Found {Count} extra fields for model {Model} - {Name}:\n{Data}",
                     jsonModel.ExtensionData.Count, model.GetType().Name, name, string.Join("\n", jsonModel.ExtensionData));
 
