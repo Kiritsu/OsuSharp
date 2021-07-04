@@ -39,11 +39,12 @@ namespace OsuSharp.Extensions
         {
             return type switch
             {
-                BeatmapsetType.MostPlayed => "most_played",
                 BeatmapsetType.Favourite => "favourite",
-                BeatmapsetType.RankedAndApproved => "ranked_and_approved",
-                BeatmapsetType.Unranked => "unranked",
                 BeatmapsetType.Graveyard => "graveyard",
+                BeatmapsetType.Loved => "loved",
+                BeatmapsetType.MostPlayed => "most_played",
+                BeatmapsetType.Pending => "pending",
+                BeatmapsetType.Ranked => "ranked",
                 _ => ""
             };
         }

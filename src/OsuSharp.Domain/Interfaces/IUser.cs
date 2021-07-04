@@ -6,7 +6,6 @@ namespace OsuSharp.Interfaces
 {
     public interface IUser : IUserCompact
     {
-        string CoverUrl { get; }
         string Discord { get; }
         bool HasSupported { get; }
         string Interests { get; }

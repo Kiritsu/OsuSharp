@@ -24,7 +24,6 @@ namespace OsuSharp.Interfaces
         object Blocks { get; }
         IUserCountry Country { get; }
         IUserCover Cover { get; }
-        object CurrentModeRank { get; }
         long? FavouriteBeatmapsetCount { get; }
         long? GraveyardBeatmapsetCount { get; }
         long? FollowerCount { get; }
@@ -43,16 +42,22 @@ namespace OsuSharp.Interfaces
         IReadOnlyList<IUserMonthlyPlayCount> MonthlyPlaycounts { get; }
         IUserPage Page { get; }
         IReadOnlyList<string> PreviousUsernames { get; }
-        long? RankedAndApprovedBeatmapsetCount { get; }
+        long? RankedBeatmapsetCount { get; }
         IReadOnlyList<IUserMonthlyPlayCount> ReplayWatchedCounts { get; }
         long? ScoresBestCount { get; }
         long? ScoresFirstCount { get; }
         long? ScoresRecentCount { get; }
         IUserStatistics Statistics { get; }
         long? SupportLevel { get; }
-        long? UnrankedBeatmapsetCount { get; }
+        long? PendingBeatmapsetCount { get; }
         long? UnreadPmCount { get; }
         IReadOnlyList<IUserAchievement> UserAchievements { get; }
         IUserRankHistory RankHistory { get; }
+        long? CommentsCount { get; }
+        bool? IsDeleted { get; }
+        List<string> ProfileOrder { get; }
+        string TitleUrl { get; }
+        long? MappingFollowerCount { get; }
+        object ReplaysWatchedCounts { get; }
     }
 }

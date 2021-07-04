@@ -171,54 +171,6 @@ namespace OsuSharp
         /// <summary>
         /// Gets a user's kudosu history from the API.
         /// </summary>
-        /// <param name="username">
-        /// Username of the user.
-        /// </param>
-        /// <param name="limit">
-        /// Limit number of results.
-        /// </param>
-        /// <param name="offset">
-        /// Offset of result for pagination.
-        /// </param>
-        /// <returns>
-        /// Returns a set of KudosuHistory
-        /// </returns>
-        public async Task<IReadOnlyList<IKudosuHistory>> GetUserKudosuAsync(
-            [NotNull] string username,
-            int? limit = null,
-            int? offset = null)
-        {
-            ThrowIfDisposed();
-            await GetOrUpdateAccessTokenAsync();
-
-            Uri.TryCreate(
-                string.Format(Endpoints.UserKudosuEndpoint, username),
-                UriKind.Relative, out var uri);
-
-            Dictionary<string, string> parameters = new();
-            if (limit.HasValue)
-            {
-                parameters["limit"] = limit.Value.ToString();
-            }
-
-            if (offset.HasValue)
-            {
-                parameters["offset"] = offset.Value.ToString();
-            }
-
-            return await _handler.SendAsync<List<KudosuHistory>, List<KudosuHistoryJsonModel>>(new OsuApiRequest
-            {
-                Endpoint = Endpoints.UserEndpoint,
-                Method = HttpMethod.Get,
-                Route = uri,
-                Parameters = parameters,
-                Token = _credentials
-            }).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Gets a user's kudosu history from the API.
-        /// </summary>
         /// <param name="userId">
         /// Id of the user.
         /// </param>
@@ -284,7 +236,7 @@ namespace OsuSharp
             await GetOrUpdateAccessTokenAsync();
 
             Uri.TryCreate(
-                $"{Endpoints.UserEndpoint}/{username}/{gameMode.ToApiString()}",
+                $"{Endpoints.UserEndpoint}/{username}/{gameMode.ToApiString()}?key=username",
                 UriKind.Relative, out var uri);
 
             return await _handler.SendAsync<User, UserJsonModel>(new OsuApiRequest
@@ -316,7 +268,7 @@ namespace OsuSharp
             await GetOrUpdateAccessTokenAsync();
 
             Uri.TryCreate(
-                $"{Endpoints.UserEndpoint}/{userId}/{gameMode.ToApiString()}",
+                $"{Endpoints.UserEndpoint}/{userId}/{gameMode.ToApiString()}?key=id",
                 UriKind.Relative, out var uri);
 
             return await _handler.SendAsync<User, UserJsonModel>(new OsuApiRequest

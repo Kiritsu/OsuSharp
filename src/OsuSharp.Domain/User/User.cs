@@ -6,8 +6,6 @@ namespace OsuSharp.Domain
 {
     public sealed class User : UserCompact, IUser
     {
-        public string CoverUrl { get; internal set; }
-
         public string Discord { get; internal set; }
 
         public bool HasSupported { get; internal set; }

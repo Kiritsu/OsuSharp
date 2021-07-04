@@ -2,10 +2,11 @@
 {
     public enum BeatmapsetType
     {
-        MostPlayed,
         Favourite,
-        RankedAndApproved,
-        Unranked,
-        Graveyard
+        Graveyard,
+        Loved,
+        MostPlayed,
+        Pending,
+        Ranked
     }
 }

@@ -8,8 +8,6 @@ namespace OsuSharp.Domain
 
         public double Pp { get; internal set; }
 
-        public long GlobalRank { get; internal set; }
-
         public long RankedScore { get; internal set; }
 
         public double HitAccuracy { get; internal set; }
@@ -30,7 +28,9 @@ namespace OsuSharp.Domain
 
         public IUserGradeCounts UserGradeCounts { get; internal set; }
 
-        public IUserRank UserRank { get; internal set; }
+        public long CountryRank { get; internal set; }
+
+        public long GlobalRank { get; internal set; }
 
         internal UserStatistics()
         {

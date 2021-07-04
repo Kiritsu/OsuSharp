@@ -10,9 +10,6 @@ namespace OsuSharp.JsonModels
         [JsonProperty("pp")]
         public double Pp { get; set; }
 
-        [JsonProperty("pp_rank")]
-        public long GlobalRank { get; set; }
-
         [JsonProperty("ranked_score")]
         public long RankedScore { get; set; }
 
@@ -43,7 +40,10 @@ namespace OsuSharp.JsonModels
         [JsonProperty("grade_counts")]
         public UserGradeCountsJsonModel UserGradeCounts { get; set; }
 
-        [JsonProperty("rank")]
-        public UserRankJsonModel UserRank { get; set; }
+        [JsonProperty("country_rank")]
+        public long CountryRank { get; set; }
+
+        [JsonProperty("global_rank")]
+        public long GlobalRank { get; set; }
     }
 }

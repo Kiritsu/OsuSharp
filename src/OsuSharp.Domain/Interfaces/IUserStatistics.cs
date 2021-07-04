@@ -4,7 +4,6 @@
     {
         IUserLevel UserLevel { get; }
         double Pp { get; }
-        long GlobalRank { get; }
         long RankedScore { get; }
         double HitAccuracy { get; }
         long PlayCount { get; }
@@ -15,6 +14,7 @@
         long ReplaysWatchedByOthers { get; }
         bool IsRanked { get; }
         IUserGradeCounts UserGradeCounts { get; }
-        IUserRank UserRank { get; }
+        long CountryRank { get; }
+        long GlobalRank { get; }
     }
 }

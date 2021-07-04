@@ -57,26 +57,6 @@ namespace OsuSharp.Interfaces
         /// <summary>
         ///     Gets a user's kudosu history from the API.
         /// </summary>
-        /// <param name="username">
-        ///     Username of the user.
-        /// </param>
-        /// <param name="limit">
-        ///     Limit number of results.
-        /// </param>
-        /// <param name="offset">
-        ///     Offset of result for pagination.
-        /// </param>
-        /// <returns>
-        ///     Returns a set of KudosuHistory
-        /// </returns>
-        Task<IReadOnlyList<IKudosuHistory>> GetUserKudosuAsync(
-            [NotNull] string username,
-            int? limit = null,
-            int? offset = null);
-
-        /// <summary>
-        ///     Gets a user's kudosu history from the API.
-        /// </summary>
         /// <param name="userId">
         ///     Id of the user.
         /// </param>

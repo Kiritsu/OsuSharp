@@ -25,7 +25,6 @@ namespace OsuSharp.Domain
         public object Blocks { get; internal set; }
         public IUserCountry Country { get; internal set; }
         public IUserCover Cover { get; internal set; }
-        public object CurrentModeRank { get; internal set; }
         public long? FavouriteBeatmapsetCount { get; internal set; }
         public long? GraveyardBeatmapsetCount { get; internal set; }
         public long? FollowerCount { get; internal set; }
@@ -44,16 +43,22 @@ namespace OsuSharp.Domain
         public IReadOnlyList<IUserMonthlyPlayCount> MonthlyPlaycounts { get; internal set; }
         public IUserPage Page { get; set; }
         public IReadOnlyList<string> PreviousUsernames { get; internal set; }
-        public long? RankedAndApprovedBeatmapsetCount { get; internal set; }
+        public long? RankedBeatmapsetCount { get; internal set; }
         public IReadOnlyList<IUserMonthlyPlayCount> ReplayWatchedCounts { get; internal set; }
         public long? ScoresBestCount { get; internal set; }
         public long? ScoresFirstCount { get; internal set; }
         public long? ScoresRecentCount { get; internal set; }
         public IUserStatistics Statistics { get; internal set; }
         public long? SupportLevel { get; internal set; }
-        public long? UnrankedBeatmapsetCount { get; internal set; }
+        public long? PendingBeatmapsetCount { get; internal set; }
         public long? UnreadPmCount { get; internal set; }
         public IReadOnlyList<IUserAchievement> UserAchievements { get; internal set; }
         public IUserRankHistory RankHistory { get; internal set; }
+        public long? CommentsCount { get; set; }
+        public bool? IsDeleted { get; set; }
+        public List<string> ProfileOrder { get; set; }
+        public string TitleUrl { get; set; }
+        public long? MappingFollowerCount { get; set; }
+        public object ReplaysWatchedCounts { get; set; }
     }
 }

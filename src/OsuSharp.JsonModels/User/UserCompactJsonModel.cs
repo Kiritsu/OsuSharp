@@ -123,8 +123,8 @@ namespace OsuSharp.JsonModels
         [JsonProperty("previous_usernames")]
         public List<string> PreviousUsernames { get; set; }
 
-        [JsonProperty("ranked_and_approved_beatmapset_count")]
-        public long? RankedAndApprovedBeatmapsetCount { get; set; }
+        [JsonProperty("ranked_beatmapset_count")]
+        public long? RankedBeatmapsetCount { get; set; }
 
         [JsonProperty("replays_watched_count")]
         public List<UserMonthlyPlayCountJsonModel> ReplayWatchedCounts { get; set; }
@@ -144,8 +144,8 @@ namespace OsuSharp.JsonModels
         [JsonProperty("support_level")]
         public long? SupportLevel { get; set; }
 
-        [JsonProperty("unranked_beatmapset_count")]
-        public long? UnrankedBeatmapsetCount { get; set; }
+        [JsonProperty("pending_beatmapset_count")]
+        public long? PendingBeatmapsetCount { get; set; }
 
         [JsonProperty("unread_pm_count")]
         public long? UnreadPmCount { get; set; }
@@ -155,5 +155,23 @@ namespace OsuSharp.JsonModels
 
         [JsonProperty("rank_history")]
         public UserRankHistoryJsonModel RankHistory { get; set; }
+
+        [JsonProperty("comments_count")]
+        public long? CommentsCount { get; set; }
+
+        [JsonProperty("is_deleted")]
+        public bool? IsDeleted { get; set; }
+
+        [JsonProperty("profile_order")]
+        public List<string> ProfileOrder { get; set; }
+
+        [JsonProperty("title_url")]
+        public string TitleUrl { get; set; }
+
+        [JsonProperty("mapping_follower_count")]
+        public long? MappingFollowerCount { get; set; }
+
+        [JsonProperty("replays_watched_counts")]
+        public object ReplaysWatchedCounts { get; set; }
     }
 }

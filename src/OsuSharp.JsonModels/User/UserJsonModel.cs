@@ -6,9 +6,6 @@ namespace OsuSharp.JsonModels
 {
     public class UserJsonModel : UserCompactJsonModel
     {
-        [JsonProperty("cover_url")]
-        public string CoverUrl { get; set; }
-
         [JsonProperty("discord", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Discord { get; set; }
 
