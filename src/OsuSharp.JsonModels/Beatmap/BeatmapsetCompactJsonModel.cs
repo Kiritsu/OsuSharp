@@ -51,7 +51,7 @@ namespace OsuSharp.JsonModels
         public bool Nsfw { get; set; }
 
         [JsonProperty("beatmaps")]
-        public IReadOnlyList<BeatmapJsonModel> Beatmaps { get; set; }
+        public List<BeatmapJsonModel> Beatmaps { get; set; }
 
         // todo: type
         [JsonProperty("converts")]

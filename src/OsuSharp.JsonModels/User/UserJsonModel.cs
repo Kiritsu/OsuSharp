@@ -40,7 +40,7 @@ namespace OsuSharp.JsonModels
         public string GameMode { get; set; }
 
         [JsonProperty("playstyle")]
-        public IReadOnlyCollection<string> Playstyle { get; set; }
+        public List<string> Playstyle { get; set; }
 
         [JsonProperty("post_count")]
         public long PostCount { get; set; }

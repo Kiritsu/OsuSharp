@@ -43,13 +43,13 @@ namespace OsuSharp.JsonModels
         public string Username { get; set; }
 
         [JsonProperty("account_history")]
-        public IReadOnlyCollection<UserAccountHistoryJsonModel> AccountHistory { get; set; }
+        public List<UserAccountHistoryJsonModel> AccountHistory { get; set; }
 
         [JsonProperty("active_tournament_banner")]
-        public IReadOnlyCollection<UserProfileBannerJsonModel> TournamentBanner { get; set; }
+        public List<UserProfileBannerJsonModel> TournamentBanner { get; set; }
 
         [JsonProperty("badges")]
-        public IReadOnlyCollection<UserBadgeJsonModel> Badges { get; set; }
+        public List<UserBadgeJsonModel> Badges { get; set; }
 
         [JsonProperty("beatmap_playcounts_count")]
         public long? BeatmapPlaycountsCount { get; set; }
@@ -82,7 +82,7 @@ namespace OsuSharp.JsonModels
         public object Friends { get; set; }
 
         [JsonProperty("groups")]
-        public IReadOnlyCollection<UserGroupJsonModel> Groups { get; set; }
+        public List<UserGroupJsonModel> Groups { get; set; }
 
         [JsonProperty("is_admin")]
         public bool? IsAdmin { get; set; }
@@ -115,19 +115,19 @@ namespace OsuSharp.JsonModels
         public long? LovedBeatmapsetCount { get; set; }
 
         [JsonProperty("monthly_playcounts")]
-        public IReadOnlyCollection<UserMonthlyPlayCountJsonModel> MonthlyPlaycounts { get; set; }
+        public List<UserMonthlyPlayCountJsonModel> MonthlyPlaycounts { get; set; }
 
         [JsonProperty("page")]
         public UserPageJsonModel Page { get; set; }
 
         [JsonProperty("previous_usernames")]
-        public IReadOnlyCollection<string> PreviousUsernames { get; set; }
+        public List<string> PreviousUsernames { get; set; }
 
         [JsonProperty("ranked_and_approved_beatmapset_count")]
         public long? RankedAndApprovedBeatmapsetCount { get; set; }
 
         [JsonProperty("replays_watched_count")]
-        public IReadOnlyCollection<UserMonthlyPlayCountJsonModel> ReplayWatchedCounts { get; set; }
+        public List<UserMonthlyPlayCountJsonModel> ReplayWatchedCounts { get; set; }
 
         [JsonProperty("scores_best_count")]
         public long? ScoresBestCount { get; set; }
@@ -151,7 +151,7 @@ namespace OsuSharp.JsonModels
         public long? UnreadPmCount { get; set; }
 
         [JsonProperty("user_achievements")]
-        public IReadOnlyCollection<UserAchievementJsonModel> UserAchievements { get; set; }
+        public List<UserAchievementJsonModel> UserAchievements { get; set; }
 
         [JsonProperty("rank_history")]
         public UserRankHistoryJsonModel RankHistory { get; set; }

@@ -6,9 +6,9 @@ namespace OsuSharp.JsonModels
     public class FailTimesJsonModel : JsonModel
     {
         [JsonProperty("exit")]
-        public IReadOnlyList<int> Exit { get; set; }
+        public List<int> Exit { get; set; }
 
         [JsonProperty("fail")]
-        public IReadOnlyList<int> Fail { get; set; }
+        public List<int> Fail { get; set; }
     }
 }

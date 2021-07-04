@@ -17,7 +17,7 @@ namespace OsuSharp.Interfaces
         long MaxFriends { get; }
         string Occupation { get; }
         GameMode GameMode { get; }
-        IReadOnlyCollection<string> Playstyle { get; }
+        IReadOnlyList<string> Playstyle { get; }
         long PostCount { get; }
         string Skype { get; }
         string Title { get; }

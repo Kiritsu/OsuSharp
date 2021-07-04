@@ -3,22 +3,19 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Mapster;
 using Microsoft.Extensions.Logging;
-using OsuSharp.Domain;
 using OsuSharp.Exceptions;
 using OsuSharp.Extensions;
 using OsuSharp.JsonModels;
 using OsuSharp.Models;
 using OsuSharp.Net.Serialization;
 using OsuSharp.Interfaces;
+using OsuSharp.Mapper;
 
 namespace OsuSharp.Net
 {
@@ -32,69 +29,6 @@ namespace OsuSharp.Net
         private readonly ConcurrentDictionary<string, RatelimitBucket> _ratelimits;
 
         private bool _disposed;
-
-        private static readonly Assembly DomainAssembly = Assembly.GetAssembly(typeof(User));
-
-        private static readonly Dictionary<Type, Type> InterfaceModels =
-            DomainAssembly
-                .GetTypes()
-                .Where(x => !x.IsInterface)
-                .Where(x =>
-                {
-                    var type = x.GetInterface($"I{x.Name}");
-                    return type != null && x.IsAssignableTo(type);
-                })
-                .Select(x => new {Itf = x.GetInterfaces()[0], Type = x})
-                .ToDictionary(x => x.Itf, x => x.Type);
-        
-        private static readonly Dictionary<Type, Type> MappedTypes = 
-            Assembly.GetAssembly(typeof(JsonModel))!
-                .GetTypes()
-                .Where(x => x.IsAssignableTo(typeof(JsonModel)) && x != typeof(JsonModel) && !x.IsAbstract)
-                .Select(x => new {JsonModel = x, Model = DomainAssembly.ExportedTypes.FirstOrDefault(y => y.Name == $"I{x.Name[..^9]}")})
-                .ToDictionary(x => x.JsonModel, x => x.Model!);
-
-        static DefaultRequestHandler()
-        {
-            foreach (var (jsonModel, model) in MappedTypes)
-            {
-                var ctor = InterfaceModels[model]
-                    .GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, 
-                        null, CallingConventions.Any, Array.Empty<Type>(), null);
-
-                var adapterConfigType = typeof(TypeAdapterConfig<,>)
-                    .MakeGenericType(jsonModel, model);
-
-                var newConfigMethod = adapterConfigType
-                    .GetMethod("NewConfig", BindingFlags.Static | BindingFlags.Public);
-
-                var newConfigInstance = newConfigMethod!.Invoke(null, null);
-                
-                var constructUsingMethod = newConfigInstance!
-                    .GetType()
-                    .GetMethods()
-                    .FirstOrDefault(x => x.Name == "ConstructUsing");
-                
-                var delegateType = typeof(Func<>).MakeGenericType(model);
-                var expression = Expression.Lambda(delegateType, Expression.New(ctor!));
-
-                constructUsingMethod!.Invoke(newConfigInstance, new object[] {expression});
-                
-                adapterConfigType = typeof(TypeAdapterConfig<,>)
-                    .MakeGenericType(jsonModel, InterfaceModels[model]);
-                
-                newConfigMethod = adapterConfigType
-                    .GetMethod("NewConfig", BindingFlags.Static | BindingFlags.Public);
-
-                newConfigInstance = newConfigMethod!.Invoke(null, null);
-                
-                var mapToConstructorMethod = newConfigInstance!
-                    .GetType()
-                    .GetMethod("MapToConstructor", BindingFlags.Public | BindingFlags.Instance);
-
-                mapToConstructorMethod!.Invoke(newConfigInstance, new object[]{ctor});
-            }
-        }
 
         public DefaultRequestHandler(
             ILogger<DefaultRequestHandler> logger,
@@ -163,14 +97,13 @@ namespace OsuSharp.Net
             await ValidateResponseAsync(response).ConfigureAwait(false);
             return await ReadAndDeserializeAsync<T>(request, response, bucket).ConfigureAwait(false);
         }
-        
-        public async Task<T> SendAsync<T, TModel>(
+
+        public async Task<TImplementation> SendAsync<TImplementation, TModel>(
             IOsuApiRequest request)
-            where T : class
             where TModel : class
         {
-            var jsonModel = await SendAsync<TModel>(request);
-            return jsonModel.Adapt<T>();
+            var model = await SendAsync<TModel>(request);
+            return OsuSharpMapper.Transform<TImplementation, TModel>(model);
         }
 
         private async Task<RatelimitBucket> GetBucketFromEndpointAsync(
@@ -206,7 +139,6 @@ namespace OsuSharp.Net
             return bucket;
         }
 
-        // todo: to be reworked when rate limits are here! cf: #ppy/osu-web#6839
         private void UpdateBucket(
             string endpoint,
             RatelimitBucket bucket,
@@ -227,7 +159,7 @@ namespace OsuSharp.Net
                 bucket.CreatedAt = DateTimeOffset.Now;
             }
 
-            _logger.Log(LogLevel.Debug, 
+            _logger.Log(LogLevel.Debug,
                 "Rate-limit bucket passed for [{Endpoint}]: [{Amount}/{Limit}]",
                 endpoint, bucket.Limit - bucket.Remaining, bucket.Limit);
         }
@@ -245,7 +177,7 @@ namespace OsuSharp.Net
             var bucket = await GetBucketFromEndpointAsync(request.Endpoint).ConfigureAwait(false);
 
             var requestMessage = new HttpRequestMessage();
-            if (request.Method == HttpMethod.Get && request.Parameters is {Count: > 0})
+            if (request.Method == HttpMethod.Get && request.Parameters is { Count: > 0 })
             {
                 var url = request.Route + request.Parameters.AsQueryString();
                 request.Route = new Uri(url, UriKind.Relative);
@@ -302,7 +234,7 @@ namespace OsuSharp.Net
 
         private void LogMissingFields<T>(T model, string name = "")
         {
-            if (model is JsonModel {ExtensionData: {Count: > 0}} jsonModel && jsonModel.GetType() != typeof(JsonModel))
+            if (model is JsonModel { ExtensionData: { Count: > 0 } } jsonModel && jsonModel.GetType() != typeof(JsonModel))
             {
                 _logger.Log(LogLevel.Debug,
                     "Found {Count} extra fields for model {Model} - {Name}:\n{Data}",
@@ -311,7 +243,7 @@ namespace OsuSharp.Net
                 foreach (var property in model.GetType().GetProperties())
                 {
                     var value = property.GetValue(model);
-                    if (property.GetValue(model) is JsonModel {ExtensionData: {Count: >0}} && jsonModel.GetType() != typeof(JsonModel))
+                    if (property.GetValue(model) is JsonModel { ExtensionData: { Count: > 0 } } && jsonModel.GetType() != typeof(JsonModel))
                     {
                         LogMissingFields(value, property.Name);
                     }

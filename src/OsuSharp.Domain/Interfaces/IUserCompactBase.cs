@@ -17,9 +17,9 @@ namespace OsuSharp.Interfaces
         bool PmFriendsOnly { get; }
         string ProfileColour { get; }
         string Username { get; }
-        IReadOnlyCollection<IUserAccountHistory> AccountHistory { get; }
-        IReadOnlyCollection<IUserProfileBanner> TournamentBanner { get; }
-        IReadOnlyCollection<IUserBadge> Badges { get; }
+        IReadOnlyList<IUserAccountHistory> AccountHistory { get; }
+        IReadOnlyList<IUserProfileBanner> TournamentBanner { get; }
+        IReadOnlyList<IUserBadge> Badges { get; }
         long? BeatmapPlaycountsCount { get; }
         object Blocks { get; }
         IUserCountry Country { get; }
@@ -29,7 +29,7 @@ namespace OsuSharp.Interfaces
         long? GraveyardBeatmapsetCount { get; }
         long? FollowerCount { get; }
         object Friends { get; }
-        IReadOnlyCollection<IUserGroup> Groups { get; }
+        IReadOnlyList<IUserGroup> Groups { get; }
         bool? IsAdmin { get; }
         bool? IsBng { get; }
         bool? IsFullBng { get; }
@@ -40,11 +40,11 @@ namespace OsuSharp.Interfaces
         bool? IsRestricted { get; }
         bool? IsSilenced { get; }
         long? LovedBeatmapsetCount { get; }
-        IReadOnlyCollection<IUserMonthlyPlayCount> MonthlyPlaycounts { get; }
+        IReadOnlyList<IUserMonthlyPlayCount> MonthlyPlaycounts { get; }
         IUserPage Page { get; }
-        IReadOnlyCollection<string> PreviousUsernames { get; }
+        IReadOnlyList<string> PreviousUsernames { get; }
         long? RankedAndApprovedBeatmapsetCount { get; }
-        IReadOnlyCollection<IUserMonthlyPlayCount> ReplayWatchedCounts { get; }
+        IReadOnlyList<IUserMonthlyPlayCount> ReplayWatchedCounts { get; }
         long? ScoresBestCount { get; }
         long? ScoresFirstCount { get; }
         long? ScoresRecentCount { get; }
@@ -52,7 +52,7 @@ namespace OsuSharp.Interfaces
         long? SupportLevel { get; }
         long? UnrankedBeatmapsetCount { get; }
         long? UnreadPmCount { get; }
-        IReadOnlyCollection<IUserAchievement> UserAchievements { get; }
+        IReadOnlyList<IUserAchievement> UserAchievements { get; }
         IUserRankHistory RankHistory { get; }
     }
 }

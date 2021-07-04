@@ -27,6 +27,6 @@ namespace OsuSharp.JsonModels
         public string Colour { get; set; }
 
         [JsonProperty("play_modes")]
-        public IReadOnlyCollection<string> PlayModes { get; set; }
+        public List<string> PlayModes { get; set; }
     }
 }

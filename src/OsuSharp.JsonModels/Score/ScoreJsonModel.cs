@@ -19,7 +19,7 @@ namespace OsuSharp.JsonModels
         public double Accuracy { get; set; }
 
         [JsonProperty("mods")]
-        public IReadOnlyList<string> Mods { get; set; }
+        public List<string> Mods { get; set; }
 
         [JsonProperty("score")]
         public long TotalScore { get; set; }

@@ -14,7 +14,7 @@ namespace OsuSharp.Domain
 
         internal AccessTokenResponse()
         {
-            
+
         }
     }
 }

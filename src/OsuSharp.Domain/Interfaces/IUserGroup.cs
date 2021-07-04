@@ -12,6 +12,6 @@ namespace OsuSharp.Interfaces
         string ShortName { get; }
         string Description { get; }
         string Colour { get; }
-        IReadOnlyCollection<GameMode> PlayModes { get; }
+        IReadOnlyList<GameMode> PlayModes { get; }
     }
 }

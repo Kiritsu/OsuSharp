@@ -18,9 +18,9 @@ namespace OsuSharp.Domain
         public bool PmFriendsOnly { get; internal set; }
         public string ProfileColour { get; internal set; }
         public string Username { get; internal set; }
-        public IReadOnlyCollection<IUserAccountHistory> AccountHistory { get; internal set; }
-        public IReadOnlyCollection<IUserProfileBanner> TournamentBanner { get; internal set; }
-        public IReadOnlyCollection<IUserBadge> Badges { get; internal set; }
+        public IReadOnlyList<IUserAccountHistory> AccountHistory { get; internal set; }
+        public IReadOnlyList<IUserProfileBanner> TournamentBanner { get; internal set; }
+        public IReadOnlyList<IUserBadge> Badges { get; internal set; }
         public long? BeatmapPlaycountsCount { get; internal set; }
         public object Blocks { get; internal set; }
         public IUserCountry Country { get; internal set; }
@@ -30,7 +30,7 @@ namespace OsuSharp.Domain
         public long? GraveyardBeatmapsetCount { get; internal set; }
         public long? FollowerCount { get; internal set; }
         public object Friends { get; internal set; }
-        public IReadOnlyCollection<IUserGroup> Groups { get; internal set; }
+        public IReadOnlyList<IUserGroup> Groups { get; internal set; }
         public bool? IsAdmin { get; internal set; }
         public bool? IsBng { get; internal set; }
         public bool? IsFullBng { get; internal set; }
@@ -41,11 +41,11 @@ namespace OsuSharp.Domain
         public bool? IsRestricted { get; internal set; }
         public bool? IsSilenced { get; internal set; }
         public long? LovedBeatmapsetCount { get; internal set; }
-        public IReadOnlyCollection<IUserMonthlyPlayCount> MonthlyPlaycounts { get; internal set; }
+        public IReadOnlyList<IUserMonthlyPlayCount> MonthlyPlaycounts { get; internal set; }
         public IUserPage Page { get; set; }
-        public IReadOnlyCollection<string> PreviousUsernames { get; internal set; }
+        public IReadOnlyList<string> PreviousUsernames { get; internal set; }
         public long? RankedAndApprovedBeatmapsetCount { get; internal set; }
-        public IReadOnlyCollection<IUserMonthlyPlayCount> ReplayWatchedCounts { get; internal set; }
+        public IReadOnlyList<IUserMonthlyPlayCount> ReplayWatchedCounts { get; internal set; }
         public long? ScoresBestCount { get; internal set; }
         public long? ScoresFirstCount { get; internal set; }
         public long? ScoresRecentCount { get; internal set; }
@@ -53,7 +53,7 @@ namespace OsuSharp.Domain
         public long? SupportLevel { get; internal set; }
         public long? UnrankedBeatmapsetCount { get; internal set; }
         public long? UnreadPmCount { get; internal set; }
-        public IReadOnlyCollection<IUserAchievement> UserAchievements { get; internal set; }
+        public IReadOnlyList<IUserAchievement> UserAchievements { get; internal set; }
         public IUserRankHistory RankHistory { get; internal set; }
     }
 }

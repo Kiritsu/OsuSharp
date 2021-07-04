@@ -28,7 +28,7 @@ namespace OsuSharp.Domain
 
         public GameMode GameMode { get; internal set; }
 
-        public IReadOnlyCollection<string> Playstyle { get; internal set; }
+        public IReadOnlyList<string> Playstyle { get; internal set; }
 
         public long PostCount { get; internal set; }
 

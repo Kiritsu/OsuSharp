@@ -9,6 +9,6 @@ namespace OsuSharp.JsonModels
         public string GameMode { get; set; }
 
         [JsonProperty("data")]
-        public IReadOnlyCollection<long> Ranks { get; set; }
+        public List<long> Ranks { get; set; }
     }
 }

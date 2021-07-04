@@ -6,6 +6,6 @@ namespace OsuSharp.Interfaces
     public interface IUserRankHistory
     {
         GameMode GameMode { get; }
-        IReadOnlyCollection<long> Ranks { get; }
+        IReadOnlyList<long> Ranks { get; }
     }
 }
