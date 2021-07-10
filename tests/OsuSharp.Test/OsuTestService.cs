@@ -23,8 +23,11 @@ namespace OsuSharp.Test
         {
             try
             {
-                var user = await _client.GetUserAsync("Evolia", GameMode.Taiko);
-                _logger.LogInformation("Id of Evolia: {Id}", user.Id);
+                while (true)
+                {
+                    var user = await _client.GetUserAsync("Evolia", GameMode.Taiko, stoppingToken);
+                    _logger.LogInformation("Id of Evolia: {Id}", user.Id);
+                }
             }
             catch (Exception ex)
             {

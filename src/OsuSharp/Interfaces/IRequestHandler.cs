@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace OsuSharp.Interfaces
@@ -12,27 +13,32 @@ namespace OsuSharp.Interfaces
         /// Sends a request that doesn't return a model.
         /// </summary>
         /// <param name="request">Details of the request to make.</param>
+        /// <param name="token">Cancellation token.</param>
         Task SendAsync(
-            IOsuApiRequest request);
+            IOsuApiRequest request,
+            CancellationToken token = default);
 
         /// <summary>
         /// Sends a request and return the deserialized model from it.
         /// </summary>
         /// <param name="request">Details of the request to make.</param>
+        /// <param name="token">Cancellation token.</param>
         /// <typeparam name="T">Type of the final object.</typeparam>
-        /// <typeparam name="TModel">Type of the json model.</typeparam>
         Task<T> SendAsync<T>(
-            IOsuApiRequest request)
+            IOsuApiRequest request,
+            CancellationToken token = default)
             where T : class;
 
         /// <summary>
         /// Sends a request and return the deserialized model from it.
         /// </summary>
         /// <param name="request">Details of the request to make.</param>
-        /// <typeparam name="TInterface">Type of the final object.</typeparam>
+        /// <param name="token">Cancellation token.</param>
+        /// <typeparam name="TImplementation">Type of the final object.</typeparam>
         /// <typeparam name="TModel">Type of the json model.</typeparam>
         Task<TImplementation> SendAsync<TImplementation, TModel>(
-            IOsuApiRequest request)
+            IOsuApiRequest request, 
+            CancellationToken token = default)
             where TModel : class;
     }
 }

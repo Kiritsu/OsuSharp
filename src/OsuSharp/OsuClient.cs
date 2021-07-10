@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using OsuSharp.Domain;
 using OsuSharp.Extensions;
@@ -61,10 +62,14 @@ namespace OsuSharp
         /// Gets or requests an API access token. This method will use Client Credential Grant unless
         /// A refresh token is present on the current <see cref="OsuToken" /> instance.
         /// </summary>
+        /// <param name="token">
+        /// Cancellation token.
+        /// </param>
         /// <returns>
         /// Returns an <see cref="OsuToken" />.
         /// </returns>
-        public async ValueTask<IOsuToken> GetOrUpdateAccessTokenAsync()
+        public async ValueTask<IOsuToken> GetOrUpdateAccessTokenAsync(
+            CancellationToken token = default)
         {
             ThrowIfDisposed();
 
@@ -98,7 +103,7 @@ namespace OsuSharp
                 Route = uri,
                 Parameters = parameters,
                 Token = _credentials
-            }).ConfigureAwait(false);
+            }, token).ConfigureAwait(false);
 
             return _credentials = new OsuToken
             {
@@ -146,7 +151,8 @@ namespace OsuSharp
         /// <summary>
         /// Revokes the current access token.
         /// </summary>
-        public async Task RevokeAccessTokenAsync()
+        public async Task RevokeAccessTokenAsync(
+            CancellationToken token = default)
         {
             ThrowIfDisposed();
 
@@ -160,7 +166,7 @@ namespace OsuSharp
                 Method = HttpMethod.Delete,
                 Route = uri,
                 Token = _credentials
-            }).ConfigureAwait(false);
+            }, token).ConfigureAwait(false);
 
             if (_credentials is not null)
             {
@@ -186,10 +192,11 @@ namespace OsuSharp
         public async Task<IReadOnlyList<IKudosuHistory>> GetUserKudosuAsync(
             long userId,
             int? limit = null,
-            int? offset = null)
+            int? offset = null,
+            CancellationToken token = default)
         {
             ThrowIfDisposed();
-            await GetOrUpdateAccessTokenAsync();
+            await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
 
             Uri.TryCreate(
                 string.Format(Endpoints.UserKudosuEndpoint, userId),
@@ -213,7 +220,7 @@ namespace OsuSharp
                 Route = uri,
                 Parameters = parameters,
                 Token = _credentials
-            }).ConfigureAwait(false);
+            }, token).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -230,10 +237,11 @@ namespace OsuSharp
         /// </returns>
         public async Task<IUser> GetUserAsync(
             [NotNull] string username,
-            GameMode? gameMode = null)
+            GameMode? gameMode = null,
+            CancellationToken token = default)
         {
             ThrowIfDisposed();
-            await GetOrUpdateAccessTokenAsync();
+            await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
 
             Uri.TryCreate(
                 $"{Endpoints.UserEndpoint}/{username}/{gameMode.ToApiString()}?key=username",
@@ -245,7 +253,7 @@ namespace OsuSharp
                 Method = HttpMethod.Get,
                 Route = uri,
                 Token = _credentials
-            }).ConfigureAwait(false);
+            }, token).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -262,10 +270,11 @@ namespace OsuSharp
         /// </returns>
         public async Task<IUser> GetUserAsync(
             long userId,
-            GameMode? gameMode = null)
+            GameMode? gameMode = null,
+            CancellationToken token = default)
         {
             ThrowIfDisposed();
-            await GetOrUpdateAccessTokenAsync();
+            await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
 
             Uri.TryCreate(
                 $"{Endpoints.UserEndpoint}/{userId}/{gameMode.ToApiString()}?key=id",
@@ -277,7 +286,7 @@ namespace OsuSharp
                 Method = HttpMethod.Get,
                 Route = uri,
                 Token = _credentials
-            }).ConfigureAwait(false);
+            }, token).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -298,10 +307,11 @@ namespace OsuSharp
         public async Task<IReadOnlyList<IEvent>> GetUserRecentAsync(
             long userId,
             int? limit = null,
-            int? offset = null)
+            int? offset = null,
+            CancellationToken token = default)
         {
             ThrowIfDisposed();
-            await GetOrUpdateAccessTokenAsync();
+            await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
 
             Uri.TryCreate(
                 string.Format(Endpoints.UserRecentEndpoint, userId),
@@ -325,7 +335,7 @@ namespace OsuSharp
                 Route = uri,
                 Parameters = parameters,
                 Token = _credentials
-            }).ConfigureAwait(false);
+            }, token).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -350,10 +360,11 @@ namespace OsuSharp
             long userId,
             BeatmapsetType type,
             int? limit = null,
-            int? offset = null)
+            int? offset = null,
+            CancellationToken token = default)
         {
             ThrowIfDisposed();
-            await GetOrUpdateAccessTokenAsync();
+            await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
 
             Uri.TryCreate(
                 string.Format(Endpoints.UserBeatmapsetsEndpoint, userId, type.ToApiString()),
@@ -377,7 +388,7 @@ namespace OsuSharp
                 Route = uri,
                 Parameters = parameters,
                 Token = _credentials
-            }).ConfigureAwait(false);
+            }, token).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -410,10 +421,11 @@ namespace OsuSharp
             bool includeFails = false,
             GameMode? gameMode = null,
             int? limit = null,
-            int? offset = null)
+            int? offset = null,
+            CancellationToken token = default)
         {
             ThrowIfDisposed();
-            await GetOrUpdateAccessTokenAsync();
+            await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
 
             Uri.TryCreate(
                 string.Format(Endpoints.UserScoresEndpoint, userId, type.ToApiString()),
@@ -447,7 +459,7 @@ namespace OsuSharp
                 Route = uri,
                 Parameters = parameters,
                 Token = _credentials
-            }).ConfigureAwait(false);
+            }, token).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -460,10 +472,11 @@ namespace OsuSharp
         /// Returns a <see cref="User" />.
         /// </returns>
         public async Task<IUser> GetCurrentUserAsync(
-            GameMode? gameMode = null)
+            GameMode? gameMode = null,
+            CancellationToken token = default)
         {
             ThrowIfDisposed();
-            await GetOrUpdateAccessTokenAsync();
+            await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
 
             Uri.TryCreate(
                 $"{Endpoints.CurrentEndpoint}/{gameMode.ToApiString()}",
@@ -475,7 +488,7 @@ namespace OsuSharp
                 Method = HttpMethod.Get,
                 Route = uri,
                 Token = _credentials
-            }).ConfigureAwait(false);
+            }, token).ConfigureAwait(false);
         }
 
         private void ThrowIfDisposed()

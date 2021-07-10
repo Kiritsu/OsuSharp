@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 using System.Threading.Tasks;
 using OsuSharp.Domain;
 using OsuSharp.Models;
@@ -13,36 +14,43 @@ namespace OsuSharp.Interfaces
     public interface IOsuClient : IDisposable
     {
         /// <summary>
-        ///     Gets the configuration of the client.
+        /// Gets the configuration of the client.
         /// </summary>
         IOsuClientConfiguration Configuration { get; }
 
         /// <summary>
-        ///     Gets or requests an API access token. This method will use Client Credential Grant unless
-        ///     A refresh token is present on the current <see cref="OsuToken" /> instance.
+        /// Gets or requests an API access token. This method will use Client Credential Grant unless
+        /// A refresh token is present on the current <see cref="OsuToken" /> instance.
         /// </summary>
+        /// <param name="token">
+        /// Cancellation token.
+        /// </param>
         /// <returns>
-        ///     Returns an <see cref="OsuToken" />.
+        /// Returns an <see cref="OsuToken" />.
         /// </returns>
-        ValueTask<IOsuToken> GetOrUpdateAccessTokenAsync();
+        ValueTask<IOsuToken> GetOrUpdateAccessTokenAsync(
+            CancellationToken token = default);
 
         /// <summary>
-        ///     Updates the current osu! api credentials by the given access, refresh tokens and the expiry time.
+        /// Updates the current osu! api credentials by the given access, refresh tokens and the expiry time.
         /// </summary>
         /// <param name="accessToken">
-        ///     Access token.
+        /// Access token.
         /// </param>
         /// <param name="refreshToken">
-        ///     Refresh token.
+        /// Refresh token.
         /// </param>
         /// <param name="expiresIn">
-        ///     Amount of seconds before the token expires.
+        /// Amount of seconds before the token expires.
+        /// </param>
+        /// <param name="token">
+        /// Cancellation token.
         /// </param>
         /// <returns>
-        ///     Returns an <see cref="OsuToken" />.
+        /// Returns an <see cref="OsuToken" />.
         /// </returns>
         /// <remarks>
-        ///     If you are going to use the authorization code grant, use this method to create your <see cref="OsuToken" />.
+        /// If you are going to use the authorization code grant, use this method to create your <see cref="OsuToken" />.
         /// </remarks>
         IOsuToken UpdateAccessToken(
             [NotNull] string accessToken,
@@ -50,129 +58,156 @@ namespace OsuSharp.Interfaces
             long expiresIn);
 
         /// <summary>
-        ///     Revokes the current access token.
+        /// Revokes the current access token.
         /// </summary>
-        Task RevokeAccessTokenAsync();
+        /// <param name="token">
+        /// Cancellation token.
+        /// </param>
+        Task RevokeAccessTokenAsync(
+            CancellationToken token = default);
 
         /// <summary>
-        ///     Gets a user's kudosu history from the API.
+        /// Gets a user's kudosu history from the API.
         /// </summary>
         /// <param name="userId">
-        ///     Id of the user.
+        /// Id of the user.
         /// </param>
         /// <param name="limit">
-        ///     Limit number of results.
+        /// Limit number of results.
         /// </param>
         /// <param name="offset">
-        ///     Offset of result for pagination.
+        /// Offset of result for pagination.
+        /// </param>
+        /// <param name="token">
+        /// Cancellation token.
         /// </param>
         /// <returns>
-        ///     Returns a set of KudosuHistory
+        /// Returns a set of KudosuHistory
         /// </returns>
         Task<IReadOnlyList<IKudosuHistory>> GetUserKudosuAsync(
             long userId,
             int? limit = null,
-            int? offset = null);
+            int? offset = null,
+            CancellationToken token = default);
 
         /// <summary>
-        ///     Gets a user from the API.
+        /// Gets a user from the API.
         /// </summary>
         /// <param name="username">
-        ///     Username of the user.
+        /// Username of the user.
         /// </param>
         /// <param name="gameMode">
-        ///     Gamemode of the user. Defaults gamemode is picked when null.
+        /// Gamemode of the user. Defaults gamemode is picked when null.
+        /// </param>
+        /// <param name="token">
+        /// Cancellation token.
         /// </param>
         /// <returns>
-        ///     Returns a <see cref="User" />.
+        /// Returns a <see cref="User" />.
         /// </returns>
         Task<IUser> GetUserAsync(
             [NotNull] string username,
-            GameMode? gameMode = null);
+            GameMode? gameMode = null,
+            CancellationToken token = default);
 
         /// <summary>
-        ///     Gets a user from the API.
+        /// Gets a user from the API.
         /// </summary>
         /// <param name="userId">
-        ///     Id of the user.
+        /// Id of the user.
         /// </param>
         /// <param name="gameMode">
-        ///     Gamemode of the user. Defaults gamemode is picked when null.
+        /// Gamemode of the user. Defaults gamemode is picked when null.
+        /// </param>
+        /// <param name="token">
+        /// Cancellation token.
         /// </param>
         /// <returns>
-        ///     Returns a <see cref="User" />.
+        /// Returns a <see cref="User" />.
         /// </returns>
         Task<IUser> GetUserAsync(
             long userId,
-            GameMode? gameMode = null);
+            GameMode? gameMode = null, 
+            CancellationToken token = default);
 
         /// <summary>
-        ///     Gets a user's recent activity history from the API.
+        /// Gets a user's recent activity history from the API.
         /// </summary>
         /// <param name="userId">
-        ///     Id of the user.
+        /// Id of the user.
         /// </param>
         /// <param name="limit">
-        ///     Limit number of results.
+        /// Limit number of results.
         /// </param>
         /// <param name="offset">
-        ///     Offset of result for pagination.
+        /// Offset of result for pagination.
+        /// </param>
+        /// <param name="token">
+        /// Cancellation token.
         /// </param>
         /// <returns>
-        ///     Returns a set of <see cref="Event" />s.
+        /// Returns a set of <see cref="Event" />s.
         /// </returns>
         Task<IReadOnlyList<IEvent>> GetUserRecentAsync(
             long userId,
             int? limit = null,
-            int? offset = null);
+            int? offset = null, 
+            CancellationToken token = default);
 
         /// <summary>
-        ///     Gets a user's beatmapsets from the API.
+        /// Gets a user's beatmapsets from the API.
         /// </summary>
         /// <param name="userId">
-        ///     Id of the user.
+        /// Id of the user.
         /// </param>
         /// <param name="type">
-        ///     Type of the beatmapsets to look-up.
+        /// Type of the beatmapsets to look-up.
         /// </param>
         /// <param name="limit">
-        ///     Limit number of results.
+        /// Limit number of results.
         /// </param>
         /// <param name="offset">
-        ///     Offset of result for pagination.
+        /// Offset of result for pagination.
+        /// </param>
+        /// <param name="token">
+        /// Cancellation token.
         /// </param>
         /// <returns>
-        ///     Returns a set of <see cref="Beatmapset" />s.
+        /// Returns a set of <see cref="Beatmapset" />s.
         /// </returns>
         Task<IReadOnlyList<IBeatmapset>> GetUserBeatmapsetsAsync(
             long userId,
             BeatmapsetType type,
             int? limit = null,
-            int? offset = null);
+            int? offset = null,
+            CancellationToken token = default);
 
         /// <summary>
-        ///     Gets a user's scores from the API.
+        /// Gets a user's scores from the API.
         /// </summary>
         /// <param name="userId">
-        ///     Id of the user.
+        /// Id of the user.
         /// </param>
         /// <param name="type">
-        ///     Type of the scores to look-up.
+        /// Type of the scores to look-up.
         /// </param>
         /// <param name="includeFails">
-        ///     Whether to include failed scores.
+        /// Whether to include failed scores.
         /// </param>
         /// <param name="gameMode">
-        ///     Game mode to lookup scores for.
+        /// Game mode to lookup scores for.
         /// </param>
         /// <param name="limit">
-        ///     Limit number of results.
+        /// Limit number of results.
         /// </param>
         /// <param name="offset">
-        ///     Offset of result for pagination.
+        /// Offset of result for pagination.
+        /// </param>
+        /// <param name="token">
+        /// Cancellation token.
         /// </param>
         /// <returns>
-        ///     Returns a set of <see cref="Score" />s.
+        /// Returns a set of <see cref="Score" />s.
         /// </returns>
         Task<IReadOnlyList<IScore>> GetUserScoresAsync(
             long userId,
@@ -180,18 +215,23 @@ namespace OsuSharp.Interfaces
             bool includeFails = false,
             GameMode? gameMode = null,
             int? limit = null,
-            int? offset = null);
+            int? offset = null,
+            CancellationToken token = default);
 
         /// <summary>
-        ///     Gets the current authenticated user from the API.
+        /// Gets the current authenticated user from the API.
         /// </summary>
         /// <param name="gameMode">
-        ///     Gamemode of the user. Defaults gamemode is picked when null.
+        /// Gamemode of the user. Defaults gamemode is picked when null.
+        /// </param>
+        /// <param name="token">
+        /// Cancellation token.
         /// </param>
         /// <returns>
-        ///     Returns a <see cref="User" />.
+        /// Returns a <see cref="User" />.
         /// </returns>
         Task<IUser> GetCurrentUserAsync(
-            GameMode? gameMode = null);
+            GameMode? gameMode = null,
+            CancellationToken token = default);
     }
 }

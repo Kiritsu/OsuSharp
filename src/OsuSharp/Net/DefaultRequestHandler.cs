@@ -16,6 +16,7 @@ using OsuSharp.Models;
 using OsuSharp.Net.Serialization;
 using OsuSharp.Interfaces;
 using OsuSharp.Mapper;
+using System.Threading;
 
 namespace OsuSharp.Net
 {
@@ -68,7 +69,8 @@ namespace OsuSharp.Net
         }
 
         public async Task SendAsync(
-            IOsuApiRequest request)
+            IOsuApiRequest request,
+            CancellationToken token = default)
         {
             if (request.Token is not null)
             {
@@ -76,14 +78,15 @@ namespace OsuSharp.Net
                     new AuthenticationHeaderValue(request.Token.Type.ToString(), request.Token.AccessToken);
             }
 
-            var (bucket, requestMessage) = await PrepareRequestAsync(request).ConfigureAwait(false);
-            var response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
-            await ValidateResponseAsync(response).ConfigureAwait(false);
+            var (bucket, requestMessage) = await PrepareRequestAsync(request, token).ConfigureAwait(false);
+            var response = await _httpClient.SendAsync(requestMessage, token).ConfigureAwait(false);
+            await ValidateResponseAsync(response, token).ConfigureAwait(false);
             UpdateBucket(request.Endpoint, bucket, response);
         }
 
         public async Task<T> SendAsync<T>(
-            IOsuApiRequest request)
+            IOsuApiRequest request,
+            CancellationToken token = default)
             where T : class
         {
             if (request.Token is not null)
@@ -92,22 +95,24 @@ namespace OsuSharp.Net
                     new AuthenticationHeaderValue(request.Token.Type.ToString(), request.Token.AccessToken);
             }
 
-            var (bucket, requestMessage) = await PrepareRequestAsync(request).ConfigureAwait(false);
-            var response = await _httpClient.SendAsync(requestMessage).ConfigureAwait(false);
-            await ValidateResponseAsync(response).ConfigureAwait(false);
-            return await ReadAndDeserializeAsync<T>(request, response, bucket).ConfigureAwait(false);
+            var (bucket, requestMessage) = await PrepareRequestAsync(request, token).ConfigureAwait(false);
+            var response = await _httpClient.SendAsync(requestMessage, token).ConfigureAwait(false);
+            await ValidateResponseAsync(response, token).ConfigureAwait(false);
+            return await ReadAndDeserializeAsync<T>(request, response, bucket, token).ConfigureAwait(false);
         }
 
         public async Task<TImplementation> SendAsync<TImplementation, TModel>(
-            IOsuApiRequest request)
+            IOsuApiRequest request,
+            CancellationToken token = default)
             where TModel : class
         {
-            var model = await SendAsync<TModel>(request);
+            var model = await SendAsync<TModel>(request, token).ConfigureAwait(false);
             return OsuSharpMapper.Transform<TImplementation, TModel>(model);
         }
 
         private async Task<RatelimitBucket> GetBucketFromEndpointAsync(
-            string endpoint)
+            string endpoint,
+            CancellationToken token = default)
         {
             _logger.Log(LogLevel.Debug,
                 "Retrieving rate-limit bucket for [{Endpoint}]", endpoint);
@@ -120,7 +125,7 @@ namespace OsuSharp.Net
 
                 if (!_configuration.ThrowOnRateLimits)
                 {
-                    await Task.Delay(bucket.ExpiresIn).ConfigureAwait(false);
+                    await Task.Delay(bucket.ExpiresIn, token).ConfigureAwait(false);
                 }
                 else
                 {
@@ -165,7 +170,8 @@ namespace OsuSharp.Net
         }
 
         private async Task<(RatelimitBucket, HttpRequestMessage)> PrepareRequestAsync(
-            IOsuApiRequest request)
+            IOsuApiRequest request, 
+            CancellationToken token = default)
         {
             request.Parameters ??= new Dictionary<string, string>();
 
@@ -174,7 +180,7 @@ namespace OsuSharp.Net
                 "Getting [{LocalPath}] with parameters [{Params}]",
                 request.Route.ToString(), paramsString);
 
-            var bucket = await GetBucketFromEndpointAsync(request.Endpoint).ConfigureAwait(false);
+            var bucket = await GetBucketFromEndpointAsync(request.Endpoint, token).ConfigureAwait(false);
 
             var requestMessage = new HttpRequestMessage();
             if (request.Method == HttpMethod.Get && request.Parameters is { Count: > 0 })
@@ -194,11 +200,12 @@ namespace OsuSharp.Net
         }
 
         private static async Task ValidateResponseAsync(
-            HttpResponseMessage response)
+            HttpResponseMessage response,
+            CancellationToken token = default)
         {
             if (!response.IsSuccessStatusCode)
             {
-                var jsonResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var jsonResponse = await response.Content.ReadAsStringAsync(token).ConfigureAwait(false);
                 throw new ApiException(response.ReasonPhrase, response.StatusCode, jsonResponse);
             }
         }
@@ -206,10 +213,11 @@ namespace OsuSharp.Net
         private async Task<T> ReadAndDeserializeAsync<T>(
             IOsuApiRequest request,
             HttpResponseMessage response,
-            RatelimitBucket bucket)
+            RatelimitBucket bucket,
+            CancellationToken token = default)
             where T : class
         {
-            var bytes = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+            var bytes = await response.Content.ReadAsByteArrayAsync(token).ConfigureAwait(false);
             var content = Encoding.UTF8.GetString(bytes);
 
             _logger.Log(LogLevel.Trace, "Response received: {Content}", content);
