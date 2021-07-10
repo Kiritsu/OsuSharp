@@ -17,7 +17,7 @@ namespace OsuSharp.JsonModels
         [JsonProperty("creator")]
         public string Creator { get; set; }
 
-        [JsonProperty("favorite_count")]
+        [JsonProperty("favourite_count")]
         public int FavoriteCount { get; set; }
 
         [JsonProperty("id")]
@@ -55,14 +55,14 @@ namespace OsuSharp.JsonModels
 
         // todo: type
         [JsonProperty("converts")]
-        public object Converts { get; set; }
+        public List<BeatmapJsonModel> Converts { get; set; }
 
         // todo: type
         [JsonProperty("current_user_attributes")]
         public object CurrentUserAttributes { get; set; }
 
         [JsonProperty("description")]
-        public string Description { get; set; }
+        public object Description { get; set; }
 
         // todo: type
         [JsonProperty("discussions")]
@@ -73,13 +73,13 @@ namespace OsuSharp.JsonModels
         public object Events { get; set; }
 
         [JsonProperty("genre")]
-        public string Genre { get; set; }
+        public object Genre { get; set; }
 
         [JsonProperty("has_favourited")]
         public bool? HasFavourited { get; set; }
 
         [JsonProperty("language")]
-        public string Language { get; set; }
+        public object Language { get; set; }
 
         // todo: type
         [JsonProperty("nominations")]
@@ -91,7 +91,7 @@ namespace OsuSharp.JsonModels
 
         // todo: type
         [JsonProperty("recent_favourites")]
-        public object RecentFavourites { get; set; }
+        public List<UserCompactJsonModel> RecentFavourites { get; set; }
 
         // todo: type
         [JsonProperty("related_users")]
@@ -99,6 +99,6 @@ namespace OsuSharp.JsonModels
 
         // todo: type
         [JsonProperty("user")]
-        public object User { get; set; }
+        public UserCompactJsonModel User { get; set; }
     }
 }

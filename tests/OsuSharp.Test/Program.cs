@@ -22,7 +22,7 @@ namespace OsuSharp.Test
                     var path = Environment.GetEnvironmentVariable("OSUSHARP_OPTIONS_PATH") ?? "options.json";
                     x.AddJsonFile(path);
                 })
-                .UseSerilog((_, configuration) => configuration.WriteTo.Console().MinimumLevel.Debug())
+                .UseSerilog((_, configuration) => configuration.WriteTo.Console().MinimumLevel.Verbose())
                 .ConfigureOsuSharp((ctx, options) =>
                 {
                     var clientConfiguration = new OsuClientConfiguration();

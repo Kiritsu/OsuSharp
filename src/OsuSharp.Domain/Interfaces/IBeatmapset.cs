@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using OsuSharp.Domain;
 
 namespace OsuSharp.Interfaces
@@ -20,5 +21,6 @@ namespace OsuSharp.Interfaces
         bool HasStoryboard { get; }
         DateTimeOffset? SubmittedAt { get; }
         string Tags { get; }
+        IReadOnlyList<int> Ratings { get; }
     }
 }

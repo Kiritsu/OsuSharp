@@ -27,7 +27,9 @@ namespace OsuSharp.Domain
 
         public double Drain { get; internal set; }
 
-        public int HitLength { get; internal set; }
+        public TimeSpan HitLength => _hitLength ??= TimeSpan.FromSeconds(HitLengthSeconds);
+        private TimeSpan? _hitLength;
+        public int HitLengthSeconds { get; internal set; }
 
         public bool IsScoreable { get; internal set; }
 
@@ -40,6 +42,8 @@ namespace OsuSharp.Domain
         public RankStatus Ranked { get; internal set; }
 
         public string Url { get; internal set; }
+
+        public GameMode GameMode { get; internal set; }
 
         internal Beatmap()
         {

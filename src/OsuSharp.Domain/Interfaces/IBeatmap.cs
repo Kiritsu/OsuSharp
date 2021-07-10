@@ -16,12 +16,14 @@ namespace OsuSharp.Interfaces
         double CircleSize { get; }
         DateTimeOffset? DeletedAt { get; }
         double Drain { get; }
-        int HitLength { get; }
+        TimeSpan HitLength { get; }
+        int HitLengthSeconds { get; }
         bool IsScoreable { get; }
         DateTimeOffset LastUpdated { get; }
         int PassCount { get; }
         int PlayCount { get; }
         RankStatus Ranked { get; }
         string Url { get; }
+        GameMode GameMode { get; }
     }
 }

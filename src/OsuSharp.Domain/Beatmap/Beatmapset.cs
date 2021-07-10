@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using OsuSharp.Interfaces;
 
 namespace OsuSharp.Domain
@@ -34,6 +35,8 @@ namespace OsuSharp.Domain
         public DateTimeOffset? SubmittedAt { get; internal set; }
 
         public string Tags { get; internal set; }
+
+        public IReadOnlyList<int> Ratings { get; internal set; }
         
         internal Beatmapset()
         {

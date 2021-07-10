@@ -17,13 +17,13 @@ namespace OsuSharp.JsonModels
         public string Status { get; set; }
         
         [JsonProperty("total_length")]
-        private long _totalLength;
+        public long TotalLengthSeconds { get; set; }
 
         [JsonProperty("version")]
         public string Version { get; set; }
 
         [JsonProperty("beatmapset")]
-        public BeatmapsetCompactJsonModel Beatmapset { get; set; }
+        public BeatmapsetJsonModel Beatmapset { get; set; }
 
         [JsonProperty("checksum")]
         public string Checksum { get; set; }
@@ -33,5 +33,8 @@ namespace OsuSharp.JsonModels
 
         [JsonProperty("max_combo")]
         public int? MaxCombo { get; set; }
+
+        [JsonProperty("user_id")]
+        public long UserId { get; set; }
     }
 }

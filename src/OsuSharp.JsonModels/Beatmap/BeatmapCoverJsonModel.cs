@@ -22,7 +22,7 @@ namespace OsuSharp.JsonModels
         [JsonProperty("list@2x")]
         public string List2x { get; set; }
 
-        [JsonProperty("slim")]
+        [JsonProperty("slimcover")]
         public string SlimCover { get; set; }
 
         [JsonProperty("slimcover@2x")]

@@ -20,13 +20,13 @@ namespace OsuSharp.Interfaces
 
         /// <summary>
         /// Gets or requests an API access token. This method will use Client Credential Grant unless
-        /// A refresh token is present on the current <see cref="OsuToken" /> instance.
+        /// A refresh token is present on the current <see cref="IOsuToken" /> instance.
         /// </summary>
         /// <param name="token">
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// Returns an <see cref="OsuToken" />.
+        /// Returns an <see cref="IOsuToken" />.
         /// </returns>
         ValueTask<IOsuToken> GetOrUpdateAccessTokenAsync(
             CancellationToken token = default);
@@ -47,10 +47,10 @@ namespace OsuSharp.Interfaces
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// Returns an <see cref="OsuToken" />.
+        /// Returns an <see cref="IOsuToken" />.
         /// </returns>
         /// <remarks>
-        /// If you are going to use the authorization code grant, use this method to create your <see cref="OsuToken" />.
+        /// If you are going to use the authorization code grant, use this method to create your <see cref="IOsuToken" />.
         /// </remarks>
         IOsuToken UpdateAccessToken(
             [NotNull] string accessToken,
@@ -82,7 +82,7 @@ namespace OsuSharp.Interfaces
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// Returns a set of KudosuHistory
+        /// Returns a set of <see cref="IKudosuHistory" />.
         /// </returns>
         Task<IReadOnlyList<IKudosuHistory>> GetUserKudosuAsync(
             long userId,
@@ -103,7 +103,7 @@ namespace OsuSharp.Interfaces
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// Returns a <see cref="User" />.
+        /// Returns a <see cref="IUser" />.
         /// </returns>
         Task<IUser> GetUserAsync(
             [NotNull] string username,
@@ -123,7 +123,7 @@ namespace OsuSharp.Interfaces
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// Returns a <see cref="User" />.
+        /// Returns a <see cref="IUser" />.
         /// </returns>
         Task<IUser> GetUserAsync(
             long userId,
@@ -146,7 +146,7 @@ namespace OsuSharp.Interfaces
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// Returns a set of <see cref="Event" />s.
+        /// Returns a set of <see cref="IEvent" />s.
         /// </returns>
         Task<IReadOnlyList<IEvent>> GetUserRecentAsync(
             long userId,
@@ -173,7 +173,7 @@ namespace OsuSharp.Interfaces
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// Returns a set of <see cref="Beatmapset" />s.
+        /// Returns a set of <see cref="IBeatmapset" />s.
         /// </returns>
         Task<IReadOnlyList<IBeatmapset>> GetUserBeatmapsetsAsync(
             long userId,
@@ -207,7 +207,7 @@ namespace OsuSharp.Interfaces
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// Returns a set of <see cref="Score" />s.
+        /// Returns a set of <see cref="IScore" />s.
         /// </returns>
         Task<IReadOnlyList<IScore>> GetUserScoresAsync(
             long userId,
@@ -228,10 +228,36 @@ namespace OsuSharp.Interfaces
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// Returns a <see cref="User" />.
+        /// Returns a <see cref="IUser" />.
         /// </returns>
         Task<IUser> GetCurrentUserAsync(
             GameMode? gameMode = null,
+            CancellationToken token = default);
+
+        /// <summary>
+        /// Gets a beatmap by its id from the API.
+        /// </summary>
+        /// <param name="beatmapId">
+        /// Id of the beatmap.
+        /// </param>
+        /// <returns>
+        /// Returns a <see cref="IBeatmap" />.
+        /// </returns>
+        Task<IBeatmap> GetBeatmapAsync(
+            long beatmapId,
+            CancellationToken token = default);
+
+        /// <summary>
+        /// Gets a beatmapset by its id from the API.
+        /// </summary>
+        /// <param name="beatmapsetId">
+        /// Id of the beatmap.
+        /// </param>
+        /// <returns>
+        /// Returns a <see cref="IBeatmapset" />.
+        /// </returns>
+        Task<IBeatmapset> GetBeatmapsetAsync(
+            long beatmapsetId,
             CancellationToken token = default);
     }
 }

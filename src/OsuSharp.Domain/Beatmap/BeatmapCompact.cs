@@ -13,9 +13,9 @@ namespace OsuSharp.Domain
 
         public RankStatus Status { get; internal set; }
 
-        public TimeSpan Length => _length ??= TimeSpan.FromSeconds(_totalLength);
+        public TimeSpan Length => _length ??= TimeSpan.FromSeconds(TotalLengthSeconds);
         private TimeSpan? _length;
-        private long _totalLength;
+        public long TotalLengthSeconds { get; internal set; }
 
         public string Version { get; internal set; }
 
@@ -26,6 +26,8 @@ namespace OsuSharp.Domain
         public IFailTimes FailTimes { get; internal set; }
 
         public int? MaxCombo { get; internal set; }
+
+        public long UserId { get; internal set; }
         
         internal BeatmapCompact()
         {

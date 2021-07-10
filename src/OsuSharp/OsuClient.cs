@@ -60,20 +60,20 @@ namespace OsuSharp
 
         /// <summary>
         /// Gets or requests an API access token. This method will use Client Credential Grant unless
-        /// A refresh token is present on the current <see cref="OsuToken" /> instance.
+        /// A refresh token is present on the current <see cref="IOsuToken" /> instance.
         /// </summary>
         /// <param name="token">
         /// Cancellation token.
         /// </param>
         /// <returns>
-        /// Returns an <see cref="OsuToken" />.
+        /// Returns an <see cref="IOsuToken" />.
         /// </returns>
         public async ValueTask<IOsuToken> GetOrUpdateAccessTokenAsync(
             CancellationToken token = default)
         {
             ThrowIfDisposed();
 
-            if (_credentials is {HasExpired: false})
+            if (_credentials is { HasExpired: false })
             {
                 return _credentials;
             }
@@ -127,10 +127,10 @@ namespace OsuSharp
         /// Amount of seconds before the token expires.
         /// </param>
         /// <returns>
-        /// Returns an <see cref="OsuToken" />.
+        /// Returns an <see cref="IOsuToken" />.
         /// </returns>
         /// <remarks>
-        /// If you are going to use the authorization code grant, use this method to create your <see cref="OsuToken" />.
+        /// If you are going to use the authorization code grant, use this method to create your <see cref="IOsuToken" />.
         /// </remarks>
         public IOsuToken UpdateAccessToken(
             [NotNull] string accessToken,
@@ -187,7 +187,7 @@ namespace OsuSharp
         /// Offset of result for pagination.
         /// </param>
         /// <returns>
-        /// Returns a set of KudosuHistory
+        /// Returns a set of <see cref="IKudosuHistory" />.
         /// </returns>
         public async Task<IReadOnlyList<IKudosuHistory>> GetUserKudosuAsync(
             long userId,
@@ -233,7 +233,7 @@ namespace OsuSharp
         /// Gamemode of the user. Defaults gamemode is picked when null.
         /// </param>
         /// <returns>
-        /// Returns a <see cref="User" />.
+        /// Returns a <see cref="IUser" />.
         /// </returns>
         public async Task<IUser> GetUserAsync(
             [NotNull] string username,
@@ -266,7 +266,7 @@ namespace OsuSharp
         /// Gamemode of the user. Defaults gamemode is picked when null.
         /// </param>
         /// <returns>
-        /// Returns a <see cref="User" />.
+        /// Returns a <see cref="IUser" />.
         /// </returns>
         public async Task<IUser> GetUserAsync(
             long userId,
@@ -302,7 +302,7 @@ namespace OsuSharp
         /// Offset of result for pagination.
         /// </param>
         /// <returns>
-        /// Returns a set of <see cref="Event" />s.
+        /// Returns a set of <see cref="IEvent" />s.
         /// </returns>
         public async Task<IReadOnlyList<IEvent>> GetUserRecentAsync(
             long userId,
@@ -354,7 +354,7 @@ namespace OsuSharp
         /// Offset of result for pagination.
         /// </param>
         /// <returns>
-        /// Returns a set of <see cref="Beatmapset" />s.
+        /// Returns a set of <see cref="IBeatmapset" />s.
         /// </returns>
         public async Task<IReadOnlyList<IBeatmapset>> GetUserBeatmapsetsAsync(
             long userId,
@@ -413,7 +413,7 @@ namespace OsuSharp
         /// Offset of result for pagination.
         /// </param>
         /// <returns>
-        /// Returns a set of <see cref="Score" />s.
+        /// Returns a set of <see cref="IScore" />s.
         /// </returns>
         public async Task<IReadOnlyList<IScore>> GetUserScoresAsync(
             long userId,
@@ -469,7 +469,7 @@ namespace OsuSharp
         /// Gamemode of the user. Defaults gamemode is picked when null.
         /// </param>
         /// <returns>
-        /// Returns a <see cref="User" />.
+        /// Returns a <see cref="IUser" />.
         /// </returns>
         public async Task<IUser> GetCurrentUserAsync(
             GameMode? gameMode = null,
@@ -485,6 +485,64 @@ namespace OsuSharp
             return await _handler.SendAsync<User, UserJsonModel>(new OsuApiRequest
             {
                 Endpoint = Endpoints.CurrentEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri,
+                Token = _credentials
+            }, token).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets a beatmap by its id from the API.
+        /// </summary>
+        /// <param name="beatmapId">
+        /// Id of the beatmap.
+        /// </param>
+        /// <returns>
+        /// Returns a <see cref="IBeatmap" />.
+        /// </returns>
+        public async Task<IBeatmap> GetBeatmapAsync(
+            long beatmapId,
+            CancellationToken token = default)
+        {
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
+
+            Uri.TryCreate(
+                string.Format(Endpoints.BeatmapsEndpoint, beatmapId),
+                UriKind.Relative, out var uri);
+
+            return await _handler.SendAsync<Beatmap, BeatmapJsonModel>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.Beatmaps,
+                Method = HttpMethod.Get,
+                Route = uri,
+                Token = _credentials
+            }, token).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets a beatmapset by its id from the API.
+        /// </summary>
+        /// <param name="beatmapsetId">
+        /// Id of the beatmap.
+        /// </param>
+        /// <returns>
+        /// Returns a <see cref="IBeatmapset" />.
+        /// </returns>
+        public async Task<IBeatmapset> GetBeatmapsetAsync(
+            long beatmapsetId,
+            CancellationToken token = default)
+        {
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
+
+            Uri.TryCreate(
+                string.Format(Endpoints.BeatmapsetsEndpoint, beatmapsetId),
+                UriKind.Relative, out var uri);
+
+            return await _handler.SendAsync<Beatmapset, BeatmapsetJsonModel>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.Beatmaps,
                 Method = HttpMethod.Get,
                 Route = uri,
                 Token = _credentials

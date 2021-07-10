@@ -20,18 +20,18 @@ namespace OsuSharp.Interfaces
         bool HasVideo { get; }
         bool Nsfw { get; }
         IReadOnlyList<IBeatmap> Beatmaps { get; }
-        object Converts { get; }
+        IReadOnlyList<IBeatmap> Converts { get; }
         object CurrentUserAttributes { get; }
-        string Description { get; }
+        object Description { get; }
         object Discussions { get; }
         object Events { get; }
-        string Genre { get; }
+        object Genre { get; }
         bool? HasFavourited { get; }
-        string Language { get; }
+        object Language { get; }
         object Nominations { get; }
         object Rating { get; }
-        object RecentFavourites { get; }
+        IReadOnlyList<IUserCompact> RecentFavourites { get; }
         object RelatedUsers { get; }
-        object User { get; }
+        IUserCompact User { get; }
     }
 }

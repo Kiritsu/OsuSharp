@@ -38,12 +38,12 @@ namespace OsuSharp.Domain
         public IReadOnlyList<IBeatmap> Beatmaps { get; internal set; }
 
         // todo: type
-        public object Converts { get; internal set; }
+        public IReadOnlyList<IBeatmap> Converts { get; internal set; }
 
         // todo: type
         public object CurrentUserAttributes { get; internal set; }
 
-        public string Description { get; internal set; }
+        public object Description { get; internal set; }
 
         // todo: type
         public object Discussions { get; internal set; }
@@ -51,11 +51,11 @@ namespace OsuSharp.Domain
         // todo: type
         public object Events { get; internal set; }
 
-        public string Genre { get; internal set; }
+        public object Genre { get; internal set; }
 
         public bool? HasFavourited { get; internal set; }
 
-        public string Language { get; internal set; }
+        public object Language { get; internal set; }
 
         // todo: type
         public object Nominations { get; internal set; }
@@ -64,13 +64,13 @@ namespace OsuSharp.Domain
         public object Rating { get; internal set; }
 
         // todo: type
-        public object RecentFavourites { get; internal set; }
+        public IReadOnlyList<IUserCompact> RecentFavourites { get; internal set; }
 
         // todo: type
         public object RelatedUsers { get; internal set; }
 
         // todo: type
-        public object User { get; internal set; }
+        public IUserCompact User { get; internal set; }
         
         internal BeatmapsetCompact()
         {

@@ -39,7 +39,7 @@ namespace OsuSharp.JsonModels
         public double Drain { get; set; }
 
         [JsonProperty("hit_length")]
-        public int HitLength { get; set; }
+        public int HitLengthSeconds { get; set; }
 
         [JsonProperty("is_scoreable")]
         public bool IsScoreable { get; set; }
@@ -58,5 +58,8 @@ namespace OsuSharp.JsonModels
 
         [JsonProperty("url")]
         public string Url { get; set; }
+
+        [JsonProperty("mode_int")]
+        public int GameMode { get; set; }
     }
 }

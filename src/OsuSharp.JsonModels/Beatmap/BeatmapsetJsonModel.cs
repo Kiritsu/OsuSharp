@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace OsuSharp.JsonModels
@@ -32,7 +33,7 @@ namespace OsuSharp.JsonModels
         [JsonProperty("legacy_thread_url")]
         public string LegacyThreadUrl { get; set; }
 
-        [JsonProperty("nomination")]
+        [JsonProperty("nominations_summary")]
         public BeatmapNominationJsonModel Nomination { get; set; }
 
         [JsonProperty("ranked")]
@@ -49,5 +50,8 @@ namespace OsuSharp.JsonModels
 
         [JsonProperty("tags")]
         public string Tags { get; set; }
+
+        [JsonProperty("ratings")]
+        public List<int> Ratings { get; set; }
     }
 }
