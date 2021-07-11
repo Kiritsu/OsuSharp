@@ -6,17 +6,25 @@
 
 **OsuSharp is a wrapper written in C# for the osu! API.**
 
-- Compatible with .NET Core 5
+- Compatible with .NET 5
 
 ## Installation
 
-You can install the wrapper with NuGet:
+You can install the stable version of the wrapper with NuGet (only supports API v1):
 
 ```
 PM> Install-Package OsuSharp
 ```
 
-Or compile from source:
+You can also try Nightly Builds for the API v2. You need to add the following URL as a new NuGet Source:
+
+```
+​https://nuget.emzi0767.com/api/v3/index.json
+```
+
+Then, you can just pull the nightly packages. You may need to enable preview builds to find them.
+
+Finally, you can just compile from source:
 
 ```git
 git clone https://github.com/Kiritsu/OsuSharp.git
@@ -27,8 +35,87 @@ git clone https://github.com/Kiritsu/OsuSharp.git
 If you want to contribute, feel free to use Issues or Pull Requests!
 
 ### Todo: 
-- Add missing entities and endpoints
-- Have fun
+```
+Beatmaps
+ - /beatmaps/lookup (Lookup Beatmap)
+ - /beatmaps/{beatmap}/scores/users/{user} (Get a User Beatmap score)
+ - /beatmaps/{beatmap}/scores (Get Beatmap scores)
+
+Beatmapset Discussions
+ - /beatmapsets/discussions/posts (Get Beatmapset Discussion Posts)
+ - /beatmapsets/discussions/votes (Get Beatmapset Discussion Votes)
+ - /beatmapsets/discussions/ (Get Beatmapset Discussions)
+
+Changelog
+ - /changelog/{stream}/{build} (Get Changelog Build)
+ - /changelog (Get Changelog Listing)
+ - /changelog/{changelog} (Lookup Changelog Build)
+
+Chat
+ - /chat/new (Create New PM)
+
+Comments
+ - /comments (Get Comments)
+ - /comments/{comment} (Get a Comment)
+
+Forum
+ - /forums/topics/{topic}/reply (Reply Topic)
+ - /forums/topics (Create Topic)
+ - /forums/topics/{topic} (Get Topic and Posts)
+ - /forums/topics/{topic} (Edit Topic)
+ - /forums/posts/{topic} (Edit Post)
+
+Home
+ - /search (Search | Users AND/OR Wiki pages) 
+
+Multiplayer
+ - /rooms/{room}/playlist/{playlist}/scores (Get Scores)
+
+News
+ - /news (Get News Listing)
+ - /news/{news} (Get News Post)
+
+Ranking
+ - /rankings/{mode}/{type} (Get Ranking)
+ - /spotlights (Get Spotlights)
+
+Wiki
+ - /wiki/{locale}/{path}
+
+Undocumented
+ - /beatmapsets/events
+ - /matches
+ - /matches/{match}
+ - /rooms/{mode?}
+ - /rooms/{room}/leaderboard
+ - /rooms/{room}
+ - /seasonal-backgrounds
+ - /scores/{mode}/{score}/download
+ - /scores/{mode}/{score}
+ - /beatmapsets/search/{filters?}
+ - /beatmapsets/lookup
+ - /friends
+```
+
+### Done already
+```
+Users
+ - /me/{mode} (Get Own Data)
+ - /users/{user}/kudosu (Get User Kudosu)
+ - /users/{user}/scores/{types} (Get User Scores)
+ - /users/{user}/beatmapsets/{type} (Get User Beatmaps)
+ - /users/{user}/recent_activity (Get User Recent Activity)
+ - /users/{user}/{mode?} (Get User)
+
+Beatmaps
+ - /beatmaps/{beatmap} (Get Beatmap)
+
+Beatmapsets
+ - /beatmapsets/{beatmapset}
+
+OAuth Tokens
+ - /oauth/tokens/current (Revoke current token)
+```
 
 ## Contact
 
@@ -37,10 +124,10 @@ You can join my personal Discord server: https://discord.gg/UugbeH8
 ## Thanks
 
 Thanks to the following contributors: 
-- [NaamloosDT](https://github.com/NaamloosDT)
+- [Naamloos](https://github.com/Naamloos)
 - [Kamdzy](https://github.com/Kamdzy)
 - [Bond-009](https://github.com/Bond-009)
-- [Kat](https://github.com/abyssal)
+- [jacksonrakena](https://github.com/jacksonrakena)
 - [Piotrekol](https://github.com/Piotrekol)
 - [Quahu](https://github.com/Quahu)
 - [Kieran](https://github.com/k-boyle)
