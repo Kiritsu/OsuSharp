@@ -26,7 +26,7 @@ namespace OsuSharp
         ///     Score id.
         /// </summary>
         [JsonProperty("score_id")]
-        public long ScoreId { get; internal set; }
+        public long? ScoreId { get; internal set; }
 
         /// <summary>
         ///     Username of the player.
