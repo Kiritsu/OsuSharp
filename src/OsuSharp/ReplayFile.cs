@@ -285,7 +285,7 @@ namespace OsuSharp
                 Timestamp = score.Date.Value.Ticks,
                 OsuVersion = 0,
                 PlayerName = score.Username,
-                OnlineScoreId = score.ScoreId // whatever it's both a long
+                OnlineScoreId = score.ScoreId ?? 0 // whatever it's both a long
             };
 
             var decompressedData = SevenZipLZMAHelper.Decompress(replay.CompressedReplayData);
