@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<VersionPrefix>6.0.0</VersionPrefix>
@@ -6,7 +6,7 @@
 		<LangVersion>preview</LangVersion>
 		<Nullable>disable</Nullable>
 		<Authors>Allan Mercou</Authors>
-		<Description>An osu! api v2 wrapper</Description>
+		<Description>An osu!api v2 wrapper</Description>
 		<PackageProjectUrl>https://github.com/Kiritsu/OsuSharp</PackageProjectUrl>
 		<PackageLicenseUrl>https://github.com/Kiritsu/OsuSharp/blob/feature/api-v2/LICENSE.txt</PackageLicenseUrl>
 		<RepositoryUrl>https://github.com/Kiritsu/OsuSharp</RepositoryUrl>

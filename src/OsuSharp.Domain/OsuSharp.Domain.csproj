@@ -1,7 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+		<VersionPrefix>6.0.0</VersionPrefix>
+		<TargetFramework>net5.0</TargetFramework>
+		<LangVersion>preview</LangVersion>
+		<Nullable>disable</Nullable>
+		<Authors>Allan Mercou</Authors>
+		<Description>Package for the implementation of the models for the osu!api v2</Description>
+		<PackageProjectUrl>https://github.com/Kiritsu/OsuSharp</PackageProjectUrl>
+		<PackageLicenseUrl>https://github.com/Kiritsu/OsuSharp/blob/feature/api-v2/LICENSE.txt</PackageLicenseUrl>
+		<RepositoryUrl>https://github.com/Kiritsu/OsuSharp</RepositoryUrl>
+		<PackageTags>osu osusharp osu!api api csharp dotnet</PackageTags>
+		<RepositoryType>Git</RepositoryType>
     </PropertyGroup>
 
 </Project>
