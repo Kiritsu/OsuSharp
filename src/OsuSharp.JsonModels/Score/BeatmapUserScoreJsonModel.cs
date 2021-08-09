@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace OsuSharp.JsonModels.Score
+namespace OsuSharp.JsonModels
 {
     public class BeatmapUserScoreJsonModel : JsonModel
     {

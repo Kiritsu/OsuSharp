@@ -4,7 +4,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using OsuSharp.Domain;
-using OsuSharp.Models;
 
 namespace OsuSharp.Interfaces
 {

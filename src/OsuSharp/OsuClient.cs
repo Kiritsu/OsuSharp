@@ -8,7 +8,6 @@ using OsuSharp.Domain;
 using OsuSharp.Extensions;
 using OsuSharp.Interfaces;
 using OsuSharp.JsonModels;
-using OsuSharp.JsonModels.Score;
 using OsuSharp.Models;
 using OsuSharp.Net;
 

@@ -1,13 +1,10 @@
 ﻿using System;
-using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using OsuSharp.Domain;
 using OsuSharp.Interfaces;
-using OsuSharp.JsonModels;
 
 namespace OsuSharp.Test
 {
