@@ -38,8 +38,6 @@ If you want to contribute, feel free to use Issues or Pull Requests!
 ```
 Beatmaps
  - /beatmaps/lookup (Lookup Beatmap)
- - /beatmaps/{beatmap}/scores/users/{user} (Get a User Beatmap score)
- - /beatmaps/{beatmap}/scores (Get Beatmap scores)
 
 Beatmapset Discussions
  - /beatmapsets/discussions/posts (Get Beatmapset Discussion Posts)
@@ -109,6 +107,8 @@ Users
 
 Beatmaps
  - /beatmaps/{beatmap} (Get Beatmap)
+ - /beatmaps/{beatmap}/scores/users/{user} (Get a User Beatmap score)
+ - /beatmaps/{beatmap}/scores (Get Beatmap scores)
 
 Beatmapsets
  - /beatmapsets/{beatmapset}

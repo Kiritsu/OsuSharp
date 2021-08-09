@@ -2,7 +2,7 @@
 
 namespace OsuSharp.Domain
 {
-    public class BeatmapUserScore : IBeatmapUserScore
+    public sealed class BeatmapUserScore : IBeatmapUserScore
     {
         public int Position { get; internal set; }
 

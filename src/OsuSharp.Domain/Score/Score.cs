@@ -4,7 +4,7 @@ using OsuSharp.Interfaces;
 
 namespace OsuSharp.Domain
 {
-    public class Score : IScore
+    public sealed class Score : IScore
     {
         public long Id { get; internal set; }
 

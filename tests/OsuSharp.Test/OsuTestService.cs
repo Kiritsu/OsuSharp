@@ -23,7 +23,7 @@ namespace OsuSharp.Test
         {
             try
             {
-                var score = await _client.GetUserBeatmapScoreAsync(865344, 2222447, GameMode.Osu, Mods.HardRock | Mods.Hidden, stoppingToken);
+                var scores = await _client.GetBeatmapScoresAsync(865344, GameMode.Osu);
             }
             catch (Exception ex)
             {

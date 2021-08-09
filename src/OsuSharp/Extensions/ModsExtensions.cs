@@ -60,16 +60,7 @@ namespace OsuSharp.Extensions
         /// <returns></returns>
         public static string ToModString(this Mods mode, IOsuClient instance)
         {
-            if (mode == Mods.None)
-            {
-                return ModeStrings[Mods.None];
-            }
-
-            var modes = ModeStrings
-                .Where(k => k.Key != Mods.None && (mode & k.Key) == k.Key)
-                .Select(k => k.Value);
-
-            return string.Join(instance.Configuration.ModFormatSeparator, modes);
+            return mode.ToModString(instance.Configuration.ModFormatSeparator);
         }
 
         /// <summary>
