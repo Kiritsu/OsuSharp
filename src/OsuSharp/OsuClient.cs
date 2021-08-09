@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using OsuSharp.Domain;
+using OsuSharp.Exceptions;
 using OsuSharp.Extensions;
 using OsuSharp.Interfaces;
 using OsuSharp.JsonModels;
@@ -513,7 +515,7 @@ namespace OsuSharp
 
             return await _handler.SendAsync<Beatmap, BeatmapJsonModel>(new OsuApiRequest
             {
-                Endpoint = Endpoints.Beatmaps,
+                Endpoint = Endpoints.BeatmapsEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
                 Token = _credentials
@@ -542,7 +544,7 @@ namespace OsuSharp
 
             return await _handler.SendAsync<Beatmapset, BeatmapsetJsonModel>(new OsuApiRequest
             {
-                Endpoint = Endpoints.Beatmaps,
+                Endpoint = Endpoints.BeatmapsetsEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
                 Token = _credentials
@@ -581,7 +583,7 @@ namespace OsuSharp
             await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
 
             Uri.TryCreate(
-                string.Format(Endpoints.BeatmapsUserScore, beatmapId, userId),
+                string.Format(Endpoints.BeatmapsUserScoreEndpoint, beatmapId, userId),
                 UriKind.Relative, out var uri);
 
             Dictionary<string, string> parameters = new();
@@ -598,7 +600,7 @@ namespace OsuSharp
 
             return await _handler.SendAsync<BeatmapUserScore, BeatmapUserScoreJsonModel>(new OsuApiRequest
             {
-                Endpoint = Endpoints.Beatmaps,
+                Endpoint = Endpoints.BeatmapsEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
                 Token = _credentials,
@@ -634,7 +636,7 @@ namespace OsuSharp
             await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
 
             Uri.TryCreate(
-                string.Format(Endpoints.BeatmapsScores, beatmapId),
+                string.Format(Endpoints.BeatmapsScoresEndpoint, beatmapId),
                 UriKind.Relative, out var uri);
 
             Dictionary<string, string> parameters = new();
@@ -651,12 +653,85 @@ namespace OsuSharp
 
             return await _handler.SendAsync<BeatmapScores, BeatmapScoresJsonModel>(new OsuApiRequest
             {
-                Endpoint = Endpoints.Beatmaps,
+                Endpoint = Endpoints.BeatmapsEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
                 Token = _credentials,
                 Parameters = parameters
             }, token).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Lookups a beatmap by either its id, checksum or filename.
+        /// </summary>
+        /// <param name="id">
+        /// Id of the beatmap.
+        /// </param>
+        /// <param name="checksum">
+        /// Checksum of the beatmap.
+        /// </param>
+        /// <param name="filename">
+        /// Filename of the beatmap.
+        /// </param>
+        /// <param name="token">
+        /// Cancellation token.
+        /// </param>
+        /// <returns>
+        /// Returns a <see cref="IBeatmap"/>
+        /// </returns>
+        public async Task<IBeatmap> LookupBeatmapAsync(
+            long? id = null, 
+            string checksum = null, 
+            string filename = null,
+            CancellationToken token = default)
+        {
+            ThrowIfDisposed();
+
+            if (!id.HasValue && checksum == null && filename == null)
+            {
+                throw new ArgumentException("One of the parameters is required for this endpoint.");
+            }
+
+            await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
+
+            Uri.TryCreate(
+                Endpoints.BeatmapsLookupEndpoint,
+                UriKind.Relative, out var uri);
+
+            Dictionary<string, string> parameters = new();
+
+            if (id.HasValue)
+            {
+                parameters["id"] = id.Value.ToString();
+            }
+
+            if (!string.IsNullOrWhiteSpace(checksum))
+            {
+                parameters["checksum"] = checksum;
+            }
+
+            if (!string.IsNullOrWhiteSpace(filename))
+            {
+                parameters["filename"] = filename;
+            }
+
+            try
+            {
+                var result = await _handler.SendAsync<Beatmap, BeatmapJsonModel>(new OsuApiRequest
+                {
+                    Endpoint = Endpoints.BeatmapsEndpoint,
+                    Method = HttpMethod.Get,
+                    Route = uri,
+                    Token = _credentials,
+                    Parameters = parameters
+                }, token);
+
+                return result;
+            }
+            catch (ApiException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
+            {
+                return null;
+            }
         }
 
         private void ThrowIfDisposed()

@@ -30,8 +30,8 @@ namespace OsuSharp.Interfaces
         object Language { get; }
         object Nominations { get; }
         object Rating { get; }
-        IReadOnlyList<IUserCompact> RecentFavourites { get; }
+        IReadOnlyList<IUserCompactBase> RecentFavourites { get; }
         object RelatedUsers { get; }
-        IUserCompact User { get; }
+        IUserCompactBase User { get; }
     }
 }

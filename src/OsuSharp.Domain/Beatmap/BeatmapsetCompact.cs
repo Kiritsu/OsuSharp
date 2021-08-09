@@ -64,13 +64,13 @@ namespace OsuSharp.Domain
         public object Rating { get; internal set; }
 
         // todo: type
-        public IReadOnlyList<IUserCompact> RecentFavourites { get; internal set; }
+        public IReadOnlyList<IUserCompactBase> RecentFavourites { get; internal set; }
 
         // todo: type
         public object RelatedUsers { get; internal set; }
 
         // todo: type
-        public IUserCompact User { get; internal set; }
+        public IUserCompactBase User { get; internal set; }
         
         internal BeatmapsetCompact()
         {

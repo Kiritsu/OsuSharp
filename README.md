@@ -36,9 +36,6 @@ If you want to contribute, feel free to use Issues or Pull Requests!
 
 ### Todo: 
 ```
-Beatmaps
- - /beatmaps/lookup (Lookup Beatmap)
-
 Beatmapset Discussions
  - /beatmapsets/discussions/posts (Get Beatmapset Discussion Posts)
  - /beatmapsets/discussions/votes (Get Beatmapset Discussion Votes)
@@ -109,6 +106,7 @@ Beatmaps
  - /beatmaps/{beatmap} (Get Beatmap)
  - /beatmaps/{beatmap}/scores/users/{user} (Get a User Beatmap score)
  - /beatmaps/{beatmap}/scores (Get Beatmap scores)
+ - /beatmaps/lookup (Lookup Beatmap)
 
 Beatmapsets
  - /beatmapsets/{beatmapset}

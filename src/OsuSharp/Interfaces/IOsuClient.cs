@@ -316,5 +316,29 @@ namespace OsuSharp.Interfaces
             GameMode? gameMode = null,
             Mods? mods = null,
             CancellationToken token = default);
+
+        /// <summary>
+        /// Lookups a beatmap by either its id, checksum or filename.
+        /// </summary>
+        /// <param name="id">
+        /// Id of the beatmap.
+        /// </param>
+        /// <param name="checksum">
+        /// Checksum of the beatmap.
+        /// </param>
+        /// <param name="filename">
+        /// Filename of the beatmap.
+        /// </param>
+        /// <param name="token">
+        /// Cancellation token.
+        /// </param>
+        /// <returns>
+        /// Returns a <see cref="IBeatmap"/>
+        /// </returns>
+        Task<IBeatmap> LookupBeatmapAsync(
+            long? id = null,
+            string checksum = null,
+            string filename = null,
+            CancellationToken token = default);
     }
 }

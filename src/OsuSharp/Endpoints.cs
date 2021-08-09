@@ -15,6 +15,7 @@ namespace OsuSharp
         public const string Me = "/me";
         public const string Kudosu = "/kudosu";
         public const string Recent = "/recent_activity";
+        public const string Lookup = "/lookup";
 
         public const string CurrentEndpoint = Api + Me;
         public const string UserEndpoint = Api + Users;
@@ -23,9 +24,11 @@ namespace OsuSharp
         public const string UserBeatmapsetsEndpoint = Api + Users + "/{0}" + Beatmapsets + "/{1}";
         public const string UserScoresEndpoint = Api + Users + "/{0}" + Scores + "/{1}";
         public const string BeatmapsEndpoint = Api + Beatmaps + "/{0}";
-        public const string BeatmapsScores = Api + Beatmaps + "/{0}" + Scores;
-        public const string BeatmapsUserScore = Api + Beatmaps + "/{0}" + Scores + Users + "/{1}";
+        public const string BeatmapsScoresEndpoint = Api + Beatmaps + "/{0}" + Scores;
+        public const string BeatmapsUserScoreEndpoint = Api + Beatmaps + "/{0}" + Scores + Users + "/{1}";
         public const string BeatmapsetsEndpoint = Api + Beatmapsets + "/{0}";
+        public const string BeatmapsLookupEndpoint = Api + Beatmaps + Lookup;
+        public const string BeatmapsetsLookupEndpoint = Api + Beatmapsets + Lookup;
 
         public const string CurrentTokensEndpoint = Oauth + Tokens + Current;
         public const string TokenEndpoint = Oauth + Token;
