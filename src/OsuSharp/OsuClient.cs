@@ -782,13 +782,12 @@ namespace OsuSharp
                     Route = uri,
                     Token = _credentials,
                     Parameters = parameters
-                }, token);
-
-                expectedCount = result.Total;
-                totalCount += result.Beatmapsets.Count;
+                }, token).ConfigureAwait(false);
 
                 parameters["sort"] = result.Search.Sort.ToString().ToLower();
 
+                expectedCount = result.Total;
+                totalCount += result.Beatmapsets.Count;
                 resultCount = result.Beatmapsets.Count;
 
                 if (resultCount > 0)
