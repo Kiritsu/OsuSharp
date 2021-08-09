@@ -135,9 +135,10 @@ namespace OsuSharp.Net
                     };
                 }
             }
-            else
+            else if (bucket == null)
             {
                 bucket = new RatelimitBucket();
+                _ratelimits.TryRemove(endpoint, out _);
                 _ratelimits.TryAdd(endpoint, bucket);
             }
 

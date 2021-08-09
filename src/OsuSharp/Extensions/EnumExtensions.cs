@@ -5,10 +5,10 @@ namespace OsuSharp.Extensions
     internal static class EnumExtensions
     {
         /// <summary>
-        ///     Returns a string that fits osu! API requirements for that <see cref="BeatmapsetType" />.
+        ///     Returns a string that fits osu! API requirements for that <see cref="ScoreType" />.
         /// </summary>
-        /// <param name="type">GameMode to get the string for.</param>
-        /// <returns>A api-valid string representation of this <see cref="BeatmapsetType" /></returns>
+        /// <param name="type">ScoreType to get the string for.</param>
+        /// <returns>A api-valid string representation of this <see cref="ScoreType" /></returns>
         public static string ToApiString(this ScoreType type)
         {
             return type switch
@@ -21,10 +21,10 @@ namespace OsuSharp.Extensions
         }
 
         /// <summary>
-        ///     Returns a string that fits osu! API requirements for that <see cref="BeatmapsetType" />.
+        ///     Returns a string that fits osu! API requirements for that <see cref="ScoreType" />.
         /// </summary>
-        /// <param name="type">GameMode to get the string for.</param>
-        /// <returns>A api-valid string representation of this <see cref="BeatmapsetType" /></returns>
+        /// <param name="type">ScoreType to get the string for.</param>
+        /// <returns>A api-valid string representation of this <see cref="ScoreType" /></returns>
         public static string ToApiString(this ScoreType? type)
         {
             return type.HasValue ? ToApiString(type.Value) : "";
@@ -33,7 +33,7 @@ namespace OsuSharp.Extensions
         /// <summary>
         ///     Returns a string that fits osu! API requirements for that <see cref="BeatmapsetType" />.
         /// </summary>
-        /// <param name="type">GameMode to get the string for.</param>
+        /// <param name="type">BeatmapsetType to get the string for.</param>
         /// <returns>A api-valid string representation of this <see cref="BeatmapsetType" /></returns>
         public static string ToApiString(this BeatmapsetType type)
         {
@@ -52,7 +52,7 @@ namespace OsuSharp.Extensions
         /// <summary>
         ///     Returns a string that fits osu! API requirements for that <see cref="BeatmapsetType" />.
         /// </summary>
-        /// <param name="type">GameMode to get the string for.</param>
+        /// <param name="type">BeatmapsetType to get the string for.</param>
         /// <returns>A api-valid string representation of this <see cref="BeatmapsetType" /></returns>
         public static string ToApiString(this BeatmapsetType? type)
         {
@@ -87,10 +87,10 @@ namespace OsuSharp.Extensions
         }
 
         /// <summary>
-        ///     Returns a string that fits osu! API requirements for that <see cref="GameMode" />.
+        ///     Returns a string that fits osu! API requirements for that <see cref="Mods" />.
         /// </summary>
-        /// <param name="gameMode">GameMode to get the string for.</param>
-        /// <returns>A api-valid string representation of this <see cref="GameMode" /></returns>
+        /// <param name="gameMode">Mods to get the string for.</param>
+        /// <returns>A api-valid string representation of this <see cref="Mods" /></returns>
         public static string ToApiString(this Mods mods)
         {
             return mods.ToModString("&mods[]=");

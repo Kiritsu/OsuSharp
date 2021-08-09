@@ -87,8 +87,7 @@ Undocumented
  - /seasonal-backgrounds
  - /scores/{mode}/{score}/download
  - /scores/{mode}/{score}
- - /beatmapsets/search/{filters?}
- - /beatmapsets/lookup
+ - /beatmapsets/lookup (doesn't seem to work?)
  - /friends
 ```
 
@@ -110,6 +109,7 @@ Beatmaps
 
 Beatmapsets
  - /beatmapsets/{beatmapset}
+ - /beatmapsets/search/{filters?}
 
 OAuth Tokens
  - /oauth/tokens/current (Revoke current token)

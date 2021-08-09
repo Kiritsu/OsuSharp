@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
+using OsuSharp.Builders;
 using OsuSharp.Domain;
 
 namespace OsuSharp.Interfaces
@@ -339,6 +340,23 @@ namespace OsuSharp.Interfaces
             long? id = null,
             string checksum = null,
             string filename = null,
+            CancellationToken token = default);
+
+        /// <summary>
+        /// Enumerates the available beatmapsets from the API.
+        /// </summary>
+        /// <param name="builder">
+        /// Builder that filters the search.
+        /// </param>
+        /// <param name="token">
+        /// Cancellation token.
+        /// </param>
+        /// <returns>
+        /// Returns an asynchronous enumeration of <see cref="IBeatmapset"/>
+        /// </returns>
+        IAsyncEnumerable<IBeatmapset> EnumerateBeatmapsetsAsync(
+            BeatmapsetsLookupBuilder builder = null,
+            BeatmapSorting sorting = BeatmapSorting.Ranked_Desc,
             CancellationToken token = default);
     }
 }

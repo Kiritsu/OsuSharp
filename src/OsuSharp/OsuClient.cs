@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using OsuSharp.Builders;
 using OsuSharp.Domain;
 using OsuSharp.Exceptions;
 using OsuSharp.Extensions;
@@ -731,6 +733,103 @@ namespace OsuSharp
             catch (ApiException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
             {
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Enumerates the available beatmapsets from the API.
+        /// </summary>
+        /// <param name="builder">
+        /// Builder that filters the search.
+        /// </param>
+        /// <param name="token">
+        /// Cancellation token.
+        /// </param>
+        /// <returns>
+        /// Returns an asynchronous enumeration of <see cref="IBeatmapset"/>
+        /// </returns>
+        public async IAsyncEnumerable<IBeatmapset> EnumerateBeatmapsetsAsync(
+            BeatmapsetsLookupBuilder builder = null,
+            BeatmapSorting sorting = BeatmapSorting.Ranked_Desc,
+            [EnumeratorCancellation] CancellationToken token = default)
+        {
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
+
+            IDictionary<string, string> parameters = new Dictionary<string, string>();
+
+            if (builder != null)
+            {
+                parameters = builder.Build();
+            }
+
+            parameters["sort"] = sorting.ToString().ToLower();
+
+            Uri.TryCreate(
+                Endpoints.BeatmapsetsSearchEndpoint,
+                UriKind.Relative, out var uri);
+
+            var resultCount = long.MaxValue;
+            var expectedCount = long.MaxValue;
+            long totalCount = 0;
+
+            while (resultCount > 0 && expectedCount != totalCount)
+            {
+                var result = await _handler.SendAsync<BeatmapsetSearchEnumeration, BeatmapsetSearchEnumerationJsonModel>(new OsuApiRequest
+                {
+                    Endpoint = Endpoints.BeatmapsetsEndpoint,
+                    Method = HttpMethod.Get,
+                    Route = uri,
+                    Token = _credentials,
+                    Parameters = parameters
+                }, token);
+
+                expectedCount = result.Total;
+                totalCount += result.Beatmapsets.Count;
+
+                parameters["sort"] = result.Search.Sort.ToString().ToLower();
+
+                resultCount = result.Beatmapsets.Count;
+
+                if (resultCount > 0)
+                {
+                    foreach (var beatmapset in result.Beatmapsets)
+                    {
+                        yield return beatmapset;
+                    }
+
+                    var lastBeatmapset = result.Beatmapsets[result.Beatmapsets.Count - 1];
+
+                    switch (result.Search.Sort)
+                    {
+                        case BeatmapSorting.Title_Desc:
+                        case BeatmapSorting.Title_Asc:
+                            parameters["cursor[approved_date]"] = lastBeatmapset.Title;
+                            break;
+                        case BeatmapSorting.Artist_Desc:
+                        case BeatmapSorting.Artist_Asc:
+                            parameters["cursor[approved_date]"] = lastBeatmapset.Artist;
+                            break;
+                        case BeatmapSorting.Difficulty_Desc:
+                        case BeatmapSorting.Difficulty_Asc:
+                            parameters["cursor[beatmaps.difficultyrating]"] = lastBeatmapset.Beatmaps[0].DifficultyRating.ToString();
+                            break;
+                        case BeatmapSorting.Ranked_Desc:
+                        case BeatmapSorting.Ranked_Asc:
+                            parameters["cursor[approved_date]"] = lastBeatmapset.RankedDate.Value.ToUnixTimeMilliseconds().ToString();
+                            break;
+                        case BeatmapSorting.Rating_Desc:
+                        case BeatmapSorting.Rating_Asc:
+                            parameters["cursor[rating]"] = lastBeatmapset.Rating.ToString();
+                            break;
+                        case BeatmapSorting.Plays_Desc:
+                        case BeatmapSorting.Plays_Asc:
+                            parameters["cursor[play_count]"] = lastBeatmapset.PlayCount.ToString();
+                            break;
+                    }
+
+                    parameters["cursor[_id]"] = lastBeatmapset.Id.ToString();
+                }
             }
         }
 
