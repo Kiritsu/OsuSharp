@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace OsuSharp.Mapper
 {
-    public static class OsuSharpMapper
+    internal static class OsuSharpMapper
     {
         private static readonly MethodInfo Method = typeof(OsuSharpMapper)
             .GetMethod("Transform", BindingFlags.Public | BindingFlags.Static);
@@ -75,7 +75,7 @@ namespace OsuSharp.Mapper
                     continue;
                 }
 
-                var valueImplementingType = assemblyTypes.FirstOrDefault(x => x.IsAssignableTo(implementingProperty.PropertyType));
+                var valueImplementingType = assemblyTypes.LastOrDefault(x => x.IsAssignableTo(implementingProperty.PropertyType));
                 var itfValue = Method.MakeGenericMethod(valueImplementingType, modelValueType)
                     .Invoke(null, new[] { modelValue });
 

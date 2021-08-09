@@ -64,7 +64,7 @@ namespace OsuSharp.JsonModels
         public WeightJsonModel Weight { get; set; }
 
         [JsonProperty("user")]
-        public UserJsonModel User { get; set; }
+        public UserCompactJsonModel User { get; set; }
 
         // todo: object
         [JsonProperty("match")]

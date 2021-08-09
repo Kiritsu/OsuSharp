@@ -44,7 +44,7 @@ namespace OsuSharp.Domain
 
         public IWeight Weight { get; internal set; }
 
-        public IUser User { get; internal set; }
+        public IUserCompactBase User { get; internal set; }
 
         // todo: object
         public object Match { get; internal set; }

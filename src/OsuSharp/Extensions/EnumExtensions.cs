@@ -2,7 +2,7 @@
 
 namespace OsuSharp.Extensions
 {
-    public static class EnumExtensions
+    internal static class EnumExtensions
     {
         /// <summary>
         ///     Returns a string that fits osu! API requirements for that <see cref="BeatmapsetType" />.
@@ -84,6 +84,26 @@ namespace OsuSharp.Extensions
         public static string ToApiString(this GameMode? gameMode)
         {
             return gameMode.HasValue ? ToApiString(gameMode.Value) : "";
+        }
+
+        /// <summary>
+        ///     Returns a string that fits osu! API requirements for that <see cref="GameMode" />.
+        /// </summary>
+        /// <param name="gameMode">GameMode to get the string for.</param>
+        /// <returns>A api-valid string representation of this <see cref="GameMode" /></returns>
+        public static string ToApiString(this Mods mods)
+        {
+            return mods.ToModString("&mods[]=");
+        }
+
+        /// <summary>
+        ///     Returns a string that fits osu! API requirements for that <see cref="Mods" />.
+        /// </summary>
+        /// <param name="mods">Mods to get the string for.</param>
+        /// <returns>A api-valid string representation of this <see cref="Mods" /></returns>
+        public static string ToApiString(this Mods? mods)
+        {
+            return mods.HasValue ? ToApiString(mods.Value) : "";
         }
     }
 }

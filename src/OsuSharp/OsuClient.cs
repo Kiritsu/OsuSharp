@@ -8,6 +8,7 @@ using OsuSharp.Domain;
 using OsuSharp.Extensions;
 using OsuSharp.Interfaces;
 using OsuSharp.JsonModels;
+using OsuSharp.JsonModels.Score;
 using OsuSharp.Models;
 using OsuSharp.Net;
 
@@ -546,6 +547,61 @@ namespace OsuSharp
                 Method = HttpMethod.Get,
                 Route = uri,
                 Token = _credentials
+            }, token).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets a user score on a beatmap from the API.
+        /// </summary>
+        /// <param name="beatmapId">
+        /// If of the beatmap.
+        /// </param>
+        /// <param name="userId">
+        /// Id of the user.
+        /// </param>
+        /// <param name="gameMode">
+        /// Gamemode of the user. Defaults gamemode is picked when null.
+        /// </param>
+        /// <param name="mods">
+        /// Mods to filter when looking for a score.
+        /// </param>
+        /// <param name="token">
+        /// Cancellation token.
+        /// </param>
+        /// <returns></returns>
+        public async Task<IBeatmapUserScore> GetUserBeatmapScoreAsync(
+            long beatmapId, 
+            long userId, 
+            GameMode? gameMode = null, 
+            Mods? mods = null, 
+            CancellationToken token = default)
+        {
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
+
+            Uri.TryCreate(
+                string.Format(Endpoints.BeatmapsUserScore, beatmapId, userId),
+                UriKind.Relative, out var uri);
+
+            Dictionary<string, string> parameters = new();
+
+            if (gameMode.HasValue)
+            {
+                parameters["mode"] = gameMode.Value.ToApiString();
+            }
+
+            if (mods.HasValue)
+            {
+                parameters["mods[]"] = mods.Value.ToApiString();
+            }
+
+            return await _handler.SendAsync<BeatmapUserScore, BeatmapUserScoreJsonModel>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.Beatmaps,
+                Method = HttpMethod.Get,
+                Route = uri,
+                Token = _credentials,
+                Parameters = parameters
             }, token).ConfigureAwait(false);
         }
 

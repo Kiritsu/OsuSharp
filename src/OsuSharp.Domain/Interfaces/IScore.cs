@@ -25,7 +25,7 @@ namespace OsuSharp.Interfaces
         long? CountryRank { get; }
         long? GlobalRank { get; }
         IWeight Weight { get; }
-        IUser User { get; }
+        IUserCompactBase User { get; }
         object Match { get; }
     }
 }

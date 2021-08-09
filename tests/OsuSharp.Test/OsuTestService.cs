@@ -1,10 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using OsuSharp.Domain;
 using OsuSharp.Interfaces;
+using OsuSharp.JsonModels;
 
 namespace OsuSharp.Test
 {
@@ -23,11 +26,7 @@ namespace OsuSharp.Test
         {
             try
             {
-                while (true)
-                {
-                    var user = await _client.GetUserAsync("Evolia", GameMode.Taiko, stoppingToken);
-                    _logger.LogInformation("Id of Evolia: {Id}", user.Id);
-                }
+                var score = await _client.GetUserBeatmapScoreAsync(865344, 2222447, GameMode.Osu, Mods.HardRock | Mods.Hidden, stoppingToken);
             }
             catch (Exception ex)
             {
