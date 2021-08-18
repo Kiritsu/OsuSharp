@@ -84,7 +84,6 @@ Undocumented
  - /rooms/{mode?}
  - /rooms/{room}/leaderboard
  - /rooms/{room}
- - /seasonal-backgrounds
  - /scores/{mode}/{score}/download
  - /scores/{mode}/{score}
  - /beatmapsets/lookup (doesn't seem to work?)
@@ -108,11 +107,14 @@ Beatmaps
  - /beatmaps/lookup (Lookup Beatmap)
 
 Beatmapsets
- - /beatmapsets/{beatmapset}
- - /beatmapsets/search/{filters?}
+ - /beatmapsets/{beatmapset} (Get Beatmapset)
+ - /beatmapsets/search/{filters?} (Search beatmapsets)
 
 OAuth Tokens
  - /oauth/tokens/current (Revoke current token)
+
+Misc
+ - /seasonal-backgrounds (Get Current Seasonal Backgrounds ; No Auth)
 ```
 
 ## Contact
