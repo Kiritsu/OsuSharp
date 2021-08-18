@@ -17,6 +17,7 @@ namespace OsuSharp
         public const string Recent = "/recent_activity";
         public const string Lookup = "/lookup";
         public const string Search = "/search";
+        public const string SeasonalBackgrounds = "/seasonal-backgrounds";
 
         public const string CurrentEndpoint = Api + Me;
         public const string UserEndpoint = Api + Users;
@@ -31,6 +32,7 @@ namespace OsuSharp
         public const string BeatmapsLookupEndpoint = Api + Beatmaps + Lookup;
         public const string BeatmapsetsLookupEndpoint = Api + Beatmapsets + Lookup;
         public const string BeatmapsetsSearchEndpoint = Api + Beatmapsets + Search;
+        public const string SeasonalBackgroundsEndpoint = Api + SeasonalBackgrounds;
 
         public const string CurrentTokensEndpoint = Oauth + Tokens + Current;
         public const string TokenEndpoint = Oauth + Token;

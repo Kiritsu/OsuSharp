@@ -832,6 +832,34 @@ namespace OsuSharp
             }
         }
 
+        /// <summary>
+        /// Gets the current seasonal backgrounds from the API.
+        /// </summary>
+        /// <param name="token">
+        /// Cancellation token.
+        /// </param>
+        /// <returns>
+        /// Returns a <see cref="ISeasonalBackgrounds"/>
+        /// </returns>
+        /// <remarks>
+        /// Doesn't require any API authentication.
+        /// </remarks>
+        public async Task<ISeasonalBackgrounds> GetSeasonalBackgroundsAsync(CancellationToken token = default)
+        {
+            ThrowIfDisposed();
+
+            Uri.TryCreate(
+                Endpoints.SeasonalBackgroundsEndpoint,
+                UriKind.Relative, out var uri);
+
+            return await _handler.SendAsync<SeasonalBackgrounds, SeasonalBackgroundsJsonModel>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.SeasonalBackgroundsEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri
+            }, token).ConfigureAwait(false);
+        }
+
         private void ThrowIfDisposed()
         {
             if (_disposed)

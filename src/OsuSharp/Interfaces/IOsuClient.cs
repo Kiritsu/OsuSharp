@@ -358,5 +358,17 @@ namespace OsuSharp.Interfaces
             BeatmapsetsLookupBuilder builder = null,
             BeatmapSorting sorting = BeatmapSorting.Ranked_Desc,
             CancellationToken token = default);
+
+        /// <summary>
+        /// Gets the current seasonal backgrounds from the API.
+        /// </summary>
+        /// <param name="token">
+        /// Cancellation token.
+        /// </param>
+        /// <returns>
+        /// Returns a <see cref="ISeasonalBackgrounds"/>
+        /// </returns>
+        Task<ISeasonalBackgrounds> GetSeasonalBackgroundsAsync(
+            CancellationToken token = default);
     }
 }

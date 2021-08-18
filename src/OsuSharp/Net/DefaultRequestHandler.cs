@@ -89,11 +89,9 @@ namespace OsuSharp.Net
             CancellationToken token = default)
             where T : class
         {
-            if (request.Token is not null)
-            {
-                _httpClient.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue(request.Token.Type.ToString(), request.Token.AccessToken);
-            }
+            _httpClient.DefaultRequestHeaders.Authorization = request.Token is not null 
+                ? new AuthenticationHeaderValue(request.Token.Type.ToString(), request.Token.AccessToken) 
+                : null;
 
             var (bucket, requestMessage) = await PrepareRequestAsync(request, token).ConfigureAwait(false);
             var response = await _httpClient.SendAsync(requestMessage, token).ConfigureAwait(false);

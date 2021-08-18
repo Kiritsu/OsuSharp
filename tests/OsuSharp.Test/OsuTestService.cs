@@ -24,6 +24,8 @@ namespace OsuSharp.Test
         {
             try
             {
+                var backgrounds = await _client.GetSeasonalBackgroundsAsync(stoppingToken);
+
                 var builder = new BeatmapsetsLookupBuilder()
                     .WithKeywords("owo")
                     .WithGameMode(GameMode.Taiko)
