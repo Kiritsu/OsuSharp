@@ -17,25 +17,4 @@ namespace OsuSharp.Domain
 
         }
     }
-
-    public class Search : ISearch
-    {
-        public BeatmapSorting Sort { get; internal set; }
-
-        internal Search()
-        {
-
-        }
-    }
-
-    public class Cursor : ICursor
-    {
-        public string ApprovedDate { get; internal set; }
-        public string Id { get; internal set; }
-
-        internal Cursor()
-        {
-
-        }
-    }
 }
