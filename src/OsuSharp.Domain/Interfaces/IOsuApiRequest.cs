@@ -10,6 +10,11 @@ namespace OsuSharp.Interfaces
     public interface IOsuApiRequest
     {
         /// <summary>
+        /// Gets or sets the client responsible of this API request.
+        /// </summary>
+        IOsuClient Client { get; set; }
+
+        /// <summary>
         /// Gets or sets the token used to make the request.
         /// </summary>
         IOsuToken Token { get; set; }

@@ -2,7 +2,7 @@
 
 namespace OsuSharp.Interfaces
 {
-    public interface IBeatmapsetCompact
+    public interface IBeatmapsetCompact : IClientEntity
     {
         string Artist { get; }
         string ArtistUnicode { get; }

@@ -17,6 +17,7 @@ namespace OsuSharp.Domain
         public bool PmFriendsOnly { get; internal set; }
         public string ProfileColour { get; internal set; }
         public string Username { get; internal set; }
+        public IOsuClient Client { get; internal set; }
 
         internal UserCompactBase()
         {

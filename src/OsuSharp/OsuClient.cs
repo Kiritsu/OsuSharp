@@ -106,7 +106,8 @@ namespace OsuSharp
                 Method = HttpMethod.Post,
                 Route = uri,
                 Parameters = parameters,
-                Token = _credentials
+                Token = _credentials,
+                Client = this
             }, token).ConfigureAwait(false);
 
             return _credentials = new OsuToken
@@ -169,7 +170,8 @@ namespace OsuSharp
                 Endpoint = Endpoints.CurrentTokensEndpoint,
                 Method = HttpMethod.Delete,
                 Route = uri,
-                Token = _credentials
+                Token = _credentials,
+                Client = this
             }, token).ConfigureAwait(false);
 
             if (_credentials is not null)
@@ -223,7 +225,8 @@ namespace OsuSharp
                 Method = HttpMethod.Get,
                 Route = uri,
                 Parameters = parameters,
-                Token = _credentials
+                Token = _credentials,
+                Client = this
             }, token).ConfigureAwait(false);
         }
 
@@ -256,7 +259,8 @@ namespace OsuSharp
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
-                Token = _credentials
+                Token = _credentials,
+                Client = this
             }, token).ConfigureAwait(false);
         }
 
@@ -289,7 +293,8 @@ namespace OsuSharp
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
-                Token = _credentials
+                Token = _credentials,
+                Client = this
             }, token).ConfigureAwait(false);
         }
 
@@ -338,7 +343,8 @@ namespace OsuSharp
                 Method = HttpMethod.Get,
                 Route = uri,
                 Parameters = parameters,
-                Token = _credentials
+                Token = _credentials,
+                Client = this
             }, token).ConfigureAwait(false);
         }
 
@@ -391,7 +397,8 @@ namespace OsuSharp
                 Method = HttpMethod.Get,
                 Route = uri,
                 Parameters = parameters,
-                Token = _credentials
+                Token = _credentials,
+                Client = this
             }, token).ConfigureAwait(false);
         }
 
@@ -462,7 +469,8 @@ namespace OsuSharp
                 Method = HttpMethod.Get,
                 Route = uri,
                 Parameters = parameters,
-                Token = _credentials
+                Token = _credentials,
+                Client = this
             }, token).ConfigureAwait(false);
         }
 
@@ -491,7 +499,8 @@ namespace OsuSharp
                 Endpoint = Endpoints.CurrentEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
-                Token = _credentials
+                Token = _credentials,
+                Client = this
             }, token).ConfigureAwait(false);
         }
 
@@ -520,7 +529,8 @@ namespace OsuSharp
                 Endpoint = Endpoints.BeatmapsEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
-                Token = _credentials
+                Token = _credentials,
+                Client = this
             }, token).ConfigureAwait(false);
         }
 
@@ -549,7 +559,8 @@ namespace OsuSharp
                 Endpoint = Endpoints.BeatmapsetsEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
-                Token = _credentials
+                Token = _credentials,
+                Client = this
             }, token).ConfigureAwait(false);
         }
 
@@ -606,7 +617,8 @@ namespace OsuSharp
                 Method = HttpMethod.Get,
                 Route = uri,
                 Token = _credentials,
-                Parameters = parameters
+                Parameters = parameters,
+                Client = this
             }, token).ConfigureAwait(false);
         }
 
@@ -659,7 +671,8 @@ namespace OsuSharp
                 Method = HttpMethod.Get,
                 Route = uri,
                 Token = _credentials,
-                Parameters = parameters
+                Parameters = parameters,
+                Client = this
             }, token).ConfigureAwait(false);
         }
 
@@ -725,7 +738,8 @@ namespace OsuSharp
                     Method = HttpMethod.Get,
                     Route = uri,
                     Token = _credentials,
-                    Parameters = parameters
+                    Parameters = parameters,
+                    Client = this
                 }, token);
 
                 return result;
@@ -781,7 +795,8 @@ namespace OsuSharp
                     Method = HttpMethod.Get,
                     Route = uri,
                     Token = _credentials,
-                    Parameters = parameters
+                    Parameters = parameters,
+                    Client = this
                 }, token).ConfigureAwait(false);
 
                 parameters["sort"] = result.Search.Sort.ToString().ToLower();
@@ -856,7 +871,8 @@ namespace OsuSharp
             {
                 Endpoint = Endpoints.SeasonalBackgroundsEndpoint,
                 Method = HttpMethod.Get,
-                Route = uri
+                Route = uri,
+                Client = this
             }, token).ConfigureAwait(false);
         }
 

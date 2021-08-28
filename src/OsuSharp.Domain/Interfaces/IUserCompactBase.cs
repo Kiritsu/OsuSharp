@@ -2,7 +2,7 @@
 
 namespace OsuSharp.Interfaces
 {
-    public interface IUserCompactBase
+    public interface IUserCompactBase : IClientEntity
     {
         Uri AvatarUrl { get; }
         string CountryCode { get; }

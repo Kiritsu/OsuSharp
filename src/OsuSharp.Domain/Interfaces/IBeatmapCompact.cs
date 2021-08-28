@@ -3,7 +3,7 @@ using OsuSharp.Domain;
 
 namespace OsuSharp.Interfaces
 {
-    public interface IBeatmapCompact
+    public interface IBeatmapCompact : IClientEntity
     {
         double DifficultyRating { get; }
         long Id { get; }

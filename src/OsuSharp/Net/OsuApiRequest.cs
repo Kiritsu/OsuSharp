@@ -16,5 +16,7 @@ namespace OsuSharp.Net
         public Uri Route { get; set; }
 
         public IDictionary<string, string> Parameters { get; set; }
+
+        public IOsuClient Client { get; set; }
     }
 }

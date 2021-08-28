@@ -28,7 +28,9 @@ namespace OsuSharp.Domain
         public int? MaxCombo { get; internal set; }
 
         public long UserId { get; internal set; }
-        
+
+        public IOsuClient Client { get; internal set; }
+
         internal BeatmapCompact()
         {
             

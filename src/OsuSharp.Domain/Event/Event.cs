@@ -11,6 +11,8 @@ namespace OsuSharp.Domain
 
         public EventType Type { get; internal set; }
 
+        public IOsuClient Client { get; internal set; }
+
         internal Event()
         {
             

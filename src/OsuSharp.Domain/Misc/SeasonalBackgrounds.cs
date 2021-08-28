@@ -10,6 +10,8 @@ namespace OsuSharp.Domain
 
         public IReadOnlyList<ISeasonalBackground> Backgrounds { get; internal set; }
 
+        public IOsuClient Client { get; internal set; }
+
         internal SeasonalBackgrounds()
         {
 

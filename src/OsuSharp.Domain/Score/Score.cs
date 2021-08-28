@@ -49,6 +49,8 @@ namespace OsuSharp.Domain
         // todo: object
         public object Match { get; internal set; }
 
+        public IOsuClient Client { get; internal set; }
+
         internal Score()
         {
             

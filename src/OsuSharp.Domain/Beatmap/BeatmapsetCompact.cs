@@ -71,7 +71,9 @@ namespace OsuSharp.Domain
 
         // todo: type
         public IUserCompactBase User { get; internal set; }
-        
+
+        public IOsuClient Client { get; internal set; }
+
         internal BeatmapsetCompact()
         {
             

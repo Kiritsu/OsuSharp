@@ -4,7 +4,7 @@ using OsuSharp.Domain;
 
 namespace OsuSharp.Interfaces
 {
-    public interface IScore
+    public interface IScore : IClientEntity
     {
         long Id { get; }
         long? BestId { get; }

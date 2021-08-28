@@ -105,7 +105,7 @@ namespace OsuSharp.Net
             where TModel : class
         {
             var model = await SendAsync<TModel>(request, token).ConfigureAwait(false);
-            return OsuSharpMapper.Transform<TImplementation, TModel>(model);
+            return OsuSharpMapper.Transform<TImplementation, TModel>(model, request.Client);
         }
 
         private async Task<RatelimitBucket> GetBucketFromEndpointAsync(
@@ -241,7 +241,11 @@ namespace OsuSharp.Net
 
         private void LogMissingFields<T>(T model, string name = "")
         {
-            if (model is JsonModel { ExtensionData: { Count: > 0 } } jsonModel && jsonModel.GetType() != typeof(JsonModel))
+            if (model.GetType() == typeof(object))
+            {
+                _logger.Log(LogLevel.Warning, "Uh-uh... The field {Name} is just an object and need to have its own type.", name);
+            }
+            else if (model is JsonModel { ExtensionData: { Count: > 0 } } jsonModel && jsonModel.GetType() != typeof(JsonModel))
             {
                 _logger.Log(LogLevel.Trace,
                     "Found {Count} extra fields for model {Model} - {Name}:\n{Data}",

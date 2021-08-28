@@ -20,6 +20,8 @@ namespace OsuSharp.Domain
 
         public IKudosuPost Post { get; internal set; }
 
+        public IOsuClient Client { get; internal set; }
+
         internal KudosuHistory()
         {
             

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using OsuSharp.Interfaces;
 
 namespace OsuSharp.Mapper
 {
@@ -11,7 +12,7 @@ namespace OsuSharp.Mapper
         private static readonly MethodInfo Method = typeof(OsuSharpMapper)
             .GetMethod("Transform", BindingFlags.Public | BindingFlags.Static);
 
-        public static TImplementation Transform<TImplementation, TModel>(TModel model)
+        public static TImplementation Transform<TImplementation, TModel>(TModel model, IOsuClient client)
             where TModel : class
         {
             var modelType = typeof(TModel);
@@ -66,7 +67,12 @@ namespace OsuSharp.Mapper
                     {
                         var itfValueEnumerable = Method
                             .MakeGenericMethod(valueImplementingTypeEnumerable, modelValueType.GenericTypeArguments.First())
-                            .Invoke(null, new[] { value });
+                            .Invoke(null, new[] { value, client });
+
+                        if (itfValueEnumerable is IClientEntity)
+                        {
+                            valueImplementingTypeEnumerable.GetProperty("Client").SetValue(itfValueEnumerable, client);
+                        }
 
                         tempList.Add(itfValueEnumerable);
                     }
@@ -77,9 +83,19 @@ namespace OsuSharp.Mapper
 
                 var valueImplementingType = assemblyTypes.LastOrDefault(x => x.IsAssignableTo(implementingProperty.PropertyType));
                 var itfValue = Method.MakeGenericMethod(valueImplementingType, modelValueType)
-                    .Invoke(null, new[] { modelValue });
+                    .Invoke(null, new[] { modelValue, client });
+
+                if (itfValue is IClientEntity)
+                {
+                    valueImplementingType.GetProperty("Client").SetValue(itfValue, client);
+                }
 
                 implementingProperty.SetValue(implementingInstance, itfValue);
+            }
+
+            if (implementingInstance is IClientEntity)
+            {
+                implementingType.GetProperty("Client").SetValue(implementingInstance, client);
             }
 
             return (TImplementation)implementingInstance;

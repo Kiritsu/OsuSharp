@@ -3,7 +3,7 @@ using OsuSharp.Domain;
 
 namespace OsuSharp.Interfaces
 {
-    public interface IKudosuHistory
+    public interface IKudosuHistory : IClientEntity
     {
         long Id { get; }
         KudosuAction Action { get; }
