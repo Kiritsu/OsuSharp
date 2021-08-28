@@ -32,6 +32,8 @@ namespace OsuSharp.Test
                     .WithCategory(BeatmapsetCategory.Ranked)
                     .WithConvertedBeatmaps();
 
+                var user = await _client.GetUserAsync("Evolia");
+
                 await foreach (var beatmapset in _client.EnumerateBeatmapsetsAsync(builder, BeatmapSorting.Ranked_Desc, stoppingToken))
                 {
                     _logger.LogInformation("Beatmapset pulled: {Id} {Title} {UserId} ({Count} beatmaps)", 

@@ -241,11 +241,7 @@ namespace OsuSharp.Net
 
         private void LogMissingFields<T>(T model, string name = "")
         {
-            if (model.GetType() == typeof(object))
-            {
-                _logger.Log(LogLevel.Warning, "Uh-uh... The field {Name} is just an object and need to have its own type.", name);
-            }
-            else if (model is JsonModel { ExtensionData: { Count: > 0 } } jsonModel && jsonModel.GetType() != typeof(JsonModel))
+            if (model is JsonModel { ExtensionData: { Count: > 0 } } jsonModel && jsonModel.GetType() != typeof(JsonModel))
             {
                 _logger.Log(LogLevel.Trace,
                     "Found {Count} extra fields for model {Model} - {Name}:\n{Data}",
@@ -254,6 +250,7 @@ namespace OsuSharp.Net
                 foreach (var property in model.GetType().GetProperties())
                 {
                     var value = property.GetValue(model);
+
                     if (property.GetValue(model) is JsonModel { ExtensionData: { Count: > 0 } } && jsonModel.GetType() != typeof(JsonModel))
                     {
                         LogMissingFields(value, property.Name);
