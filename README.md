@@ -84,7 +84,6 @@ Undocumented
  - /rooms/{mode?}
  - /rooms/{room}/leaderboard
  - /rooms/{room}
- - /scores/{mode}/{score}/download (permission failure)
  - /beatmapsets/lookup (doesn't seem to work?)
  - /friends
 ```
@@ -111,6 +110,7 @@ Beatmapsets
 
 Scores
  - /scores/{mode}/{score} (Get Score)
+ - /scores/{mode}/{score}/download (Get Replay ; Needs Authorization Code Grant)
 
 OAuth Tokens
  - /oauth/tokens/current (Revoke current token)
