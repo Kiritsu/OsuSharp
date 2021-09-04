@@ -35,6 +35,7 @@ namespace OsuSharp
         public const string BeatmapsetsSearchEndpoint = Api + Beatmapsets + Search;
         public const string SeasonalBackgroundsEndpoint = Api + SeasonalBackgrounds;
         public const string ScoresEndpoint = Api + Scores + "/{0}" + "/{1}";
+        public const string ScoresDownloadEndpoint = Api + Scores + "/{0}" + "/{1}" + Download;
 
         public const string CurrentTokensEndpoint = Oauth + Tokens + Current;
         public const string TokenEndpoint = Oauth + Token;

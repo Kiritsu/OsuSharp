@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,6 +16,15 @@ namespace OsuSharp.Interfaces
         /// <param name="request">Details of the request to make.</param>
         /// <param name="token">Cancellation token.</param>
         Task SendAsync(
+            IOsuApiRequest request,
+            CancellationToken token = default);
+
+        /// <summary>
+        /// Sends a GET request and gets the raw response as a stream.
+        /// </summary>
+        /// <param name="request">Details of the request to make.</param>
+        /// <param name="token">Cancellation token.</param>
+        Task<Stream> GetStreamAsync(
             IOsuApiRequest request,
             CancellationToken token = default);
 

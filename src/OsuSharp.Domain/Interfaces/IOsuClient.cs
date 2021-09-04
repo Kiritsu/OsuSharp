@@ -390,5 +390,25 @@ namespace OsuSharp.Interfaces
             long scoreId,
             GameMode gameMode = GameMode.Osu,
             CancellationToken token = default);
+
+        /// <summary>
+        /// Gets a replay by its score ID from the API.
+        /// </summary>
+        /// <param name="scoreId">
+        /// Id of the score
+        /// </param>
+        /// <param name="gameMode">
+        /// Game mode the score was playing in.
+        /// </param>
+        /// <param name="token">
+        /// Cancellation token.
+        /// </param>
+        /// <returns>
+        /// Returns a <see cref="IScore"/>
+        /// </returns>
+        Task<IReplay> GetReplayAsync(
+            long scoreId,
+            GameMode gameMode = GameMode.Osu,
+            CancellationToken token = default);
     }
 }

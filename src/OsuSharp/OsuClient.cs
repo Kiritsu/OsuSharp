@@ -911,6 +911,42 @@ namespace OsuSharp
             }, token).ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// Gets a replay by its score ID from the API.
+        /// </summary>
+        /// <param name="scoreId">
+        /// Id of the score
+        /// </param>
+        /// <param name="gameMode">
+        /// Game mode the score was playing in.
+        /// </param>
+        /// <returns>
+        /// Returns a <see cref="IScore"/>
+        /// </returns>
+        public async Task<IReplay> GetReplayAsync(
+            long scoreId,
+            GameMode gameMode = GameMode.Osu,
+            CancellationToken token = default)
+        {
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
+
+            Uri.TryCreate(
+                string.Format(Endpoints.ScoresDownloadEndpoint, gameMode.ToApiString(), scoreId),
+                UriKind.Relative, out var uri);
+
+            var b64encodedStream = await _handler.GetStreamAsync(new OsuApiRequest
+            {
+                Endpoint = Endpoints.ScoresEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri,
+                Token = _credentials,
+                Client = this
+            }, token).ConfigureAwait(false);
+
+            return Replay.FromStream(b64encodedStream);
+        }
+
         private void ThrowIfDisposed()
         {
             if (_disposed)

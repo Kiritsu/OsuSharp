@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using OsuSharp.Builders;
 using OsuSharp.Domain;
 using OsuSharp.Interfaces;
 
@@ -24,21 +23,10 @@ namespace OsuSharp.Test
         {
             try
             {
-                var backgrounds = await _client.GetSeasonalBackgroundsAsync(stoppingToken);
+                _client.UpdateAccessToken("redacted", "redacted", 86394);
 
-                var builder = new BeatmapsetsLookupBuilder()
-                    .WithGameMode(GameMode.Taiko)
-                    .WithCategory(BeatmapsetCategory.Ranked)
-                    .WithConvertedBeatmaps();
-
-                var score = await _client.GetScoreAsync(3848835411, GameMode.Osu, stoppingToken);
-                Console.WriteLine(score);
-
-                await foreach (var beatmapset in _client.EnumerateBeatmapsetsAsync(builder, BeatmapSorting.Ranked_Desc, stoppingToken))
-                {
-                    _logger.LogInformation("Beatmapset pulled: {Id} {Title} {UserId} ({Count} beatmaps)", 
-                        beatmapset.Id, beatmapset.Title, beatmapset.UserId, beatmapset.Beatmaps?.Count);
-                }
+                var replay = await _client.GetReplayAsync(3803330915, GameMode.Osu, stoppingToken);
+                var replayMoveData = replay.GetReplayMoveData();
             }
             catch (Exception ex)
             {

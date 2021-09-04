@@ -17,6 +17,7 @@ using OsuSharp.Net.Serialization;
 using OsuSharp.Interfaces;
 using OsuSharp.Mapper;
 using System.Threading;
+using System.IO;
 
 namespace OsuSharp.Net
 {
@@ -72,17 +73,32 @@ namespace OsuSharp.Net
             IOsuApiRequest request,
             CancellationToken token = default)
         {
-            if (request.Token is not null)
-            {
-                _httpClient.DefaultRequestHeaders.Authorization =
-                    new AuthenticationHeaderValue(request.Token.Type.ToString(), request.Token.AccessToken);
-            }
+            _httpClient.DefaultRequestHeaders.Authorization = request.Token is not null
+                ? new AuthenticationHeaderValue(request.Token.Type.ToString(), request.Token.AccessToken)
+                : null;
 
             var (bucket, requestMessage) = await PrepareRequestAsync(request, token).ConfigureAwait(false);
             var response = await _httpClient.SendAsync(requestMessage, token).ConfigureAwait(false);
             await ValidateResponseAsync(response, token).ConfigureAwait(false);
             UpdateBucket(request.Endpoint, bucket, response);
         }
+
+        public async Task<Stream> GetStreamAsync(
+            IOsuApiRequest request,
+            CancellationToken token = default)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization = request.Token is not null
+                ? new AuthenticationHeaderValue(request.Token.Type.ToString(), request.Token.AccessToken)
+                : null;
+
+            var (bucket, requestMessage) = await PrepareRequestAsync(request, token).ConfigureAwait(false);
+            var response = await _httpClient.SendAsync(requestMessage, token).ConfigureAwait(false);
+            await ValidateResponseAsync(response, token).ConfigureAwait(false);
+            UpdateBucket(request.Endpoint, bucket, response);
+
+            return await response.Content.ReadAsStreamAsync(token).ConfigureAwait(false);
+        }
+
 
         public async Task<T> SendAsync<T>(
             IOsuApiRequest request,
@@ -96,6 +112,7 @@ namespace OsuSharp.Net
             var (bucket, requestMessage) = await PrepareRequestAsync(request, token).ConfigureAwait(false);
             var response = await _httpClient.SendAsync(requestMessage, token).ConfigureAwait(false);
             await ValidateResponseAsync(response, token).ConfigureAwait(false);
+            UpdateBucket(request.Endpoint, bucket, response);
             return await ReadAndDeserializeAsync<T>(request, response, bucket, token).ConfigureAwait(false);
         }
 

@@ -1,15 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29318.209
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31521.260
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuSharp", "src\OsuSharp\OsuSharp.csproj", "{62303D65-1A48-457D-A62A-5F5B737B5BB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsuSharp", "src\OsuSharp\OsuSharp.csproj", "{62303D65-1A48-457D-A62A-5F5B737B5BB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuSharp.Test", "tests\OsuSharp.Test\OsuSharp.Test.csproj", "{7134C2D6-30F5-4636-946D-B7311FED2FCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsuSharp.Test", "tests\OsuSharp.Test\OsuSharp.Test.csproj", "{7134C2D6-30F5-4636-946D-B7311FED2FCE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuSharp.JsonModels", "src\OsuSharp.JsonModels\OsuSharp.JsonModels.csproj", "{5D8F2A61-F4F1-40EF-8BF0-8F7B2E519B34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsuSharp.JsonModels", "src\OsuSharp.JsonModels\OsuSharp.JsonModels.csproj", "{5D8F2A61-F4F1-40EF-8BF0-8F7B2E519B34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuSharp.Domain", "src\OsuSharp.Domain\OsuSharp.Domain.csproj", "{DBC87459-A01A-4E93-BD62-FBE0CA52FDFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsuSharp.Domain", "src\OsuSharp.Domain\OsuSharp.Domain.csproj", "{DBC87459-A01A-4E93-BD62-FBE0CA52FDFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuSharp.ReplayData", "src\OsuSharp.ReplayData\OsuSharp.ReplayData.csproj", "{EDD75D52-EC09-4F8E-B163-892A527F1C40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{DBC87459-A01A-4E93-BD62-FBE0CA52FDFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBC87459-A01A-4E93-BD62-FBE0CA52FDFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBC87459-A01A-4E93-BD62-FBE0CA52FDFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDD75D52-EC09-4F8E-B163-892A527F1C40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDD75D52-EC09-4F8E-B163-892A527F1C40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDD75D52-EC09-4F8E-B163-892A527F1C40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDD75D52-EC09-4F8E-B163-892A527F1C40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
