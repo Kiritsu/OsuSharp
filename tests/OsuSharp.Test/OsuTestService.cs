@@ -27,12 +27,12 @@ namespace OsuSharp.Test
                 var backgrounds = await _client.GetSeasonalBackgroundsAsync(stoppingToken);
 
                 var builder = new BeatmapsetsLookupBuilder()
-                    .WithKeywords("owo")
                     .WithGameMode(GameMode.Taiko)
                     .WithCategory(BeatmapsetCategory.Ranked)
                     .WithConvertedBeatmaps();
 
-                var user = await _client.GetUserAsync("Evolia");
+                var score = await _client.GetScoreAsync(3848835411, GameMode.Osu, stoppingToken);
+                Console.WriteLine(score);
 
                 await foreach (var beatmapset in _client.EnumerateBeatmapsetsAsync(builder, BeatmapSorting.Ranked_Desc, stoppingToken))
                 {

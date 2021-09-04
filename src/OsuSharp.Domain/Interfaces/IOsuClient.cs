@@ -370,5 +370,25 @@ namespace OsuSharp.Interfaces
         /// </returns>
         Task<ISeasonalBackgrounds> GetSeasonalBackgroundsAsync(
             CancellationToken token = default);
+
+        /// <summary>
+        /// Gets a score by its ID from the API.
+        /// </summary>
+        /// <param name="scoreId">
+        /// Id of the score
+        /// </param>
+        /// <param name="gameMode">
+        /// Game mode the score was playing in.
+        /// </param>
+        /// <param name="token">
+        /// Cancellation token.
+        /// </param>
+        /// <returns>
+        /// Returns a <see cref="IScore"/>
+        /// </returns>
+        Task<IScore> GetScoreAsync(
+            long scoreId,
+            GameMode gameMode = GameMode.Osu,
+            CancellationToken token = default);
     }
 }

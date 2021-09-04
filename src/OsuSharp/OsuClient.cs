@@ -859,7 +859,8 @@ namespace OsuSharp
         /// <remarks>
         /// Doesn't require any API authentication.
         /// </remarks>
-        public async Task<ISeasonalBackgrounds> GetSeasonalBackgroundsAsync(CancellationToken token = default)
+        public async Task<ISeasonalBackgrounds> GetSeasonalBackgroundsAsync(
+            CancellationToken token = default)
         {
             ThrowIfDisposed();
 
@@ -872,6 +873,40 @@ namespace OsuSharp
                 Endpoint = Endpoints.SeasonalBackgroundsEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
+                Client = this
+            }, token).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets a score by its ID from the API.
+        /// </summary>
+        /// <param name="scoreId">
+        /// Id of the score
+        /// </param>
+        /// <param name="gameMode">
+        /// Game mode the score was playing in.
+        /// </param>
+        /// <returns>
+        /// Returns a <see cref="IScore"/>
+        /// </returns>
+        public async Task<IScore> GetScoreAsync(
+            long scoreId, 
+            GameMode gameMode = GameMode.Osu, 
+            CancellationToken token = default)
+        {
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
+
+            Uri.TryCreate(
+                string.Format(Endpoints.ScoresEndpoint, gameMode.ToApiString(), scoreId),
+                UriKind.Relative, out var uri);
+
+            return await _handler.SendAsync<Score, ScoreJsonModel>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.ScoresEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri,
+                Token = _credentials,
                 Client = this
             }, token).ConfigureAwait(false);
         }

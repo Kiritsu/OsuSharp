@@ -21,7 +21,7 @@ namespace OsuSharp.Interfaces
         GameMode Mode { get; }
         bool? HasReplay { get; }
         IBeatmap Beatmap { get; }
-        IBeatmapset Beatmapset { get; }
+        IBeatmapsetCompact Beatmapset { get; }
         long? CountryRank { get; }
         long? GlobalRank { get; }
         IWeight Weight { get; }

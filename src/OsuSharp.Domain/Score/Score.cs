@@ -36,7 +36,7 @@ namespace OsuSharp.Domain
 
         public IBeatmap Beatmap { get; internal set; }
 
-        public IBeatmapset Beatmapset { get; internal set; }
+        public IBeatmapsetCompact Beatmapset { get; internal set; }
 
         public long? CountryRank { get; internal set; }
 
