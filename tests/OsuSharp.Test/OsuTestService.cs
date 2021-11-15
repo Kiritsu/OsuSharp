@@ -23,10 +23,7 @@ namespace OsuSharp.Test
         {
             try
             {
-                _client.UpdateAccessToken("redacted", "redacted", 86394);
-
-                var replay = await _client.GetReplayAsync(3803330915, GameMode.Osu, stoppingToken);
-                var replayMoveData = replay.GetReplayMoveData();
+                var bm = await _client.GetBeatmapsetAsync(1549308);
             }
             catch (Exception ex)
             {

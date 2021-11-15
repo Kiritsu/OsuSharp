@@ -8,6 +8,6 @@ namespace OsuSharp.JsonModels
         public string Url { get; set;  }
 
         [JsonProperty("user")]
-        public UserCompactJsonModel User { get; set; }
+        public UserJsonModel User { get; set; }
     }
 }

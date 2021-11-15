@@ -2,7 +2,7 @@
 
 namespace OsuSharp.JsonModels
 {
-    public class EventBeatmapJsonModel
+    public class EventBeatmapJsonModel : JsonModel
     {
         [JsonProperty("title")]
         public string Title { get; set; }
