@@ -9,7 +9,7 @@ namespace OsuSharp.Domain
 
         public string Name { get; internal set; }
 
-        public RegionInfo RegionInfo => _regionInfo ??= new RegionInfo(Name);
+        public RegionInfo RegionInfo => _regionInfo ??= new RegionInfo(Code);
         private RegionInfo _regionInfo;
 
         internal UserCountry()
