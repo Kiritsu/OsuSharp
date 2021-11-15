@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OsuSharp.Interfaces;
@@ -90,18 +91,34 @@ namespace OsuSharp.Extensions
             }
 
             services.AddSingleton(options.Value.Configuration);
-            services.AddSingleton(options.Value.JsonSerializer ?? DefaultJsonSerializer.Instance);
+
+            if (!services.Any(x => x.ServiceType == typeof(IJsonSerializer)))
+            {
+                services.AddSingleton(options.Value.JsonSerializer ?? DefaultJsonSerializer.Instance);
+            }
 
             if (options.Value.RequestHandler is not null)
             {
                 services.AddSingleton(options.Value.RequestHandler);
             }
-            else
+            else if (!services.Any(x => x.ServiceType == typeof(IRequestHandler)))
             {
                 services.AddSingleton<IRequestHandler, DefaultRequestHandler>();
             }
 
             return services.AddSingleton<IOsuClient, OsuClient>();
+        }
+
+        public static IServiceCollection AddDefaultRequestHandler(
+            this IServiceCollection services)
+        {
+            return services.AddSingleton<IRequestHandler, DefaultRequestHandler>();
+        }
+
+        public static IServiceCollection AddDefaultSerializer(
+            this IServiceCollection services)
+        {
+            return services.AddSingleton(DefaultJsonSerializer.Instance);
         }
     }
 }
