@@ -14,7 +14,7 @@ namespace OsuSharp
     public sealed class OsuClient
     {
         #region Endpoints
-        private const string Root = "https://osu.ppy.sh/api";
+        private string Root => OsuSharpConfiguration.BaseUrl;
         private const string Beatmaps = "/get_beatmaps";
         private const string Scores = "/get_scores";
         private const string User = "/get_user";
