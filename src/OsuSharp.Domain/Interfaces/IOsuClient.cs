@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
-using OsuSharp.Builders;
 using OsuSharp.Domain;
 
 namespace OsuSharp.Interfaces
@@ -127,7 +126,7 @@ namespace OsuSharp.Interfaces
         /// </returns>
         Task<IUser> GetUserAsync(
             long userId,
-            GameMode? gameMode = null, 
+            GameMode? gameMode = null,
             CancellationToken token = default);
 
         /// <summary>
@@ -151,7 +150,7 @@ namespace OsuSharp.Interfaces
         Task<IReadOnlyList<IEvent>> GetUserRecentAsync(
             long userId,
             int? limit = null,
-            int? offset = null, 
+            int? offset = null,
             CancellationToken token = default);
 
         /// <summary>
@@ -248,6 +247,22 @@ namespace OsuSharp.Interfaces
         /// </returns>
         Task<IBeatmap> GetBeatmapAsync(
             long beatmapId,
+            CancellationToken token = default);
+
+        /// <summary>
+        /// Gets a set of beatmaps by their ids. Up to 50 beatmaps can be requested at once.
+        /// </summary>
+        /// <param name="beatmapIds">
+        /// Ids of the beatmaps.
+        /// </param>
+        /// <param name="token">
+        /// Cancellation token.
+        /// </param>
+        /// <returns>
+        /// Returns a <see cref="IReadOnlyList{IBeatmap}" />
+        /// </returns>
+        Task<IReadOnlyList<IBeatmapCompact>> GetBeatmapsAsync(
+            IReadOnlyList<long> beatmapIds,
             CancellationToken token = default);
 
         /// <summary>

@@ -22,5 +22,10 @@
         ///     Defaults to space. 
         /// </summary>
         string ModFormatSeparator { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the base URL of the API.
+        /// </summary>
+        string BaseUrl { get; set; }
     }
 }

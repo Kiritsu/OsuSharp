@@ -51,7 +51,7 @@ namespace OsuSharp.Net
                 }
             })
             {
-                BaseAddress = new Uri("https://osu.ppy.sh")
+                BaseAddress = new Uri(_configuration.BaseUrl)
             };
 
             _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("OsuSharp", "2.0"));
@@ -98,7 +98,6 @@ namespace OsuSharp.Net
 
             return await response.Content.ReadAsStreamAsync(token).ConfigureAwait(false);
         }
-
 
         public async Task<T> SendAsync<T>(
             IOsuApiRequest request,

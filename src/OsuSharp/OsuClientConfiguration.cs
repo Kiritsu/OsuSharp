@@ -28,5 +28,10 @@ namespace OsuSharp
         ///     Defaults to space. 
         /// </summary>
         public string ModFormatSeparator { get; set; } = " ";
+
+        /// <summary>
+        ///     Gets or sets the base URL of the API.
+        /// </summary>
+        public string BaseUrl { get; set; } = "https://osu.ppy.sh";
     }
 }

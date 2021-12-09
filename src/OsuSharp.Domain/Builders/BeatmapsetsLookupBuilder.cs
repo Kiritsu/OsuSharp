@@ -1,9 +1,8 @@
-﻿using OsuSharp.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OsuSharp.Builders
+namespace OsuSharp.Domain
 {
     public class BeatmapsetsLookupBuilder
     {

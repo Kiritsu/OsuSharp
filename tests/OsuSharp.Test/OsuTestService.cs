@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
@@ -23,7 +24,12 @@ namespace OsuSharp.Test
         {
             try
             {
-                var bm = await _client.GetBeatmapsetAsync(1549308);
+                var list = new List<IBeatmapset>();
+                await foreach (var map in _client.EnumerateBeatmapsetsAsync(token: stoppingToken))
+                {
+                    list.Add(map);
+                    Console.WriteLine($"[{map.Id}] {map.Title} - {map.Artist} [{map.Beatmaps.Count} beatmaps] | {map.Creator}");
+                }
             }
             catch (Exception ex)
             {

@@ -26,7 +26,8 @@ namespace OsuSharp
         public const string UserRecentEndpoint = Api + Users + "/{0}" + Recent;
         public const string UserBeatmapsetsEndpoint = Api + Users + "/{0}" + Beatmapsets + "/{1}";
         public const string UserScoresEndpoint = Api + Users + "/{0}" + Scores + "/{1}";
-        public const string BeatmapsEndpoint = Api + Beatmaps + "/{0}";
+        public const string BeatmapsEndpoint = Api + Beatmaps;
+        public const string BeatmapsBeatmapEndpoint = Api + Beatmaps + "/{0}";
         public const string BeatmapsScoresEndpoint = Api + Beatmaps + "/{0}" + Scores;
         public const string BeatmapsUserScoreEndpoint = Api + Beatmaps + "/{0}" + Scores + Users + "/{1}";
         public const string BeatmapsetsEndpoint = Api + Beatmapsets + "/{0}";

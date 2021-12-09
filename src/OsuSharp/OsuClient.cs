@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
-using OsuSharp.Builders;
 using OsuSharp.Domain;
 using OsuSharp.Exceptions;
 using OsuSharp.Extensions;
@@ -521,12 +521,12 @@ namespace OsuSharp
             await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
 
             Uri.TryCreate(
-                string.Format(Endpoints.BeatmapsEndpoint, beatmapId),
+                string.Format(Endpoints.BeatmapsBeatmapEndpoint, beatmapId),
                 UriKind.Relative, out var uri);
 
             return await _handler.SendAsync<Beatmap, BeatmapJsonModel>(new OsuApiRequest
             {
-                Endpoint = Endpoints.BeatmapsEndpoint,
+                Endpoint = Endpoints.BeatmapsBeatmapEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
                 Token = _credentials,
@@ -586,10 +586,10 @@ namespace OsuSharp
         /// Returns a <see cref="IBeatmapUserScore" />.
         /// </returns>
         public async Task<IBeatmapUserScore> GetUserBeatmapScoreAsync(
-            long beatmapId, 
-            long userId, 
-            GameMode? gameMode = null, 
-            Mods? mods = null, 
+            long beatmapId,
+            long userId,
+            GameMode? gameMode = null,
+            Mods? mods = null,
             CancellationToken token = default)
         {
             ThrowIfDisposed();
@@ -613,7 +613,7 @@ namespace OsuSharp
 
             return await _handler.SendAsync<BeatmapUserScore, BeatmapUserScoreJsonModel>(new OsuApiRequest
             {
-                Endpoint = Endpoints.BeatmapsEndpoint,
+                Endpoint = Endpoints.BeatmapsBeatmapEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
                 Token = _credentials,
@@ -641,9 +641,9 @@ namespace OsuSharp
         /// Returns a <see cref="IBeatmapScores" />.
         /// </returns>
         public async Task<IBeatmapScores> GetBeatmapScoresAsync(
-            long beatmapId, 
-            GameMode? gameMode = null, 
-            Mods? mods = null, 
+            long beatmapId,
+            GameMode? gameMode = null,
+            Mods? mods = null,
             CancellationToken token = default)
         {
             ThrowIfDisposed();
@@ -667,11 +667,48 @@ namespace OsuSharp
 
             return await _handler.SendAsync<BeatmapScores, BeatmapScoresJsonModel>(new OsuApiRequest
             {
-                Endpoint = Endpoints.BeatmapsEndpoint,
+                Endpoint = Endpoints.BeatmapsBeatmapEndpoint,
                 Method = HttpMethod.Get,
                 Route = uri,
                 Token = _credentials,
                 Parameters = parameters,
+                Client = this
+            }, token).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Gets a set of beatmaps by their ids. Up to 50 beatmaps can be requested at once.
+        /// </summary>
+        /// <param name="beatmapIds">
+        /// Ids of the beatmaps.
+        /// </param>
+        /// <param name="token">
+        /// Cancellation token.
+        /// </param>
+        /// <returns>
+        /// Returns a <see cref="IReadOnlyList{IBeatmap}" />
+        /// </returns>
+        public async Task<IReadOnlyList<IBeatmapCompact>> GetBeatmapsAsync(
+            IReadOnlyList<long> beatmapIds,
+            CancellationToken token = default)
+        {
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
+
+            Uri.TryCreate(Endpoints.BeatmapsEndpoint, UriKind.Relative, out var uri);
+
+            Dictionary<string, string> parameters = new();
+            if (beatmapIds.Count > 0)
+            {
+                parameters["ids[]"] = string.Join("&ids[]=", beatmapIds);
+            }
+
+            return await _handler.SendAsync<List<BeatmapCompact>, List<BeatmapJsonModel>>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.BeatmapsEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri,
+                Token = _credentials,
                 Client = this
             }, token).ConfigureAwait(false);
         }
@@ -695,8 +732,8 @@ namespace OsuSharp
         /// Returns a <see cref="IBeatmap"/>
         /// </returns>
         public async Task<IBeatmap> LookupBeatmapAsync(
-            long? id = null, 
-            string checksum = null, 
+            long? id = null,
+            string checksum = null,
             string filename = null,
             CancellationToken token = default)
         {
@@ -734,7 +771,7 @@ namespace OsuSharp
             {
                 var result = await _handler.SendAsync<Beatmap, BeatmapJsonModel>(new OsuApiRequest
                 {
-                    Endpoint = Endpoints.BeatmapsEndpoint,
+                    Endpoint = Endpoints.BeatmapsBeatmapEndpoint,
                     Method = HttpMethod.Get,
                     Route = uri,
                     Token = _credentials,
@@ -890,8 +927,8 @@ namespace OsuSharp
         /// Returns a <see cref="IScore"/>
         /// </returns>
         public async Task<IScore> GetScoreAsync(
-            long scoreId, 
-            GameMode gameMode = GameMode.Osu, 
+            long scoreId,
+            GameMode gameMode = GameMode.Osu,
             CancellationToken token = default)
         {
             ThrowIfDisposed();
