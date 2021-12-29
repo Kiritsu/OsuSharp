@@ -219,7 +219,7 @@ namespace OsuSharp
                 parameters["offset"] = offset.Value.ToString();
             }
 
-            return await _handler.SendAsync<List<KudosuHistory>, List<KudosuHistory>>(new OsuApiRequest
+            return await _handler.SendMultipleAsync<KudosuHistory, KudosuHistory>(new OsuApiRequest
             {
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
@@ -337,7 +337,7 @@ namespace OsuSharp
                 parameters["offset"] = offset.Value.ToString();
             }
 
-            return await _handler.SendAsync<List<Event>, List<EventJsonModel>>(new OsuApiRequest
+            return await _handler.SendMultipleAsync<Event, EventJsonModel>(new OsuApiRequest
             {
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
@@ -391,7 +391,7 @@ namespace OsuSharp
                 parameters["offset"] = offset.Value.ToString();
             }
 
-            return await _handler.SendAsync<List<Beatmapset>, List<BeatmapsetJsonModel>>(new OsuApiRequest
+            return await _handler.SendMultipleAsync<Beatmapset, BeatmapsetJsonModel>(new OsuApiRequest
             {
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
@@ -463,7 +463,7 @@ namespace OsuSharp
                 parameters["offset"] = offset.Value.ToString();
             }
 
-            return await _handler.SendAsync<List<Score>, List<ScoreJsonModel>>(new OsuApiRequest
+            return await _handler.SendMultipleAsync<Score, ScoreJsonModel>(new OsuApiRequest
             {
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
@@ -703,7 +703,7 @@ namespace OsuSharp
                 parameters["ids[]"] = string.Join("&ids[]=", beatmapIds);
             }
 
-            return await _handler.SendAsync<List<BeatmapCompact>, List<BeatmapJsonModel>>(new OsuApiRequest
+            return await _handler.SendMultipleAsync<BeatmapCompact, BeatmapJsonModel>(new OsuApiRequest
             {
                 Endpoint = Endpoints.BeatmapsEndpoint,
                 Method = HttpMethod.Get,

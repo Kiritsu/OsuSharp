@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,6 +39,18 @@ namespace OsuSharp.Interfaces
             IOsuApiRequest request,
             CancellationToken token = default)
             where T : class;
+
+        /// <summary>
+        /// Sends a request and return the deserialized models from it.
+        /// </summary>
+        /// <param name="request">Details of the request to make.</param>
+        /// <param name="token">Cancellation token.</param>
+        /// <typeparam name="TImplementation">Type of the final object.</typeparam>
+        /// <typeparam name="TModel">Type of the json model.</typeparam>
+        Task<List<TImplementation>> SendMultipleAsync<TImplementation, TModel>(
+            IOsuApiRequest request,
+            CancellationToken token = default)
+            where TModel : class;
 
         /// <summary>
         /// Sends a request and return the deserialized model from it.

@@ -124,6 +124,22 @@ namespace OsuSharp.Net
             return OsuSharpMapper.Transform<TImplementation, TModel>(model, request.Client);
         }
 
+        public async Task<List<TImplementation>> SendMultipleAsync<TImplementation, TModel>(
+            IOsuApiRequest request, 
+            CancellationToken token = default) 
+            where TModel : class
+        {
+            var model = await SendAsync<List<TModel>>(request, token).ConfigureAwait(false);
+
+            var transformedModels = new List<TImplementation>();
+            foreach (var item in model)
+            {
+                transformedModels.Add(OsuSharpMapper.Transform<TImplementation, TModel>(item, request.Client));
+            }
+
+            return transformedModels;
+        }
+
         private async Task<RatelimitBucket> GetBucketFromEndpointAsync(
             string endpoint,
             CancellationToken token = default)

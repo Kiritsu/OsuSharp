@@ -24,11 +24,15 @@ namespace OsuSharp.Test
         {
             try
             {
-                var list = new List<IBeatmapset>();
-                await foreach (var map in _client.EnumerateBeatmapsetsAsync(token: stoppingToken))
+                try
                 {
-                    list.Add(map);
-                    Console.WriteLine($"[{map.Id}] {map.Title} - {map.Artist} [{map.Beatmaps.Count} beatmaps] | {map.Creator}");
+                    IUser user = await _client.GetUserAsync("sakamata1");
+                    IReadOnlyList<IScore> bestScores = await _client.GetUserScoresAsync(user.Id, ScoreType.Firsts, limit: 10);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    Console.WriteLine(ex);
+                    // exception thrown
                 }
             }
             catch (Exception ex)
