@@ -1,13 +1,26 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using OsuSharp.Interfaces;
 
 namespace OsuSharp.Domain
 {
+    /// <summary>
+    /// Represents the static class with the extension methods to the <see cref="IReplay"/> class.
+    /// </summary>
     public static class ReplayExtensions
     {
+        /// <summary>
+        /// Decompress and retrieve the <see cref="ReplayMoveData"/> from the current replay.
+        /// </summary>
+        /// <param name="replay">Instance of the replay.</param>
         public static IReadOnlyList<ReplayMoveData> GetReplayMoveData(this IReplay replay)
         {
+            if (replay == null)
+            {
+                throw new ArgumentNullException(nameof(replay));
+            }
+
             var decompressedData = SevenZipLZMAHelper.Decompress(replay.CompressedReplayData.ToArray());
             var decompressedDataString = Encoding.UTF8.GetString(decompressedData);
 
