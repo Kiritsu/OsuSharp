@@ -24,20 +24,12 @@ namespace OsuSharp.Test
         {
             try
             {
-                try
-                {
-                    IUser user = await _client.GetUserAsync("sakamata1");
-                    IReadOnlyList<IScore> bestScores = await _client.GetUserScoresAsync(user.Id, ScoreType.Firsts, limit: 10);
-                }
-                catch (InvalidOperationException ex)
-                {
-                    Console.WriteLine(ex);
-                    // exception thrown
-                }
+                IUser user = await _client.GetUserAsync("sakamata1", token: stoppingToken);
+                IReadOnlyList<IScore> bestScores = await _client.GetUserScoresAsync(user.Id, ScoreType.Firsts, limit: 10, token: stoppingToken);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occured");
+                _logger.LogError(ex, "An exception occured");
             }
         }
     }
