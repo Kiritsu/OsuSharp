@@ -124,20 +124,16 @@ namespace OsuSharp.Net
             return OsuSharpMapper.Transform<TImplementation, TModel>(model, request.Client);
         }
 
-        public async Task<List<TImplementation>> SendMultipleAsync<TImplementation, TModel>(
+        public async Task<IReadOnlyList<TImplementation>> SendMultipleAsync<TImplementation, TModel>(
             IOsuApiRequest request, 
             CancellationToken token = default) 
             where TModel : class
         {
             var model = await SendAsync<List<TModel>>(request, token).ConfigureAwait(false);
-
-            var transformedModels = new List<TImplementation>();
-            foreach (var item in model)
-            {
-                transformedModels.Add(OsuSharpMapper.Transform<TImplementation, TModel>(item, request.Client));
-            }
-
-            return transformedModels;
+            return model
+                .Select(x => OsuSharpMapper.Transform<TImplementation, TModel>(x, request.Client))
+                .ToList()
+                .AsReadOnly();
         }
 
         private async Task<RatelimitBucket> GetBucketFromEndpointAsync(
@@ -273,7 +269,7 @@ namespace OsuSharp.Net
 
         private void LogMissingFields<T>(T model, string name = "")
         {
-            if (model is JsonModel { ExtensionData: { Count: > 0 } } jsonModel && jsonModel.GetType() != typeof(JsonModel))
+            if (model is JsonModel { ExtensionData.Count: > 0 } jsonModel && jsonModel.GetType() != typeof(JsonModel))
             {
                 _logger.Log(LogLevel.Trace,
                     "Found {Count} extra fields for model {Model} - {Name}:\n{Data}",
@@ -283,7 +279,7 @@ namespace OsuSharp.Net
                 {
                     var value = property.GetValue(model);
 
-                    if (property.GetValue(model) is JsonModel { ExtensionData: { Count: > 0 } } && jsonModel.GetType() != typeof(JsonModel))
+                    if (property.GetValue(model) is JsonModel { ExtensionData.Count: > 0 } && jsonModel.GetType() != typeof(JsonModel))
                     {
                         LogMissingFields(value, property.Name);
                     }

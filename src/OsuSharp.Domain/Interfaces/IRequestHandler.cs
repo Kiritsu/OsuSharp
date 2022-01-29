@@ -47,7 +47,7 @@ namespace OsuSharp.Interfaces
         /// <param name="token">Cancellation token.</param>
         /// <typeparam name="TImplementation">Type of the final object.</typeparam>
         /// <typeparam name="TModel">Type of the json model.</typeparam>
-        Task<List<TImplementation>> SendMultipleAsync<TImplementation, TModel>(
+        Task<IReadOnlyList<TImplementation>> SendMultipleAsync<TImplementation, TModel>(
             IOsuApiRequest request,
             CancellationToken token = default)
             where TModel : class;
