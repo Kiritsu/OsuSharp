@@ -1,5 +1,8 @@
 ﻿namespace OsuSharp.Domain
 {
+    /// <summary>
+    /// Represents the different available beatmapset languages.
+    /// </summary>
     public enum BeatmapsetLanguage
     {
         English = 2,

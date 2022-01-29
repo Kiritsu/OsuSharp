@@ -1,5 +1,8 @@
 ﻿namespace OsuSharp.Domain
 {
+    /// <summary>
+    /// Represents the different available sorting of a beatmapset search lookup.
+    /// </summary>
     public enum BeatmapSorting
     {
         Title_Desc,

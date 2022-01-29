@@ -2,6 +2,9 @@
 
 namespace OsuSharp.Domain
 {
+    /// <summary>
+    /// Represents the differents mods applicable to a score on a beatmap.
+    /// </summary>
     [Flags]
     public enum Mods
     {

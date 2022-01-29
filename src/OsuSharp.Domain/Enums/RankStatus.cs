@@ -1,5 +1,8 @@
 ﻿namespace OsuSharp.Domain
 {
+    /// <summary>
+    /// Represents the ranking status of a beatmapset.
+    /// </summary>
     public enum RankStatus
     {
         Graveyard = -2,

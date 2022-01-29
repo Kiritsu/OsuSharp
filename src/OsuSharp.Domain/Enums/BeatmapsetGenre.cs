@@ -1,5 +1,8 @@
 ﻿namespace OsuSharp.Domain
 {
+    /// <summary>
+    /// Represents the different available beatmapset genres.
+    /// </summary>
     public enum BeatmapsetGenre
     {
         Unspecified = 1,
