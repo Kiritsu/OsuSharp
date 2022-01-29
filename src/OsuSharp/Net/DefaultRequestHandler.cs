@@ -104,8 +104,8 @@ namespace OsuSharp.Net
             CancellationToken token = default)
             where T : class
         {
-            _httpClient.DefaultRequestHeaders.Authorization = request.Token is not null 
-                ? new AuthenticationHeaderValue(request.Token.Type.ToString(), request.Token.AccessToken) 
+            _httpClient.DefaultRequestHeaders.Authorization = request.Token is not null
+                ? new AuthenticationHeaderValue(request.Token.Type.ToString(), request.Token.AccessToken)
                 : null;
 
             var (bucket, requestMessage) = await PrepareRequestAsync(request, token).ConfigureAwait(false);
@@ -125,8 +125,8 @@ namespace OsuSharp.Net
         }
 
         public async Task<IReadOnlyList<TImplementation>> SendMultipleAsync<TImplementation, TModel>(
-            IOsuApiRequest request, 
-            CancellationToken token = default) 
+            IOsuApiRequest request,
+            CancellationToken token = default)
             where TModel : class
         {
             var model = await SendAsync<List<TModel>>(request, token).ConfigureAwait(false);
@@ -194,7 +194,7 @@ namespace OsuSharp.Net
         }
 
         private async Task<(RatelimitBucket, HttpRequestMessage)> PrepareRequestAsync(
-            IOsuApiRequest request, 
+            IOsuApiRequest request,
             CancellationToken token = default)
         {
             request.Parameters ??= new Dictionary<string, string>();
@@ -266,7 +266,7 @@ namespace OsuSharp.Net
 
         private void LogMissingFields<T>(T model, string name = "")
         {
-            if (model is JsonModel { ExtensionData.Count: > 0 } jsonModel && jsonModel.GetType() != typeof(JsonModel))
+            if (model is JsonModel { ExtensionData: { Count: > 0 } } jsonModel && jsonModel.GetType() != typeof(JsonModel))
             {
                 _logger.Log(LogLevel.Trace,
                     "Found {Count} extra fields for model {Model} - {Name}:\n{Data}",
@@ -276,7 +276,7 @@ namespace OsuSharp.Net
                 {
                     var value = property.GetValue(model);
 
-                    if (property.GetValue(model) is JsonModel { ExtensionData.Count: > 0 } && jsonModel.GetType() != typeof(JsonModel))
+                    if (property.GetValue(model) is JsonModel { ExtensionData: { Count: > 0 } } && jsonModel.GetType() != typeof(JsonModel))
                     {
                         LogMissingFields(value, property.Name);
                     }
