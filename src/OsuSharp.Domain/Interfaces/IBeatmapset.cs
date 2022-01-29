@@ -4,6 +4,9 @@ using OsuSharp.Domain;
 
 namespace OsuSharp.Interfaces
 {
+    /// <summary>
+    /// Defines a beatmapset object.
+    /// </summary>
     public interface IBeatmapset : IBeatmapsetCompact
     {
         IBeatmapAvailability Availability { get; }

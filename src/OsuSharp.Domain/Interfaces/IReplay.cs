@@ -4,6 +4,9 @@ using OsuSharp.Domain;
 
 namespace OsuSharp.Interfaces
 {
+    /// <summary>
+    /// Defines a replay object.
+    /// </summary>
     public interface IReplay
     {
         double AdditionalMods { get; }

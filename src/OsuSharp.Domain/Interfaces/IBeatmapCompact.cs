@@ -3,6 +3,9 @@ using OsuSharp.Domain;
 
 namespace OsuSharp.Interfaces
 {
+    /// <summary>
+    /// Defines a compacted beatmap object.
+    /// </summary>
     public interface IBeatmapCompact : IClientEntity
     {
         double DifficultyRating { get; }

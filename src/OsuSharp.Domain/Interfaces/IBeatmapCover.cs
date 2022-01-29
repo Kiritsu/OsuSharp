@@ -1,5 +1,8 @@
 ﻿namespace OsuSharp.Interfaces
 {
+    /// <summary>
+    /// Defines a beatmap cover object.
+    /// </summary>
     public interface IBeatmapCover
     {
         string Cover { get; }

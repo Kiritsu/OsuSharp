@@ -2,6 +2,9 @@
 
 namespace OsuSharp.Interfaces
 {
+    /// <summary>
+    /// Defines a compacted beatmapset object.
+    /// </summary>
     public interface IBeatmapsetCompact : IClientEntity
     {
         string Artist { get; }

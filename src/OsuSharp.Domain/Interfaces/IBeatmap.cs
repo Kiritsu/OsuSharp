@@ -3,6 +3,9 @@ using OsuSharp.Domain;
 
 namespace OsuSharp.Interfaces
 {
+    /// <summary>
+    /// Defines a beatmap object.
+    /// </summary>
     public interface IBeatmap : IBeatmapCompact
     {
         double Accuracy { get; }
