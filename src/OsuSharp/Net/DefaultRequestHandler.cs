@@ -155,10 +155,7 @@ namespace OsuSharp.Net
                 }
                 else
                 {
-                    throw new PreemptiveRateLimitException
-                    {
-                        ExpiresIn = bucket.ExpiresIn
-                    };
+                    throw new PreemptiveRateLimitException(bucket.ExpiresIn);
                 }
             }
             else if (bucket == null)

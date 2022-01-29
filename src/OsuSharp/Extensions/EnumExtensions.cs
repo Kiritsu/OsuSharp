@@ -5,7 +5,7 @@ namespace OsuSharp.Extensions
     internal static class EnumExtensions
     {
         /// <summary>
-        ///     Returns a string that fits osu! API requirements for that <see cref="ScoreType" />.
+        /// Returns a string that fits osu! API requirements for that <see cref="ScoreType" />.
         /// </summary>
         /// <param name="type">ScoreType to get the string for.</param>
         /// <returns>A api-valid string representation of this <see cref="ScoreType" /></returns>
@@ -21,7 +21,7 @@ namespace OsuSharp.Extensions
         }
 
         /// <summary>
-        ///     Returns a string that fits osu! API requirements for that <see cref="ScoreType" />.
+        /// Returns a string that fits osu! API requirements for that <see cref="ScoreType" />.
         /// </summary>
         /// <param name="type">ScoreType to get the string for.</param>
         /// <returns>A api-valid string representation of this <see cref="ScoreType" /></returns>
@@ -31,7 +31,7 @@ namespace OsuSharp.Extensions
         }
 
         /// <summary>
-        ///     Returns a string that fits osu! API requirements for that <see cref="BeatmapsetType" />.
+        /// Returns a string that fits osu! API requirements for that <see cref="BeatmapsetType" />.
         /// </summary>
         /// <param name="type">BeatmapsetType to get the string for.</param>
         /// <returns>A api-valid string representation of this <see cref="BeatmapsetType" /></returns>
@@ -50,7 +50,7 @@ namespace OsuSharp.Extensions
         }
 
         /// <summary>
-        ///     Returns a string that fits osu! API requirements for that <see cref="BeatmapsetType" />.
+        /// Returns a string that fits osu! API requirements for that <see cref="BeatmapsetType" />.
         /// </summary>
         /// <param name="type">BeatmapsetType to get the string for.</param>
         /// <returns>A api-valid string representation of this <see cref="BeatmapsetType" /></returns>
@@ -60,7 +60,7 @@ namespace OsuSharp.Extensions
         }
 
         /// <summary>
-        ///     Returns a string that fits osu! API requirements for that <see cref="GameMode" />.
+        /// Returns a string that fits osu! API requirements for that <see cref="GameMode" />.
         /// </summary>
         /// <param name="gameMode">GameMode to get the string for.</param>
         /// <returns>A api-valid string representation of this <see cref="GameMode" /></returns>
@@ -77,7 +77,7 @@ namespace OsuSharp.Extensions
         }
 
         /// <summary>
-        ///     Returns a string that fits osu! API requirements for that <see cref="GameMode" />.
+        /// Returns a string that fits osu! API requirements for that <see cref="GameMode" />.
         /// </summary>
         /// <param name="gameMode">GameMode to get the string for.</param>
         /// <returns>A api-valid string representation of this <see cref="GameMode" /></returns>
@@ -87,7 +87,7 @@ namespace OsuSharp.Extensions
         }
 
         /// <summary>
-        ///     Returns a string that fits osu! API requirements for that <see cref="Mods" />.
+        /// Returns a string that fits osu! API requirements for that <see cref="Mods" />.
         /// </summary>
         /// <param name="gameMode">Mods to get the string for.</param>
         /// <returns>A api-valid string representation of this <see cref="Mods" /></returns>
@@ -97,7 +97,7 @@ namespace OsuSharp.Extensions
         }
 
         /// <summary>
-        ///     Returns a string that fits osu! API requirements for that <see cref="Mods" />.
+        /// Returns a string that fits osu! API requirements for that <see cref="Mods" />.
         /// </summary>
         /// <param name="mods">Mods to get the string for.</param>
         /// <returns>A api-valid string representation of this <see cref="Mods" /></returns>

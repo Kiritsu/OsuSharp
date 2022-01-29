@@ -33,7 +33,7 @@ namespace OsuSharp.Extensions
         }
 
         /// <summary>
-        ///     Converts a <see cref="Mods"/> into a string separated with the mods separator from the <see cref="OsuClientConfiguration"/>.
+        /// Converts a <see cref="Mods"/> into a string separated with the mods separator from the <see cref="OsuClientConfiguration"/>.
         /// </summary>
         /// <param name="mode">Mod to convert.</param>
         /// <param name="separator">Separator to use between each mod.</param>
@@ -53,7 +53,7 @@ namespace OsuSharp.Extensions
         }
 
         /// <summary>
-        ///     Converts a <see cref="Mods"/> into a string separated with the modes separator from the <see cref="OsuClientConfiguration"/>.
+        /// Converts a <see cref="Mods"/> into a string separated with the modes separator from the <see cref="OsuClientConfiguration"/>.
         /// </summary>
         /// <param name="mode">Mode to convert.</param>
         /// <param name="instance">Instance on which we use the mode separator.</param>
@@ -64,7 +64,7 @@ namespace OsuSharp.Extensions
         }
 
         /// <summary>
-        ///     Converts a <see cref="string"/> into a Mode representation.
+        /// Converts a <see cref="string"/> into a Mode representation.
         /// </summary>
         /// <param name="value">Value to parse.</param>
         /// <param name="mode">Modes out.</param>

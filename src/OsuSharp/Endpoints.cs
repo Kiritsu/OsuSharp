@@ -2,7 +2,6 @@ namespace OsuSharp
 {
     internal static class Endpoints
     {
-        public const string Domain = "https://osu.ppy.sh";
         public const string Oauth = "/oauth";
         public const string Token = "/token";
         public const string Tokens = "/tokens";
@@ -37,7 +36,6 @@ namespace OsuSharp
         public const string SeasonalBackgroundsEndpoint = Api + SeasonalBackgrounds;
         public const string ScoresEndpoint = Api + Scores + "/{0}" + "/{1}";
         public const string ScoresDownloadEndpoint = Api + Scores + "/{0}" + "/{1}" + Download;
-
         public const string CurrentTokensEndpoint = Oauth + Tokens + Current;
         public const string TokenEndpoint = Oauth + Token;
     }
