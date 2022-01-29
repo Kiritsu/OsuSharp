@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 
 namespace OsuSharp.JsonModels
 {
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class UserGradeCountsJsonModel : JsonModel
     {
         [JsonProperty("ss")]

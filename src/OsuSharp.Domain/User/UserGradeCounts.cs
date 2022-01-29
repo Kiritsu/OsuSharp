@@ -3,7 +3,6 @@ using OsuSharp.Interfaces;
 
 namespace OsuSharp.Domain
 {
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public sealed class UserGradeCounts : IUserGradeCounts
     {
         public long SS { get; internal set; }
