@@ -30,6 +30,82 @@ Finally, you can just compile from source:
 git clone https://github.com/Kiritsu/OsuSharp.git
 ```
 
+## Basic Usage
+
+You can use the following example to get started with the library:
+
+> Program.cs
+
+```cs
+public static class Program
+{
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
+
+    public static IHostBuilder CreateHostBuilder(string[] args)
+    {
+        return Host.CreateDefaultBuilder(args)
+            .ConfigureOsuSharp((ctx, options) => options.Configuration = new OsuClientConfiguration
+            {
+                ClientId = 123,
+                ClientSecret = "my-super-secret"
+            })
+            .ConfigureServices((ctx, services) => services.AddSingleton<IOsuService, OsuService>());
+    }
+}
+```
+
+> IOsuService.cs
+
+```cs
+internal interface IOsuService
+{
+    IAsyncEnumerable<IBeatmapset> GetLastRankedBeatmapsetsAsync(int count);
+    Task<string> GetUserAvatarUrlAsync(string username);
+}
+```
+
+> OsuService.cs
+
+```cs
+public class OsuService : IOsuService
+{
+    private readonly IOsuClient _client;
+
+    public OsuService(IOsuClient client)
+    {
+        _client = client;
+    }
+
+    public async IAsyncEnumerable<IBeatmapset> GetLastRankedBeatmapsetsAsync(int count)
+    {
+        var builder = new BeatmapsetsLookupBuilder()
+            .WithGameMode(GameMode.Osu)
+            .WithConvertedBeatmaps()
+            .WithCategory(BeatmapsetCategory.Ranked);
+
+        await foreach (var beatmap in _client.EnumerateBeatmapsetsAsync(builder, BeatmapSorting.Ranked_Desc))
+        {
+            yield return beatmap;
+
+            count--;
+            if (count == 0)
+            {
+                break;
+            }
+        }
+    }
+
+    public async Task<string> GetUserAvatarUrlAsync(string username)
+    {
+        var user = await _client.GetUserAsync(username);
+        return user.AvatarUrl.ToString();
+    }
+}
+```
+
 ## Contributing
 
 If you want to contribute, feel free to use Issues or Pull Requests!
