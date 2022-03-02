@@ -14,6 +14,7 @@ namespace OsuSharp.Interfaces
         long TotalScore { get; }
         int MaxCombo { get; }
         bool Perfect { get; }
+        bool Passed { get; }
         IStatistics Statistics { get; }
         double? PerformancePoints { get; }
         string Rank { get; }

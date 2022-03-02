@@ -622,6 +622,54 @@ namespace OsuSharp
         }
 
         /// <summary>
+        /// Gets all user scores on a beatmap from the API.
+        /// </summary>
+        /// <param name="beatmapId">
+        /// If of the beatmap.
+        /// </param>
+        /// <param name="userId">
+        /// Id of the user.
+        /// </param>
+        /// <param name="gameMode">
+        /// Gamemode of the user. Defaults gamemode is picked when null.
+        /// </param>
+        /// <param name="mods">
+        /// Mods to filter when looking for a score.
+        /// </param>
+        /// <param name="token">
+        /// Cancellation token.
+        /// </param>
+        /// <returns>
+        /// Returns a <see cref="IBeatmapUserScore" />.
+        /// </returns>
+        public async Task<IUserScores> GetUserBeatmapScoresAsync(long beatmapId, long userId, GameMode? gameMode = null, CancellationToken token = default)
+        {
+            ThrowIfDisposed();
+            await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
+
+            Uri.TryCreate(
+                string.Format(Endpoints.BeatmapsUserScoresEndpoint, beatmapId, userId),
+                UriKind.Relative, out var uri);
+
+            Dictionary<string, string> parameters = new();
+
+            if (gameMode.HasValue)
+            {
+                parameters["mode"] = gameMode.Value.ToApiString();
+            }
+
+            return await _handler.SendAsync<UserScores, UserScoresJsonModel>(new OsuApiRequest
+            {
+                Endpoint = Endpoints.BeatmapsBeatmapEndpoint,
+                Method = HttpMethod.Get,
+                Route = uri,
+                Token = _credentials,
+                Parameters = parameters,
+                Client = this
+            }, token).ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// Gets the top scores on a beatmap from the API.
         /// </summary>
         /// <param name="beatmapId">

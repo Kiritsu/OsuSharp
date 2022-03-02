@@ -29,6 +29,9 @@ namespace OsuSharp.JsonModels
 
         [JsonProperty("perfect")]
         public bool Perfect { get; set; }
+        
+        [JsonProperty("passed")]
+        public bool Passed { get; set; }
 
         [JsonProperty("statistics")]
         public StatisticsJsonModel Statistics { get; set; }

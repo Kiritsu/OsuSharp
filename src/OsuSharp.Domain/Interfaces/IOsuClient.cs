@@ -308,6 +308,33 @@ namespace OsuSharp.Interfaces
             GameMode? gameMode = null,
             Mods? mods = null,
             CancellationToken token = default);
+        
+        /// <summary>
+        /// Gets all user scores on a beatmap from the API.
+        /// </summary>
+        /// <param name="beatmapId">
+        /// If of the beatmap.
+        /// </param>
+        /// <param name="userId">
+        /// Id of the user.
+        /// </param>
+        /// <param name="gameMode">
+        /// Gamemode of the user. Defaults gamemode is picked when null.
+        /// </param>
+        /// <param name="mods">
+        /// Mods to filter when looking for a score.
+        /// </param>
+        /// <param name="token">
+        /// Cancellation token.
+        /// </param>
+        /// <returns>
+        /// Returns a <see cref="IBeatmapUserScore" />.
+        /// </returns>
+        Task<IUserScores> GetUserBeatmapScoresAsync(
+            long beatmapId,
+            long userId,
+            GameMode? gameMode = null,
+            CancellationToken token = default);
 
         /// <summary>
         /// Gets the top scores on a beatmap from the API.

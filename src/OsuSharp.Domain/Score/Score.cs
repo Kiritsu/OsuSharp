@@ -21,6 +21,8 @@ namespace OsuSharp.Domain
         public int MaxCombo { get; internal set; }
 
         public bool Perfect { get; internal set; }
+        
+        public bool Passed { get; internal set; }
 
         public IStatistics Statistics { get; internal set; }
 

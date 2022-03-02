@@ -18,6 +18,7 @@ using OsuSharp.Interfaces;
 using OsuSharp.Mapper;
 using System.Threading;
 using System.IO;
+using System.Reflection;
 
 namespace OsuSharp.Net
 {
@@ -249,16 +250,23 @@ namespace OsuSharp.Net
             UpdateBucket(request.Endpoint, bucket, response);
             var model = _serializer.Deserialize<T>(content);
 
-            if (model is IEnumerable enumerable)
+            try
             {
-                foreach (var subModel in enumerable)
+                if (model is IEnumerable enumerable)
                 {
-                    LogMissingFields(subModel);
+                    foreach (var subModel in enumerable)
+                    {
+                        LogMissingFields(subModel);
+                    }
+                }
+                else
+                {
+                    LogMissingFields(model);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                LogMissingFields(model);
+                _logger.LogError(ex, "Couldn't log missing fields for type {Type}", model.GetType());
             }
 
             return model;
@@ -266,20 +274,48 @@ namespace OsuSharp.Net
 
         private void LogMissingFields<T>(T model, string name = "")
         {
-            if (model is JsonModel { ExtensionData: { Count: > 0 } } jsonModel && jsonModel.GetType() != typeof(JsonModel))
+            switch (model)
             {
-                _logger.Log(LogLevel.Trace,
-                    "Found {Count} extra fields for model {Model} - {Name}:\n{Data}",
-                    jsonModel.ExtensionData.Count, model.GetType().Name, name, string.Join("\n", jsonModel.ExtensionData));
-
-                foreach (var property in model.GetType().GetProperties())
+                case JsonModel { ExtensionData: { Count: > 0 } } jsonModel when jsonModel.GetType() != typeof(JsonModel):
                 {
-                    var value = property.GetValue(model);
+                    _logger.Log(LogLevel.Warning,
+                        "(Please report to the devs!) Found {Count} extra fields for model {Model} - {Name}:\n{Data}",
+                        jsonModel.ExtensionData.Count, model.GetType().Name, name, string.Join("\n", jsonModel.ExtensionData));
 
-                    if (property.GetValue(model) is JsonModel { ExtensionData: { Count: > 0 } } && jsonModel.GetType() != typeof(JsonModel))
+                    foreach (var property in model.GetType().GetProperties())
                     {
-                        LogMissingFields(value, property.Name);
+                        var value = property.GetValue(model);
+
+                        if (property.GetValue(model) is JsonModel { ExtensionData: { Count: > 0 } } && jsonModel.GetType() != typeof(JsonModel))
+                        {
+                            LogMissingFields(value, property.Name);
+                        }
                     }
+
+                    break;
+                }
+                case IEnumerable<JsonModel> jsonModels:
+                {
+                    foreach (var jsnMdl in jsonModels)
+                    {
+                        LogMissingFields(jsnMdl);
+                    }
+
+                    break;
+                }
+                default:
+                {
+                    var properties = model.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public);
+                    foreach (var property in properties.Where(x => x.PropertyType.IsAssignableTo(typeof(JsonModel)) || x.PropertyType.IsAssignableTo(typeof(IEnumerable<JsonModel>))))
+                    {
+                        var propertyValue = property.GetValue(model);
+                        if (propertyValue is not null)
+                        {
+                            LogMissingFields(propertyValue);
+                        }
+                    }
+
+                    break;
                 }
             }
         }

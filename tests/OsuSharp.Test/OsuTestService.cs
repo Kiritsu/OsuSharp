@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
@@ -24,8 +23,11 @@ namespace OsuSharp.Test
         {
             try
             {
-                IUser user = await _client.GetUserAsync("sakamata1", token: stoppingToken);
-                IReadOnlyList<IScore> bestScores = await _client.GetUserScoresAsync(user.Id, ScoreType.Firsts, limit: 10, token: stoppingToken);
+                var userScores = await _client.GetUserBeatmapScoresAsync(2324562, 13193514, GameMode.Osu, stoppingToken);
+                foreach (var score in userScores.Scores)
+                {
+                    Console.WriteLine($"PPs: {score.PerformancePoints} (pfc: {score.Perfect})");
+                }
             }
             catch (Exception ex)
             {
