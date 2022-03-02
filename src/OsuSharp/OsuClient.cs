@@ -633,9 +633,6 @@ namespace OsuSharp
         /// <param name="gameMode">
         /// Gamemode of the user. Defaults gamemode is picked when null.
         /// </param>
-        /// <param name="mods">
-        /// Mods to filter when looking for a score.
-        /// </param>
         /// <param name="token">
         /// Cancellation token.
         /// </param>
