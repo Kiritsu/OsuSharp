@@ -10,7 +10,7 @@
 
 ## Installation
 
-You can install the stable version of the wrapper with NuGet (only supports API v1):
+You can install the stable version of the wrapper with NuGet (only supports API v1 for packages prior to 6.0.0):
 
 ```
 PM> Install-Package OsuSharp
