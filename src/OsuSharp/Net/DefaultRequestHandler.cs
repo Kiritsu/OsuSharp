@@ -24,6 +24,9 @@ namespace OsuSharp.Net
 {
     internal sealed class DefaultRequestHandler : IRequestHandler
     {
+        private readonly string _envMissingFields = Environment.GetEnvironmentVariable("OSUSHARP_LOGGING_MISSINGFIELDS")?.ToUpperInvariant();
+        private bool IsMissingFieldsLoggingEnabled => _envMissingFields is null || _envMissingFields.StartsWith("Y");
+
         private readonly ILogger<DefaultRequestHandler> _logger;
         private readonly IOsuClientConfiguration _configuration;
         private readonly IJsonSerializer _serializer;
@@ -250,6 +253,11 @@ namespace OsuSharp.Net
             UpdateBucket(request.Endpoint, bucket, response);
             var model = _serializer.Deserialize<T>(content);
 
+            if (!IsMissingFieldsLoggingEnabled)
+            {
+                return model;
+            }
+            
             try
             {
                 if (model is IEnumerable enumerable)
