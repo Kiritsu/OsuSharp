@@ -1,5 +1,5 @@
 trigger:
-- feature/api-v2
+- dev
 
 pool:
   vmImage: 'windows-latest'
