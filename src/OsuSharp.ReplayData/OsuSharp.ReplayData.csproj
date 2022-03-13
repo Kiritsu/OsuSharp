@@ -1,9 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<VersionPrefix>6.0.1</VersionPrefix>
+		<VersionPrefix>6.1.0</VersionPrefix>
 		<TargetFramework>net5.0</TargetFramework>
-		<LangVersion>preview</LangVersion>
 		<Nullable>disable</Nullable>
 		<Authors>Allan Mercou</Authors>
 		<Description>Package for the implementation of replay decoding for the osu!api v2</Description>
@@ -19,6 +18,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\OsuSharp.Domain\OsuSharp.Domain.csproj" />
+		<ProjectReference Include="..\OsuSharp.Domain\OsuSharp.Domain.csproj" />
 	</ItemGroup>
 </Project>

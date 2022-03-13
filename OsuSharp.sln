@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsuSharp.Domain", "src\OsuS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuSharp.ReplayData", "src\OsuSharp.ReplayData\OsuSharp.ReplayData.csproj", "{EDD75D52-EC09-4F8E-B163-892A527F1C40}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuSharp.Legacy", "src\OsuSharp.Legacy\OsuSharp.Legacy.csproj", "{E4FA0BFB-4404-405E-8000-35A731BA348E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuSharp.Legacy.Oppai", "src\OsuSharp.Legacy.Oppai\OsuSharp.Legacy.Oppai.csproj", "{4299F86B-0287-430D-8B5B-30B272A5791B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{EDD75D52-EC09-4F8E-B163-892A527F1C40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDD75D52-EC09-4F8E-B163-892A527F1C40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDD75D52-EC09-4F8E-B163-892A527F1C40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4FA0BFB-4404-405E-8000-35A731BA348E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4FA0BFB-4404-405E-8000-35A731BA348E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4FA0BFB-4404-405E-8000-35A731BA348E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4FA0BFB-4404-405E-8000-35A731BA348E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4299F86B-0287-430D-8B5B-30B272A5791B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4299F86B-0287-430D-8B5B-30B272A5791B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4299F86B-0287-430D-8B5B-30B272A5791B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4299F86B-0287-430D-8B5B-30B272A5791B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

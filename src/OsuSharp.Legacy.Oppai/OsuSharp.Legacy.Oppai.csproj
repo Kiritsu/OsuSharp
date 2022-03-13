@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <VersionPrefix>6.1.0</VersionPrefix>
+        <TargetFramework>net5.0</TargetFramework>
+        <Nullable>disable</Nullable>
+        <Authors>Allan Mercou</Authors>
+        <Description>An osu!api v1 oppai interoperability package</Description>
+        <PackageProjectUrl>https://github.com/Kiritsu/OsuSharp</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/Kiritsu/OsuSharp/blob/feature/api-v2/LICENSE.txt</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/Kiritsu/OsuSharp</RepositoryUrl>
+        <PackageTags>osu osusharp osu!api api csharp dotnet</PackageTags>
+        <RepositoryType>Git</RepositoryType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\OsuSharp.Legacy\OsuSharp.Legacy.csproj" />
+    </ItemGroup>
+
+</Project>

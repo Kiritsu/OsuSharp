@@ -1,9 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<VersionPrefix>6.0.1</VersionPrefix>
+		<VersionPrefix>6.1.0</VersionPrefix>
 		<TargetFramework>net5.0</TargetFramework>
-		<LangVersion>preview</LangVersion>
 		<Nullable>disable</Nullable>
 		<Authors>Allan Mercou</Authors>
 		<Description>An osu!api v2 wrapper</Description>
