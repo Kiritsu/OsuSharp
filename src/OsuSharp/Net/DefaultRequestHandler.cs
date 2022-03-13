@@ -19,14 +19,16 @@ using OsuSharp.Mapper;
 using System.Threading;
 using System.IO;
 using System.Reflection;
+using Microsoft.Extensions.Configuration;
 
 namespace OsuSharp.Net
 {
     internal sealed class DefaultRequestHandler : IRequestHandler
     {
-        private readonly string _envMissingFields = Environment.GetEnvironmentVariable("OSUSHARP_LOGGING_MISSINGFIELDS")?.ToUpperInvariant();
-        private bool IsMissingFieldsLoggingEnabled => _envMissingFields is null || _envMissingFields.StartsWith("Y");
+        private string ConfigMissingFields => _hostConfiguration.GetSection("OsuSharp")["MissingFields"];
+        private bool IsMissingFieldsLoggingEnabled => ConfigMissingFields is null || ConfigMissingFields.StartsWith("Y");
 
+        private readonly IConfiguration _hostConfiguration;
         private readonly ILogger<DefaultRequestHandler> _logger;
         private readonly IOsuClientConfiguration _configuration;
         private readonly IJsonSerializer _serializer;
@@ -37,10 +39,12 @@ namespace OsuSharp.Net
         private bool _disposed;
 
         public DefaultRequestHandler(
+            IConfiguration hostConfiguration,
             ILogger<DefaultRequestHandler> logger,
             IOsuClientConfiguration configuration,
             IJsonSerializer serializer)
         {
+            _hostConfiguration = hostConfiguration;
             _logger = logger;
             _configuration = configuration;
             _serializer = serializer ?? DefaultJsonSerializer.Instance;
@@ -58,8 +62,13 @@ namespace OsuSharp.Net
                 BaseAddress = new Uri(_configuration.BaseUrl)
             };
 
-            _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("OsuSharp", "2.0"));
+            _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("OsuSharp", "6.0"));
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            
+            if (!IsMissingFieldsLoggingEnabled)
+            {
+                _logger.LogWarning("Logging missing fields has been explicitly disabled. Please consider enabling it to be aware of API changes");
+            }
         }
 
         public void Dispose()

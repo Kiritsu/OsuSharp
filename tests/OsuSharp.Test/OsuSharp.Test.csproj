@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\src\OsuSharp.Legacy\OsuSharp.Legacy.csproj" />
       <ProjectReference Include="..\..\src\OsuSharp.ReplayData\OsuSharp.ReplayData.csproj" />
       <ProjectReference Include="..\..\src\OsuSharp\OsuSharp.csproj" />
     </ItemGroup>

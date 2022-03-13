@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OsuSharp.Extensions;
+using OsuSharp.Legacy;
 using Serilog;
 
 namespace OsuSharp.Test
@@ -29,7 +30,14 @@ namespace OsuSharp.Test
                     ctx.Configuration.GetSection("OsuSharpOptions").Bind(clientConfiguration);
                     options.Configuration = clientConfiguration;
                 })
-                .ConfigureServices((_, services) => services.AddHostedService<OsuTestService>());
+                .ConfigureServices((host, services) =>
+                {
+                    services.AddSingleton(_ => new LegacyOsuClient(new LegacyOsuSharpConfiguration
+                    {
+                        ApiKey = host.Configuration.GetSection("OsuSharp")["LegacyApiKey"]
+                    }));
+                    services.AddHostedService<OsuTestService>();
+                });
         }
     }
 }
