@@ -25,4 +25,5 @@ public interface IBeatmapset : IBeatmapsetCompact
     DateTimeOffset? SubmittedAt { get; }
     string Tags { get; }
     IReadOnlyList<int> Ratings { get; }
+    long? TrackId { get; }
 }

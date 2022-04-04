@@ -11,6 +11,7 @@ public class BeatmapsetSearchEnumeration : IBeatmapsetSearchEnumeration
     public double? RecommendedDifficulty { get; internal set; }
     public object Error { get; internal set; } = null!;
     public long Total { get; internal set; }
+    public string CursorString { get; set; } = null!;
 
     internal BeatmapsetSearchEnumeration()
     {

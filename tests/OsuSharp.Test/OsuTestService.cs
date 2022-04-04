@@ -34,6 +34,21 @@ public class OsuTestService : BackgroundService
             {
                 _logger.LogInformation("PPs: {PP} (pfc: {Perfect})", score.PerformancePoints, score.Perfect);
             }
+
+            var userCurrent = await _client.GetUserAsync("Evolia", GameMode.Taiko, stoppingToken);
+            _logger.LogInformation("{Name} {Id} {Level}", userCurrent.Username, userCurrent.Id, userCurrent.Statistics.UserLevel.Current);
+
+            var i = 0;
+            await foreach (var beatmap in _client.EnumerateBeatmapsetsAsync(token: stoppingToken))
+            {
+                i++;
+                _logger.LogInformation("{Name} {Author} {Creator}", beatmap.Title, beatmap.Artist, beatmap.User?.Username ?? beatmap.UserId.ToString());
+
+                if (i == 100)
+                {
+                    break;
+                }
+            }
         }
         catch (Exception ex)
         {

@@ -221,4 +221,16 @@ public class UserJsonModel : JsonModel
 
     [JsonProperty("website", DefaultValueHandling = DefaultValueHandling.Ignore)]
     public string Website { get; set; } = null!;
+    
+    [JsonProperty("unranked_beatmapset_count")]
+    public long? UnrankedBeatmapsetCount { get; internal set; }
+    
+    [JsonProperty("scores_pinned_count")]
+    public long? ScoresPinnedCount { get; internal set; }
+    
+    [JsonProperty("ranked_and_approved_beatmapset_count")]
+    public long? RankedAndApprovedBeatmapsetCount { get; internal set; }
+
+    [JsonProperty("cover_url")] 
+    public string CoverUrl { get; internal set; } = null!;
 }

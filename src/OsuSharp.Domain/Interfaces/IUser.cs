@@ -8,6 +8,10 @@ public interface IUser : IUserCompact
     IReadOnlyList<IUserProfileBanner> TournamentBanner { get; }
     IReadOnlyList<IUserBadge> Badges { get; }
     long? BeatmapPlaycountsCount { get; }
+    long? UnrankedBeatmapsetCount { get; }
+    long? RankedAndApprovedBeatmapsetCount { get; }
+    long? ScoresPinnedCount { get; }
+    string CoverUrl { get; }
     object Blocks { get; }
     IUserCountry Country { get; }
     IUserCover Cover { get; }

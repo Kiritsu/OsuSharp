@@ -22,4 +22,7 @@ public class BeatmapsetSearchEnumerationJsonModel : JsonModel
 
     [JsonProperty("total")]
     public long Total { get; set; }
+
+    [JsonProperty("cursor_string")] 
+    public string CursorString { get; set; } = null!;
 }

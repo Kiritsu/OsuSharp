@@ -945,7 +945,7 @@ public sealed class OsuClient : IOsuClient
                         break;
                 }
 
-                parameters["cursor[_id]"] = lastBeatmapset.Id.ToString();
+                parameters["cursor[id]"] = lastBeatmapset.Id.ToString();
             }
         }
     }

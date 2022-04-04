@@ -12,8 +12,12 @@ public class User : UserCompact, IUser
     public object Blocks { get; internal set; } = null!;
     public IUserCountry Country { get; internal set; } = null!;
     public IUserCover Cover { get; internal set; } = null!;
+    public string CoverUrl { get; internal set; }
     public long? FavouriteBeatmapsetCount { get; internal set; }
     public long? GraveyardBeatmapsetCount { get; internal set; }
+    public long? UnrankedBeatmapsetCount { get; internal set; }
+    public long? ScoresPinnedCount { get; internal set; }
+    public long? RankedAndApprovedBeatmapsetCount { get; internal set; }
     public long? FollowerCount { get; internal set; }
     public object Friends { get; internal set; } = null!;
     public IReadOnlyList<IUserGroup> Groups { get; internal set; } = null!;

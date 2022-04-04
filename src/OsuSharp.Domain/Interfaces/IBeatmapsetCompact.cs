@@ -35,5 +35,5 @@ public interface IBeatmapsetCompact : IClientEntity
     object? Rating { get; }
     IReadOnlyList<IUserCompact> RecentFavourites { get; }
     object? RelatedUsers { get; }
-    IUserCompact User { get; }
+    IUserCompact? User { get; }
 }

@@ -37,6 +37,8 @@ public sealed class Beatmapset : BeatmapsetCompact, IBeatmapset
     public string Tags { get; internal set; } = null!;
 
     public IReadOnlyList<int> Ratings { get; internal set; } = null!;
+    
+    public long? TrackId { get; set; }
 
     internal Beatmapset()
     {

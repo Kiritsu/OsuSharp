@@ -150,4 +150,7 @@ public class BeatmapsetJsonModel : JsonModel
 
     [JsonProperty("ratings")]
     public List<int> Ratings { get; set; } = null!;
+
+    [JsonProperty("track_id")]
+    public long? TrackId { get; set; }
 }

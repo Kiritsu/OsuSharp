@@ -70,7 +70,7 @@ public class BeatmapsetCompact : IBeatmapsetCompact
     // todo: type
     public object? RelatedUsers { get; internal set; }
 
-    public IUserCompact User { get; internal set; } = null!;
+    public IUserCompact? User { get; internal set; }
 
     public IOsuClient Client { get; internal set; } = null!;
 
