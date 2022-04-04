@@ -5,13 +5,13 @@ using SevenZip.Compression.LZMA;
 
 namespace OsuSharp.Domain
 {
-    //http://www.nullskull.com/a/768/7zip-lzma-inmemory-compression-with-c.aspx
-    internal static class SevenZipLZMAHelper
+    // http://www.nullskull.com/a/768/7zip-lzma-inmemory-compression-with-c.aspx
+    internal static class SevenZipLzmaHelper
     {
-        private const int _dictionary = 1 << 23;
-        private const bool _eos = false;
+        private const int Dictionary = 1 << 23;
+        private const bool Eos = false;
 
-        private static readonly CoderPropID[] _propIds =
+        private static readonly CoderPropID[] PropIds =
         {
             CoderPropID.DictionarySize,
             CoderPropID.PosStateBits,
@@ -23,16 +23,16 @@ namespace OsuSharp.Domain
             CoderPropID.EndMarker
         };
 
-        private static readonly object[] _properties =
+        private static readonly object[] Properties =
         {
-            _dictionary,
+            Dictionary,
             2,
             3,
             0,
             2,
             128,
             "bt4",
-            _eos
+            Eos
         };
 
         public static byte[] Compress(byte[] inputBytes)
@@ -41,7 +41,7 @@ namespace OsuSharp.Domain
             var outStream = new MemoryStream();
 
             var encoder = new Encoder();
-            encoder.SetCoderProperties(_propIds, _properties);
+            encoder.SetCoderProperties(PropIds, Properties);
             encoder.WriteCoderProperties(outStream);
 
             var fileSize = inStream.Length;
@@ -66,7 +66,7 @@ namespace OsuSharp.Domain
             var properties2 = new byte[5];
             if (newInStream.Read(properties2, 0, 5) != 5)
             {
-                throw (new Exception("input .lzma is too short"));
+                throw new Exception("Input LZMA is too short");
             }
 
             long outSize = 0;
@@ -75,10 +75,10 @@ namespace OsuSharp.Domain
                 var v = newInStream.ReadByte();
                 if (v < 0)
                 {
-                    throw (new Exception("Can't Read 1"));
+                    throw new Exception("Can't read 1");
                 }
 
-                outSize |= ((long)(byte)v) << (8 * i);
+                outSize |= (long)(byte)v << (8 * i);
             }
 
             decoder.SetDecoderProperties(properties2);

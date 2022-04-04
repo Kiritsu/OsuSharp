@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<VersionPrefix>6.1.0</VersionPrefix>
-		<TargetFramework>net5.0</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 		<Nullable>disable</Nullable>
 		<Authors>Allan Mercou</Authors>
 		<Description>Package for the JSON models for the osu!api v2</Description>
@@ -11,6 +11,7 @@
 		<RepositoryUrl>https://github.com/Kiritsu/OsuSharp</RepositoryUrl>
 		<PackageTags>osu osusharp osu!api api csharp dotnet</PackageTags>
 		<RepositoryType>Git</RepositoryType>
+		<LangVersion>default</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

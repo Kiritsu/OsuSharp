@@ -21,7 +21,7 @@ namespace OsuSharp.Domain
                 throw new ArgumentNullException(nameof(replay));
             }
 
-            var decompressedData = SevenZipLZMAHelper.Decompress(replay.CompressedReplayData.ToArray());
+            var decompressedData = SevenZipLzmaHelper.Decompress(replay.CompressedReplayData.ToArray());
             var decompressedDataString = Encoding.UTF8.GetString(decompressedData);
 
             var moveData = new List<ReplayMoveData>();
