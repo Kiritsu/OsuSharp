@@ -1,10 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace OsuSharp.JsonModels
+namespace OsuSharp.JsonModels;
+
+public class SearchJsonModel : JsonModel
 {
-    public class SearchJsonModel : JsonModel
-    {
-        [JsonProperty("sort")]
-        public string Sort { get; set; }
-    }
+    [JsonProperty("sort")]
+    public string Sort { get; set; } = null!;
 }

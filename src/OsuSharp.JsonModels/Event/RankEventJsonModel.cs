@@ -1,22 +1,21 @@
 ﻿using Newtonsoft.Json;
 
-namespace OsuSharp.JsonModels
+namespace OsuSharp.JsonModels;
+
+public class RankEventJsonModel : EventJsonModel
 {
-    public class RankEventJsonModel : EventJsonModel
-    {
-        [JsonProperty("scoreRank")]
-        public string ScoreRank { get; set; }
+    [JsonProperty("scoreRank")]
+    public string ScoreRank { get; set; } = null!;
 
-        [JsonProperty("rank")]
-        public long Rank { get; set; }
+    [JsonProperty("rank")]
+    public long Rank { get; set; }
 
-        [JsonProperty("mode")]
-        public string GameMode { get; set; }
+    [JsonProperty("mode")]
+    public string GameMode { get; set; } = null!;
 
-        [JsonProperty("beatmap")]
-        public EventBeatmapJsonModel BeatmapJson { get; set; }
+    [JsonProperty("beatmap")]
+    public EventBeatmapJsonModel Beatmap { get; set; } = null!;
 
-        [JsonProperty("user")]
-        public EventUserModelJsonModel UserJson { get; set; }
-    }
+    [JsonProperty("user")]
+    public EventUserModelJsonModel User { get; set; } = null!;
 }

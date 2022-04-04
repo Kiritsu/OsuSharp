@@ -1,20 +1,19 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace OsuSharp.JsonModels
+namespace OsuSharp.JsonModels;
+
+public class UserBadgeJsonModel : JsonModel
 {
-    public class UserBadgeJsonModel : JsonModel
-    {
-        [JsonProperty("awarded_at")]
-        public DateTimeOffset AwardedAt { get; set; }
+    [JsonProperty("awarded_at")]
+    public DateTimeOffset AwardedAt { get; set; }
 
-        [JsonProperty("description")]
-        public string Description { get; set; }
+    [JsonProperty("description")]
+    public string Description { get; set; } = null!;
 
-        [JsonProperty("image_url")]
-        public string ImageUrl { get; set; }
+    [JsonProperty("image_url")]
+    public string ImageUrl { get; set; } = null!;
 
-        [JsonProperty("url")]
-        public string Url { get; set; }
-    }
+    [JsonProperty("url")]
+    public string Url { get; set; } = null!;
 }

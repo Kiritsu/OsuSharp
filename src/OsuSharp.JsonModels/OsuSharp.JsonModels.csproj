@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<VersionPrefix>6.1.0</VersionPrefix>
 		<TargetFramework>net6.0</TargetFramework>
-		<Nullable>disable</Nullable>
+		<Nullable>enable</Nullable>
 		<Authors>Allan Mercou</Authors>
 		<Description>Package for the JSON models for the osu!api v2</Description>
 		<PackageProjectUrl>https://github.com/Kiritsu/OsuSharp</PackageProjectUrl>

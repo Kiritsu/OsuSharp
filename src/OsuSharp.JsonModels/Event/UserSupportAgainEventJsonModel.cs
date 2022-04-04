@@ -1,10 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace OsuSharp.JsonModels
+namespace OsuSharp.JsonModels;
+
+public class UserSupportAgainEventJsonModel : EventJsonModel
 {
-    public class UserSupportAgainEventJsonModel : EventJsonModel
-    {
-        [JsonProperty("user")]
-        public EventUserModelJsonModel UserJson { get; set; }
-    }
+    [JsonProperty("user")]
+    public EventUserModelJsonModel User { get; set; } = null!;
 }

@@ -1,13 +1,12 @@
 ﻿using Newtonsoft.Json;
 
-namespace OsuSharp.JsonModels
-{
-    public class BeatmapsetUpdateEventJsonModel : EventJsonModel
-    {
-        [JsonProperty("beatmapset")]
-        public EventBeatmapsetModelJsonModel BeatmapsetJson { get; set; }
+namespace OsuSharp.JsonModels;
 
-        [JsonProperty("user")]
-        public EventUserModelJsonModel UserJson { get; set; }
-    }
+public class BeatmapsetUpdateEventJsonModel : EventJsonModel
+{
+    [JsonProperty("beatmapset")]
+    public EventBeatmapsetModelJsonModel Beatmapset { get; set; } = null!;
+
+    [JsonProperty("user")]
+    public EventUserModelJsonModel User { get; set; } = null!;
 }
