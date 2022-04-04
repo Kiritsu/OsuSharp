@@ -7,38 +7,37 @@ using OsuSharp.Domain;
 using OsuSharp.Interfaces;
 using OsuSharp.Legacy;
 
-namespace OsuSharp.Test
+namespace OsuSharp.Test;
+
+public class OsuTestService : BackgroundService
 {
-    public class OsuTestService : BackgroundService
+    private readonly ILogger<OsuTestService> _logger;
+    private readonly IOsuClient _client;
+    private readonly LegacyOsuClient _legacyClient;
+
+    public OsuTestService(ILogger<OsuTestService> logger, IOsuClient client, LegacyOsuClient legacyClient)
     {
-        private readonly ILogger<OsuTestService> _logger;
-        private readonly IOsuClient _client;
-        private readonly LegacyOsuClient _legacyClient;
+        _logger = logger;
+        _client = client;
+        _legacyClient = legacyClient;
+    }
 
-        public OsuTestService(ILogger<OsuTestService> logger, IOsuClient client, LegacyOsuClient legacyClient)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        try
         {
-            _logger = logger;
-            _client = client;
-            _legacyClient = legacyClient;
+            var user = await _legacyClient.GetUserByUsernameAsync("Evolia", Legacy.Enums.GameMode.Standard, stoppingToken);
+            _logger.LogInformation("User id for Evolia: {Id}", user.UserId);
+
+            var userScores = await _client.GetUserBeatmapScoresAsync(2324562, 13193514, GameMode.Osu, stoppingToken);
+            foreach (var score in userScores.Scores)
+            {
+                _logger.LogInformation("PPs: {PP} (pfc: {Perfect})", score.PerformancePoints, score.Perfect);
+            }
         }
-
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        catch (Exception ex)
         {
-            try
-            {
-                var user = await _legacyClient.GetUserByUsernameAsync("Evolia", Legacy.Enums.GameMode.Standard, stoppingToken);
-                _logger.LogInformation("User id for Evolia: {Id}", user.UserId);
-
-                var userScores = await _client.GetUserBeatmapScoresAsync(2324562, 13193514, GameMode.Osu, stoppingToken);
-                foreach (var score in userScores.Scores)
-                {
-                    _logger.LogInformation("PPs: {PP} (pfc: {Perfect})", score.PerformancePoints, score.Perfect);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An exception occured");
-            }
+            _logger.LogError(ex, "An exception occured");
         }
     }
 }

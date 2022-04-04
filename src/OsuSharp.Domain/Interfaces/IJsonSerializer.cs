@@ -12,7 +12,7 @@ public interface IJsonSerializer
     /// </summary>
     /// <param name="content">JSON content to deserialize.</param>
     /// <typeparam name="T">Model to deserialize the JSON into.</typeparam>
-    T Deserialize<T>(string content) where T : class;
+    T? Deserialize<T>(string content) where T : class;
 
     /// <summary>
     /// Serializes a model as a JSON.

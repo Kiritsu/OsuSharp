@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using System.Net.Http;
 using OsuSharp.Interfaces;
 
-namespace OsuSharp.Net
+namespace OsuSharp.Net;
+
+internal sealed class OsuApiRequest : IOsuApiRequest
 {
-    internal sealed class OsuApiRequest : IOsuApiRequest
-    {
-        public IOsuToken Token { get; set; }
+    public IOsuToken? Token { get; set; }
 
-        public HttpMethod Method { get; set; }
+    public HttpMethod Method { get; set; } = HttpMethod.Get;
 
-        public string Endpoint { get; set; }
+    public string Endpoint { get; set; } = null!;
 
-        public Uri Route { get; set; }
+    public Uri Route { get; set; } = null!;
 
-        public IDictionary<string, string> Parameters { get; set; }
+    public IDictionary<string, string>? Parameters { get; set; }
 
-        public IOsuClient Client { get; set; }
-    }
+    public IOsuClient Client { get; set; } = null!;
 }

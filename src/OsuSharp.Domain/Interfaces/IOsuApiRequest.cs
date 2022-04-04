@@ -17,7 +17,7 @@ public interface IOsuApiRequest
     /// <summary>
     /// Gets or sets the token used to make the request.
     /// </summary>
-    IOsuToken Token { get; set; }
+    IOsuToken? Token { get; set; }
 
     /// <summary>
     /// Gets or sets the kind of http method to make.
@@ -37,5 +37,5 @@ public interface IOsuApiRequest
     /// <summary>
     /// Gets or sets the different parameters. Either transformed in query string or for a JSON body.
     /// </summary>
-    IDictionary<string, string> Parameters { get; set; }
+    IDictionary<string, string>? Parameters { get; set; }
 }
