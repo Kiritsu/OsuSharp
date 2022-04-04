@@ -1,18 +1,17 @@
-﻿namespace OsuSharp.Interfaces
+﻿namespace OsuSharp.Interfaces;
+
+/// <summary>
+/// Defines the hype of a beatmap.
+/// </summary>
+public interface IBeatmapHype
 {
     /// <summary>
-    /// Defines the hype of a beatmap.
+    /// Gets the current hype of a beatmap.
     /// </summary>
-    public interface IBeatmapHype
-    {
-        /// <summary>
-        /// Gets the current hype of a beatmap.
-        /// </summary>
-        int CurrentHype { get; }
+    int CurrentHype { get; }
 
-        /// <summary>
-        /// Gets the required hype of a beatmap.
-        /// </summary>
-        int RequiredHype { get; }
-    }
+    /// <summary>
+    /// Gets the required hype of a beatmap.
+    /// </summary>
+    int RequiredHype { get; }
 }

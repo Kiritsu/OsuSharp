@@ -1,12 +1,11 @@
-﻿namespace OsuSharp.Domain
+﻿namespace OsuSharp.Domain;
+
+/// <summary>
+/// Represents the different Kudosu actions.
+/// </summary>
+public enum KudosuAction
 {
-    /// <summary>
-    /// Represents the different Kudosu actions.
-    /// </summary>
-    public enum KudosuAction
-    {
-        Give,
-        Reset,
-        Revoke
-    }
+    Give,
+    Reset,
+    Revoke
 }

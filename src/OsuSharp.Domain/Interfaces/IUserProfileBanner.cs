@@ -1,9 +1,8 @@
-﻿namespace OsuSharp.Interfaces
+﻿namespace OsuSharp.Interfaces;
+
+public interface IUserProfileBanner
 {
-    public interface IUserProfileBanner
-    {
-        long Id { get; }
-        long TournamentId { get; }
-        string Image { get; }
-    }
+    long Id { get; }
+    long TournamentId { get; }
+    string Image { get; }
 }

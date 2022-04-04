@@ -1,7 +1,6 @@
-﻿namespace OsuSharp.Interfaces
+﻿namespace OsuSharp.Interfaces;
+
+public interface IUsernameChangeEvent : IEvent
 {
-    public interface IUsernameChangeEvent : IEvent
-    {
-        IEventUsernameChangeModel User { get; }
-    }
+    IEventUsernameChangeModel User { get; }
 }

@@ -1,16 +1,15 @@
 ﻿using OsuSharp.Interfaces;
 
-namespace OsuSharp.Domain
+namespace OsuSharp.Domain;
+
+public sealed class SeasonalBackground : ISeasonalBackground
 {
-    public sealed class SeasonalBackground : ISeasonalBackground
+    public string Url { get; internal set; } = null!;
+
+    public IUserCompact User { get; internal set; } = null!;
+
+    internal SeasonalBackground()
     {
-        public string Url { get; internal set; }
 
-        public IUserCompactBase User { get; internal set; }
-
-        internal SeasonalBackground()
-        {
-
-        }
     }
 }

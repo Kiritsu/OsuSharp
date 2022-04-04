@@ -1,7 +1,6 @@
-﻿namespace OsuSharp.Interfaces
+﻿namespace OsuSharp.Interfaces;
+
+public interface IEventUsernameChangeModel : IEventUserModel
 {
-    public interface IEventUsernameChangeModel : IEventUserModel
-    {
-        string PreviousUsername { get; }
-    }
+    string PreviousUsername { get; }
 }

@@ -1,16 +1,15 @@
 using OsuSharp.Interfaces;
 
-namespace OsuSharp.Domain
+namespace OsuSharp.Domain;
+
+public sealed class UserKudosu : IUserKudosu
 {
-    public sealed class UserKudosu : IUserKudosu
+    public long Total { get; internal set; }
+
+    public long Available { get; internal set; }
+
+    internal UserKudosu()
     {
-        public long Total { get; internal set; }
-
-        public long Available { get; internal set; }
-
-        internal UserKudosu()
-        {
             
-        }
     }
 }

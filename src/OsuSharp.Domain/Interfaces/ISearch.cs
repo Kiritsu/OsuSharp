@@ -1,9 +1,8 @@
 ﻿using OsuSharp.Domain;
 
-namespace OsuSharp.Interfaces
+namespace OsuSharp.Interfaces;
+
+public interface ISearch
 {
-    public interface ISearch
-    {
-        BeatmapSorting Sort { get; }
-    }
+    BeatmapSorting Sort { get; }
 }

@@ -1,16 +1,15 @@
 ﻿using System;
 using OsuSharp.Domain;
 
-namespace OsuSharp.Interfaces
+namespace OsuSharp.Interfaces;
+
+public interface IKudosuHistory : IClientEntity
 {
-    public interface IKudosuHistory : IClientEntity
-    {
-        long Id { get; }
-        KudosuAction Action { get; }
-        long Amount { get; }
-        string Model { get; }
-        DateTimeOffset CreatedAt { get; }
-        IKudosuGiver Giver { get; }
-        IKudosuPost Post { get; }
-    }
+    long Id { get; }
+    KudosuAction Action { get; }
+    long Amount { get; }
+    string Model { get; }
+    DateTimeOffset CreatedAt { get; }
+    IKudosuGiver Giver { get; }
+    IKudosuPost Post { get; }
 }

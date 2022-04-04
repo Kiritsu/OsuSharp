@@ -1,8 +1,7 @@
-﻿namespace OsuSharp.Interfaces
+﻿namespace OsuSharp.Interfaces;
+
+public interface IBeatmapsetReviveEvent : IEvent
 {
-    public interface IBeatmapsetReviveEvent : IEvent
-    {
-        IEventBeatmapsetModel Beatmapset { get; }
-        IEventUserModel User { get; }
-    }
+    IEventBeatmapsetModel Beatmapset { get; }
+    IEventUserModel User { get; }
 }

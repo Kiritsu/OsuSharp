@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace OsuSharp.Interfaces
+namespace OsuSharp.Interfaces;
+
+public interface IBeatmapScores
 {
-    public interface IBeatmapScores
-    {
-        IReadOnlyList<IScore> Scores { get; }
-        IBeatmapUserScore UserScore { get; }
-    }
+    IReadOnlyList<IScore> Scores { get; }
+    IBeatmapUserScore UserScore { get; }
 }

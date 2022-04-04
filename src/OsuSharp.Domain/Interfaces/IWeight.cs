@@ -1,8 +1,7 @@
-﻿namespace OsuSharp.Interfaces
+﻿namespace OsuSharp.Interfaces;
+
+public interface IWeight
 {
-    public interface IWeight
-    {
-        double Percentage { get; }
-        double PerformancePoints { get; }
-    }
+    double Percentage { get; }
+    double PerformancePoints { get; }
 }

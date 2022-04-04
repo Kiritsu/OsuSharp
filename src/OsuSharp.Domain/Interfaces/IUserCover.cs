@@ -1,11 +1,10 @@
 ﻿using System;
 
-namespace OsuSharp.Interfaces
+namespace OsuSharp.Interfaces;
+
+public interface IUserCover
 {
-    public interface IUserCover
-    {
-        string CustomUrl { get; }
-        Uri Url { get; }
-        string Id { get; }
-    }
+    string CustomUrl { get; }
+    Uri Url { get; }
+    string Id { get; }
 }

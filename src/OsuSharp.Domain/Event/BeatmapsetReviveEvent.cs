@@ -1,16 +1,15 @@
 using OsuSharp.Interfaces;
 
-namespace OsuSharp.Domain
+namespace OsuSharp.Domain;
+
+public sealed class BeatmapsetReviveEvent : Event, IBeatmapsetReviveEvent
 {
-    public sealed class BeatmapsetReviveEvent : Event, IBeatmapsetReviveEvent
+    public IEventBeatmapsetModel Beatmapset { get; internal set; } = null!;
+
+    public IEventUserModel User { get; internal set; } = null!;
+
+    internal BeatmapsetReviveEvent()
     {
-        public IEventBeatmapsetModel Beatmapset { get; internal set; }
-
-        public IEventUserModel User { get; internal set; }
-
-        internal BeatmapsetReviveEvent()
-        {
             
-        }
     }
 }

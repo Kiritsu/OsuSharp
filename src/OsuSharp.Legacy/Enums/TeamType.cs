@@ -1,10 +1,9 @@
-﻿namespace OsuSharp.Legacy.Enums
+﻿namespace OsuSharp.Legacy.Enums;
+
+public enum TeamType
 {
-    public enum TeamType
-    {
-        HeadToHead = 0,
-        TagCoop = 1,
-        TeamVs = 2,
-        TagTeamVs = 3
-    }
+    HeadToHead = 0,
+    TagCoop = 1,
+    TeamVs = 2,
+    TagTeamVs = 3
 }

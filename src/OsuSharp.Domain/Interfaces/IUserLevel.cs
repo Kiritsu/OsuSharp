@@ -1,8 +1,7 @@
-﻿namespace OsuSharp.Interfaces
+﻿namespace OsuSharp.Interfaces;
+
+public interface IUserLevel
 {
-    public interface IUserLevel
-    {
-        long Current { get; }
-        long Progress { get; }
-    }
+    long Current { get; }
+    long Progress { get; }
 }

@@ -1,8 +1,7 @@
-﻿namespace OsuSharp.Domain
+﻿namespace OsuSharp.Domain;
+
+public enum BeatmapsetPlayed
 {
-    public enum BeatmapsetPlayed
-    {
-        Played,
-        Unplayed
-    }
+    Played,
+    Unplayed
 }

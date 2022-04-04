@@ -1,10 +1,9 @@
 ﻿using System;
 
-namespace OsuSharp.Interfaces
+namespace OsuSharp.Interfaces;
+
+public interface IUserMonthlyPlayCount
 {
-    public interface IUserMonthlyPlayCount
-    {
-        DateTimeOffset StartDate { get; }
-        long Count { get; }
-    }
+    DateTimeOffset StartDate { get; }
+    long Count { get; }
 }

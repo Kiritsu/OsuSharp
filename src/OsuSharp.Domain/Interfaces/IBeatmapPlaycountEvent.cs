@@ -1,8 +1,7 @@
-﻿namespace OsuSharp.Interfaces
+﻿namespace OsuSharp.Interfaces;
+
+public interface IBeatmapPlaycountEvent : IEvent
 {
-    public interface IBeatmapPlaycountEvent : IEvent
-    {
-        int Count { get; }
-        IEventBeatmapModel Beatmap { get; }
-    }
+    int Count { get; }
+    IEventBeatmapModel Beatmap { get; }
 }

@@ -1,7 +1,6 @@
-﻿namespace OsuSharp.Interfaces
+﻿namespace OsuSharp.Interfaces;
+
+public interface IUserSupportGiftEvent : IEvent
 {
-    public interface IUserSupportGiftEvent : IEvent
-    {
-        IEventUserModel User { get; }
-    }
+    IEventUserModel User { get; }
 }

@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace OsuSharp.Interfaces
+namespace OsuSharp.Interfaces;
+
+public interface IUserScores : IClientEntity
 {
-    public interface IUserScores : IClientEntity
-    {
-        IReadOnlyList<IScore> Scores { get; }
-    }
+    IReadOnlyList<IScore> Scores { get; }
 }

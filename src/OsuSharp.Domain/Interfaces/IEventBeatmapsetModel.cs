@@ -1,8 +1,7 @@
-﻿namespace OsuSharp.Interfaces
+﻿namespace OsuSharp.Interfaces;
+
+public interface IEventBeatmapsetModel
 {
-    public interface IEventBeatmapsetModel
-    {
-        string Title { get; }
-        string Url { get; }
-    }
+    string Title { get; }
+    string Url { get; }
 }

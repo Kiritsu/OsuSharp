@@ -1,16 +1,15 @@
 using OsuSharp.Interfaces;
 
-namespace OsuSharp.Domain
+namespace OsuSharp.Domain;
+
+public sealed class AchievementEvent : Event, IAchievementEvent
 {
-    public sealed class AchievementEvent : Event, IAchievementEvent
+    public object Achievement { get; internal set; } = null!;
+
+    public IEventUserModel User { get; internal set; } = null!;
+
+    internal AchievementEvent()
     {
-        public object Achievement { get; internal set; }
-
-        public IEventUserModel User { get; internal set; }
-
-        internal AchievementEvent()
-        {
             
-        }
     }
 }

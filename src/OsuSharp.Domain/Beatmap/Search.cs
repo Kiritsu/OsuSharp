@@ -1,14 +1,13 @@
 ﻿using OsuSharp.Interfaces;
 
-namespace OsuSharp.Domain
+namespace OsuSharp.Domain;
+
+public class Search : ISearch
 {
-    public class Search : ISearch
+    public BeatmapSorting Sort { get; internal set; }
+
+    internal Search()
     {
-        public BeatmapSorting Sort { get; internal set; }
 
-        internal Search()
-        {
-
-        }
     }
 }

@@ -1,16 +1,15 @@
 using OsuSharp.Interfaces;
 
-namespace OsuSharp.Domain
-{
-    public sealed class BeatmapNomination : IBeatmapNomination
-    {
-        public int Current { get; internal set; }
+namespace OsuSharp.Domain;
 
-        public int Required { get; internal set; }
+public sealed class BeatmapNomination : IBeatmapNomination
+{
+    public int Current { get; internal set; }
+
+    public int Required { get; internal set; }
         
-        internal BeatmapNomination()
-        {
+    internal BeatmapNomination()
+    {
             
-        }
     }
 }

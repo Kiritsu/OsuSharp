@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<VersionPrefix>6.1.0</VersionPrefix>
-		<TargetFramework>net5.0</TargetFramework>
-		<Nullable>disable</Nullable>
+		<VersionPrefix>6.2.0</VersionPrefix>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
 		<Authors>Allan Mercou</Authors>
 		<Description>An osu!api v2 wrapper</Description>
 		<PackageProjectUrl>https://github.com/Kiritsu/OsuSharp</PackageProjectUrl>
@@ -11,6 +11,7 @@
 		<RepositoryUrl>https://github.com/Kiritsu/OsuSharp</RepositoryUrl>
 		<PackageTags>osu osusharp osu!api api csharp dotnet</PackageTags>
 		<RepositoryType>Git</RepositoryType>
+		<LangVersion>default</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
