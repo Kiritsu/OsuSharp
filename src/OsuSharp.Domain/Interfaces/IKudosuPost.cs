@@ -1,8 +1,7 @@
-﻿namespace OsuSharp.Interfaces
+﻿namespace OsuSharp.Interfaces;
+
+public interface IKudosuPost
 {
-    public interface IKudosuPost
-    {
-        string Url { get; }
-        string Title { get; }
-    }
+    string Url { get; }
+    string Title { get; }
 }

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OsuSharp.Interfaces
+namespace OsuSharp.Interfaces;
+
+public interface ISeasonalBackgrounds : IClientEntity
 {
-    public interface ISeasonalBackgrounds : IClientEntity
-    {
-        DateTimeOffset EndsAt { get; }
-        IReadOnlyList<ISeasonalBackground> Backgrounds { get; }
-    }
+    DateTimeOffset EndsAt { get; }
+    IReadOnlyList<ISeasonalBackground> Backgrounds { get; }
 }

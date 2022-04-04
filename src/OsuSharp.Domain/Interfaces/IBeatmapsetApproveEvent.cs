@@ -1,11 +1,10 @@
 ﻿using OsuSharp.Domain;
 
-namespace OsuSharp.Interfaces
+namespace OsuSharp.Interfaces;
+
+public interface IBeatmapsetApproveEvent : IEvent
 {
-    public interface IBeatmapsetApproveEvent : IEvent
-    {
-        RankStatus Approval { get; }
-        IEventBeatmapsetModel Beatmapset { get; }
-        IEventUserModel User { get; }
-    }
+    RankStatus Approval { get; }
+    IEventBeatmapsetModel Beatmapset { get; }
+    IEventUserModel User { get; }
 }

@@ -1,20 +1,19 @@
 using OsuSharp.Interfaces;
 
-namespace OsuSharp.Domain
+namespace OsuSharp.Domain;
+
+public sealed class AccessTokenResponse : IAccessTokenResponse
 {
-    public sealed class AccessTokenResponse : IAccessTokenResponse
+    public string TokenType { get; init; } = null!;
+
+    public long ExpiresIn { get; init; }
+
+    public string AccessToken { get; init; } = null!;
+
+    public string RefreshToken { get; init; } = null!;
+
+    internal AccessTokenResponse()
     {
-        public string TokenType { get; internal set; }
 
-        public long ExpiresIn { get; internal set; }
-
-        public string AccessToken { get; internal set; }
-
-        public string RefreshToken { get; internal set; }
-
-        internal AccessTokenResponse()
-        {
-
-        }
     }
 }

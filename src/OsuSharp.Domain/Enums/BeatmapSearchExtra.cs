@@ -1,26 +1,25 @@
 ﻿using System;
 
-namespace OsuSharp.Domain
+namespace OsuSharp.Domain;
+
+/// <summary>
+/// Represents the extra parameters of a beatmap search lookup.
+/// </summary>
+[Flags]
+public enum BeatmapSearchExtra
 {
     /// <summary>
-    /// Represents the extra parameters of a beatmap search lookup.
+    /// No extra parameters
     /// </summary>
-    [Flags]
-    public enum BeatmapSearchExtra
-    {
-        /// <summary>
-        /// No extra parameters
-        /// </summary>
-        None = 0,
+    None = 0,
 
-        /// <summary>
-        /// Include videos.
-        /// </summary>
-        Video = 1,
+    /// <summary>
+    /// Include videos.
+    /// </summary>
+    Video = 1,
 
-        /// <summary>
-        /// Include storyboards.
-        /// </summary>
-        Storyboard = 2
-    }
+    /// <summary>
+    /// Include storyboards.
+    /// </summary>
+    Storyboard = 2
 }

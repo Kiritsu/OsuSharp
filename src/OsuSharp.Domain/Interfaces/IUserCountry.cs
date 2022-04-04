@@ -1,11 +1,10 @@
 ﻿using System.Globalization;
 
-namespace OsuSharp.Interfaces
+namespace OsuSharp.Interfaces;
+
+public interface IUserCountry
 {
-    public interface IUserCountry
-    {
-        string Code { get; }
-        string Name { get; }
-        RegionInfo RegionInfo { get; }
-    }
+    string Code { get; }
+    string Name { get; }
+    RegionInfo RegionInfo { get; }
 }

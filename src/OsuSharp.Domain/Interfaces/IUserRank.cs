@@ -1,8 +1,7 @@
-﻿namespace OsuSharp.Interfaces
+﻿namespace OsuSharp.Interfaces;
+
+public interface IUserRank
 {
-    public interface IUserRank
-    {
-        long Global { get; }
-        long Country { get; }
-    }
+    long Global { get; }
+    long Country { get; }
 }

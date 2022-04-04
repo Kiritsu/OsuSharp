@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace OsuSharp.Interfaces
+namespace OsuSharp.Interfaces;
+
+public interface IFailTimes
 {
-    public interface IFailTimes
-    {
-        IReadOnlyList<int> Exit { get; }
-        IReadOnlyList<int> Fail { get; }
-    }
+    IReadOnlyList<int> Exit { get; }
+    IReadOnlyList<int> Fail { get; }
 }

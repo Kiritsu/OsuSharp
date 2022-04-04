@@ -1,16 +1,15 @@
 ﻿using OsuSharp.Interfaces;
 
-namespace OsuSharp.Domain
+namespace OsuSharp.Domain;
+
+public sealed class BeatmapUserScore : IBeatmapUserScore
 {
-    public sealed class BeatmapUserScore : IBeatmapUserScore
+    public int Position { get; internal set; }
+
+    public IScore Score { get; internal set; } = null!;
+
+    internal BeatmapUserScore()
     {
-        public int Position { get; internal set; }
 
-        public IScore Score { get; internal set; }
-
-        internal BeatmapUserScore()
-        {
-
-        }
     }
 }

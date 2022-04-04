@@ -1,8 +1,7 @@
-﻿namespace OsuSharp.Interfaces
+﻿namespace OsuSharp.Interfaces;
+
+public interface IKudosuGiver
 {
-    public interface IKudosuGiver
-    {
-        string Url { get; }
-        string Username { get; }
-    }
+    string Url { get; }
+    string Username { get; }
 }

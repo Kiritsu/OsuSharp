@@ -1,16 +1,15 @@
 using OsuSharp.Interfaces;
 
-namespace OsuSharp.Domain
+namespace OsuSharp.Domain;
+
+public sealed class KudosuGiver : IKudosuGiver
 {
-    public sealed class KudosuGiver : IKudosuGiver
+    public string Url { get; internal set; } = null!;
+
+    public string Username { get; internal set; } = null!;
+
+    internal KudosuGiver()
     {
-        public string Url { get; internal set; }
-
-        public string Username { get; internal set; }
-
-        internal KudosuGiver()
-        {
             
-        }
     }
 }

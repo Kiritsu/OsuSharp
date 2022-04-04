@@ -1,8 +1,7 @@
-﻿namespace OsuSharp.Interfaces
+﻿namespace OsuSharp.Interfaces;
+
+public interface ICursor
 {
-    public interface ICursor
-    {
-        string ApprovedDate { get; }
-        string Id { get; }
-    }
+    string ApprovedDate { get; }
+    string Id { get; }
 }

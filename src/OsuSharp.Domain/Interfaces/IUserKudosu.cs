@@ -1,8 +1,7 @@
-﻿namespace OsuSharp.Interfaces
+﻿namespace OsuSharp.Interfaces;
+
+public interface IUserKudosu
 {
-    public interface IUserKudosu
-    {
-        long Total { get; }
-        long Available { get; }
-    }
+    long Total { get; }
+    long Available { get; }
 }

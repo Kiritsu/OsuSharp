@@ -239,9 +239,9 @@ namespace OsuSharp
         /// Gamemode of the user. Defaults gamemode is picked when null.
         /// </param>
         /// <returns>
-        /// Returns a <see cref="IUser" />.
+        /// Returns a <see cref="IGlobalUser" />.
         /// </returns>
-        public async Task<IUser> GetUserAsync(
+        public async Task<IGlobalUser> GetUserAsync(
             [NotNull] string username,
             GameMode? gameMode = null,
             CancellationToken token = default)
@@ -253,7 +253,7 @@ namespace OsuSharp
                 $"{Endpoints.UserEndpoint}/{username}/{gameMode.ToApiString()}?key=username",
                 UriKind.Relative, out var uri);
 
-            return await _handler.SendAsync<User, UserJsonModel>(new OsuApiRequest
+            return await _handler.SendAsync<GlobalUser, UserJsonModel>(new OsuApiRequest
             {
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
@@ -273,9 +273,9 @@ namespace OsuSharp
         /// Gamemode of the user. Defaults gamemode is picked when null.
         /// </param>
         /// <returns>
-        /// Returns a <see cref="IUser" />.
+        /// Returns a <see cref="IGlobalUser" />.
         /// </returns>
-        public async Task<IUser> GetUserAsync(
+        public async Task<IGlobalUser> GetUserAsync(
             long userId,
             GameMode? gameMode = null,
             CancellationToken token = default)
@@ -287,7 +287,7 @@ namespace OsuSharp
                 $"{Endpoints.UserEndpoint}/{userId}/{gameMode.ToApiString()}?key=id",
                 UriKind.Relative, out var uri);
 
-            return await _handler.SendAsync<User, UserJsonModel>(new OsuApiRequest
+            return await _handler.SendAsync<GlobalUser, UserJsonModel>(new OsuApiRequest
             {
                 Endpoint = Endpoints.UserEndpoint,
                 Method = HttpMethod.Get,
@@ -480,9 +480,9 @@ namespace OsuSharp
         /// Gamemode of the user. Defaults gamemode is picked when null.
         /// </param>
         /// <returns>
-        /// Returns a <see cref="IUser" />.
+        /// Returns a <see cref="IGlobalUser" />.
         /// </returns>
-        public async Task<IUser> GetCurrentUserAsync(
+        public async Task<IGlobalUser> GetCurrentUserAsync(
             GameMode? gameMode = null,
             CancellationToken token = default)
         {
@@ -493,7 +493,7 @@ namespace OsuSharp
                 $"{Endpoints.CurrentEndpoint}/{gameMode.ToApiString()}",
                 UriKind.Relative, out var uri);
 
-            return await _handler.SendAsync<User, UserJsonModel>(new OsuApiRequest
+            return await _handler.SendAsync<GlobalUser, UserJsonModel>(new OsuApiRequest
             {
                 Endpoint = Endpoints.CurrentEndpoint,
                 Method = HttpMethod.Get,

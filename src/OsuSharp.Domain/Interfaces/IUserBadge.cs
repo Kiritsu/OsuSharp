@@ -1,12 +1,11 @@
 ﻿using System;
 
-namespace OsuSharp.Interfaces
+namespace OsuSharp.Interfaces;
+
+public interface IUserBadge
 {
-    public interface IUserBadge
-    {
-        DateTimeOffset AwardedAt { get; }
-        string Description { get; }
-        string ImageUrl { get; }
-        string Url { get; }
-    }
+    DateTimeOffset AwardedAt { get; }
+    string Description { get; }
+    string ImageUrl { get; }
+    string Url { get; }
 }

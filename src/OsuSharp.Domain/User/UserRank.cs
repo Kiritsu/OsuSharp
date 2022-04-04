@@ -1,16 +1,15 @@
 using OsuSharp.Interfaces;
 
-namespace OsuSharp.Domain
+namespace OsuSharp.Domain;
+
+public sealed class UserRank : IUserRank
 {
-    public sealed class UserRank : IUserRank
+    public long Global { get; internal set; }
+
+    public long Country { get; internal set; }
+
+    internal UserRank()
     {
-        public long Global { get; internal set; }
-
-        public long Country { get; internal set; }
-
-        internal UserRank()
-        {
             
-        }
     }
 }

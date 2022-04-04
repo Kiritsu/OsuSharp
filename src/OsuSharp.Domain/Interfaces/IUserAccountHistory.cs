@@ -1,12 +1,11 @@
 ﻿using System;
 
-namespace OsuSharp.Interfaces
+namespace OsuSharp.Interfaces;
+
+public interface IUserAccountHistory
 {
-    public interface IUserAccountHistory
-    {
-        long Id { get; }
-        string Type { get; }
-        DateTimeOffset TimeStamp { get; }
-        int Length { get; }
-    }
+    long Id { get; }
+    string Type { get; }
+    DateTimeOffset TimeStamp { get; }
+    int Length { get; }
 }

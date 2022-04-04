@@ -1,16 +1,15 @@
 using OsuSharp.Interfaces;
 
-namespace OsuSharp.Domain
+namespace OsuSharp.Domain;
+
+public sealed class UserPage : IUserPage
 {
-    public sealed class UserPage : IUserPage
+    public string Html { get; internal set; } = null!;
+
+    public string Raw { get; internal set; } = null!;
+
+    internal UserPage()
     {
-        public string Html { get; internal set; }
-
-        public string Raw { get; internal set; }
-
-        internal UserPage()
-        {
             
-        }
     }
 }

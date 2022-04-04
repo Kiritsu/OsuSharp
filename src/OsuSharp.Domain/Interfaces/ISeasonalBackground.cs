@@ -1,8 +1,7 @@
-﻿namespace OsuSharp.Interfaces
+﻿namespace OsuSharp.Interfaces;
+
+public interface ISeasonalBackground
 {
-    public interface ISeasonalBackground
-    {
-        string Url { get; }
-        IUserCompactBase User { get; }
-    }
+    string Url { get; }
+    IUserCompact User { get; }
 }

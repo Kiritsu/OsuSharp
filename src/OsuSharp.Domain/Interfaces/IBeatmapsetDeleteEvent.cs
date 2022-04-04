@@ -1,7 +1,6 @@
-﻿namespace OsuSharp.Interfaces
+﻿namespace OsuSharp.Interfaces;
+
+public interface IBeatmapsetDeleteEvent : IEvent
 {
-    public interface IBeatmapsetDeleteEvent : IEvent
-    {
-        IEventBeatmapsetModel Beatmapset { get; }
-    }
+    IEventBeatmapsetModel Beatmapset { get; }
 }

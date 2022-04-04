@@ -1,17 +1,16 @@
-﻿namespace OsuSharp.Domain
+﻿namespace OsuSharp.Domain;
+
+/// <summary>
+/// Represents the different categories of beatmapsets.
+/// </summary>
+public enum BeatmapsetCategory
 {
-    /// <summary>
-    /// Represents the different categories of beatmapsets.
-    /// </summary>
-    public enum BeatmapsetCategory
-    {
-        Any,
-        Ranked,
-        Qualified,
-        Loved,
-        Favourites,
-        Pending,
-        Graveyard,
-        Mine
-    }
+    Any,
+    Ranked,
+    Qualified,
+    Loved,
+    Favourites,
+    Pending,
+    Graveyard,
+    Mine
 }

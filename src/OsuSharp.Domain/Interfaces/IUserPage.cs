@@ -1,8 +1,7 @@
-﻿namespace OsuSharp.Interfaces
+﻿namespace OsuSharp.Interfaces;
+
+public interface IUserPage
 {
-    public interface IUserPage
-    {
-        string Html { get; }
-        string Raw { get; }
-    }
+    string Html { get; }
+    string Raw { get; }
 }

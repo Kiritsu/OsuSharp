@@ -1,12 +1,11 @@
 ﻿using System;
 using OsuSharp.Domain;
 
-namespace OsuSharp.Interfaces
+namespace OsuSharp.Interfaces;
+
+public interface IEvent : IClientEntity
 {
-    public interface IEvent : IClientEntity
-    {
-        DateTimeOffset CreatedAt { get; }
-        long Id { get; }
-        EventType Type { get; }
-    }
+    DateTimeOffset CreatedAt { get; }
+    long Id { get; }
+    EventType Type { get; }
 }

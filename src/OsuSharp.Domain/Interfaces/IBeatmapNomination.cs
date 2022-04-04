@@ -1,8 +1,7 @@
-﻿namespace OsuSharp.Interfaces
+﻿namespace OsuSharp.Interfaces;
+
+public interface IBeatmapNomination
 {
-    public interface IBeatmapNomination
-    {
-        int Current { get; }
-        int Required { get; }
-    }
+    int Current { get; }
+    int Required { get; }
 }
