@@ -107,7 +107,7 @@ internal sealed class DefaultRequestHandler : IRequestHandler
         var response = await _httpClient.SendAsync(requestMessage, token).ConfigureAwait(false);
         await ValidateResponseAsync(response, token).ConfigureAwait(false);
         UpdateBucket(request.Endpoint, bucket, response);
-
+        
         return await response.Content.ReadAsStreamAsync(token).ConfigureAwait(false);
     }
 
@@ -123,7 +123,6 @@ internal sealed class DefaultRequestHandler : IRequestHandler
         var (bucket, requestMessage) = await PrepareRequestAsync(request, token).ConfigureAwait(false);
         var response = await _httpClient.SendAsync(requestMessage, token).ConfigureAwait(false);
         await ValidateResponseAsync(response, token).ConfigureAwait(false);
-        UpdateBucket(request.Endpoint, bucket, response);
         return await ReadAndDeserializeAsync<T>(request, response, bucket, token).ConfigureAwait(false);
     }
 
