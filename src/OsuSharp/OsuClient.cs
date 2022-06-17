@@ -117,6 +117,57 @@ public sealed class OsuClient : IOsuClient
     }
 
     /// <summary>
+    /// Gets an access token from authorization code grant.
+    /// </summary>
+    /// <param name="code">
+    /// The code given by the authorization code grant.
+    /// </param>
+    /// <param name="redirectUri">
+    /// The redirect uri where users are to be sent after authorization.
+    /// </param>
+    /// <param name="token">
+    /// Cancellation token.
+    /// </param>
+    /// <returns>
+    /// Returns an <see cref="IOsuToken" />.
+    /// </returns>
+    public async Task<IOsuToken> GetAccessTokenFromCodeAsync(
+        string code,
+        string redirectUri,
+        CancellationToken token = default)
+    {
+        ThrowIfDisposed();
+
+        var parameters = new Dictionary<string, string>
+        {
+            ["client_id"] = Configuration.ClientId.ToString(),
+            ["client_secret"] = Configuration.ClientSecret,
+            ["code"] = code,
+            ["grant_type"] = "authorization_code",
+            ["redirect_uri"] = redirectUri
+        };
+
+        Uri.TryCreate($"{Endpoints.TokenEndpoint}", UriKind.Relative, out var uri);
+        var response = await _handler.SendAsync<AccessTokenResponse, AccessTokenResponseJsonModel>(new OsuApiRequest
+        {
+            Endpoint = Endpoints.TokenEndpoint,
+            Method = HttpMethod.Post,
+            Route = uri!,
+            Parameters = parameters,
+            Token = _credentials,
+            Client = this
+        }, token).ConfigureAwait(false);
+
+        return _credentials = new OsuToken
+        {
+            Type = Enum.Parse<TokenType>(response.TokenType),
+            AccessToken = response.AccessToken,
+            ExpiresInSeconds = response.ExpiresIn,
+            RefreshToken = response.RefreshToken
+        };
+    }
+
+    /// <summary>
     /// Updates the current osu! api credentials by the given access, refresh tokens and the expiry time.
     /// </summary>
     /// <param name="accessToken">

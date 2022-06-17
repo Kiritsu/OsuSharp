@@ -448,4 +448,24 @@ public interface IOsuClient : IDisposable
         long scoreId,
         GameMode gameMode = GameMode.Osu,
         CancellationToken token = default);
+
+    /// <summary>
+    /// Gets an access token from authorization code grant.
+    /// </summary>
+    /// <param name="code">
+    /// The code given by the authorization code grant.
+    /// </param>
+    /// <param name="redirectUri">
+    /// The redirect uri where users are to be sent after authorization.
+    /// </param>
+    /// <param name="token">
+    /// Cancellation token.
+    /// </param>
+    /// <returns>
+    /// Returns an <see cref="IOsuToken" />.
+    /// </returns>
+    Task<IOsuToken> GetAccessTokenFromCodeAsync(
+        string code,
+        string redirectUri,
+        CancellationToken token = default);
 }

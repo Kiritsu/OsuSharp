@@ -24,10 +24,10 @@ namespace OsuSharp.Net;
 
 internal sealed class DefaultRequestHandler : IRequestHandler
 {
-    private string? ConfigMissingFields => _hostConfiguration.GetSection("OsuSharp")["MissingFields"];
+    private string? ConfigMissingFields => _hostConfiguration?.GetSection("OsuSharp")["MissingFields"];
     private bool IsMissingFieldsLoggingEnabled => ConfigMissingFields is null || ConfigMissingFields.StartsWith("Y");
 
-    private readonly IConfiguration _hostConfiguration;
+    private readonly IConfiguration? _hostConfiguration;
     private readonly ILogger<DefaultRequestHandler> _logger;
     private readonly IOsuClientConfiguration _configuration;
     private readonly IJsonSerializer _serializer;
@@ -36,9 +36,16 @@ internal sealed class DefaultRequestHandler : IRequestHandler
     private readonly ConcurrentDictionary<string, RatelimitBucket> _ratelimits;
 
     private bool _disposed;
-
+    
     public DefaultRequestHandler(
-        IConfiguration hostConfiguration,
+        ILogger<DefaultRequestHandler> logger,
+        IOsuClientConfiguration configuration,
+        IJsonSerializer serializer) : this(null, logger, configuration, serializer)
+    {
+    }
+    
+    public DefaultRequestHandler(
+        IConfiguration? hostConfiguration,
         ILogger<DefaultRequestHandler> logger,
         IOsuClientConfiguration configuration,
         IJsonSerializer serializer)

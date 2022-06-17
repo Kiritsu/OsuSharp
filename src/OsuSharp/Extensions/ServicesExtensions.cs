@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using OsuSharp.Interfaces;
 using OsuSharp.Models;
 using OsuSharp.Net;
@@ -92,6 +94,37 @@ public static class ServicesExtensions
         configureOsuSharp.Invoke(options);
                 
         return services.AddOsuSharp(options);
+    }
+    
+    /// <summary>
+    /// Adds the OsuSharp environment to the <see cref="IServiceCollection"/>.
+    /// </summary>
+    /// <param name="services">Instance of the <see cref="IServiceCollection"/>.</param>
+    /// <param name="configuration">Instance of the <see cref="IOsuClientConfiguration"/>.</param>
+    /// <exception cref="ArgumentNullException">Thrown when one of the required arguments were null.</exception>
+    /// <exception cref="InvalidOperationException">Thrown when the client configuration was null.</exception>
+    public static IServiceCollection AddOsuSharp(
+        this IServiceCollection services,
+        IOsuClientConfiguration configuration)
+    {
+        if (configuration is null)
+        {
+            throw new ArgumentNullException(nameof(configuration));
+        }
+        
+        services.AddSingleton(configuration);
+
+        if (services.All(x => x.ServiceType != typeof(IJsonSerializer)))
+        {
+            services.AddSingleton(DefaultJsonSerializer.Instance);
+        }
+
+        if (services.All(x => x.ServiceType != typeof(IRequestHandler)))
+        {
+            services.AddSingleton<IRequestHandler, DefaultRequestHandler>();
+        }
+
+        return services.AddSingleton<IOsuClient, OsuClient>();
     }
 
     /// <summary>
