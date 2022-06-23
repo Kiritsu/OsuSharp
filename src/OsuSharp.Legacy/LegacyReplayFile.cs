@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using OsuSharp.Legacy.Entities;
 using OsuSharp.Legacy.Enums;
@@ -82,7 +84,7 @@ public sealed class LegacyReplayFile
     /// <summary>
     ///     osu! replay MD5 hash (includes certain properties of the replay)
     /// </summary>
-    public string ReplayHash { get; private init; }
+    public string ReplayHash { get; private set; }
 
     /// <summary>
     ///     Number of 300s
@@ -279,7 +281,6 @@ public sealed class LegacyReplayFile
             TotalScore = (int)legacyScore.TotalScore,
             ReplayLength = playbytes.Length,
             CompressedReplayData = playbytes,
-            ReplayHash = "",
             MaxCombo = (short)legacyScore.MaxCombo,
             LifebarGraph = "",
             Mods = legacyScore.Mods,
@@ -290,6 +291,9 @@ public sealed class LegacyReplayFile
             OnlineScoreId = legacyScore.ScoreId ?? 0 // whatever it's both a long
         };
 
+        var hash = MD5.HashData(Encoding.UTF8.GetBytes($"{replay.MaxCombo}osu{replay.PlayerName}{legacyBeatmap.FileMd5}{replay.TotalScore}{legacyScore.Rank}"));
+        replay.ReplayHash = string.Join("", hash.Select(x => x.ToString("X2")));
+        
         var decompressedData = SevenZipLZMAHelper.Decompress(replay.CompressedReplayData);
         replay.DecompressedReplayData = Encoding.UTF8.GetString(decompressedData);
 
