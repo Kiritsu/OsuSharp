@@ -1153,6 +1153,46 @@ public sealed class OsuClient : IOsuClient
         }, token).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Gets country rankings from the API.
+    /// </summary>
+    /// <param name="gameMode">The game mode to fetch rankings from.</param>
+    /// <param name="page">(Optional) The page to fetch rankings from. Defaults to the first page.</param>
+    /// <param name="filter">(Optional) Filter by results by all or by friends. Defaults to all.</param>
+    /// <param name="token">The cancellation token.</param>
+    /// <returns>Returns an <see cref="IRankingCountry"/> instance.</returns>
+    public async Task<IRankingCountry> GetCountryRankingsAsync(
+        GameMode gameMode,
+        int? page = null,
+        RankingFilter? filter = null,
+        CancellationToken token = default)
+    {
+        ThrowIfDisposed();
+        await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
+
+        Uri.TryCreate(
+            string.Format(Endpoints.RankingsEndpoint, gameMode.ToApiString(), RankingType.Country.ToApiString()),
+            UriKind.Relative, out var uri);
+
+        IDictionary<string, string> parameters = new Dictionary<string, string>();
+
+        if (page.HasValue)
+            parameters["cursor[page]"] = page.Value.ToString();
+
+        if (filter.HasValue)
+            parameters["filter"] = filter.Value.ToApiString();
+
+        return await _handler.SendAsync<RankingCountry, RankingCountryJsonModel>(new OsuApiRequest
+        {
+            Endpoint = Endpoints.RankingsEndpoint,
+            Method = HttpMethod.Get,
+            Route = uri!,
+            Token = _credentials,
+            Parameters = parameters,
+            Client = this
+        }, token).ConfigureAwait(false);
+    }
+
     private void ThrowIfDisposed()
     {
         if (_disposed)

@@ -466,6 +466,20 @@ public interface IOsuClient : IDisposable
         CancellationToken token = default);
 
     /// <summary>
+    /// Gets country rankings from the API.
+    /// </summary>
+    /// <param name="gameMode">The game mode to fetch rankings from.</param>
+    /// <param name="page">(Optional) The page to fetch rankings from. Defaults to the first page.</param>
+    /// <param name="filter">(Optional) Filter by results by all or by friends. Defaults to all.</param>
+    /// <param name="token">The cancellation token.</param>
+    /// <returns>Returns an <see cref="IRankingCountry"/> instance.</returns>
+    Task<IRankingCountry> GetCountryRankingsAsync(
+        GameMode gameMode,
+        int? page = null,
+        RankingFilter? filter = null,
+        CancellationToken token = default);
+
+    /// <summary>
     /// Gets an access token from authorization code grant.
     /// </summary>
     /// <param name="code">
