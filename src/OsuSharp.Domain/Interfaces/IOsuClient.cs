@@ -450,6 +450,68 @@ public interface IOsuClient : IDisposable
         CancellationToken token = default);
 
     /// <summary>
+    /// Gets spotlight rankings from the API.
+    /// </summary>
+    /// <param name="gameMode">The game mode to fetch rankings from.</param>
+    /// <param name="page">(Optional) The page to fetch rankings from. Defaults to the first page.</param>
+    /// <param name="filter">(Optional) Filter by results by all or by friends. Defaults to all.</param>
+    /// <param name="spotlightId">(Optional) The spotlight ID. Defaults to the latest spotlight.</param>
+    /// <param name="token">The cancellation token.</param>
+    /// <returns>Returns an <see cref="IRankingSpotlight"/> instance.</returns>
+    Task<IRankingSpotlight> GetSpotlightRankingsAsync(
+        GameMode gameMode,
+        int? page = null,
+        RankingFilter? filter = null,
+        int? spotlightId = null,
+        CancellationToken token = default);
+
+    /// <summary>
+    /// Gets country rankings from the API.
+    /// </summary>
+    /// <param name="gameMode">The game mode to fetch rankings from.</param>
+    /// <param name="page">(Optional) The page to fetch rankings from. Defaults to the first page.</param>
+    /// <param name="filter">(Optional) Filter by results by all or by friends. Defaults to all.</param>
+    /// <param name="token">The cancellation token.</param>
+    /// <returns>Returns an <see cref="IRankingCountry"/> instance.</returns>
+    Task<IRankingCountry> GetCountryRankingsAsync(
+        GameMode gameMode,
+        int? page = null,
+        RankingFilter? filter = null,
+        CancellationToken token = default);
+
+    /// <summary>
+    /// Gets performance rankings from the API.
+    /// </summary>
+    /// <param name="gameMode">The game mode to fetch rankings from.</param>
+    /// <param name="page">(Optional) The page to fetch rankings from. Defaults to the first page.</param>
+    /// <param name="countryCode">(Optional) The country to fetch rankings from. Defaults to none.</param>
+    /// <param name="filter">(Optional) Filter by results by all or by friends. Defaults to all.</param>
+    /// <param name="variant">(Optional) Filter by a mode-specific variant. Defaults to none.</param>
+    /// <param name="token">The cancellation token.</param>
+    /// <returns>Returns an <see cref="IRankingPerformance"/> instance.</returns>
+    Task<IRankingPerformance> GetPerformanceRankingsAsync(
+        GameMode gameMode,
+        string? countryCode = null,
+        int? page = null,
+        RankingFilter? filter = null,
+        RankingVariant? variant = null,
+        CancellationToken token = default);
+
+    /// <summary>
+    /// Gets score rankings from the API.
+    /// </summary>
+    /// <param name="gameMode">The game mode to fetch rankings from.</param>
+    /// <param name="page">(Optional) The page to fetch rankings from. Defaults to the first page.</param>
+    /// <param name="filter">(Optional) Filter by results by all or by friends. Defaults to all.</param>
+    /// <param name="token">The cancellation token.</param>
+    /// <returns>Returns an <see cref="IRankingScore"/> instance.</returns>
+    Task<IRankingScore> GetScoreRankingsAsync(
+        GameMode gameMode,
+        int? page = null,
+        RankingFilter? filter = null,
+        CancellationToken token = default);
+
+    /// <summary>
     /// Gets an access token from authorization code grant.
     /// </summary>
     /// <param name="code">

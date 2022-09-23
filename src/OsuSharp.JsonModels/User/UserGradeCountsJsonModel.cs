@@ -8,13 +8,13 @@ public class UserGradeCountsJsonModel : JsonModel
     public long SS { get; set; }
 
     [JsonProperty("ssh")]
-    public long SSH { get; set; }
+    public long? SSH { get; set; }
 
     [JsonProperty("s")]
     public long S { get; set; }
 
     [JsonProperty("sh")]
-    public long SH { get; set; }
+    public long? SH { get; set; }
 
     [JsonProperty("a")]
     public long A { get; set; }

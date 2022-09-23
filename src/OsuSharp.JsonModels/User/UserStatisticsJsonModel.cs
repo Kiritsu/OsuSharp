@@ -8,7 +8,7 @@ public class UserStatisticsJsonModel : JsonModel
     public UserLevelJsonModel UserLevel { get; set; } = null!;
 
     [JsonProperty("pp")]
-    public double Pp { get; set; }
+    public double? Pp { get; set; }
 
     [JsonProperty("ranked_score")]
     public long RankedScore { get; set; }
@@ -20,7 +20,7 @@ public class UserStatisticsJsonModel : JsonModel
     public long PlayCount { get; set; }
 
     [JsonProperty("play_time")]
-    public long PlayTime { get; set; }
+    public long? PlayTime { get; set; }
 
     [JsonProperty("total_score")]
     public long TotalScore { get; set; }
@@ -44,5 +44,8 @@ public class UserStatisticsJsonModel : JsonModel
     public long CountryRank { get; set; }
 
     [JsonProperty("global_rank")]
-    public long GlobalRank { get; set; }
+    public long? GlobalRank { get; set; }
+
+    [JsonProperty("user")]
+    public UserJsonModel User { get; set; } = null!;
 }

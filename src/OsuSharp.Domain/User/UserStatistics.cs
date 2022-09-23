@@ -6,7 +6,7 @@ public sealed class UserStatistics : IUserStatistics
 {
     public IUserLevel UserLevel { get; internal set; } = null!;
 
-    public double Pp { get; internal set; }
+    public double? Pp { get; internal set; }
 
     public long RankedScore { get; internal set; }
 
@@ -14,7 +14,7 @@ public sealed class UserStatistics : IUserStatistics
 
     public long PlayCount { get; internal set; }
 
-    public long PlayTime { get; internal set; }
+    public long? PlayTime { get; internal set; }
 
     public long TotalScore { get; internal set; }
 
@@ -30,7 +30,9 @@ public sealed class UserStatistics : IUserStatistics
 
     public long CountryRank { get; internal set; }
 
-    public long GlobalRank { get; internal set; }
+    public long? GlobalRank { get; internal set; }
+
+    public IUserCompact User { get; internal set; } = null!;
 
     internal UserStatistics()
     {

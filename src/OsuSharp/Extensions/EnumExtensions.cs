@@ -105,4 +105,81 @@ internal static class EnumExtensions
     {
         return mods.HasValue ? ToApiString(mods.Value) : "";
     }
+
+    /// <summary>
+    /// Returns a string that fits osu! API requirements for <see cref="RankingFilter" />.
+    /// </summary>
+    /// <param name="rankingFilter">The filter to get the string for.</param>
+    /// <returns>A api-valid string representation of <see cref="RankingFilter" />.</returns>
+    public static string ToApiString(this RankingFilter rankingFilter)
+    {
+        return rankingFilter switch
+        {
+            RankingFilter.All => "all",
+            RankingFilter.Friends => "friends",
+            _ => ""
+        };
+    }
+
+    /// <summary>
+    /// Returns a string that fits osu! API requirements for <see cref="RankingFilter" />.
+    /// </summary>
+    /// <param name="rankingFilter">The filter to get the string for.</param>
+    /// <returns>A api-valid string representation of <see cref="RankingFilter" />.</returns>
+    public static string ToApiString(this RankingFilter? rankingFilter)
+    {
+        return rankingFilter.HasValue ? ToApiString(rankingFilter.Value) : "";
+    }
+
+    /// <summary>
+    /// Returns a string that fits osu! API requirements for <see cref="RankingType" />.
+    /// </summary>
+    /// <param name="rankingType">The type to get the string for.</param>
+    /// <returns>A api-valid string representation of <see cref="RankingType" />.</returns>
+    public static string ToApiString(this RankingType rankingType)
+    {
+        return rankingType switch
+        {
+            RankingType.Spotlight => "charts",
+            RankingType.Country => "country",
+            RankingType.Performance => "performance",
+            RankingType.Score => "score",
+            _ => ""
+        };
+    }
+
+    /// <summary>
+    /// Returns a string that fits osu! API requirements for <see cref="RankingType" />.
+    /// </summary>
+    /// <param name="rankingType">The type to get the string for.</param>
+    /// <returns>A api-valid string representation of <see cref="RankingType" />.</returns>
+    public static string ToApiString(this RankingType? rankingType)
+    {
+        return rankingType.HasValue ? ToApiString(rankingType.Value) : "";
+    }
+
+    /// <summary>
+    /// Returns a string that fits osu! API requirements for <see cref="RankingVariant" />.
+    /// </summary>
+    /// <param name="rankingVariant">The type to get the string for.</param>
+    /// <returns>A api-valid string representation of <see cref="RankingVariant" />.</returns>
+    public static string ToApiString(this RankingVariant rankingVariant)
+    {
+        return rankingVariant switch
+        {
+            RankingVariant.Key4 => "4k",
+            RankingVariant.Key7 => "7k",
+            _ => ""
+        };
+    }
+
+    /// <summary>
+    /// Returns a string that fits osu! API requirements for <see cref="RankingVariant" />.
+    /// </summary>
+    /// <param name="rankingVariant">The type to get the string for.</param>
+    /// <returns>A api-valid string representation of <see cref="RankingVariant" />.</returns>
+    public static string ToApiString(this RankingVariant? rankingVariant)
+    {
+        return rankingVariant.HasValue ? ToApiString(rankingVariant.Value) : "";
+    }
 }

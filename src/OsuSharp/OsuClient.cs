@@ -1107,6 +1107,181 @@ public sealed class OsuClient : IOsuClient
         return Replay.FromStream(b64EncodedStream);
     }
 
+    /// <summary>
+    /// Gets spotlight rankings from the API.
+    /// </summary>
+    /// <param name="gameMode">The game mode to fetch rankings from.</param>
+    /// <param name="page">(Optional) The page to fetch rankings from. Defaults to the first page.</param>
+    /// <param name="filter">(Optional) Filter by results by all or by friends. Defaults to all.</param>
+    /// <param name="spotlightId">(Optional) The spotlight ID. Defaults to the latest spotlight.</param>
+    /// <param name="token">The cancellation token.</param>
+    /// <returns>Returns an <see cref="IRankingSpotlight"/> instance.</returns>
+    public async Task<IRankingSpotlight> GetSpotlightRankingsAsync(
+        GameMode gameMode,
+        int? page = null,
+        RankingFilter? filter = null,
+        int? spotlightId = null,
+        CancellationToken token = default)
+    {
+        ThrowIfDisposed();
+        await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
+
+        Uri.TryCreate(
+            string.Format(Endpoints.RankingsEndpoint, gameMode.ToApiString(), RankingType.Spotlight.ToApiString()),
+            UriKind.Relative, out var uri);
+
+        IDictionary<string, string> parameters = new Dictionary<string, string>();
+
+        if (page.HasValue)
+            parameters["cursor[page]"] = page.Value.ToString();
+
+        if (filter.HasValue)
+            parameters["filter"] = filter.Value.ToApiString();
+
+        if (spotlightId.HasValue)
+            parameters["spotlight"] = spotlightId.Value.ToString();
+
+        return await _handler.SendAsync<RankingSpotlight, RankingSpotlightJsonModel>(new OsuApiRequest
+        {
+            Endpoint = Endpoints.RankingsEndpoint,
+            Method = HttpMethod.Get,
+            Route = uri!,
+            Token = _credentials,
+            Parameters = parameters,
+            Client = this
+        }, token).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Gets country rankings from the API.
+    /// </summary>
+    /// <param name="gameMode">The game mode to fetch rankings from.</param>
+    /// <param name="page">(Optional) The page to fetch rankings from. Defaults to the first page.</param>
+    /// <param name="filter">(Optional) Filter by results by all or by friends. Defaults to all.</param>
+    /// <param name="token">The cancellation token.</param>
+    /// <returns>Returns an <see cref="IRankingCountry"/> instance.</returns>
+    public async Task<IRankingCountry> GetCountryRankingsAsync(
+        GameMode gameMode,
+        int? page = null,
+        RankingFilter? filter = null,
+        CancellationToken token = default)
+    {
+        ThrowIfDisposed();
+        await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
+
+        Uri.TryCreate(
+            string.Format(Endpoints.RankingsEndpoint, gameMode.ToApiString(), RankingType.Country.ToApiString()),
+            UriKind.Relative, out var uri);
+
+        IDictionary<string, string> parameters = new Dictionary<string, string>();
+
+        if (page.HasValue)
+            parameters["cursor[page]"] = page.Value.ToString();
+
+        if (filter.HasValue)
+            parameters["filter"] = filter.Value.ToApiString();
+
+        return await _handler.SendAsync<RankingCountry, RankingCountryJsonModel>(new OsuApiRequest
+        {
+            Endpoint = Endpoints.RankingsEndpoint,
+            Method = HttpMethod.Get,
+            Route = uri!,
+            Token = _credentials,
+            Parameters = parameters,
+            Client = this
+        }, token).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Gets performance rankings from the API.
+    /// </summary>
+    /// <param name="gameMode">The game mode to fetch rankings from.</param>
+    /// <param name="page">(Optional) The page to fetch rankings from. Defaults to the first page.</param>
+    /// <param name="countryCode">(Optional) The country to fetch rankings from. Defaults to none.</param>
+    /// <param name="filter">(Optional) Filter by results by all or by friends. Defaults to all.</param>
+    /// <param name="variant">(Optional) Filter by a mode-specific variant. Defaults to none.</param>
+    /// <param name="token">The cancellation token.</param>
+    /// <returns>Returns an <see cref="IRankingPerformance"/> instance.</returns>
+    public async Task<IRankingPerformance> GetPerformanceRankingsAsync(
+        GameMode gameMode,
+        string? countryCode = null,
+        int? page = null,
+        RankingFilter? filter = null,
+        RankingVariant? variant = null,
+        CancellationToken token = default)
+    {
+        ThrowIfDisposed();
+        await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
+
+        Uri.TryCreate(
+            string.Format(Endpoints.RankingsEndpoint, gameMode.ToApiString(), RankingType.Performance.ToApiString()),
+            UriKind.Relative, out var uri);
+
+        IDictionary<string, string> parameters = new Dictionary<string, string>();
+
+        if (!string.IsNullOrWhiteSpace(countryCode))
+            parameters["country"] = countryCode;
+
+        if (page.HasValue)
+            parameters["cursor[page]"] = page.Value.ToString();
+
+        if (filter.HasValue)
+            parameters["filter"] = filter.Value.ToApiString();
+
+        if (variant.HasValue)
+            parameters["variant"] = variant.Value.ToApiString();
+
+        return await _handler.SendAsync<RankingPerformance, RankingPerformanceJsonModel>(new OsuApiRequest
+        {
+            Endpoint = Endpoints.RankingsEndpoint,
+            Method = HttpMethod.Get,
+            Route = uri!,
+            Token = _credentials,
+            Parameters = parameters,
+            Client = this
+        }, token).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Gets score rankings from the API.
+    /// </summary>
+    /// <param name="gameMode">The game mode to fetch rankings from.</param>
+    /// <param name="page">(Optional) The page to fetch rankings from. Defaults to the first page.</param>
+    /// <param name="filter">(Optional) Filter by results by all or by friends. Defaults to all.</param>
+    /// <param name="token">The cancellation token.</param>
+    /// <returns>Returns an <see cref="IRankingScore"/> instance.</returns>
+    public async Task<IRankingScore> GetScoreRankingsAsync(
+        GameMode gameMode,
+        int? page = null,
+        RankingFilter? filter = null,
+        CancellationToken token = default)
+    {
+        ThrowIfDisposed();
+        await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
+
+        Uri.TryCreate(
+            string.Format(Endpoints.RankingsEndpoint, gameMode.ToApiString(), RankingType.Score.ToApiString()),
+            UriKind.Relative, out var uri);
+
+        IDictionary<string, string> parameters = new Dictionary<string, string>();
+
+        if (page.HasValue)
+            parameters["cursor[page]"] = page.Value.ToString();
+
+        if (filter.HasValue)
+            parameters["filter"] = filter.Value.ToApiString();
+
+        return await _handler.SendAsync<RankingScore, RankingScoreJsonModel>(new OsuApiRequest
+        {
+            Endpoint = Endpoints.RankingsEndpoint,
+            Method = HttpMethod.Get,
+            Route = uri!,
+            Token = _credentials,
+            Parameters = parameters,
+            Client = this
+        }, token).ConfigureAwait(false);
+    }
+
     private void ThrowIfDisposed()
     {
         if (_disposed)

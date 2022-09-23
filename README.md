@@ -147,7 +147,6 @@ News
  - /news/{news} (Get News Post)
 
 Ranking
- - /rankings/{mode}/{type} (Get Ranking)
  - /spotlights (Get Spotlights)
 
 Wiki
@@ -194,6 +193,9 @@ OAuth Tokens
 
 Misc
  - /seasonal-backgrounds (Get Current Seasonal Backgrounds ; No Auth)
+
+Ranking
+ - /rankings/{mode}/{type} (Get Ranking)
 ```
 
 ## Contact
@@ -211,6 +213,7 @@ Thanks to the following contributors:
 - [Quahu](https://github.com/Quahu)
 - [Kieran](https://github.com/k-boyle)
 - [Francesco149](https://github.com/Francesco149) for Oppai.
+- [TheOmyNomy](https://github.com/TheOmyNomy)
 
 Thanks to JetBrains for giving an open source license for their products!
 
