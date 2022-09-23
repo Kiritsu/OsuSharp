@@ -32,6 +32,8 @@ public sealed class UserStatistics : IUserStatistics
 
     public long GlobalRank { get; internal set; }
 
+    public IUserCompact User { get; internal set; } = null!;
+
     internal UserStatistics()
     {
             

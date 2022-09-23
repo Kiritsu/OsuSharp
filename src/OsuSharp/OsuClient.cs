@@ -6,7 +6,6 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using OsuSharp.Domain;
-using OsuSharp.Domain.Ranking;
 using OsuSharp.Extensions;
 using OsuSharp.Interfaces;
 using OsuSharp.JsonModels;
@@ -1183,6 +1182,56 @@ public sealed class OsuClient : IOsuClient
             parameters["filter"] = filter.Value.ToApiString();
 
         return await _handler.SendAsync<RankingCountry, RankingCountryJsonModel>(new OsuApiRequest
+        {
+            Endpoint = Endpoints.RankingsEndpoint,
+            Method = HttpMethod.Get,
+            Route = uri!,
+            Token = _credentials,
+            Parameters = parameters,
+            Client = this
+        }, token).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Gets performance rankings from the API.
+    /// </summary>
+    /// <param name="gameMode">The game mode to fetch rankings from.</param>
+    /// <param name="page">(Optional) The page to fetch rankings from. Defaults to the first page.</param>
+    /// <param name="countryCode">(Optional) The country to fetch rankings from. Defaults to none.</param>
+    /// <param name="filter">(Optional) Filter by results by all or by friends. Defaults to all.</param>
+    /// <param name="variant">(Optional) Filter by a mode-specific variant. Defaults to none.</param>
+    /// <param name="token">The cancellation token.</param>
+    /// <returns>Returns an <see cref="IRankingPerformance"/> instance.</returns>
+    public async Task<IRankingPerformance> GetPerformanceRankingsAsync(
+        GameMode gameMode,
+        string? countryCode = null,
+        int? page = null,
+        RankingFilter? filter = null,
+        RankingVariant? variant = null,
+        CancellationToken token = default)
+    {
+        ThrowIfDisposed();
+        await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
+
+        Uri.TryCreate(
+            string.Format(Endpoints.RankingsEndpoint, gameMode.ToApiString(), RankingType.Performance.ToApiString()),
+            UriKind.Relative, out var uri);
+
+        IDictionary<string, string> parameters = new Dictionary<string, string>();
+
+        if (!string.IsNullOrWhiteSpace(countryCode))
+            parameters["country"] = countryCode;
+
+        if (page.HasValue)
+            parameters["cursor[page]"] = page.Value.ToString();
+
+        if (filter.HasValue)
+            parameters["filter"] = filter.Value.ToApiString();
+
+        if (variant.HasValue)
+            parameters["variant"] = variant.Value.ToApiString();
+
+        return await _handler.SendAsync<RankingPerformance, RankingPerformanceJsonModel>(new OsuApiRequest
         {
             Endpoint = Endpoints.RankingsEndpoint,
             Method = HttpMethod.Get,

@@ -45,4 +45,7 @@ public class UserStatisticsJsonModel : JsonModel
 
     [JsonProperty("global_rank")]
     public long GlobalRank { get; set; }
+
+    [JsonProperty("user")]
+    public UserJsonModel User { get; set; } = null!;
 }

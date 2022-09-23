@@ -1,6 +1,6 @@
 using OsuSharp.Interfaces;
 
-namespace OsuSharp.Domain.Ranking;
+namespace OsuSharp.Domain;
 
 public class RankingCountryRanking : IRankingCountryRanking
 {
@@ -10,4 +10,6 @@ public class RankingCountryRanking : IRankingCountryRanking
 	public long Performance { get; internal set; }
 	public long PlayCount { get; internal set; }
 	public long RankedScore { get; internal set; }
+
+	internal RankingCountryRanking() { }
 }

@@ -1,7 +1,7 @@
 using System;
 using OsuSharp.Interfaces;
 
-namespace OsuSharp.Domain.Ranking;
+namespace OsuSharp.Domain;
 
 public class RankingSpotlightInformation : IRankingSpotlightInformation
 {
@@ -12,4 +12,6 @@ public class RankingSpotlightInformation : IRankingSpotlightInformation
 	public string Name { get; internal set; } = null!;
 	public DateTime StartDate { get; set; }
 	public string Type { get; internal set; } = null!;
+
+	internal RankingSpotlightInformation() { }
 }

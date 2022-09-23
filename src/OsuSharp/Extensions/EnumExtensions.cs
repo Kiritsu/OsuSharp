@@ -157,4 +157,29 @@ internal static class EnumExtensions
     {
         return rankingType.HasValue ? ToApiString(rankingType.Value) : "";
     }
+
+    /// <summary>
+    /// Returns a string that fits osu! API requirements for <see cref="RankingVariant" />.
+    /// </summary>
+    /// <param name="rankingVariant">The type to get the string for.</param>
+    /// <returns>A api-valid string representation of <see cref="RankingVariant" />.</returns>
+    public static string ToApiString(this RankingVariant rankingVariant)
+    {
+        return rankingVariant switch
+        {
+            RankingVariant.Key4 => "4k",
+            RankingVariant.Key7 => "7k",
+            _ => ""
+        };
+    }
+
+    /// <summary>
+    /// Returns a string that fits osu! API requirements for <see cref="RankingVariant" />.
+    /// </summary>
+    /// <param name="rankingVariant">The type to get the string for.</param>
+    /// <returns>A api-valid string representation of <see cref="RankingVariant" />.</returns>
+    public static string ToApiString(this RankingVariant? rankingVariant)
+    {
+        return rankingVariant.HasValue ? ToApiString(rankingVariant.Value) : "";
+    }
 }

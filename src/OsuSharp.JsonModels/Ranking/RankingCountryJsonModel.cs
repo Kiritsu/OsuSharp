@@ -9,7 +9,7 @@ public class RankingCountryJsonModel : JsonModel
 	public RankingCursorJsonModel Cursor { get; set; } = null!;
 
 	[JsonProperty("ranking")]
-	public IReadOnlyList<RankingCountryRankingJsonModel> Ranking { get; set; } = null!;
+	public List<RankingCountryRankingJsonModel> Ranking { get; set; } = null!;
 
 	[JsonProperty("total")]
 	public int Total { get; set; }
