@@ -5,8 +5,8 @@ namespace OsuSharp.JsonModels;
 
 public class RankingSpotlightInformationJsonModel : JsonModel
 {
-	[JsonProperty("end_date")]
-	public DateTime EndTime { get; set; }
+      [JsonProperty("end_date")]
+      public DateTime EndTime { get; set; }
 
 	[JsonProperty("id")]
 	public int Id { get; set; }

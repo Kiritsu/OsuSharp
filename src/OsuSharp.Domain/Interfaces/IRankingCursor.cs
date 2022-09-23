@@ -2,5 +2,5 @@ namespace OsuSharp.Interfaces;
 
 public interface IRankingCursor
 {
-	int? Page { get; }
+    int? Page { get; }
 }

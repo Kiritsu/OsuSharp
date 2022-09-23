@@ -4,6 +4,6 @@ namespace OsuSharp.JsonModels;
 
 public class RankingCursorJsonModel : JsonModel
 {
-	[JsonProperty("page")]
-	public int? Page { get; set; }
+      [JsonProperty("page")]
+      public int? Page { get; set; }
 }
