@@ -147,7 +147,6 @@ News
  - /news/{news} (Get News Post)
 
 Ranking
- - /rankings/{mode}/{type} (Get Ranking)
  - /spotlights (Get Spotlights)
 
 Wiki
@@ -194,6 +193,9 @@ OAuth Tokens
 
 Misc
  - /seasonal-backgrounds (Get Current Seasonal Backgrounds ; No Auth)
+
+Ranking
+ - /rankings/{mode}/{type} (Get Ranking)
 ```
 
 ## Contact
