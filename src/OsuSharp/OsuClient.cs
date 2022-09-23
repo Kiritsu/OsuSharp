@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using OsuSharp.Domain;
+using OsuSharp.Domain.Ranking;
 using OsuSharp.Extensions;
 using OsuSharp.Interfaces;
 using OsuSharp.JsonModels;
@@ -1105,6 +1106,51 @@ public sealed class OsuClient : IOsuClient
         }, token).ConfigureAwait(false);
 
         return Replay.FromStream(b64EncodedStream);
+    }
+
+    /// <summary>
+    /// Gets spotlight rankings from the API.
+    /// </summary>
+    /// <param name="gameMode">The game mode to fetch rankings from.</param>
+    /// <param name="page">(Optional) The page to fetch rankings from. Defaults to the first page.</param>
+    /// <param name="filter">(Optional) Filter by results by all or by friends. Defaults to all.</param>
+    /// <param name="spotlightId">(Optional) The spotlight ID. Defaults to the latest spotlight.</param>
+    /// <param name="token">The cancellation token.</param>
+    /// <returns>Returns an <see cref="IRankingSpotlight"/> instance.</returns>
+    public async Task<IRankingSpotlight> GetSpotlightRankingsAsync(
+        GameMode gameMode,
+        int? page = null,
+        RankingFilter? filter = null,
+        int? spotlightId = null,
+        CancellationToken token = default)
+    {
+        ThrowIfDisposed();
+        await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
+
+        Uri.TryCreate(
+            string.Format(Endpoints.RankingsEndpoint, gameMode.ToApiString(), RankingType.Spotlight.ToApiString()),
+            UriKind.Relative, out var uri);
+
+        IDictionary<string, string> parameters = new Dictionary<string, string>();
+
+        if (page.HasValue)
+            parameters["cursor[page]"] = page.Value.ToString();
+
+        if (filter.HasValue)
+            parameters["filter"] = filter.Value.ToApiString();
+
+        if (spotlightId.HasValue)
+            parameters["spotlight"] = spotlightId.Value.ToString();
+
+        return await _handler.SendAsync<RankingSpotlight, RankingSpotlightJsonModel>(new OsuApiRequest
+        {
+            Endpoint = Endpoints.RankingsEndpoint,
+            Method = HttpMethod.Get,
+            Route = uri!,
+            Token = _credentials,
+            Parameters = parameters,
+            Client = this
+        }, token).ConfigureAwait(false);
     }
 
     private void ThrowIfDisposed()
