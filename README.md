@@ -179,6 +179,7 @@ Beatmaps
  - /beatmaps/{beatmap}/scores/users/{user}/all (Get all User Beatmap score)
  - /beatmaps/{beatmap}/scores (Get Beatmap scores)
  - /beatmaps/lookup (Lookup Beatmap)
+ - /beatmaps/{beatmap}/attributes (Get Beatmap Attributes)
 
 Beatmapsets
  - /beatmapsets/{beatmapset} (Get Beatmapset)

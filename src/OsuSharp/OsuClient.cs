@@ -1281,6 +1281,56 @@ public sealed class OsuClient : IOsuClient
             Client = this
         }, token).ConfigureAwait(false);
     }
+    
+    /// <summary>
+    /// Gets the beatmap difficulty attributes from the API.
+    /// </summary>
+    /// <param name="beatmapId">
+    /// The id of the beatmap.
+    /// </param>
+    /// <param name="mods">
+    /// The play mods used.
+    /// </param>
+    /// <param name="gameMode">
+    /// The game mode used.
+    /// </param>
+    /// <param name="token">
+    /// Cancellation token.
+    /// </param>
+    /// <returns>
+    /// Returns a <see cref="IBeatmapDifficulty"/>.
+    /// </returns>
+    public async Task<IBeatmapDifficulty> GetBeatmapAttributes(long beatmapId, Mods? mods = null, GameMode? gameMode = null, CancellationToken token = default)
+    {
+        ThrowIfDisposed();
+        await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
+
+        Uri.TryCreate(
+            string.Format(Endpoints.BeatmapsBeatmapAttributesEndpoint, beatmapId),
+            UriKind.Relative, out var uri);
+
+        IDictionary<string, string> parameters = new Dictionary<string, string>();
+
+        if (mods.HasValue)
+        {
+            parameters["mods"] = mods.ToApiString();
+        }
+
+        if (gameMode.HasValue)
+        {
+            parameters["ruleset"] = gameMode.ToApiString();
+        }
+        
+        return await _handler.SendAsync<BeatmapDifficulty, BeatmapDifficultyJsonModel>(new OsuApiRequest
+        {
+            Endpoint = Endpoints.BeatmapsBeatmapEndpoint,
+            Method = HttpMethod.Post,
+            Route = uri!,
+            Token = _credentials,
+            Parameters = parameters,
+            Client = this
+        }, token).ConfigureAwait(false);
+    }
 
     private void ThrowIfDisposed()
     {

@@ -26,6 +26,9 @@ public class OsuTestService : BackgroundService
     {
         try
         {
+            var bmAttribute = await _client.GetBeatmapAttributes(217611, null, GameMode.Taiko, token: stoppingToken);
+            _logger.LogInformation("Star rating: {Stars}, {Stamina}", bmAttribute.Attributes.StarRating, bmAttribute.Attributes.StaminaDifficulty);
+            
             var user = await _legacyClient.GetUserByUsernameAsync("Evolia", Legacy.Enums.GameMode.Standard, stoppingToken);
             _logger.LogInformation("User id for Evolia: {Id}", user.UserId);
 

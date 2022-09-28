@@ -28,6 +28,7 @@ internal static class Endpoints
     public const string UserScoresEndpoint = Api + Users + "/{0}" + Scores + "/{1}";
     public const string BeatmapsEndpoint = Api + Beatmaps;
     public const string BeatmapsBeatmapEndpoint = Api + Beatmaps + "/{0}";
+    public const string BeatmapsBeatmapAttributesEndpoint = Api + Beatmaps + "/{0}/attributes";
     public const string BeatmapsScoresEndpoint = Api + Beatmaps + "/{0}" + Scores;
     public const string BeatmapsUserScoreEndpoint = Api + Beatmaps + "/{0}" + Scores + Users + "/{1}";
     public const string BeatmapsUserScoresEndpoint = Api + Beatmaps + "/{0}" + Scores + Users + "/{1}/all";

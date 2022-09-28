@@ -530,4 +530,28 @@ public interface IOsuClient : IDisposable
         string code,
         string redirectUri,
         CancellationToken token = default);
+
+    /// <summary>
+    /// Gets the beatmap difficulty attributes from the API.
+    /// </summary>
+    /// <param name="beatmapId">
+    /// The id of the beatmap.
+    /// </param>
+    /// <param name="mods">
+    /// The play mods used.
+    /// </param>
+    /// <param name="gameMode">
+    /// The game mode used.
+    /// </param>
+    /// <param name="token">
+    /// Cancellation token.
+    /// </param>
+    /// <returns>
+    /// Returns a <see cref="IBeatmapDifficulty"/>.
+    /// </returns>
+    Task<IBeatmapDifficulty> GetBeatmapAttributes(
+        long beatmapId,
+        Mods? mods = null,
+        GameMode? gameMode = null,
+        CancellationToken token = default);
 }
