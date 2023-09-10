@@ -29,6 +29,7 @@ public static class Program
                 var clientConfiguration = new OsuClientConfiguration();
                 ctx.Configuration.GetSection("OsuSharpOptions").Bind(clientConfiguration);
                 options.Configuration = clientConfiguration;
+                options.UseScopedServices = true;
             })
             .ConfigureServices((host, services) =>
             {
@@ -36,7 +37,8 @@ public static class Program
                 {
                     ApiKey = host.Configuration.GetSection("OsuSharp")["LegacyApiKey"]
                 }));
-                services.AddHostedService<OsuTestService>();
+                //services.AddHostedService<OsuTestService>();
+                services.AddHostedService<OsuScopeTestService>();
             });
     }
 }
