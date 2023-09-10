@@ -37,7 +37,8 @@ public static class Program
                 {
                     ApiKey = host.Configuration.GetSection("OsuSharp")["LegacyApiKey"]
                 }));
-                //services.AddHostedService<OsuTestService>();
+
+                services.AddHostedService<OsuTestService>();
                 services.AddHostedService<OsuScopeTestService>();
             });
     }
