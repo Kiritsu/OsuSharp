@@ -984,11 +984,29 @@ public sealed class OsuClient : IOsuClient
                         break;
                     case BeatmapSorting.Ranked_Desc:
                     case BeatmapSorting.Ranked_Asc:
-                        parameters["cursor[approved_date]"] = lastBeatmapset.RankedDate!.Value.ToUnixTimeMilliseconds().ToString();
+                        if (lastBeatmapset.RankedDate.HasValue)
+                        {
+                            parameters["cursor[approved_date]"] = lastBeatmapset.RankedDate!.Value.ToUnixTimeMilliseconds().ToString();
+                        }
+                        else
+                        {
+                            parameters["cursor[approved_date]"] = "0";
+                        }
+                        break;
+                    case BeatmapSorting.Updated_Desc:
+                    case BeatmapSorting.Updated_Asc:
+                        parameters["cursor[last_update]"] = lastBeatmapset.LastUpdated.ToUnixTimeMilliseconds().ToString();
                         break;
                     case BeatmapSorting.Rating_Desc:
                     case BeatmapSorting.Rating_Asc:
-                        parameters["cursor[rating]"] = lastBeatmapset.Rating!.ToString()!;
+                        if (lastBeatmapset.Rating is not null)
+                        {
+                            parameters["cursor[rating]"] = lastBeatmapset.Rating!.ToString()!;
+                        }
+                        else
+                        {
+                            parameters["cursor[rating]"] = "0";
+                        }
                         break;
                     case BeatmapSorting.Plays_Desc:
                     case BeatmapSorting.Plays_Asc:
