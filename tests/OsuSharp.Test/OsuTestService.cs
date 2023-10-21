@@ -31,7 +31,7 @@ public class OsuTestService : BackgroundService
             
             var user = await _legacyClient.GetUserByUsernameAsync("Evolia", Legacy.Enums.GameMode.Standard, stoppingToken);
             _logger.LogInformation("User id for Evolia: {Id}", user.UserId);
-
+            
             var userScores = await _client.GetUserBeatmapScoresAsync(2324562, 13193514, GameMode.Osu, stoppingToken);
             foreach (var score in userScores.Scores)
             {
@@ -40,7 +40,9 @@ public class OsuTestService : BackgroundService
 
             var userCurrent = await _client.GetUserAsync("Evolia", GameMode.Taiko, stoppingToken);
             _logger.LogInformation("{Name} {Id} {Level}", userCurrent.Username, userCurrent.Id, userCurrent.Statistics.UserLevel.Current);
-
+            _logger.LogInformation("Statistics for Evolia: {300} {100} {50} {Miss}", 
+                userCurrent.Statistics.Count300, userCurrent.Statistics.Count100, userCurrent.Statistics.Count50, userCurrent.Statistics.CountMiss);
+            
             await foreach (var bm in _client.EnumerateBeatmapsetsAsync(new BeatmapsetsLookupBuilder().WithCategory(BeatmapsetCategory.Graveyard), BeatmapSorting.Updated_Desc))
             {
                 _logger.LogInformation("{Name} {Author} {Creator}", bm.Title, bm.Artist, bm.User?.Username ?? bm.UserId.ToString());

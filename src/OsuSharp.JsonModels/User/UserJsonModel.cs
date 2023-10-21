@@ -172,7 +172,7 @@ public class UserJsonModel : JsonModel
     public long? MappingFollowerCount { get; set; }
 
     [JsonProperty("replays_watched_counts")]
-    public object ReplaysWatchedCounts { get; set; } = null!;
+    public List<UserMonthlyPlayCountJsonModel>? ReplaysWatchedCounts { get; set; } = null!;
 
     [JsonProperty("discord", DefaultValueHandling = DefaultValueHandling.Ignore)]
     public string Discord { get; set; } = null!;

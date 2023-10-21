@@ -10,6 +10,9 @@ public class UserStatisticsJsonModel : JsonModel
     [JsonProperty("pp")]
     public double? Pp { get; set; }
 
+    [JsonProperty("pp_exp")]
+    public long? PpExp { get; set; }
+
     [JsonProperty("ranked_score")]
     public long RankedScore { get; set; }
 
@@ -27,6 +30,18 @@ public class UserStatisticsJsonModel : JsonModel
 
     [JsonProperty("total_hits")]
     public long TotalHits { get; set; }
+    
+    [JsonProperty("count_100")]
+    public long? Count100 { get; set; }
+    
+    [JsonProperty("count_300")]
+    public long? Count300 { get; set; }
+    
+    [JsonProperty("count_50")]
+    public long? Count50 { get; set; }
+    
+    [JsonProperty("count_miss")]
+    public long? CountMiss { get; set; }
 
     [JsonProperty("maximum_combo")]
     public long MaximumCombo { get; set; }
@@ -45,7 +60,10 @@ public class UserStatisticsJsonModel : JsonModel
 
     [JsonProperty("global_rank")]
     public long? GlobalRank { get; set; }
+    
+    [JsonProperty("global_rank_exp")]
+    public long? GlobalRankExp { get; set; }
 
     [JsonProperty("user")]
-    public UserJsonModel User { get; set; } = null!;
+    public UserJsonModel? User { get; set; }
 }

@@ -34,7 +34,7 @@ public interface IUser : IUserCompact
     IUserPage Page { get; }
     IReadOnlyList<string> PreviousUsernames { get; }
     long? RankedBeatmapsetCount { get; }
-    IReadOnlyList<IUserMonthlyPlayCount> ReplayWatchedCounts { get; }
+    IReadOnlyList<IUserMonthlyPlayCount> ReplaysWatchedCounts { get; }
     long? ScoresBestCount { get; }
     long? ScoresFirstCount { get; }
     long? ScoresRecentCount { get; }
@@ -49,5 +49,4 @@ public interface IUser : IUserCompact
     List<string> ProfileOrder { get; }
     string TitleUrl { get; }
     long? MappingFollowerCount { get; }
-    object ReplaysWatchedCounts { get; }
 }

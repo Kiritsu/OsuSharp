@@ -35,7 +35,7 @@ public class User : UserCompact, IUser
     public IUserPage Page { get; set; } = null!;
     public IReadOnlyList<string> PreviousUsernames { get; internal set; } = null!;
     public long? RankedBeatmapsetCount { get; internal set; }
-    public IReadOnlyList<IUserMonthlyPlayCount> ReplayWatchedCounts { get; internal set; } = null!;
+    public IReadOnlyList<IUserMonthlyPlayCount> ReplaysWatchedCounts { get; internal set; } = null!;
     public long? ScoresBestCount { get; internal set; }
     public long? ScoresFirstCount { get; internal set; }
     public long? ScoresRecentCount { get; internal set; }
@@ -50,7 +50,6 @@ public class User : UserCompact, IUser
     public List<string> ProfileOrder { get; set; } = null!;
     public string TitleUrl { get; set; } = null!;
     public long? MappingFollowerCount { get; set; }
-    public object ReplaysWatchedCounts { get; set; } = null!;
 
     internal User()
     {
