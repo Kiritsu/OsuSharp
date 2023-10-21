@@ -1299,7 +1299,7 @@ public sealed class OsuClient : IOsuClient
             Client = this
         }, token).ConfigureAwait(false);
     }
-    
+
     /// <summary>
     /// Gets the beatmap difficulty attributes from the API.
     /// </summary>
@@ -1338,7 +1338,7 @@ public sealed class OsuClient : IOsuClient
         {
             parameters["ruleset"] = gameMode.ToApiString();
         }
-        
+
         return await _handler.SendAsync<BeatmapDifficulty, BeatmapDifficultyJsonModel>(new OsuApiRequest
         {
             Endpoint = Endpoints.BeatmapsBeatmapEndpoint,

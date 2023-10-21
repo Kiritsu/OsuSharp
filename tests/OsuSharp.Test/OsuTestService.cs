@@ -41,6 +41,11 @@ public class OsuTestService : BackgroundService
             var userCurrent = await _client.GetUserAsync("Evolia", GameMode.Taiko, stoppingToken);
             _logger.LogInformation("{Name} {Id} {Level}", userCurrent.Username, userCurrent.Id, userCurrent.Statistics.UserLevel.Current);
 
+            await foreach (var bm in _client.EnumerateBeatmapsetsAsync(new BeatmapsetsLookupBuilder().WithCategory(BeatmapsetCategory.Graveyard), BeatmapSorting.Updated_Desc))
+            {
+                _logger.LogInformation("{Name} {Author} {Creator}", bm.Title, bm.Artist, bm.User?.Username ?? bm.UserId.ToString());
+            }
+
             var i = 0;
             await foreach (var beatmap in _client.EnumerateBeatmapsetsAsync(token: stoppingToken))
             {

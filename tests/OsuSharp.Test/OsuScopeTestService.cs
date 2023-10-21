@@ -26,19 +26,33 @@ public class OsuScopeTestService : BackgroundService
     {
         var scope1 = _services.CreateScope();
         var os1 = scope1.ServiceProvider.GetRequiredService<IOsuClient>();
-        os1.UpdateAccessToken("A", null, 86400);
 
         var scope2 = _services.CreateScope();
         var os2 = scope2.ServiceProvider.GetRequiredService<IOsuClient>();
-        os2.UpdateAccessToken("B", null, 86400);
 
         var scope3 = _services.CreateScope();
         var os3 = scope3.ServiceProvider.GetRequiredService<IOsuClient>();
-        os3.UpdateAccessToken("C", null, 86400);
 
         var tk1 = await os1.GetOrUpdateAccessTokenAsync(stoppingToken);
         var tk2 = await os2.GetOrUpdateAccessTokenAsync(stoppingToken);
         var tk3 = await os3.GetOrUpdateAccessTokenAsync(stoppingToken);
+
+        try
+        {
+            var bm = await os1.GetBeatmapAsync(90);
+            bm = await os2.GetBeatmapAsync(90);
+            bm = await os3.GetBeatmapAsync(90);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Exception occured");
+        }
+
+        _logger.LogInformation("OsuSharp1: {Tk1}; OsuSharp2: {Tk2}; OsuSharp3: {Tk3}", tk1.AccessToken, tk2.AccessToken, tk3.AccessToken);
+
+        tk1 = await os1.GetOrUpdateAccessTokenAsync(stoppingToken);
+        tk2 = await os2.GetOrUpdateAccessTokenAsync(stoppingToken);
+        tk3 = await os3.GetOrUpdateAccessTokenAsync(stoppingToken);
 
         _logger.LogInformation("OsuSharp1: {Tk1}; OsuSharp2: {Tk2}; OsuSharp3: {Tk3}", tk1.AccessToken, tk2.AccessToken, tk3.AccessToken);
     }

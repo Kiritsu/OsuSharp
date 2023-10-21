@@ -24,12 +24,3 @@ steps:
 - script: dotnet test -c $(buildConfiguration) -v normal --no-build
 
 - script: dotnet pack -c Release --version-suffix ci-$(Build.BuildNumber) --output $(Build.ArtifactStagingDirectory) --include-symbols --verbosity minimal --no-build
-
-- task: NuGetCommand@2
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev'))
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'SlimGet'
-    verbosityPush: 'Normal'

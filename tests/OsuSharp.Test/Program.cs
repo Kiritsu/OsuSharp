@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OsuSharp.Extensions;
+using OsuSharp.Interfaces;
 using OsuSharp.Legacy;
 using Serilog;
 
