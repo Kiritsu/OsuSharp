@@ -157,14 +157,30 @@ public static class ServicesExtensions
 
         if (options.Value.RequestHandler is not null)
         {
-            services.AddSingleton(options.Value.RequestHandler);
+            if (options.UseScopedServices)
+            {
+                services.AddScoped(typeof(IRequestHandler), options.Value.RequestHandler.GetType());
+            }
+            else
+            {
+                services.AddSingleton(options.Value.RequestHandler);
+            }
         }
         else if (services.All(x => x.ServiceType != typeof(IRequestHandler)))
         {
-            services.AddSingleton<IRequestHandler, DefaultRequestHandler>();
+            if (options.UseScopedServices)
+            {
+                services.AddScoped<IRequestHandler, DefaultRequestHandler>();
+            }
+            else
+            {
+                services.AddSingleton<IRequestHandler, DefaultRequestHandler>();
+            }
         }
 
-        return services.AddSingleton<IOsuClient, OsuClient>();
+        return options.UseScopedServices 
+            ? services.AddScoped<IOsuClient, OsuClient>() 
+            : services.AddSingleton<IOsuClient, OsuClient>();
     }
 
     /// <summary>
@@ -172,9 +188,11 @@ public static class ServicesExtensions
     /// </summary>
     /// <param name="services">Instance of the <see cref="IServiceCollection"/>.</param>
     public static IServiceCollection AddDefaultRequestHandler(
-        this IServiceCollection services)
+        this IServiceCollection services, bool useScopedServices = false)
     {
-        return services.AddSingleton<IRequestHandler, DefaultRequestHandler>();
+        return useScopedServices
+            ? services.AddScoped<IRequestHandler, DefaultRequestHandler>()
+            : services.AddSingleton<IRequestHandler, DefaultRequestHandler>();
     }
 
     /// <summary>

@@ -29,6 +29,11 @@ public class OsuSharpOptions : IOptions<OsuSharpOptions>
     public IRequestHandler? RequestHandler { get; set; }
         
     /// <summary>
+    /// Gets or sets whether to use scoped services or not.
+    /// </summary>
+    public bool UseScopedServices { get; set; }
+
+    /// <summary>
     /// Gets the instance of the current options.
     /// </summary>
     public OsuSharpOptions Value => this;

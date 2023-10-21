@@ -16,5 +16,7 @@ public enum BeatmapSorting
     Rating_Desc,
     Rating_Asc,
     Plays_Desc,
-    Plays_Asc
+    Plays_Asc,
+    Updated_Desc,
+    Updated_Asc
 }
