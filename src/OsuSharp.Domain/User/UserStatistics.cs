@@ -28,7 +28,7 @@ public sealed class UserStatistics : IUserStatistics
 
     public IUserGradeCounts UserGradeCounts { get; internal set; } = null!;
 
-    public long CountryRank { get; internal set; }
+    public long? CountryRank { get; internal set; }
 
     public long? GlobalRank { get; internal set; }
 

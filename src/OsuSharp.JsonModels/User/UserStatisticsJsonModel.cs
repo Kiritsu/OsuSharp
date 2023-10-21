@@ -41,7 +41,7 @@ public class UserStatisticsJsonModel : JsonModel
     public UserGradeCountsJsonModel UserGradeCounts { get; set; } = null!;
 
     [JsonProperty("country_rank")]
-    public long CountryRank { get; set; }
+    public long? CountryRank { get; set; }
 
     [JsonProperty("global_rank")]
     public long? GlobalRank { get; set; }

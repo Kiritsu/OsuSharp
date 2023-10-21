@@ -14,7 +14,7 @@ public interface IUserStatistics
     long ReplaysWatchedByOthers { get; }
     bool IsRanked { get; }
     IUserGradeCounts UserGradeCounts { get; }
-    long CountryRank { get; }
+    long? CountryRank { get; }
     long? GlobalRank { get; }
     IUserCompact User { get; }
 }
