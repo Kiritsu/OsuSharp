@@ -1350,6 +1350,56 @@ public sealed class OsuClient : IOsuClient
         }, token).ConfigureAwait(false);
     }
 
+    public async Task<IMultiplayerHistoryPage> GetUndocumentedMultiplayerHistoryPage(int? after, bool ascending = true, CancellationToken token = default)
+    {
+        ThrowIfDisposed();
+        await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
+
+        Uri.TryCreate(Endpoints.MatchesHistoryEndpoint, UriKind.Relative, out var uri);
+        IDictionary<string, string> parameters = new Dictionary<string, string>();
+        if (after.HasValue)
+        {
+            parameters["cursor[match_id]"] = after.Value.ToString();
+        }
+
+        parameters["sort"] = ascending ? "id_asc" : "id_desc"; //TODO: add more sorting keys for GetUndocumentedMultiplayerHistoryPage
+
+        return await _handler.SendAsync<MultiplayerHistoryPage, MultiplayerHistoryPageJsonModel>(new OsuApiRequest
+        {
+            Endpoint = Endpoints.MatchesHistoryEndpoint,
+            Method = HttpMethod.Get,
+            Route = uri!,
+            Token = _credentials,
+            Parameters = parameters,
+            Client = this
+        }, token).ConfigureAwait(false);
+    }
+
+    public async Task<IMultiplayerMatch> GetUndocumentedMultiplayerMatch(int matchId, int? beforeEvent = null, CancellationToken token = default)
+    {
+        ThrowIfDisposed();
+        await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
+
+        Uri.TryCreate(
+            string.Format(Endpoints.MatchesEndpoint, matchId),
+            UriKind.Relative, out var uri);
+        IDictionary<string, string> parameters = new Dictionary<string, string>();
+        if (beforeEvent.HasValue)
+        {
+            parameters["before"] = beforeEvent.Value.ToString();
+        }
+
+        return await _handler.SendAsync<MultiplayerMatch, MultiplayerMatchJsonModel>(new OsuApiRequest
+        {
+            Endpoint = Endpoints.MatchesEndpoint,
+            Method = HttpMethod.Get,
+            Route = uri!,
+            Token = _credentials,
+            Parameters = parameters,
+            Client = this
+        }, token).ConfigureAwait(false);
+    }
+
     private void ThrowIfDisposed()
     {
         if (_disposed)

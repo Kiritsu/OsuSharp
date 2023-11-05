@@ -19,6 +19,7 @@ internal static class Endpoints
     public const string Download = "/download";
     public const string SeasonalBackgrounds = "/seasonal-backgrounds";
     public const string Rankings = "/rankings";
+    public const string Matches = "/matches";
 
     public const string CurrentEndpoint = Api + Me;
     public const string UserEndpoint = Api + Users;
@@ -42,4 +43,6 @@ internal static class Endpoints
     public const string CurrentTokensEndpoint = Oauth + Tokens + Current;
     public const string TokenEndpoint = Oauth + Token;
     public const string RankingsEndpoint = Api + Rankings + "/{0}" + "/{1}";
+    public const string MatchesHistoryEndpoint = Api + Matches;
+    public const string MatchesEndpoint = Api + Matches + "/{0}";
 }

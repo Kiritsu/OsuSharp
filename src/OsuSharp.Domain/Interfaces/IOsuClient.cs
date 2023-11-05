@@ -304,7 +304,7 @@ public interface IOsuClient : IDisposable
         GameMode? gameMode = null,
         Mods? mods = null,
         CancellationToken token = default);
-        
+
     /// <summary>
     /// Gets all user scores on a beatmap from the API.
     /// </summary>
@@ -553,5 +553,42 @@ public interface IOsuClient : IDisposable
         long beatmapId,
         Mods? mods = null,
         GameMode? gameMode = null,
+        CancellationToken token = default);
+
+    /// <summary>
+    /// Gets the page with historical information about matches from API.
+    /// </summary>
+    /// <param name="after">
+    /// Match ID used for cursor.
+    /// </param>
+    /// <param name="ascending">
+    /// The direction of sorting.
+    /// </param>
+    /// <param name="token">
+    /// Cancellation token.
+    /// </param>
+    /// <returns>
+    /// Returns a <see cref="IMultiplayerHistoryPage"/>
+    /// </returns>
+    Task<IMultiplayerHistoryPage> GetUndocumentedMultiplayerHistoryPage(int? after, bool ascending = true,
+        CancellationToken token = default);
+
+    /// <summary>
+    /// Gets a part of legacy multiplayer match from API.
+    /// </summary>
+    /// <param name="matchId">
+    /// The Match ID.
+    /// </param>
+    /// <param name="beforeEvent">
+    /// <b>min(<see cref="MultiplayerMatch.Events"/>.Id)</b> when <see cref="MultiplayerMatch.FirstEventId"/> != <b>min(<see cref="MultiplayerMatch.Events"/>.Id)</b> <br/>
+    /// On null returns latest events of the match
+    /// </param>
+    /// <param name="token">
+    /// Cancellation token.
+    /// </param>
+    /// <returns>
+    /// Returns a <see cref="IMultiplayerMatch"/>
+    /// </returns>
+    Task<IMultiplayerMatch> GetUndocumentedMultiplayerMatch(int matchId, int? beforeEvent = null,
         CancellationToken token = default);
 }

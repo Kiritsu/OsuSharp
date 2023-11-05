@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using OsuSharp.Domain;
 using OsuSharp.Interfaces;
 
 namespace OsuSharp.Mapper;
@@ -52,7 +53,16 @@ internal static class OsuSharpMapper
             {
                 if (implementingProperty.PropertyType.IsEnum)
                 {
-                    modelValue = Enum.Parse(implementingProperty.PropertyType, modelValue.ToString()!, true);
+                    if (implementingProperty.PropertyType == typeof(TeamType))
+                    {
+                        modelValue = modelValue.ToString() == "head-to-head"
+                            ? TeamType.HeadToHead
+                            : TeamType.TeamVsTeam; //TODO: critical, i don't understand how to map enum values with dashes in values with current framework ;_;
+                    }
+                    else
+                    {
+                        modelValue = Enum.Parse(implementingProperty.PropertyType, modelValue.ToString()!, true);
+                    }
                 }
 
                 implementingProperty.SetValue(implementingInstance, modelValue);
