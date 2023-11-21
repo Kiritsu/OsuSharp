@@ -4,7 +4,7 @@ namespace OsuSharp.Interfaces;
 
 public interface IUserCompact : IClientEntity
 {
-    Uri AvatarUrl { get; }
+    string AvatarUrl { get; }
     string CountryCode { get; }
     string DefaultGroup { get; }
     long Id { get; }

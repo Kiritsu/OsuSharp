@@ -26,7 +26,15 @@ public class OsuTestService : BackgroundService
     {
         try
         {
-            var bmAttribute = await _client.GetBeatmapAttributes(217611, null, GameMode.Taiko, token: stoppingToken);
+            var matches = await _client.GetMultiplayerHistoryPageAsync(null, ascending: false, token: stoppingToken);
+
+            foreach (var match in matches.Matches)
+            {
+                var currentMatch = await _client.GetMultiplayerMatchAsync(match.MatchId, token: stoppingToken);
+                _logger.LogInformation("Match {Name}: {Count} users", match.Name, currentMatch.Users.Count);
+            }
+            
+            var bmAttribute = await _client.GetBeatmapAttributesAsync(217611, null, GameMode.Taiko, token: stoppingToken);
             _logger.LogInformation("Star rating: {Stars}, {Stamina}", bmAttribute.Attributes.StarRating, bmAttribute.Attributes.StaminaDifficulty);
             
             var user = await _legacyClient.GetUserByUsernameAsync("Evolia", Legacy.Enums.GameMode.Standard, stoppingToken);

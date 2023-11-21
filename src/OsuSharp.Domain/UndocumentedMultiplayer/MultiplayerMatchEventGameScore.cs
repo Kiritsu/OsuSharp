@@ -20,7 +20,7 @@ public class MultiplayerMatchEventGameScore : IMultiplayerMatchEventGameScore
     public string Rank { get; set; } = null!;
     public long Score { get; set; }
     public IStatistics Statistics { get; set; } = null!;
-    public string Type { get; set; } = null!; //TODO: add score type (legacy_match_score)
+    public ScoreType Type { get; set; }
     public long UserId { get; set; }
     public IMultiplayerMatchEventGameSlotInfo SlotInfo { get; set; } = null!;
 

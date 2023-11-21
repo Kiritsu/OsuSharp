@@ -549,7 +549,7 @@ public interface IOsuClient : IDisposable
     /// <returns>
     /// Returns a <see cref="IBeatmapDifficulty"/>.
     /// </returns>
-    Task<IBeatmapDifficulty> GetBeatmapAttributes(
+    Task<IBeatmapDifficulty> GetBeatmapAttributesAsync(
         long beatmapId,
         Mods? mods = null,
         GameMode? gameMode = null,
@@ -570,7 +570,7 @@ public interface IOsuClient : IDisposable
     /// <returns>
     /// Returns a <see cref="IMultiplayerHistoryPage"/>
     /// </returns>
-    Task<IMultiplayerHistoryPage> GetUndocumentedMultiplayerHistoryPage(int? after, bool ascending = true,
+    Task<IMultiplayerHistoryPage> GetMultiplayerHistoryPageAsync(int? after, bool ascending = true,
         CancellationToken token = default);
 
     /// <summary>
@@ -589,6 +589,6 @@ public interface IOsuClient : IDisposable
     /// <returns>
     /// Returns a <see cref="IMultiplayerMatch"/>
     /// </returns>
-    Task<IMultiplayerMatch> GetUndocumentedMultiplayerMatch(int matchId, int? beforeEvent = null,
+    Task<IMultiplayerMatch> GetMultiplayerMatchAsync(long matchId, int? beforeEvent = null,
         CancellationToken token = default);
 }

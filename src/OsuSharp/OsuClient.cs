@@ -1318,7 +1318,7 @@ public sealed class OsuClient : IOsuClient
     /// <returns>
     /// Returns a <see cref="IBeatmapDifficulty"/>.
     /// </returns>
-    public async Task<IBeatmapDifficulty> GetBeatmapAttributes(long beatmapId, Mods? mods = null, GameMode? gameMode = null, CancellationToken token = default)
+    public async Task<IBeatmapDifficulty> GetBeatmapAttributesAsync(long beatmapId, Mods? mods = null, GameMode? gameMode = null, CancellationToken token = default)
     {
         ThrowIfDisposed();
         await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
@@ -1350,7 +1350,7 @@ public sealed class OsuClient : IOsuClient
         }, token).ConfigureAwait(false);
     }
 
-    public async Task<IMultiplayerHistoryPage> GetUndocumentedMultiplayerHistoryPage(int? after, bool ascending = true, CancellationToken token = default)
+    public async Task<IMultiplayerHistoryPage> GetMultiplayerHistoryPageAsync(int? after, bool ascending = true, CancellationToken token = default)
     {
         ThrowIfDisposed();
         await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);
@@ -1375,7 +1375,7 @@ public sealed class OsuClient : IOsuClient
         }, token).ConfigureAwait(false);
     }
 
-    public async Task<IMultiplayerMatch> GetUndocumentedMultiplayerMatch(int matchId, int? beforeEvent = null, CancellationToken token = default)
+    public async Task<IMultiplayerMatch> GetMultiplayerMatchAsync(long matchId, int? beforeEvent = null, CancellationToken token = default)
     {
         ThrowIfDisposed();
         await GetOrUpdateAccessTokenAsync(token).ConfigureAwait(false);

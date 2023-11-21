@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using OsuSharp.Domain;
 using OsuSharp.Interfaces;
 
@@ -53,15 +55,10 @@ internal static class OsuSharpMapper
             {
                 if (implementingProperty.PropertyType.IsEnum)
                 {
-                    if (implementingProperty.PropertyType == typeof(TeamType))
+                    if (!TryGetEnumValue(implementingProperty.PropertyType, modelValue.ToString()!, true,
+                            out modelValue))
                     {
-                        modelValue = modelValue.ToString() == "head-to-head"
-                            ? TeamType.HeadToHead
-                            : TeamType.TeamVsTeam; //TODO: critical, i don't understand how to map enum values with dashes in values with current framework ;_;
-                    }
-                    else
-                    {
-                        modelValue = Enum.Parse(implementingProperty.PropertyType, modelValue.ToString()!, true);
+                        continue;
                     }
                 }
 
@@ -110,5 +107,32 @@ internal static class OsuSharpMapper
         }
 
         return (TImplementation)implementingInstance;
+    }
+
+    private static bool TryGetEnumValue(Type propertyType, string inputValue, bool ignoreCase,
+        [NotNullWhen(true)] out object? value)
+    {
+        if (Enum.TryParse(propertyType, inputValue, true, out value!))
+        {
+            return true;
+        }
+
+        var fields = propertyType.GetFields();
+        foreach (var field in fields)
+        {
+            var attribute = field.GetCustomAttribute<EnumMemberAttribute>();
+            if (attribute is null)
+            {
+                continue;
+            }
+
+            if (string.Equals(attribute.Value!, inputValue, StringComparison.InvariantCultureIgnoreCase))
+            {
+                value = field.GetValue(null)!;
+                return true;
+            }
+        }
+
+        return false;
     }
 }

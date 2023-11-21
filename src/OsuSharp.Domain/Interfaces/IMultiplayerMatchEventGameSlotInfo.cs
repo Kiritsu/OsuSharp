@@ -4,7 +4,7 @@ namespace OsuSharp.Interfaces;
 
 public interface IMultiplayerMatchEventGameSlotInfo
 {
-    int Slot { get; set; }
-    TeamColor Team { get; set; }
-    bool Pass { get; set; }
+    int Slot { get; }
+    TeamColor Team { get; }
+    bool Pass { get; }
 }

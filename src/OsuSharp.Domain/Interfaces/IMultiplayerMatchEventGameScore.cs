@@ -6,36 +6,36 @@ namespace OsuSharp.Interfaces;
 
 public interface IMultiplayerMatchEventGameScore
 {
-    double Accuracy { get; set; }
+    double Accuracy { get; }
 
     /// <summary>
     ///     The best score ID. Pretty much never populated.
     /// </summary>
-    long? BestId { get; set; }
+    long? BestId { get; }
 
-    DateTimeOffset CreatedAt { get; set; }
+    DateTimeOffset CreatedAt { get; }
 
     /// <summary>
     ///     The score ID. Most of the time isn't populated.
     /// </summary>
-    long? Id { get; set; }
+    long? Id { get; }
 
-    int MaxCombo { get; set; }
-    GameMode Mode { get; set; }
-    int ModeInt { get; set; }
-    IReadOnlyList<string> Mods { get; set; }
-    bool Passed { get; set; }
+    int MaxCombo { get; }
+    GameMode Mode { get; }
+    int ModeInt { get; }
+    IReadOnlyList<string> Mods { get; }
+    bool Passed { get; }
     bool Perfect { get; }
 
     /// <summary>
     ///     Resulting pps from the score. Most of the times is null. 
     /// </summary>
-    double? Pp { get; set; }
+    double? Pp { get; }
 
-    string Rank { get; set; }
-    long Score { get; set; }
-    IStatistics Statistics { get; set; }
-    string Type { get; set; }
-    long UserId { get; set; }
-    IMultiplayerMatchEventGameSlotInfo SlotInfo { get; set; }
+    string Rank { get; }
+    long Score { get; }
+    IStatistics Statistics { get; }
+    ScoreType Type { get; }
+    long UserId { get; }
+    IMultiplayerMatchEventGameSlotInfo SlotInfo { get; }
 }

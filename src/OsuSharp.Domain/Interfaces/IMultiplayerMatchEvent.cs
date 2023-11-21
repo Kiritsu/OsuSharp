@@ -4,9 +4,9 @@ namespace OsuSharp.Interfaces;
 
 public interface IMultiplayerMatchEvent
 {
-    long Id { get; set; }
-    IMultiplayerMatchEventDetails Detail { get; set; }
-    DateTimeOffset Timestamp { get; set; }
-    long? UserId { get; set; }
-    IMultiplayerMatchEventGame? Game { get; set; }
+    long Id { get; }
+    IMultiplayerMatchEventDetails Detail { get; }
+    DateTimeOffset Timestamp { get; }
+    long? UserId { get; }
+    IMultiplayerMatchEventGame? Game { get; }
 }
