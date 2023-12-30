@@ -31,7 +31,7 @@ stages:
           packagesToPack: '**/*.csproj;!**/*.Test.csproj'
           includesymbols: true
           versioningScheme: 'off'
-          buildProperties: '/p:PackageVersion=$(tag)'
+          buildProperties: 'PackageVersion=$(tag)'
       - task: DotNetCoreCLI@2
         inputs:
           command: 'push'
