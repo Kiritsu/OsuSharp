@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<VersionPrefix>6.4.0</VersionPrefix>
-		<TargetFramework>net6.0</TargetFramework>
+		<VersionPrefix>6.4.1</VersionPrefix>
+		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<Authors>Allan Mercou</Authors>
 		<Description>Package for the implementation of replay decoding for the osu!api v2</Description>

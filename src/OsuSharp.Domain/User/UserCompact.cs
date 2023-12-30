@@ -5,7 +5,7 @@ namespace OsuSharp.Domain;
 
 public class UserCompact : IUserCompact
 {
-    public string AvatarUrl { get; internal set; } = null!;
+    public Uri AvatarUrl { get; internal set; } = null!;
     public string CountryCode { get; internal set; } = null!;
     public string DefaultGroup { get; internal set; } = null!;
     public long Id { get; internal set; }

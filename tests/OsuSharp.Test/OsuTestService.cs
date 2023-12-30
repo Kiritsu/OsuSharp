@@ -26,7 +26,7 @@ public class OsuTestService : BackgroundService
     {
         try
         {
-            var matches = await _client.GetMultiplayerHistoryPageAsync(null, ascending: false, token: stoppingToken);
+            /*var matches = await _client.GetMultiplayerHistoryPageAsync(null, ascending: false, token: stoppingToken);
 
             foreach (var match in matches.Matches)
             {
@@ -35,7 +35,7 @@ public class OsuTestService : BackgroundService
             }
             
             var bmAttribute = await _client.GetBeatmapAttributesAsync(217611, null, GameMode.Taiko, token: stoppingToken);
-            _logger.LogInformation("Star rating: {Stars}, {Stamina}", bmAttribute.Attributes.StarRating, bmAttribute.Attributes.StaminaDifficulty);
+            _logger.LogInformation("Star rating: {Stars}, {Stamina}", bmAttribute.Attributes.StarRating, bmAttribute.Attributes.StaminaDifficulty);*/
             
             var user = await _legacyClient.GetUserByUsernameAsync("Evolia", Legacy.Enums.GameMode.Standard, stoppingToken);
             _logger.LogInformation("User id for Evolia: {Id}", user.UserId);
