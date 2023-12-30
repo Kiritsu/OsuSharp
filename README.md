@@ -190,10 +190,6 @@ Ranking
  - /rankings/{mode}/{type} (Get Ranking)
 ```
 
-## Contact
-
-You can join my personal Discord server: https://discord.gg/UugbeH8
-
 ## Thanks
 
 Thanks to the following contributors: 
