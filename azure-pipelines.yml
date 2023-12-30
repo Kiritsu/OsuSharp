@@ -1,5 +1,10 @@
 trigger:
-- dev
+  tags:
+    include:
+    - '*'
+  branches:
+   include:
+     - dev
 
 pool:
   vmImage: 'windows-latest'
