@@ -8,6 +8,7 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  tag: $[replace(variables['Build.SourceBranch'], 'refs/tags/', '')]
 
 stages:
 - stage: Build
@@ -27,6 +28,7 @@ stages:
           packagesToPack: '**/*.csproj;!**/*.Test.csproj'
           includesymbols: true
           versioningScheme: 'off'
+          buildProperties: '-p:PackageVersion=$(tag)'
       - task: DotNetCoreCLI@2
         inputs:
           command: 'push'
