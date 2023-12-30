@@ -9,14 +9,27 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
-steps:
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'build'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'pack'
-    packagesToPack: '**/*.csproj;!**/*.Test.csproj'
-    includesymbols: true
-    versioningScheme: 'off'
+  - job: NuGet
+    condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/')
+    steps:
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'pack'
+          packagesToPack: '**/*.csproj;!**/*.Test.csproj'
+          includesymbols: true
+          versioningScheme: 'off'
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'push'
+          packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+          nuGetFeedType: 'external'
+          publishFeedCredentials: 'NuGet.org'
